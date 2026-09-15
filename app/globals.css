@@ -1,0 +1,1235 @@
+@import "tailwindcss";
+
+/* ===========================================================================
+   AquaSite — the Arctic console's design language.
+
+   Ported from arctic/orchestrator/console/css/{tokens,app}.css. The rules that
+   file states about itself hold here too, and they are the reason this sheet
+   looks the way it does:
+
+     · Greyscale by default. Text, surfaces, borders and chips are black, white
+       and grey; distinction comes from fill vs. outline, weight and shape.
+     · Hue is RATIONED, spent in two places only: --accent, meaning "this is
+       actionable", and --st-*, the five status hues, on pills and lamps.
+     · Rectangles. --radius: 0, so alignment is the only thing carrying
+       structure and it has to be exact. A rounded corner hides a 1px
+       misalignment; a square one does not. The three exceptions in the console
+       are all glyph containers, never panels, and each is called out where it
+       appears.
+     · One spacing scale, one type scale, two weights.
+   =========================================================================== */
+
+/* `static` so every token is emitted into :root even when no utility happens to
+   reference it — the raw CSS below and the components use them by name. */
+@theme static {
+  --color-paper: #ffffff;
+  --color-wash: #f4f5f6;
+  --color-ink: #16181a;
+  --color-line: #dcdee2;
+  --color-accent: #2d72d2;
+
+  /* next/font wires --font-ibm-plex-mono onto <html>. The body face is the
+     system grotesque arctic uses — one family, no webfont, no flash. */
+  --font-sans: "Helvetica Neue", Helvetica, Arial, "Segoe UI", Roboto,
+    sans-serif;
+  --font-mono: var(--font-ibm-plex-mono), "IBM Plex Mono", ui-monospace,
+    "SF Mono", Menlo, Consolas, monospace;
+}
+
+:root {
+  /* ---------- single ink + greyscale ramp ---------- */
+  --ink: #16181a;
+  --ink-2: #2a2d31;
+  --grey-1: #3a3d42;
+  --grey-2: #5c6066;
+  --grey-3: #797d84;
+  --grey-4: #9aa0a6;
+  --grey-5: #c2c6cc;
+  --line: #dcdee2;
+  --line-2: #e7e9ec;
+  --wash: #f4f5f6;
+  --wash-2: #eceef0;
+  --paper: #ffffff;
+
+  --bg-app: var(--wash);
+  --bg-canvas: #fbfbfc;
+  --bg-card: var(--paper);
+  --bg-elevated: var(--paper);
+  --bg-sunken: var(--wash-2);
+
+  /* A slate, not black. Pure #0b0c0e against a white page is the hardest edge
+     in the app and makes the rail read as a cut-out rather than a surface. */
+  --navy: #1e2128;
+  --navy-hover: #2b2f38;
+  --bg-rail: var(--navy);
+  --bg-rail-hover: var(--navy-hover);
+  --bg-topbar: #ffffff;
+
+  --border: var(--line);
+  --border-strong: var(--grey-5);
+  --border-subtle: var(--line-2);
+
+  /* Two text colours, not three. Text is black, or it is small and grey. */
+  --text: #101112;
+  --text-muted: #6b7075;
+  --text-subtle: var(--text-muted);
+  --text-onrail: #f4f6f8;
+  --text-onrail-dim: #a2a9b4;
+
+  /* Tile tones. Two steps of grey plus the accent — the mosaic's only
+     structural emphasis. */
+  --tile-1: #f4f4f4;
+  --tile-2: #e4e5e7;
+
+  --accent: #2d72d2;
+  --accent-soft: #eaf1fb;
+  --accent-hover: #215db0;
+  --link: var(--accent);
+
+  /* ---------- The chrome rule ----------
+     ONE line, so one token. The rail's head cell and the top bar each draw
+     their bottom border from this, at the same y, which is what makes the two
+     hairlines read as a single unbroken rule across the window.
+
+     It is INK rather than a grey: black at 28% is one colour in the literal
+     sense laid over two different grounds, which is what a drawn line does. A
+     grey tuned to paper turns white the instant it crosses onto the rail. */
+  --chrome-line: rgba(0, 0, 0, 0.28);
+
+  /* ---------- Status hues ----------
+     Five, because five is what a console needs: something is good, something is
+     happening, something needs a person, something failed, something is
+     dormant. Named for the STATE and never for the colour, so a pill never has
+     to know that live is blue. Tuned to hold 4.5:1 as 12px text on a pill
+     tinted with the same hue at ~13%. */
+  --st-ok: #1a7f37;
+  --st-live: #2d72d2;
+  --st-warn: #b54708;
+  --st-bad: #b42318;
+  --st-idle: #797d84;
+
+  /* The suitability ramp. Its own names because it is a SCALE, not a set of
+     states: the map's heatmap, the legend and the score figures all read from
+     these three stops and must agree. */
+  --score-low: var(--st-bad);
+  --score-mid: var(--st-warn);
+  --score-high: var(--st-ok);
+
+  /* Rectangles. See the note at the top of this file. */
+  --radius: 0;
+
+  /* One spacing scale, and nothing off it. */
+  --s1: 4px;
+  --s2: 8px;
+  --s3: 12px;
+  --s4: 16px;
+  --s5: 24px;
+  --s6: 32px;
+
+  --shadow-1: 0 0 0 1px rgba(20, 22, 24, 0.05), 0 1px 1px rgba(20, 22, 24, 0.07);
+  --shadow-2: 0 0 0 1px rgba(20, 22, 24, 0.07), 0 2px 4px rgba(20, 22, 24, 0.08),
+    0 8px 22px rgba(20, 22, 24, 0.07);
+  --shadow-pop: 0 0 0 1px rgba(20, 22, 24, 0.09), 0 4px 8px rgba(20, 22, 24, 0.12),
+    0 18px 44px rgba(20, 22, 24, 0.16);
+
+  /* The rail is an ICON rail: one glyph column and nothing else, so its width
+     is the glyph's optical column plus the ground the selected state needs
+     around it. The top bar and the rail's head cell share one height because
+     their bottom borders have to land on the same pixel row. */
+  --rail-w: 48px;
+  --topbar-h: 44px;
+
+  /* ---------- Type ----------
+     ONE family; hierarchy comes from size and weight. Three sizes and one
+     figure, not six steps: a scale only communicates hierarchy if a reader can
+     hold it in their head. */
+  --font: "Helvetica Neue", Helvetica, Arial, "Segoe UI", Roboto, sans-serif;
+  --mono: var(--font-ibm-plex-mono), "IBM Plex Mono", ui-monospace, "SF Mono",
+    Menlo, Consolas, monospace;
+
+  --fs-sm: 12px;
+  --fs-md: 13px;
+  --fs-lg: 16px;
+  --fs-fig: 44px;
+  --fs-xs: var(--fs-sm);
+
+  /* Thin, and black. Body sits at 300 and emphasis at 400: at 13px on a light
+     ground the heavier pair reads as regular and semibold, which is two weights
+     of shouting on a screen that already carries hierarchy in size and colour. */
+  --fw: 300;
+  --fw-med: 400;
+  --fw-bold: 500;
+
+  --lh-tight: 1.25;
+  --lh: 1.5;
+
+  /* ---------- Motion ----------
+     Short, because this is an operator console: at the frequency these
+     interactions happen, motion stops being polish and becomes latency you
+     cannot skip. Scaled by element size, not one duration everywhere. */
+  --dur-1: 110ms;
+  --dur-2: 160ms;
+  --dur-3: 220ms;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ===========================================================================
+   THEME
+   Every colour a component uses is one of the semantic names above, so a theme
+   is a matter of rebinding them rather than of writing a second stylesheet.
+   Three settings: auto follows the OS and is the default.
+   =========================================================================== */
+:root[data-theme="dark"] {
+  --ink: #f2f4f6;
+  --ink-2: #d5d9dd;
+
+  --wash: #0a0b0d;
+  --wash-2: #16181c;
+  --paper: #131519;
+
+  --line: #24272d;
+  --line-2: #1c1f24;
+
+  --bg-app: var(--wash);
+  --bg-canvas: #0e1013;
+  --bg-card: var(--paper);
+  --bg-elevated: #191c21;
+  --bg-sunken: var(--wash-2);
+  --bg-topbar: #0e1013;
+
+  /* The rail is already near-black in light mode, so in dark it steps just
+     clear of the page rather than trying to get darker than the ground. */
+  --bg-rail: #15181d;
+  --bg-rail-hover: #232830;
+
+  --border: var(--line);
+  --border-strong: #333840;
+  --border-subtle: var(--line-2);
+
+  --text: #f2f4f6;
+  --text-muted: #8b9199;
+
+  --tile-1: #16191e;
+  --tile-2: #1d2127;
+
+  /* Dark cannot use ink for the seam: the rail and the bar are both near-black,
+     so a darker line has nothing to darken. A lifted grey reads on both. */
+  --chrome-line: #191c22;
+
+  /* Lifted one step: a status hue has to hold as 12px TEXT on a dark tinted
+     pill, and a hue at fixed luminance loses contrast as the ground drops. */
+  --st-ok: #3fb950;
+  --st-live: #4c90f0;
+  --st-warn: #d9822b;
+  --st-bad: #f0736a;
+  --st-idle: #8b9199;
+
+  --accent: #4c90f0;
+  --accent-soft: #16233a;
+  --accent-hover: #669ef5;
+
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-2: 0 4px 14px rgba(0, 0, 0, 0.55);
+  --shadow-pop: 0 10px 30px rgba(0, 0, 0, 0.6);
+
+  color-scheme: dark;
+}
+
+/* Auto: the same bindings, applied only when the OS asks for them. Scoped to
+   [data-theme="auto"] so an explicit Light choice is not overridden. */
+@media (prefers-color-scheme: dark) {
+  :root[data-theme="auto"] {
+    --ink: #f2f4f6;
+    --ink-2: #d5d9dd;
+    --wash: #0a0b0d;
+    --wash-2: #16181c;
+    --paper: #131519;
+    --line: #24272d;
+    --line-2: #1c1f24;
+    --bg-app: var(--wash);
+    --bg-canvas: #0e1013;
+    --bg-card: var(--paper);
+    --bg-elevated: #191c21;
+    --bg-sunken: var(--wash-2);
+    --bg-topbar: #0e1013;
+    --bg-rail: #15181d;
+    --bg-rail-hover: #232830;
+    --border: var(--line);
+    --border-strong: #333840;
+    --border-subtle: var(--line-2);
+    --text: #f2f4f6;
+    --text-muted: #8b9199;
+    --tile-1: #16191e;
+    --tile-2: #1d2127;
+    --chrome-line: #191c22;
+    --st-ok: #3fb950;
+    --st-live: #4c90f0;
+    --st-warn: #d9822b;
+    --st-bad: #f0736a;
+    --st-idle: #8b9199;
+    --accent: #4c90f0;
+    --accent-soft: #16233a;
+    --accent-hover: #669ef5;
+    --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.5);
+    --shadow-2: 0 4px 14px rgba(0, 0, 0, 0.55);
+    --shadow-pop: 0 10px 30px rgba(0, 0, 0, 0.6);
+    color-scheme: dark;
+  }
+}
+
+/* ===========================================================================
+   Base
+   =========================================================================== */
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    height: 100%;
+  }
+
+  /* Fixed shell: the page itself never scrolls, panels do. */
+  body {
+    margin: 0;
+    overflow: hidden;
+    font-family: var(--font);
+    font-size: var(--fs-md);
+    font-weight: var(--fw);
+    line-height: var(--lh);
+    color: var(--text);
+    background: var(--bg-app);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Headings share one treatment so an ad-hoc <h2> looks like every other
+     heading rather than like the browser default. Sizes come from the
+     component; this fixes weight, rhythm and optical looseness. */
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-weight: var(--fw-med);
+    line-height: var(--lh-tight);
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+
+  /* Emphasis inside running text is medium, not bold: Helvetica Bold beside
+     Regular at 13px is a jump big enough to read as a heading. */
+  b,
+  strong {
+    font-weight: var(--fw-med);
+  }
+
+  a {
+    color: var(--link);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  button {
+    font-family: inherit;
+  }
+
+  ::selection {
+    background: rgba(22, 24, 26, 0.14);
+  }
+
+  :root[data-theme="dark"] ::selection {
+    background: rgba(242, 244, 246, 0.18);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  ::placeholder {
+    color: var(--text-subtle);
+  }
+
+  *::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background: var(--grey-5);
+    border-radius: 0;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+
+  *::-webkit-scrollbar-thumb:hover {
+    background: var(--grey-4);
+  }
+
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  :root[data-theme="dark"] *::-webkit-scrollbar-thumb {
+    background: #333840;
+    background-clip: padding-box;
+  }
+}
+
+/* ===========================================================================
+   Components
+   Kept in the components layer so plain Tailwind utilities written alongside
+   them still win — layout stays in the markup, the design language stays here.
+   =========================================================================== */
+@layer components {
+  /* ---------- Shell ----------
+     A 48px icon rail, a 44px top bar and everything else. There is no third
+     piece of chrome. The split between the two is by LIFETIME, not importance:
+     the rail holds what is true whether or not this page is open, the top bar
+     holds the current page. */
+  .rail {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: var(--rail-w);
+    background: var(--bg-rail);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    z-index: 40;
+    /* No border-right. The rail's ground already separates it from the page by
+       a full step of value; a hairline on top of that is a second edge drawn
+       over an edge that is already there. */
+  }
+
+  .shell {
+    margin-left: var(--rail-w);
+    height: 100vh;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .view {
+    flex: 1;
+    min-height: 0;
+    background: var(--bg-canvas);
+    position: relative;
+  }
+
+  /* The chrome rule. These two selectors are joined on purpose: split them and
+     the next person to change one height has no way of knowing they have just
+     introduced a seam. box-sizing is border-box, so in both boxes the border
+     occupies the LAST pixel row of --topbar-h — one hairline at one y running
+     the full width of the window. */
+  .rail-head,
+  .topbar {
+    height: var(--topbar-h);
+    border-bottom: 1px solid var(--chrome-line);
+  }
+
+  .rail-head {
+    flex: none;
+    display: grid;
+    place-items: center;
+  }
+
+  .rail-mark {
+    width: 26px;
+    height: 26px;
+    display: grid;
+    place-items: center;
+    color: var(--text-onrail);
+  }
+
+  .rail-body {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    padding-top: 10px;
+  }
+
+  .rail-spacer {
+    flex: 1;
+    min-height: 12px;
+  }
+
+  .rail-foot {
+    display: flex;
+    flex-direction: column;
+    flex: none;
+    padding-bottom: 8px;
+  }
+
+  .rail-btn {
+    position: relative;
+    height: 40px;
+    border: 0;
+    background: transparent;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    color: var(--text-onrail-dim);
+    transition: background var(--dur-1) var(--ease), color var(--dur-1) var(--ease);
+  }
+
+  .rail-btn > svg {
+    width: 18px;
+    height: 18px;
+    opacity: 0.62;
+    transition: opacity var(--dur-1) var(--ease);
+  }
+
+  .rail-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .rail-btn:hover > svg {
+    opacity: 0.85;
+  }
+
+  .rail-btn.active {
+    background: rgba(255, 255, 255, 0.07);
+    color: var(--text-onrail);
+  }
+
+  .rail-btn.active > svg {
+    opacity: 1;
+  }
+
+  /* Selection lives on the ground and a 2px marker on the inner edge, never on
+     a slab of inverted fill. */
+  .rail-btn.active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--text-onrail);
+  }
+
+  .rail-btn:disabled {
+    cursor: default;
+    opacity: 0.45;
+  }
+
+  .rail-btn:focus-visible {
+    outline: 2px solid var(--text-onrail);
+    outline-offset: -3px;
+  }
+
+  /* The rail's tooltip. The rail is an icon column, so every glyph in it has to
+     be able to say what it is. */
+  .rail [data-tip]:hover::after,
+  .rail [data-tip]:focus-visible::after {
+    content: attr(data-tip);
+    position: absolute;
+    left: calc(100% + 8px);
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--ink);
+    color: var(--wash);
+    padding: 4px 8px;
+    font-size: var(--fs-sm);
+    white-space: nowrap;
+    z-index: 60;
+    box-shadow: var(--shadow-2);
+    pointer-events: none;
+  }
+
+  /* ---------- Top bar ----------
+     Breadcrumb left, and at the right whatever acts on THIS page. A bar that
+     mixes the two teaches the operator that the right hand end is a junk
+     drawer. */
+  .topbar {
+    flex: none;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    padding: 0 10px 0 16px;
+    background: var(--bg-topbar);
+    z-index: 30;
+  }
+
+  .tb-crumbs {
+    display: flex;
+    align-items: center;
+    gap: 1px;
+    min-width: 0;
+  }
+
+  .tb-crumb {
+    border: 0;
+    background: transparent;
+    font: inherit;
+    font-size: var(--fs-md);
+    color: var(--text-muted);
+    padding: 3px 5px;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 30vw;
+    transition: color var(--dur-1) var(--ease);
+  }
+
+  button.tb-crumb:hover {
+    color: var(--text);
+  }
+
+  .tb-crumb.cur {
+    color: var(--text);
+    font-weight: var(--fw-med);
+    cursor: default;
+  }
+
+  .tb-sep {
+    display: grid;
+    place-items: center;
+    color: var(--grey-5);
+  }
+
+  .tb-sep svg {
+    width: 11px;
+    height: 11px;
+    display: block;
+  }
+
+  .tb-spacer {
+    flex: 1;
+  }
+
+  .tb-ico {
+    position: relative;
+    width: 28px;
+    height: 26px;
+    flex: none;
+    border: 0;
+    background: transparent;
+    color: var(--text-muted);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: background var(--dur-1) var(--ease), color var(--dur-1) var(--ease);
+  }
+
+  .tb-ico:hover {
+    background: var(--bg-sunken);
+    color: var(--text);
+  }
+
+  .tb-ico svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .tb-ico.spinning svg {
+    animation: tb-spin 0.7s linear infinite;
+  }
+
+  /* ---------- Cards ----------
+     A hairline and nothing else. A shadow is two more edges stacked on the
+     border that is already there, which is what makes a grid of cards read as
+     embossed rather than as flat panels. */
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 0;
+  }
+
+  .card-h {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .card-h .t {
+    font-weight: var(--fw-med);
+    font-size: var(--fs-lg);
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .card-h .sub {
+    color: var(--text-subtle);
+    font-size: var(--fs-sm);
+  }
+
+  .card-b {
+    padding: 14px;
+  }
+
+  /* ---------- KPI mosaic ----------
+     Tiles butt against each other separated by hairline gutters rather than
+     floating as bordered cards. The grid supplies the lines: a 1px background
+     showing through a 1px gap, which is one rule instead of a border on every
+     tile, and it cannot produce the doubled 2px seam adjacent bordered cards
+     always do. */
+  .kpis {
+    display: grid;
+    gap: 1px;
+    background: var(--tile-1);
+  }
+
+  .kpi {
+    background: var(--tile-1);
+    padding: 12px 13px 13px;
+    display: flex;
+    flex-direction: column;
+    /* Label at the top, figure pinned to the bottom, so the numbers sit on one
+       line across the row no matter how many lines a label wraps to. */
+    justify-content: space-between;
+    min-width: 0;
+  }
+
+  .kpi.tone-2 {
+    background: var(--tile-2);
+  }
+
+  .kpi.accent {
+    background: var(--accent);
+  }
+
+  .kpi .l {
+    font-size: var(--fs-sm);
+    color: var(--text-muted);
+    line-height: 1.35;
+  }
+
+  .kpi .v {
+    /* Light, not bold. At this size weight stops reading as emphasis and starts
+       reading as weight; the size is already the emphasis. */
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+    margin-top: 10px;
+  }
+
+  .kpi .d {
+    font-size: var(--fs-sm);
+    color: var(--text-muted);
+    margin-top: 5px;
+  }
+
+  .kpi.accent .l,
+  .kpi.accent .v,
+  .kpi.accent .d {
+    color: #fff;
+  }
+
+  /* ---------- ch-pill ----------
+     One class, one hue variable, five states — so a lane adds a status by
+     naming the state, never by picking a colour. The dot is part of the pill
+     and not an extra element, because the colour is the thing a reader has to
+     find and a 6px mark finds it faster than 12px of text does. */
+  .ch-pill {
+    --ch-hue: var(--st-idle);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    flex: none;
+    height: 19px;
+    padding: 0 8px;
+    border-radius: 0;
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-med);
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    line-height: 1;
+    color: var(--ch-hue);
+    background: rgba(122, 126, 132, 0.12);
+    background: color-mix(in srgb, var(--ch-hue) 13%, transparent);
+    border: 1px solid rgba(122, 126, 132, 0.3);
+    border-color: color-mix(in srgb, var(--ch-hue) 30%, transparent);
+  }
+
+  .ch-pill::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    background: var(--ch-hue);
+    flex: none;
+  }
+
+  .ch-pill.ok {
+    --ch-hue: var(--st-ok);
+  }
+
+  .ch-pill.live {
+    --ch-hue: var(--st-live);
+  }
+
+  .ch-pill.warn {
+    --ch-hue: var(--st-warn);
+  }
+
+  .ch-pill.bad {
+    --ch-hue: var(--st-bad);
+  }
+
+  .ch-pill.idle {
+    --ch-hue: var(--st-idle);
+  }
+
+  /* A reading rather than a state ("12 sources"). Same pill, no lamp: the dot
+     means "this is a state right now", and a count is not one. */
+  .ch-pill.plain::before {
+    display: none;
+  }
+
+  /* ---------- ch-sec ----------
+     A section heading. The space above is the whole job — it is what tells a
+     reader that a new thing has started without a rule having to say so. */
+  .ch-sec {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin: 26px 0 10px;
+  }
+
+  .ch-sec:first-child {
+    margin-top: 0;
+  }
+
+  .ch-sec-t {
+    font-size: var(--fs-lg);
+    font-weight: var(--fw-med);
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .ch-sec-sub {
+    font-size: var(--fs-sm);
+    color: var(--text-muted);
+  }
+
+  .ch-sec-sp {
+    flex: 1;
+  }
+
+  .ch-rule {
+    height: 1px;
+    border: 0;
+    margin: 0;
+    background: var(--border-subtle);
+  }
+
+  /* ---------- ch-table ----------
+     Dense, hairline-separated, figures right and tabular. Figures line up under
+     each other or they are not a column. */
+  .ch-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--fs-md);
+  }
+
+  .ch-table thead th {
+    text-align: left;
+    padding: 0 10px 6px;
+    vertical-align: bottom;
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-med);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-subtle);
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .ch-table tbody td {
+    height: 32px;
+    padding: 0 10px;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .ch-table tbody tr:last-child td {
+    border-bottom: 0;
+  }
+
+  .ch-table .num {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .ch-table .mono {
+    font-family: var(--mono);
+    font-size: var(--fs-sm);
+  }
+
+  /* ---------- Tags ----------
+     Monochrome: meaning via fill vs. outline and weight, never hue. */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: var(--fs-xs);
+    padding: 1px 6px;
+    border-radius: 0;
+    font-weight: var(--fw-med);
+    letter-spacing: 0.02em;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+
+  .tag.ok {
+    color: var(--ink);
+    border-color: var(--ink);
+  }
+
+  .tag.warn {
+    background: var(--bg-sunken);
+    color: var(--ink);
+    border-color: var(--border);
+  }
+
+  .tag.err {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+
+  .tag.muted {
+    color: var(--text-subtle);
+    border-color: var(--border-subtle);
+  }
+
+  .tag.accent {
+    color: var(--accent);
+    border-color: color-mix(in srgb, var(--accent) 34%, transparent);
+    background: color-mix(in srgb, var(--accent) 8%, transparent);
+  }
+
+  /* ---------- Buttons (monochrome, one accent) ---------- */
+  .btn-ghost {
+    background: var(--paper);
+    border: 1px solid var(--border);
+    color: var(--text);
+    height: 26px;
+    padding: 0 12px;
+    border-radius: 0;
+    font: inherit;
+    font-size: var(--fs-md);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: background var(--dur-1) var(--ease);
+  }
+
+  .btn-ghost:hover {
+    background: var(--bg-sunken);
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+    border: 1px solid var(--accent);
+    border-radius: 0;
+    height: 26px;
+    padding: 0 12px;
+    font: inherit;
+    font-size: var(--fs-md);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: background var(--dur-1) var(--ease);
+  }
+
+  .btn-primary:hover {
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
+  }
+
+  .btn-ghost svg,
+  .btn-primary svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .btn-primary[disabled],
+  .btn-ghost[disabled] {
+    opacity: 0.45;
+    cursor: default;
+  }
+
+  /* ---------- Segmented ---------- */
+  .seg {
+    display: inline-flex;
+    border: 1px solid var(--border);
+    border-radius: 0;
+    overflow: hidden;
+    background: var(--bg-card);
+  }
+
+  .seg button {
+    border: 0;
+    background: transparent;
+    padding: 3px 9px;
+    font: inherit;
+    font-size: var(--fs-sm);
+    color: var(--text-muted);
+    cursor: pointer;
+    border-right: 1px solid var(--border-subtle);
+    display: inline-grid;
+    place-items: center;
+    transition: background var(--dur-1) var(--ease), color var(--dur-1) var(--ease);
+  }
+
+  .seg button:last-child {
+    border-right: 0;
+  }
+
+  .seg button:hover {
+    background: var(--bg-sunken);
+    color: var(--text);
+  }
+
+  .seg button.on {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .seg.icons button svg {
+    width: 14px;
+    height: 14px;
+    display: block;
+  }
+
+  /* ---------- Fields ---------- */
+  .fld {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: var(--fs-sm);
+    color: var(--text-muted);
+  }
+
+  .fld input,
+  .fld textarea {
+    border: 1px solid var(--border);
+    border-radius: 0;
+    padding: 6px 8px;
+    font: inherit;
+    font-size: var(--fs-md);
+    color: var(--text);
+    background: var(--paper);
+  }
+
+  .fld input:focus,
+  .fld textarea:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: -1px;
+  }
+
+  /* ---------- Details ----------
+     The console tells the truth, and some of the truth is a formula or a
+     coefficient. None of that is written for the person doing the work, so the
+     page says the short human sentence and this holds the rest. */
+  .det {
+    margin: 10px 0 0;
+  }
+
+  .det > summary {
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+    font-size: var(--fs-sm);
+    color: var(--text-muted);
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .det > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .det > summary::before {
+    content: "+";
+    color: var(--text-subtle);
+  }
+
+  .det[open] > summary::before {
+    content: "–";
+  }
+
+  .det > summary:hover {
+    color: var(--text);
+  }
+
+  /* ---------- Small shared ---------- */
+  .muted {
+    color: var(--text-muted);
+  }
+
+  .mono {
+    font-family: var(--mono);
+  }
+
+  .sm {
+    font-size: var(--fs-sm);
+  }
+
+  .num {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .empty {
+    color: var(--text-subtle);
+    font-size: var(--fs-md);
+    padding: 20px 0;
+  }
+
+  /* A column label. Uppercase mono at the smallest size, used for the metadata
+     that names a figure rather than being one. */
+  .lbl {
+    font-family: var(--mono);
+    font-size: 10px;
+    line-height: 1.2;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-subtle);
+  }
+
+  /* Internally scrolling panel body. The page never scrolls; panels do. */
+  .panel-scroll {
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+  }
+
+  /* ---------- Toast ----------
+     Inverted against the page, and correct in both themes because --ink and
+     --wash swap with the theme: an error notice sharing the surface colour of
+     everything around it is a failure in a quieter form. */
+  .toast {
+    padding: 9px 14px;
+    border: 1px solid var(--border-strong);
+    border-radius: 0;
+    background: var(--ink);
+    color: var(--wash);
+    box-shadow: var(--shadow-pop);
+    font-size: var(--fs-md);
+    line-height: var(--lh);
+    overflow-wrap: anywhere;
+  }
+}
+
+@keyframes tb-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tb-ico.spinning svg {
+    animation: none;
+  }
+}
+
+/* ===========================================================================
+   MapLibre overrides — unlayered so they beat maplibre-gl.css regardless of the
+   order Next emits the two stylesheets in.
+
+   The map is a BACKGROUND. Its chrome is the quietest surface in the app on
+   purpose: the only things meant to be read at a glance are the candidate marks
+   and the winner, and they only stand out because everything under them does
+   not.
+   =========================================================================== */
+/* The map container fills its box, and this rule is what makes it do so.
+   maplibre-gl.css sets `.maplibregl-map { position: relative }` from an
+   UNLAYERED sheet, and unlayered CSS beats anything in a cascade layer no
+   matter the order — so Tailwind's `absolute inset-0` on the same element lost,
+   the element fell back to `position: relative`, and its height collapsed to
+   its content: zero. The canvas then stayed at MapLibre's 400x300 fallback and
+   the map was invisible.
+
+   Two class selectors, so this outranks maplibre's one on specificity as well
+   as being unlayered itself. It is written here rather than as a utility in the
+   markup because a utility cannot win that fight. */
+.aq-map > .maplibregl-map {
+  position: absolute;
+  inset: 0;
+}
+
+.maplibregl-map {
+  font-family: var(--font);
+}
+
+.maplibregl-canvas:focus {
+  outline: none;
+}
+
+.maplibregl-ctrl-group {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.maplibregl-ctrl-group button {
+  border-radius: 0;
+  width: 27px;
+  height: 27px;
+}
+
+.maplibregl-ctrl-group button + button {
+  border-top: 1px solid var(--border-subtle);
+}
+
+.maplibregl-ctrl-group button:hover {
+  background: var(--bg-sunken);
+}
+
+:root[data-theme="dark"] .maplibregl-ctrl-icon,
+:root[data-theme="auto"] .maplibregl-ctrl-icon {
+  filter: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-theme="auto"] .maplibregl-ctrl-icon {
+    filter: invert(1) hue-rotate(180deg);
+    opacity: 0.8;
+  }
+}
+
+:root[data-theme="dark"] .maplibregl-ctrl-icon {
+  filter: invert(1) hue-rotate(180deg);
+  opacity: 0.8;
+}
+
+/* Attribution stays visible (required by the tile terms) — just quieter. */
+.maplibregl-ctrl-attrib {
+  background: color-mix(in srgb, var(--paper) 82%, transparent);
+  border-radius: 0;
+  font-size: 10px;
+  line-height: 1.5;
+  padding: 0 6px;
+}
+
+.maplibregl-ctrl-attrib,
+.maplibregl-ctrl-attrib a {
+  color: var(--text-subtle);
+}
+
+.maplibregl-ctrl-attrib a:hover {
+  color: var(--text);
+}
