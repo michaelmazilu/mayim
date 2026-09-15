@@ -14,7 +14,7 @@ import type { SimulationRates, TownRef } from "@/lib/types";
 import { BEHAVIOUR } from "@/lib/config/coefficients";
 import type { RawEvidence } from "@/lib/evidence/exa";
 import { callOpenAI, isLlmConfigured } from "@/lib/evidence/llm";
-import { ratesFromShares } from "@/lib/popsim/engine";
+import { defaultRates, ratesFromShares } from "@/lib/popsim/engine";
 
 const FIELDS = ["nonFunctionalShare", "annualGrowthRate", "repairWeeks"] as const;
 type RateField = (typeof FIELDS)[number];
@@ -237,24 +237,20 @@ function limitedClause(reported: number, used: number, range: string, show: (v: 
 export function deriveRates(
   extracted: ExtractedRates | null,
   raw: RawEvidence[],
+  base: { rates: SimulationRates; notes: string[] } = { rates: defaultRates(), notes: [] },
 ): { rates: SimulationRates; notes: string[] } {
-  const shares = BEHAVIOUR.nonFunctionalShare;
-  let shareExisting = shares.existing;
-  let shareProject = shares.project;
-  let repairLow = BEHAVIOUR.repairWeeks.low;
-  let repairHigh = BEHAVIOUR.repairWeeks.high;
-  let growth = BEHAVIOUR.annualGrowthRate.value;
+  let shareExisting = base.rates.shareExisting;
+  let repairLow = base.rates.repairLow;
+  let repairHigh = base.rates.repairHigh;
+  let growth = base.rates.growth;
   const notes: string[] = [];
 
   const share = cited(extracted, raw, "nonFunctionalShare");
   if (share) {
     const { low, high } = BOUNDS.nonFunctionalShare;
     shareExisting = clamp(share.value, low, high);
-    shareProject = shareExisting * (shares.project / shares.existing);
     const limited = limitedClause(share.value, shareExisting, `${percent(low)}-${percent(high)}`, percent);
-    notes.push(
-      `Existing water points are out of service ${percent(shareExisting)} of the time and the new system ${percent(shareProject)}${limited}, ${citation(share)}.`,
-    );
+    notes.push(`Existing water points are out of service ${percent(shareExisting)} of the time${limited}, ${citation(share)}.`);
   }
 
   const growthRate = cited(extracted, raw, "annualGrowthRate");
@@ -272,11 +268,16 @@ export function deriveRates(
     repairLow = Math.max(1, Math.round(0.5 * typical));
     repairHigh = Math.min(52, Math.round(1.5 * typical));
     const limited = limitedClause(repair.value, typical, `${low}-${high} week`, weeks);
-    notes.push(
-      `Repairs take ${repairLow} to ${repairHigh} weeks around a typical ${weeks(typical)}${limited}, ${citation(repair)}.`,
-    );
+    notes.push(`Repairs take ${repairLow} to ${repairHigh} weeks around a typical ${weeks(typical)}${limited}, ${citation(repair)}.`);
   }
 
-  if (notes.length === 0) notes.push(DEFAULTS_NOTE);
-  return { rates: ratesFromShares(shareExisting, shareProject, repairLow, repairHigh, growth), notes };
+  if (notes.length === 0) {
+    return { rates: base.rates, notes: base.notes.length > 0 ? base.notes : [DEFAULTS_NOTE] };
+  }
+  // Existing points break as often as their out-of-service share and repair time imply.
+  const existing = ratesFromShares(shareExisting, 0, repairLow, repairHigh, growth);
+  return {
+    rates: { ...base.rates, shareExisting, failExisting: existing.failExisting, repairLow, repairHigh, growth },
+    notes: [...notes, ...base.notes],
+  };
 }

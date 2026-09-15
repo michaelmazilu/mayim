@@ -439,6 +439,9 @@ export type SimulationRates = {
   shareExisting: number;
   repairLow: number;
   repairHigh: number;
+  /** Repair band for the new system when its maintenance differs from existing points; defaults to repairLow/High. */
+  projectRepairLow?: number;
+  projectRepairHigh?: number;
   growth: number;
 };
 

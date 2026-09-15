@@ -21,7 +21,7 @@ import { buildRecommendation } from "@/lib/infrastructure/select";
 import { lifecycleCost } from "@/lib/cost-model/lifecycle";
 import { evaluateStatic, K, perTapDailyLitres, SPEED_M_PER_MIN } from "@/lib/popsim/engine";
 import type { BaselineTable } from "@/lib/popsim/baseline";
-import { PEOPLE_PER_BUILDING } from "@/lib/popsim/demand";
+import { ratesForType } from "@/lib/popsim/sourced-rates";
 import { dijkstra, metres } from "@/lib/popsim/network";
 import { buildLayout, MAX_TAPS, placeTaps, routePipes, type Anchor, type PlaceCtx } from "@/lib/popsim/placement";
 
@@ -69,7 +69,7 @@ export function populationNear(ctx: PlaceCtx, lon: number, lat: number, radiusM:
     rangeHigh: Math.round(p * 1.3),
     serviceRadiusM: radiusM,
     method: "building_density_proxy",
-    methodLabel: `About ${Math.round(people / PEOPLE_PER_BUILDING).toLocaleString("en-US")} mapped buildings within ${radiusM} m of the water source, at ${PEOPLE_PER_BUILDING} people per building.`,
+    methodLabel: `About ${Math.round(people / c.peoplePerBuilding).toLocaleString("en-US")} mapped buildings within ${radiusM} m of the water source, at ${c.peoplePerBuilding} people per building.`,
     confidence: 0.5,
     limitations: [
       "Every mapped building is treated as one household; shops, sheds and institutions inflate the count and unmapped homes deflate it.",
@@ -149,7 +149,7 @@ function buildModel(
             runoff: WATER.runoffCoefficient,
           }
         : null,
-    rates: ctx.rates,
+    rates: ratesForType(ctx.rates, rec.type),
     weeks: ctx.weeks,
   };
 }

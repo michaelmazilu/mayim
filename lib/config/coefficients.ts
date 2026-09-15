@@ -99,7 +99,17 @@ export const CLIMATE_FALLBACK = {
   source: "Fallback planning assumption (live climate provider unavailable)",
 };
 
-const SPHERE = "Sphere Handbook water supply standard (planning indicator)";
+import {
+  BASIC_SERVICE_ROUND_TRIP_MIN,
+  CONTAINER_LITERS,
+  POPULATION_GROWTH,
+  REPAIR_DAYS,
+  SPHERE as SPHERE_STANDARD,
+  WALKING_SPEED_M_PER_S,
+  WATER_POINT_DOWN_SHARE,
+} from "@/lib/config/behaviour";
+
+const SPHERE = SPHERE_STANDARD.source;
 const RWSN_FUNCTIONALITY =
   "RWSN: roughly one in four handpumps in sub-Saharan Africa is non-functional at any time";
 
@@ -109,28 +119,32 @@ const RWSN_FUNCTIONALITY =
  * replaced rather than tuned when a better source is found.
  */
 export const BEHAVIOUR = {
-  walkingSpeedKmh: { value: 4, source: DEMO },
+  walkingSpeedKmh: { value: +(WALKING_SPEED_M_PER_S.central * 3.6).toFixed(2), source: WALKING_SPEED_M_PER_S.source },
   /** Straight-line walks are stretched by this where no mapped path joins the two points. */
   detourFactor: { value: 1.3, source: DEMO },
-  containerLitres: { value: 20, source: DEMO },
+  containerLitres: { value: CONTAINER_LITERS.value, source: CONTAINER_LITERS.source },
   /** Flow of one tap, which sets the time to fill a container and so the queue. */
-  tapFlowLitresPerMinute: { value: 7.5, source: SPHERE },
+  tapFlowLitresPerMinute: { value: SPHERE_STANDARD.tapFlowLitersPerMin, source: SPHERE },
   /** People one tap stand is designed for. */
-  peoplePerTap: { value: 250, source: SPHERE },
+  peoplePerTap: { value: SPHERE_STANDARD.maxPeoplePerTap, source: SPHERE },
   /** Hours a tap stand dispenses each day; with the flow, its physical daily limit. */
   tapWindowHours: { value: 12, source: DEMO },
   maxWaitMinutes: { value: 60, source: DEMO },
-  basicServiceRoundTripMinutes: { value: 30, source: WHO },
+  basicServiceRoundTripMinutes: { value: BASIC_SERVICE_ROUND_TRIP_MIN.value, source: BASIC_SERVICE_ROUND_TRIP_MIN.source },
   /** Round trip assumed for a household with no mapped improved source within reach. */
   noSourceRoundTripMinutes: { value: 60, source: DEMO },
   /** Long-run share of time a source is out of service. */
   nonFunctionalShare: {
-    existing: 0.25,
+    existing: WATER_POINT_DOWN_SHARE.central,
     project: 0.1,
     source: `${RWSN_FUNCTIONALITY}; new systems: ${DEMO}`,
   },
-  repairWeeks: { low: 2, high: 8, source: DEMO },
-  annualGrowthRate: { value: 0.035, source: DEMO },
+  repairWeeks: {
+    low: Math.max(1, Math.round((REPAIR_DAYS.communityManaged.central / 7) * 0.5)),
+    high: Math.round((REPAIR_DAYS.communityManaged.central / 7) * 1.5),
+    source: REPAIR_DAYS.communityManaged.source,
+  },
+  annualGrowthRate: { value: POPULATION_GROWTH.SSA.central / 100, source: POPULATION_GROWTH.SSA.source },
   /** Share of each year's growth that settles in new clusters rather than densifying existing ones. */
   sprawlShare: { value: 0.3, source: DEMO },
   /** Each year's rainfall is the climatology scaled by up to this fraction either way. */

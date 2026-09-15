@@ -25,7 +25,10 @@ import { buildRecommendation } from "@/lib/infrastructure/select";
 import { lifecycleCost } from "@/lib/cost-model/lifecycle";
 import { runFuture, SPEED_M_PER_MIN, WEEKS_PER_YEAR } from "@/lib/popsim/engine";
 import { baselineRoundTrip, buildBaseline, improvedPoints } from "@/lib/popsim/baseline";
-import { clusterBuildings, PEOPLE_PER_BUILDING } from "@/lib/popsim/demand";
+import { clusterBuildings } from "@/lib/popsim/demand";
+import { communityManaged } from "@/lib/popsim/sourced-rates";
+import { householdSize } from "@/lib/config/behaviour";
+import { countryIso2 } from "@/lib/geo/countries";
 import { evaluateProject, populationNear, SIZING_RADIUS_M, type Evaluated, type SimContext } from "@/lib/popsim/evaluate";
 import { buildGraph, metres, scaleAt, snapMany } from "@/lib/popsim/network";
 import { anchorFor, rawSourcesFrom, type Anchor } from "@/lib/popsim/placement";
@@ -118,7 +121,7 @@ function contextFrom(
   routed: boolean,
 ): SimContext {
   const scale = scaleAt(input.town.center[1]);
-  const clusters = clusterBuildings(points, weight, scale);
+  const clusters = clusterBuildings(points, weight, scale, householdSize(countryIso2(input.town.country)).central);
   const graph = buildGraph(lines, scale);
   const clusterSnap = routed && graph ? snapMany(graph, clusters.lon, clusters.lat, clusters.n) : null;
   const existing = improvedPoints(input.osm.waterPoints);
@@ -207,7 +210,7 @@ function assumptions(
   const r = ctx.rates;
   const pct = (v: number) => `${Math.round(v * 100)}%`;
   return [
-    `Households: ${ctx.clusters.buildings.toLocaleString("en-US")} mapped buildings (${source === "full" ? "every building OpenStreetMap has in the analysis area" : source === "local" ? "every building OpenStreetMap has around the shortlisted sites" : "the capped town-wide OpenStreetMap sample, scaled up; the full-detail fetch failed"}) grouped into ${ctx.clusters.n.toLocaleString("en-US")} clusters of 50 m, at ${PEOPLE_PER_BUILDING} people per building and ${LPD} L per person per day.`,
+    `Households: ${ctx.clusters.buildings.toLocaleString("en-US")} mapped buildings (${source === "full" ? "every building OpenStreetMap has in the analysis area" : source === "local" ? "every building OpenStreetMap has around the shortlisted sites" : "the capped town-wide OpenStreetMap sample, scaled up; the full-detail fetch failed"}) grouped into ${ctx.clusters.n.toLocaleString("en-US")} clusters of 50 m, at ${ctx.clusters.peoplePerBuilding} people per building (census household size, one household per building) and ${LPD} L per person per day.`,
     `Today: each cluster walks to its nearest well, borehole, spring or drinking-water tap along mapped streets and footpaths at ${BEHAVIOUR.walkingSpeedKmh.value} km/h. Clusters with none within reach are assumed to spend ${BEHAVIOUR.noSourceRoundTripMinutes.value} minutes per round trip at an unmapped source.`,
     `New taps are sited one at a time where they save the most walking for people not yet served, ${BEHAVIOUR.peoplePerTap.value} people each (${BEHAVIOUR.peoplePerTap.source}); queues follow from a ${BEHAVIOUR.tapFlowLitresPerMinute.value} L/min tap. Pipes follow the streets from the tank.`,
     `A cluster uses a new tap only when its round trip, queue included, beats today's. Queues at existing points are not modelled because their real capacity is unmapped.`,
@@ -339,6 +342,17 @@ export async function runSimulation(
     await tick();
   }
   const best = decide(stress, opts.futures);
+  const maintenanceNotes: string[] = [];
+  if (best?.project.futures) {
+    // The same project and futures, community-managed instead: what the maintenance contract buys.
+    const cm = { ...best.model, rates: communityManaged(best.model.rates, best.project.type) };
+    const held = seeds
+      .map((seed) => runFuture(cm, seed))
+      .filter((o) => o.peopleServed >= BEHAVIOUR.passThreshold.value * best.designedServed).length;
+    maintenanceNotes.push(
+      `Maintenance matters: with professional maintenance this project holds in ${best.project.futures.passed} of ${seeds.length} futures; community-managed, with repairs taking ${cm.rates.projectRepairLow}-${cm.rates.projectRepairHigh} weeks, it would hold in ${held}.`,
+    );
+  }
   if (best?.project.futures) {
     emit(`${best.project.label} · held in ${best.project.futures.passed}/${best.project.futures.run} futures`, best.project.futures.run);
   }
@@ -372,7 +386,7 @@ export async function runSimulation(
       replay: best
         ? { ...best.model, projectId: best.project.id, seeds, passed: best.passed, designedServed: Math.round(best.designedServed) }
         : null,
-      assumptions: assumptions(ctx, buildingSource, opts, [...(input.rateNotes ?? []), ...(local.ok ? [] : ["Full-detail footpaths could not be fetched; walking follows the mapped roads only."])]),
+      assumptions: assumptions(ctx, buildingSource, opts, [...maintenanceNotes, ...(input.rateNotes ?? []), ...(local.ok ? [] : ["Full-detail footpaths could not be fetched; walking follows the mapped roads only."])]),
     },
   };
 }

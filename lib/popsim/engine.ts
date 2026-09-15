@@ -476,7 +476,7 @@ export class Future {
     if (s.systemUp) {
       if (rng.next() < rates.failProject) {
         s.systemUp = false;
-        this.repairSystem = rng.int(rates.repairLow, rates.repairHigh);
+        this.repairSystem = rng.int(rates.projectRepairLow ?? rates.repairLow, rates.projectRepairHigh ?? rates.repairHigh);
       }
     } else if (--this.repairSystem <= 0) {
       s.systemUp = true;

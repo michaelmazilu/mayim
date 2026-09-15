@@ -36,6 +36,7 @@ import { rankCandidates, scoreCandidate } from "@/lib/scoring/score";
 import { buildRecommendation } from "@/lib/infrastructure/select";
 import { fetchLocalOsm } from "@/lib/providers/local-osm";
 import { deriveRates, extractRates } from "@/lib/evidence/rates";
+import { sourcedRates } from "@/lib/popsim/sourced-rates";
 import { LIVE_OPTIONS, runSimulation, type SimulationOptions, type SimulationRun } from "@/lib/popsim/scenarios";
 
 export type Emit = (track: TrackId, message: string, status: AnalysisEvent["status"], sourceCount?: number) => void;
@@ -297,7 +298,8 @@ export async function runAnalysis(inputTown: TownRef, emit: Emit, options: RunOp
     try {
       // Breakdown, repair and growth rates, read from this town's own sources when they state them.
       const extractedRates = evidenceProvenance === "live" ? await extractRates(town, evidence.items) : null;
-      const townRates = deriveRates(extractedRates, evidence.items);
+      // Cited national and town figures first; a town's own sources override them when they state a figure.
+      const townRates = deriveRates(extractedRates, evidence.items, sourcedRates(town));
       const sim = await runSimulation(
         { town, osm, climate, candidates, ranked, rates: townRates.rates, rateNotes: townRates.notes },
         options.simulation ?? LIVE_OPTIONS,
