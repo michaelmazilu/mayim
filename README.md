@@ -1,5 +1,7 @@
 # Mayim
 
+**Live demo:** [mayimgc.vercel.app](https://mayimgc.vercel.app/)
+
 **Finds the highest-leverage site for new clean-water infrastructure in an underserved town, then designs and costs it.**
 
 Billions of dollars go into water and humanitarian development, yet more than 400 million people in Africa still lack access to basic drinking water (African Development Bank). The binding constraint is no longer intent — it is deciding *where* a new water point does the most good.
