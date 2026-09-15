@@ -58,6 +58,8 @@ const CANDIDATE_GRID_M = 40;
 /** Mild preference for taps nearer the tank, so equal gains do not buy longer pipe. */
 const PIPE_PENALTY = 0.15;
 const DETOUR = BEHAVIOUR.detourFactor.value;
+/** Round-trip minutes are binned to the minute when scoring a candidate tap. */
+const RT_BINS = 121;
 
 export const MAX_TAPS: Record<InfrastructureType, number> = {
   solar_borehole: 6,
@@ -80,7 +82,8 @@ export function rawSourcesFrom(osm: OsmData): RawSource[] {
     water_works: "the water works",
     water_tower: "the water tower",
   };
-  const out: RawSource[] = osm.waterPoints.map((p) => ({
+  const raw = new Set(["reservoir", "spring", "water_well", "borehole"]);
+  const out: RawSource[] = osm.waterPoints.filter((p) => raw.has(p.kind)).map((p) => ({
     lon: p.lon,
     lat: p.lat,
     label: p.name ? `${words[p.kind] ?? "the source"} "${p.name}"` : (words[p.kind] ?? "the source"),
@@ -256,6 +259,8 @@ export function placeTaps(ctx: PlaceCtx, anchor: Anchor, K: number, capacityPeop
     consume(ax, ay);
   }
 
+  const binPeople = new Float64Array(RT_BINS);
+  const binGain = new Float64Array(RT_BINS);
   while (taps.length < K && systemPeople > 1) {
     let best = -1;
     let bestGain = 0;
@@ -268,12 +273,31 @@ export function placeTaps(ctx: PlaceCtx, anchor: Anchor, K: number, capacityPeop
         }
       }
       if (tooClose) continue;
-      let gain = 0;
+      binPeople.fill(0);
+      binGain.fill(0);
       for (let q = 0; q < m; q++) {
         const r = remain[q];
         if (r <= 0) continue;
-        const save = base[q] - Math.hypot(qx[q] - cx[k], qy[q] - cy[k]) * perRt;
-        if (save > 0) gain += r * save;
+        const rt = Math.hypot(qx[q] - cx[k], qy[q] - cy[k]) * perRt;
+        const save = base[q] - rt;
+        if (save <= 0) continue;
+        const b = Math.min(RT_BINS - 1, Math.floor(rt));
+        binPeople[b] += r;
+        binGain[b] += r * save;
+      }
+      // A tap serves the nearest people first, up to its load; only they count.
+      let left = Math.min(perTap, systemPeople);
+      let gain = 0;
+      for (let b = 0; b < RT_BINS && left > 0; b++) {
+        const p = binPeople[b];
+        if (p <= 0) continue;
+        if (p <= left) {
+          gain += binGain[b];
+          left -= p;
+        } else {
+          gain += binGain[b] * (left / p);
+          left = 0;
+        }
       }
       gain *= 1 - (PIPE_PENALTY * Math.hypot(cx[k] - ax, cy[k] - ay)) / TAP_RADIUS_M;
       if (gain > bestGain) {
@@ -308,12 +332,14 @@ export function routePipes(
   ctx: PlaceCtx,
   anchor: Anchor,
   taps: Tap[],
-): { lines: LngLat[][]; lengthM: number; hub: LngLat } {
+): { lines: LngLat[][]; lengthM: number; hub: LngLat; usesNetwork: boolean; connectorM: number } {
   const s = ctx.scale;
   const straight = () => ({
     lines: taps.map((t) => [[anchor.lon, anchor.lat], [t.lon, t.lat]] as LngLat[]),
     lengthM: Math.round(taps.reduce((sum, t) => sum + metres(s, anchor.lon, anchor.lat, t.lon, t.lat), 0)),
     hub: [anchor.lon, anchor.lat] as LngLat,
+    usesNetwork: false,
+    connectorM: 0,
   });
   const g = ctx.graph;
   if (!g) return straight();
@@ -323,14 +349,27 @@ export function routePipes(
   const tree = dijkstra(g, [{ node: start.node, d: 0, label: 0 }], 5000);
   const hub: LngLat = [g.lon[start.node], g.lat[start.node]];
   const edges = new Set<string>();
-  let length = start.offsetM;
+  let length = 0;
+  let usesNetwork = false;
   const lines: LngLat[][] = [];
   for (const t of taps) {
+    // A tap on the source itself (a restored well) needs no pipe.
+    if (metres(s, anchor.lon, anchor.lat, t.lon, t.lat) < 5) continue;
     if (t.node < 0 || !Number.isFinite(tree.dist[t.node])) {
-      lines.push([hub, [t.lon, t.lat]]);
-      length += metres(s, hub[0], hub[1], t.lon, t.lat);
+      // Off the network: pipe it from whichever of the source or the road hub is nearer.
+      const fromSource = metres(s, anchor.lon, anchor.lat, t.lon, t.lat);
+      const fromHub = metres(s, hub[0], hub[1], t.lon, t.lat);
+      if (fromSource <= fromHub) {
+        lines.push([[anchor.lon, anchor.lat], [t.lon, t.lat]]);
+        length += fromSource;
+      } else {
+        lines.push([hub, [t.lon, t.lat]]);
+        length += fromHub;
+        usesNetwork = true;
+      }
       continue;
     }
+    usesNetwork = true;
     const path = pathTo(g, tree.prev, t.node);
     const coords: LngLat[] = path.map((v) => [g.lon[v], g.lat[v]]);
     for (let i = 1; i < path.length; i++) {
@@ -343,13 +382,14 @@ export function routePipes(
     }
     lines.push(simplify(coords.length >= 2 ? coords : [hub, [t.lon, t.lat]]));
   }
-  return { lines, lengthM: Math.round(length), hub };
+  const connectorM = usesNetwork ? start.offsetM : 0;
+  return { lines, lengthM: Math.round(length + connectorM), hub, usesNetwork, connectorM };
 }
 
 export function buildLayout(
   anchor: Anchor,
   taps: Tap[],
-  routed: { lines: LngLat[][]; lengthM: number; hub: LngLat },
+  routed: { lines: LngLat[][]; lengthM: number; hub: LngLat; usesNetwork?: boolean; connectorM?: number },
 ): ConceptualLayoutData {
   const s = scaleAt(anchor.lat);
   const dx = (routed.hub[0] - anchor.lon) * s.mLon;
@@ -362,8 +402,13 @@ export function buildLayout(
     +(lat + north / s.mLat).toFixed(6),
   ];
   const source: LngLat = [+anchor.lon.toFixed(6), +anchor.lat.toFixed(6)];
-  const tank = at(anchor.lon, anchor.lat, ux * 30, uy * 30);
-  const treatment = at(tank[0], tank[1], -uy * 18, ux * 18);
+  // Tank and treatment sit behind the source, on the site side, away from the road.
+  const tank = at(anchor.lon, anchor.lat, -ux * 18, -uy * 18);
+  const treatment = at(tank[0], tank[1], -uy * 12, ux * 12);
+  const usesNetwork = routed.usesNetwork ?? true;
+  const trunk: LngLat[] = usesNetwork ? [source, tank, treatment, routed.hub] : [source, tank, treatment];
+  let trunkM = 0;
+  for (let i = 1; i < trunk.length; i++) trunkM += metres(s, trunk[i - 1][0], trunk[i - 1][1], trunk[i][0], trunk[i][1]);
 
   let reach = 0;
   for (const t of taps) reach = Math.max(reach, metres(s, anchor.lon, anchor.lat, t.lon, t.lat));
@@ -379,9 +424,9 @@ export function buildLayout(
     tank,
     treatment,
     taps: taps.map((t) => [+t.lon.toFixed(6), +t.lat.toFixed(6)] as LngLat),
-    pipes: [round([source, tank, treatment, routed.hub]), ...routed.lines.map(round)],
+    pipes: [round(trunk), ...routed.lines.map(round)],
     serviceRadiusRing: ring,
-    pipelineLengthM: routed.lengthM + 48,
+    pipelineLengthM: Math.round(routed.lengthM - (routed.connectorM ?? 0) + trunkM),
     tapStandCount: taps.length,
   };
 }

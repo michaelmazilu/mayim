@@ -114,11 +114,11 @@ function buildModel(
     for (let t = 0; t < T; t++) {
       const dist = tapDist[t];
       let minutes = -1;
+      const straight = metres(s, c.lon[i], c.lat[i], taps[t].lon, taps[t].lat) * DETOUR;
       if (dist && node >= 0 && Number.isFinite(dist[node])) {
-        minutes = (ctx.clusterSnap!.offsetM[i] + dist[node]) / SPEED_M_PER_MIN;
-      } else {
-        const d = metres(s, c.lon[i], c.lat[i], taps[t].lon, taps[t].lat);
-        if (d <= TAP_ROUTE_CUTOFF_M) minutes = (d * DETOUR) / SPEED_M_PER_MIN;
+        minutes = Math.min(ctx.clusterSnap!.offsetM[i] + dist[node], straight) / SPEED_M_PER_MIN;
+      } else if (straight <= TAP_ROUTE_CUTOFF_M * DETOUR) {
+        minutes = straight / SPEED_M_PER_MIN;
       }
       tapMin.push(minutes >= 0 ? r1(minutes) : -1);
     }
