@@ -35,6 +35,14 @@ const CARTO_KEY_PARAM = process.env.NEXT_PUBLIC_CARTO_API_KEY
 /** Served from public/; see scripts/copy-maplibre-worker.mjs. */
 const MAPLIBRE_WORKER_URL = "/maplibre/maplibre-gl-worker.mjs";
 
+/** Opening camera, and where "back to home" returns: mid-Atlantic, so the globe reads as a globe. */
+const HOME_VIEW: { center: [number, number]; zoom: number; pitch: number; bearing: number } = {
+  center: [-34, 16],
+  zoom: 1.6,
+  pitch: 0,
+  bearing: 0,
+};
+
 const SATELLITE_ATTRIB =
   "Imagery &copy; Esri, Maxar, Earthstar Geographics | Basemap &copy; OpenStreetMap contributors, &copy; CARTO";
 
@@ -1658,10 +1666,7 @@ export function AquaMap(props: {
     const map = new maplibregl.Map({
       container,
       style: BASE_STYLE,
-      center: [-34, 16], // mid-Atlantic: the globe reads as a globe on first paint
-      zoom: 1.6,
-      pitch: 0,
-      bearing: 0,
+      ...HOME_VIEW,
       attributionControl: { compact: true },
       cooperativeGestures: false,
     });
@@ -1777,6 +1782,41 @@ export function AquaMap(props: {
     }, 1250);
 
     return () => window.clearTimeout(timer);
+  }, [styleReady, town]);
+
+  // --- cinematic camera: back to the globe ---------------------------------
+
+  // Leaving a town (town -> null) returns the camera to the opening globe.
+  // The flown/fitted guards are cleared too, or re-selecting the same town
+  // would skip its fly-in, winner and design moves.
+  //
+  // The flight waits for the map to stop resizing: the mission panel collapses
+  // at the same moment, and a flyTo whose canvas widens mid-flight lands at the
+  // right zoom but tens of degrees off-centre.
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !styleReady || town) return;
+    if (flownTownRef.current === null) return; // never left home
+    flownTownRef.current = null;
+    flownWinnerRef.current = null;
+    fittedDesignRef.current = null;
+    popupRef.current?.remove();
+
+    const fly = (): void => {
+      map.off("resize", onResize);
+      map.flyTo({ ...HOME_VIEW, duration: 2000, essential: true });
+    };
+    let timer = window.setTimeout(fly, 350);
+    function onResize(): void {
+      window.clearTimeout(timer);
+      timer = window.setTimeout(fly, 150);
+    }
+    map.on("resize", onResize);
+
+    return () => {
+      window.clearTimeout(timer);
+      map.off("resize", onResize);
+    };
   }, [styleReady, town]);
 
   // --- cinematic camera: winner --------------------------------------------
