@@ -107,7 +107,7 @@ const SYSTEM = [
 
 type ChatResponse = { choices?: { message?: { content?: string } }[] };
 
-async function callOpenAI(
+export async function callOpenAI(
   messages: { role: "system" | "user"; content: string }[],
   timeoutMs: number,
   responseFormat?: Record<string, unknown>,

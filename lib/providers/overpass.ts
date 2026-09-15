@@ -351,6 +351,11 @@ function parseElements(elements: OverpassElement[], sourceLabel: string): OsmDat
     protectedAreas: capped(protectedAreas, CAP.other, "protected areas", notes),
     buildingSampleRatio: keptBuildings > 0 ? buildings.length / keptBuildings : 1,
     degraded: false,
+    // Server-only, for the household simulation; the pipeline strips it.
+    full: {
+      buildings: buildings.map((b) => ({ lon: b.value.lon, lat: b.value.lat })),
+      roads: roads.map((r) => r.value.coords),
+    },
   };
 
   const total =

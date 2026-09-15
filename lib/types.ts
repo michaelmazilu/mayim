@@ -69,6 +69,12 @@ export type OsmData = {
   buildingSampleRatio: number;
   /** True when the Overpass call failed or timed out and this bundle is empty. */
   degraded: boolean;
+  /**
+   * Server-only: every building centroid and road line before the payload caps
+   * above were applied, for the household simulation. Stripped before a run is
+   * returned or cached, so it never reaches the browser.
+   */
+  full?: { buildings: { lon: number; lat: number }[]; roads: LngLat[][] };
   note?: string;
 };
 
@@ -292,6 +298,10 @@ export type InfrastructureRecommendation = {
   confidence: number; // 0..1
   assumptions: string[];
   requiredValidation: string[];
+  /** Sized storage volume, litres. */
+  storageLiters: number;
+  /** Roof catchment, m2; 0 for every type except rainwater harvesting. */
+  catchmentM2: number;
 };
 
 
@@ -322,7 +332,8 @@ export type TrackId =
   | "existing_infrastructure"
   | "population_access"
   | "environmental_risk"
-  | "construction_access";
+  | "construction_access"
+  | "simulation";
 
 export type TrackStatus = "pending" | "active" | "complete" | "degraded";
 
@@ -344,7 +355,115 @@ export const TRACKS: { id: TrackId; label: string }[] = [
   { id: "population_access", label: "Population & Community Access" },
   { id: "environmental_risk", label: "Environmental Risk" },
   { id: "construction_access", label: "Construction Accessibility" },
+  { id: "simulation", label: "Household Simulation" },
 ];
+
+// ---------------------------------------------------------------------------
+// Household simulation (PopSim)
+// ---------------------------------------------------------------------------
+
+export type SimulationRates = {
+  /** Weekly probability that a working source breaks. */
+  failExisting: number;
+  failProject: number;
+  /** Long-run share of existing points out of service, used to seed week zero. */
+  shareExisting: number;
+  repairLow: number;
+  repairHigh: number;
+  growth: number;
+};
+
+/**
+ * One project, as the simulation sees it: household clusters, where each can
+ * fetch water today, and how far each walks to each new tap. Plain arrays so
+ * the same object runs on the server and replays in the browser.
+ * Minutes are one-way; -1 marks "not reachable".
+ */
+export type SimulationModel = {
+  n: number;
+  lon: number[];
+  lat: number[];
+  people: number[];
+  /** n * 3: index of the 1st-3rd nearest existing improved source, -1 when none. */
+  baseIdx: number[];
+  baseMin: number[];
+  existingCount: number;
+  /** Existing source the project takes over (a rehabilitated well), or -1. */
+  replaces: number;
+  tapCount: number;
+  tapLon: number[];
+  tapLat: number[];
+  /** n * tapCount. */
+  tapMin: number[];
+  perTapL: number;
+  yieldLowL: number;
+  yieldHighL: number;
+  rain: null | { catchmentM2: number; storageL: number; monthlyMmDay: number[]; runoff: number };
+  rates: SimulationRates;
+  weeks: number;
+};
+
+export type SimulationMetric = { p10: number; p50: number; p90: number };
+
+export type SimulationProject = {
+  /** `${candidateId}:${type}` */
+  id: string;
+  candidateId: string;
+  type: InfrastructureType;
+  label: string;
+  /** Why the system sits where it does, in words. */
+  anchor: string;
+  source: LngLat;
+  costLow: number;
+  costHigh: number;
+  /** Capital midpoint plus running costs over the horizon. */
+  lifecycleCost: number;
+  dailyYieldLow: number;
+  dailyYieldHigh: number;
+  tapCount: number;
+  pipelineLengthM: number;
+  /** Week zero, every source working. */
+  peopleServed: number;
+  peopleUnder30Min: number;
+  minutesSavedPerTrip: number;
+  hoursSavedPerDay: number;
+  costPerPersonServed: number;
+  futures: null | {
+    run: number;
+    passed: number;
+    peopleServed: SimulationMetric;
+    hoursSavedPerDay: SimulationMetric;
+    weeksDown: SimulationMetric;
+    /** Median first year demand outruns the system; null when it never does within the horizon. */
+    capacityYear: number | null;
+  };
+};
+
+export type SimulationReplay = SimulationModel & {
+  projectId: string;
+  seeds: number[];
+  passed: boolean[];
+  designedServed: number;
+};
+
+export type SimulationResult = {
+  version: 1;
+  screened: number;
+  detailed: number;
+  stressTested: number;
+  futuresPerProject: number;
+  weeksPerFuture: number;
+  householdClusters: number;
+  buildings: number;
+  /** full: every building from the town query; local: a full-detail fetch around the sites; sample: the capped town sample. */
+  buildingSource: "full" | "local" | "sample";
+  /** Best first. */
+  projects: SimulationProject[];
+  recommendedId: string | null;
+  layout: ConceptualLayoutData | null;
+  replay: SimulationReplay | null;
+  assumptions: string[];
+};
 
 // ---------------------------------------------------------------------------
 // The complete run
@@ -376,6 +495,7 @@ export type AnalysisRun = {
   population: PopulationEstimate;
   recommendation: InfrastructureRecommendation | null;
   layout: ConceptualLayoutData | null;
+  simulation: SimulationResult | null;
   /** Short plain-language summary; LLM-written when available, deterministic otherwise. */
   narrative: string;
   narrativeSource: "llm" | "deterministic";

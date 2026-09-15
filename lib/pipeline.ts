@@ -7,8 +7,12 @@ import type {
   EvidenceFinding,
   TownRef,
   TrackId,
+  ClimateData,
+  OsmData,
+  SimulationResult,
+  TerrainData,
 } from "@/lib/types";
-import { SERVICE, WATER, WEIGHTS, WEIGHT_LABELS } from "@/lib/config/coefficients";
+import { BEHAVIOUR, SERVICE, WATER, WEIGHTS, WEIGHT_LABELS } from "@/lib/config/coefficients";
 import { fetchOsm } from "@/lib/providers/overpass";
 import { fetchClimate } from "@/lib/providers/climate";
 import { fetchTerrain } from "@/lib/providers/elevation";
@@ -22,6 +26,9 @@ import { estimatePopulationServed } from "@/lib/geospatial/population";
 import { buildConceptualLayout } from "@/lib/geospatial/layout";
 import { rankCandidates, scoreCandidate } from "@/lib/scoring/score";
 import { buildRecommendation } from "@/lib/infrastructure/select";
+import { fetchLocalOsm } from "@/lib/providers/local-osm";
+import { deriveRates, extractRates } from "@/lib/evidence/rates";
+import { LIVE_OPTIONS, runSimulation, type SimulationOptions, type SimulationRun } from "@/lib/popsim/scenarios";
 
 export type Emit = (track: TrackId, message: string, status: AnalysisEvent["status"], sourceCount?: number) => void;
 
@@ -73,7 +80,20 @@ function sizeSystem(peopleServed: number, liftM: number) {
   return { tankVolumeLiters, solarArrayWp, dailyDemandL };
 }
 
-export async function runAnalysis(inputTown: TownRef, emit: Emit): Promise<AnalysisRun> {
+/** The uncapped building and road lists are for the simulation only; they never leave the server. */
+function withoutFull(osm: OsmData): OsmData {
+  const out = { ...osm };
+  delete out.full;
+  return out;
+}
+
+export type RunOptions = {
+  simulation?: SimulationOptions;
+  /** Reuse already-fetched layers (the recache script) instead of calling the providers. */
+  preloaded?: { osm: OsmData; climate: ClimateData; terrain: TerrainData };
+};
+
+export async function runAnalysis(inputTown: TownRef, emit: Emit, options: RunOptions = {}): Promise<AnalysisRun> {
   const startedAt = Date.now();
   const warnings: string[] = [];
   const dataSources: DataSourceStatus[] = [];
@@ -95,9 +115,9 @@ export async function runAnalysis(inputTown: TownRef, emit: Emit): Promise<Analy
   emit("hydrogeology", "Searching groundwater sources", "active");
 
   const [osm, climate, terrain, rawEvidence] = await Promise.all([
-    fetchOsm(town),
-    fetchClimate(town.center),
-    fetchTerrain(town.bbox),
+    options.preloaded ? Promise.resolve(options.preloaded.osm) : fetchOsm(town),
+    options.preloaded ? Promise.resolve(options.preloaded.climate) : fetchClimate(town.center),
+    options.preloaded ? Promise.resolve(options.preloaded.terrain) : fetchTerrain(town.bbox),
     searchEvidence(town),
   ]);
 
@@ -204,7 +224,7 @@ export async function runAnalysis(inputTown: TownRef, emit: Emit): Promise<Analy
     excludedCount,
   );
 
-  const ranked = rankCandidates(candidates);
+  let ranked = rankCandidates(candidates);
   const winnerId = ranked[0] ?? null;
   const winner = winnerId ? candidates.find((c) => c.id === winnerId) ?? null : null;
 
@@ -213,23 +233,82 @@ export async function runAnalysis(inputTown: TownRef, emit: Emit): Promise<Analy
   }
   emit("construction_access", winner ? `${ranked.length} viable · best ${winner.score.overall.toFixed(3)}` : "No viable sites", winner ? "complete" : "degraded", ranked.length);
 
-  // --- Population, layout, recommendation ----------------------------------
+  // --- Household simulation ------------------------------------------------
   const serviceRadiusM = SERVICE.walkingRadiusM;
-  const population = estimatePopulationServed({
-    town,
-    osm,
-    winnerFeatures: winner?.features ?? ({} as CandidateFeatures),
-    totalBuildingsInArea: osm.buildings.length,
-    serviceRadiusM,
-  });
-  emit("population_access", `${population.rangeLow.toLocaleString()}–${population.rangeHigh.toLocaleString()} people within ${serviceRadiusM} m`, "complete", osm.buildings.length);
+  let simulation: SimulationResult | null = null;
+  let simBest: SimulationRun["best"] = null;
+  if (winner) {
+    emit("simulation", "Screening every site and system type", "active");
+    try {
+      // Breakdown, repair and growth rates, read from this town's own sources when they state them.
+      const extractedRates = evidenceProvenance === "live" ? await extractRates(town, rawEvidence) : null;
+      const townRates = deriveRates(extractedRates, rawEvidence);
+      const sim = await runSimulation(
+        { town, osm, climate, candidates, ranked, rates: townRates.rates, rateNotes: townRates.notes },
+        options.simulation ?? LIVE_OPTIONS,
+        { fetchLocal: fetchLocalOsm },
+        (message, sourceCount) => emit("simulation", message, "active", sourceCount),
+      );
+      simulation = sim.result;
+      simBest = sim.best;
+      dataSources.push({
+        name: "Household simulation",
+        ok: Boolean(simBest),
+        detail: simBest
+          ? `${sim.result.householdClusters.toLocaleString()} household clusters · ${sim.result.detailed} projects · ${sim.result.futuresPerProject} futures each`
+          : "No project could be simulated",
+      });
+      if (simBest?.project.futures) {
+        emit("simulation", `Held in ${simBest.project.futures.passed}/${simBest.project.futures.run} futures`, "complete", simBest.project.futures.run);
+      } else {
+        warnings.push("The household simulation produced no project; the recommendation stands on the site scores alone.");
+        emit("simulation", "No project could be simulated", "degraded");
+      }
+    } catch (err) {
+      warnings.push(`Household simulation failed (${err instanceof Error ? err.message : "unknown error"}); the recommendation stands on the site scores alone.`);
+      emit("simulation", "Simulation failed", "degraded");
+    }
+  } else {
+    emit("simulation", "No viable site to simulate", "degraded");
+  }
 
-  let recommendation = null;
+  // The simulation's project when it ran; otherwise the top-scored site.
+  const final = simBest ? (candidates.find((c) => c.id === simBest!.project.candidateId) ?? winner) : winner;
+  const staticRank = final ? ranked.indexOf(final.id) + 1 : 0;
+  if (final && simBest) ranked = [final.id, ...ranked.filter((id) => id !== final.id)];
+
+  // --- Population, layout, recommendation ----------------------------------
+  const population = simBest
+    ? simBest.population
+    : estimatePopulationServed({
+        town,
+        osm,
+        winnerFeatures: winner?.features ?? ({} as CandidateFeatures),
+        totalBuildingsInArea: osm.buildings.length,
+        serviceRadiusM,
+      });
+  emit("population_access", `${population.rangeLow.toLocaleString()}–${population.rangeHigh.toLocaleString()} people within ${population.serviceRadiusM} m`, "complete", osm.buildings.length);
+
+  let recommendation: AnalysisRun["recommendation"] = null;
   let layout: AnalysisRun["layout"] = null;
   let layoutPipelineM = 0;
   let layoutTaps = 0;
 
-  if (winner) {
+  if (simBest && simulation) {
+    const p = simBest.project;
+    const f = p.futures;
+    recommendation = {
+      ...simBest.recommendation,
+      rationale: [
+        `${p.anchor}.`,
+        `Chosen from ${simulation.detailed} projects simulated household by household: $${p.costPerPersonServed.toLocaleString("en-US")} per person served over ${BEHAVIOUR.horizonYears.value} years, the lowest among options that held in at least ${Math.round(BEHAVIOUR.robustShare.value * 100)}% of futures.`,
+        `Serves ${p.peopleServed.toLocaleString("en-US")} people in the design case (${p.peopleUnder30Min.toLocaleString("en-US")} within a 30-minute round trip) and saves ${p.hoursSavedPerDay.toLocaleString("en-US")} hours of water collection a day${f ? `; held in ${f.passed} of ${f.run} ten-year futures` : ""}.`,
+      ],
+      assumptions: [...simBest.recommendation.assumptions, ...simulation.assumptions],
+    };
+    layout = simBest.layout;
+    emit("hydrogeology", `Selected: ${recommendation.label}`, "complete");
+  } else if (winner) {
     const hasNearby = (winner.features.distanceToMappedWaterPointM ?? Infinity) < 600;
     const draft = buildConceptualLayout({
       site: { lon: winner.lon, lat: winner.lat },
@@ -276,9 +355,20 @@ export async function runAnalysis(inputTown: TownRef, emit: Emit): Promise<Analy
 
   // --- Explanation ----------------------------------------------------------
   const whyThisSite: AnalysisRun["whyThisSite"] = [];
-  if (winner) {
-    const f = winner.features;
-    const b = winner.score.breakdown;
+  if (simBest && final) {
+    const p = simBest.project;
+    whyThisSite.push({
+      claim:
+        staticRank > 1
+          ? `The household simulation chose this site over the top-scored one (it ranked #${staticRank} on suitability)`
+          : "The household simulation confirms the top-scored site",
+      basis: `${p.anchor}. ${p.peopleServed.toLocaleString("en-US")} people served, ${p.hoursSavedPerDay.toLocaleString("en-US")} hours of walking saved a day, ${p.costPerPersonServed.toLocaleString("en-US")} per person over ten years${p.futures ? `, held in ${p.futures.passed} of ${p.futures.run} futures` : ""}.`,
+      kind: "map",
+    });
+  }
+  if (final) {
+    const f = final.features;
+    const b = final.score.breakdown;
     const ordered = (Object.keys(WEIGHTS) as (keyof typeof WEIGHTS)[])
       .map((k) => ({ k, contribution: b[k] * WEIGHTS[k] }))
       .sort((x, y) => y.contribution - x.contribution);
@@ -286,7 +376,7 @@ export async function runAnalysis(inputTown: TownRef, emit: Emit): Promise<Analy
     for (const { k, contribution } of ordered.slice(0, 4)) {
       whyThisSite.push({
         claim: `${WEIGHT_LABELS[k]} scored ${(b[k] * 100).toFixed(0)}%`,
-        basis: `${(contribution * 100).toFixed(1)} of ${(winner.score.overall * 100).toFixed(1)} pts · ${(WEIGHTS[k] * 100).toFixed(0)}% weight`,
+        basis: `${(contribution * 100).toFixed(1)} of ${(final.score.overall * 100).toFixed(1)} pts · ${(WEIGHTS[k] * 100).toFixed(0)}% weight`,
         kind: "map",
       });
     }
@@ -329,12 +419,12 @@ export async function runAnalysis(inputTown: TownRef, emit: Emit): Promise<Analy
   }
 
   const alternatives: AnalysisRun["alternatives"] = [];
-  if (winner) {
+  if (final) {
     for (const id of ranked.slice(1, 3)) {
       const alt = candidates.find((c) => c.id === id);
       if (!alt) continue;
       const diffs = (Object.keys(WEIGHTS) as (keyof typeof WEIGHTS)[])
-        .map((k) => ({ k, d: alt.score.breakdown[k] - winner.score.breakdown[k] }))
+        .map((k) => ({ k, d: alt.score.breakdown[k] - final.score.breakdown[k] }))
         .sort((a, b) => Math.abs(b.d) - Math.abs(a.d));
       const better = diffs.find((d) => d.d > 0.02);
       const worse = diffs.find((d) => d.d < -0.02);
@@ -344,8 +434,8 @@ export async function runAnalysis(inputTown: TownRef, emit: Emit): Promise<Analy
       alternatives.push({
         candidateId: id,
         comparison: parts.length
-          ? `${parts.join(", ")} · ${((winner.score.overall - alt.score.overall) * 100).toFixed(1)} pts behind.`
-          : `Within ${((winner.score.overall - alt.score.overall) * 100).toFixed(1)} pts — no decisive factor.`,
+          ? `${parts.join(", ")} · ${((final.score.overall - alt.score.overall) * 100).toFixed(1)} pts behind.`
+          : `Within ${((final.score.overall - alt.score.overall) * 100).toFixed(1)} pts — no decisive factor.`,
       });
     }
   }
@@ -353,12 +443,12 @@ export async function runAnalysis(inputTown: TownRef, emit: Emit): Promise<Analy
   // --- Narrative ------------------------------------------------------------
   let narrative = "";
   let narrativeSource: AnalysisRun["narrativeSource"] = "deterministic";
-  if (winner && recommendation) {
+  if (final && recommendation) {
     if (isLlmConfigured()) {
       const written = await writeNarrative({
         town,
         recommendation,
-        topScore: winner.score.overall,
+        topScore: final.score.overall,
         findings,
         population: population.peopleServed,
       });
@@ -369,8 +459,8 @@ export async function runAnalysis(inputTown: TownRef, emit: Emit): Promise<Analy
     }
     if (!narrative) {
       narrative =
-        `${ranked.length} of ${candidates.length} sites near ${town.name} passed all hard constraints; the best scores ${(winner.score.overall * 100).toFixed(0)}% ` +
-        `(${Math.round(winner.features.distanceToRoadM)} m from a road, ${winner.features.nearbyBuildingCount} buildings within ${SERVICE.densityRadiusM} m). ` +
+        `${ranked.length} of ${candidates.length} sites near ${town.name} passed all hard constraints; the recommended site scores ${(final.score.overall * 100).toFixed(0)}% ` +
+        `(${Math.round(final.features.distanceToRoadM)} m from a road, ${final.features.nearbyBuildingCount} buildings within ${SERVICE.densityRadiusM} m). ` +
         `A ${recommendation.label.toLowerCase()} at $${recommendation.cost.totalLow.toLocaleString()}–$${recommendation.cost.totalHigh.toLocaleString()} would serve ${population.rangeLow.toLocaleString()}–${population.rangeHigh.toLocaleString()} people. ` +
         `Pre-feasibility only — field validation required.`;
     }
@@ -385,7 +475,7 @@ export async function runAnalysis(inputTown: TownRef, emit: Emit): Promise<Analy
     createdAt: startedAt,
     provenance: "live",
     events,
-    osm,
+    osm: withoutFull(osm),
     climate,
     terrain,
     findings,
@@ -394,10 +484,11 @@ export async function runAnalysis(inputTown: TownRef, emit: Emit): Promise<Analy
     candidateCount: candidates.length,
     excludedCount,
     ranked,
-    winnerId,
+    winnerId: final?.id ?? null,
     population,
     recommendation,
     layout,
+    simulation,
     narrative,
     narrativeSource,
     whyThisSite,

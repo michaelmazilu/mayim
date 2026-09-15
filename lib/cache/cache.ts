@@ -22,7 +22,9 @@ async function readRun(dir: string, slug: string): Promise<AnalysisRun | null> {
   try {
     const raw = await fs.readFile(path.join(dir, `${slug}.json`), "utf8");
     const parsed = JSON.parse(raw) as AnalysisRun;
-    return parsed && parsed.version === 1 ? parsed : null;
+    if (!parsed || parsed.version !== 1) return null;
+    // Snapshots saved before the household simulation existed have no field.
+    return { ...parsed, simulation: parsed.simulation ?? null };
   } catch {
     return null;
   }

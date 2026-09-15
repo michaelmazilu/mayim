@@ -29,6 +29,8 @@ export type SelectionInput = {
   hasNearbyMappedWaterPoint: boolean;
   pipelineLengthM: number;
   tapStandCount: number;
+  /** Build this type instead of running the decision tree. */
+  forceType?: InfrastructureType;
 };
 
 // ---------------------------------------------------------------------------
@@ -476,7 +478,14 @@ function confidenceFor(type: InfrastructureType, features: CandidateFeatures): n
 // ---------------------------------------------------------------------------
 
 export function buildRecommendation(input: SelectionInput): InfrastructureRecommendation {
-  const { type, rationale } = selectInfrastructureType(input);
+  const { type, rationale } = input.forceType
+    ? {
+        type: input.forceType,
+        rationale: [
+          `${LABELS[input.forceType]} was chosen by comparing every system type against the households it would serve, not by the screening rules.`,
+        ],
+      }
+    : selectInfrastructureType(input);
   const sizing = sizeSystem(type, input);
   const groundwater = clamp01(input.features.groundwaterEvidenceScore);
 
@@ -549,5 +558,7 @@ export function buildRecommendation(input: SelectionInput): InfrastructureRecomm
     confidence: confidenceFor(type, input.features),
     assumptions,
     requiredValidation: requiredValidationFor(type),
+    storageLiters: sizing.tankVolumeLiters,
+    catchmentM2: sizing.roofAreaM2,
   };
 }
