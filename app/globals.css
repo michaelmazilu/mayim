@@ -1233,3 +1233,395 @@
 .maplibregl-ctrl-attrib a:hover {
   color: var(--text);
 }
+
+/* ===========================================================================
+   Household simulation
+   The heat ramp is a SCALE, like the suitability ramp: the map's heatmap and
+   the key in the playback bar both draw these stops, so a colour on the map
+   and a colour in the key cannot disagree. AquaMap's SIM_PAINT mirrors them.
+   =========================================================================== */
+:root {
+  --sim-heat-0: rgba(253, 196, 90, 0);
+  --sim-heat-1: rgba(250, 184, 72, 0.5);
+  --sim-heat-2: rgba(232, 120, 40, 0.78);
+  --sim-heat-3: rgba(160, 30, 24, 0.92);
+}
+
+:root[data-theme="dark"] {
+  --sim-heat-0: rgba(255, 190, 80, 0);
+  --sim-heat-1: rgba(255, 184, 77, 0.45);
+  --sim-heat-2: rgba(244, 132, 56, 0.75);
+  --sim-heat-3: rgba(232, 72, 54, 0.92);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-theme="auto"] {
+    --sim-heat-0: rgba(255, 190, 80, 0);
+    --sim-heat-1: rgba(255, 184, 77, 0.45);
+    --sim-heat-2: rgba(244, 132, 56, 0.75);
+    --sim-heat-3: rgba(232, 72, 54, 0.92);
+  }
+}
+
+@layer components {
+  /* The dock spans the map's free bottom edge: clear of the layer panel on the
+     left (--simbar-left, set by the page) and of the zoom control on the
+     right, and never wider than 600px. On a wide map that centres it; on a
+     narrow one it fills the space between the two. */
+  .simbar-dock {
+    position: absolute;
+    /* Clear of the map attribution line, which the tile terms need visible. */
+    bottom: 34px;
+    left: max(var(--simbar-left, 16px), calc(50% - 300px));
+    right: max(56px, calc(50% - 300px));
+    z-index: 20;
+    display: flex;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  .simbar-dock > * {
+    pointer-events: auto;
+  }
+
+  .simbar {
+    container-type: inline-size;
+    width: 100%;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-2);
+    font-size: var(--fs-sm);
+    color: var(--text);
+    user-select: none;
+  }
+
+  .simbar-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+  }
+
+  .simbar-row + .simbar-row {
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .simbar-ico,
+  .simbar-chev {
+    flex: none;
+    display: grid;
+    place-items: center;
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 0;
+    transition: background var(--dur-1) var(--ease), color var(--dur-1) var(--ease),
+      border-color var(--dur-1) var(--ease);
+  }
+
+  .simbar-ico {
+    width: 26px;
+    height: 26px;
+  }
+
+  .simbar-ico.primary {
+    border-color: var(--border-strong);
+    color: var(--text);
+  }
+
+  .simbar-ico:hover,
+  .simbar-chev:hover {
+    background: var(--bg-sunken);
+    color: var(--text);
+  }
+
+  .simbar-ico svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .simbar-chev {
+    width: 20px;
+    height: 22px;
+  }
+
+  .simbar-chev svg {
+    width: 13px;
+    height: 13px;
+  }
+
+  .simbar-time {
+    flex: none;
+    min-width: 98px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .simbar-clock {
+    font-size: 11px;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  .simbar-downlbl {
+    color: var(--st-bad);
+  }
+
+  /* ---------- Scrubber ---------- */
+  .simbar-scrub {
+    position: relative;
+    flex: 1;
+    min-width: 120px;
+    height: 26px;
+    cursor: pointer;
+    touch-action: none;
+  }
+
+  .simbar-scrub:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  .simbar-scrub svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .simbar-scrub svg * {
+    vector-effect: non-scaling-stroke;
+  }
+
+  .simbar-spark,
+  .simbar-spark-ghost {
+    fill: none;
+    stroke-width: 1;
+    stroke-linejoin: round;
+  }
+
+  .simbar-spark {
+    stroke: var(--text-muted);
+  }
+
+  .simbar-spark-ghost {
+    stroke: var(--grey-5);
+  }
+
+  .simbar-spark-area {
+    fill: rgba(122, 126, 132, 0.1);
+    fill: color-mix(in srgb, var(--text) 7%, transparent);
+    stroke: none;
+  }
+
+  .simbar-design {
+    stroke: var(--text-muted);
+    stroke-width: 1;
+    stroke-dasharray: 1 3;
+    opacity: 0.8;
+  }
+
+  .simbar-track {
+    stroke: var(--border-strong);
+    stroke-width: 1;
+  }
+
+  .simbar-fill {
+    stroke: var(--text);
+    stroke-width: 1.5;
+  }
+
+  .simbar-tick {
+    stroke: var(--grey-4);
+    stroke-width: 1;
+  }
+
+  .simbar-down {
+    stroke: var(--st-bad);
+    stroke-width: 3;
+    stroke-linecap: square;
+  }
+
+  .simbar-down.ahead {
+    opacity: 0.35;
+  }
+
+  .simbar-head {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    margin-left: -0.5px;
+    background: var(--text);
+    pointer-events: none;
+  }
+
+  /* The knob sits on the track line (18.5 of 26 viewBox units). */
+  .simbar-head::after {
+    content: "";
+    position: absolute;
+    top: 15px;
+    left: -3px;
+    width: 7px;
+    height: 7px;
+    background: var(--bg-elevated);
+    border: 1.5px solid var(--text);
+  }
+
+  /* ---------- Readouts ---------- */
+  /* Readings take the width their labels need; the future selector takes the rest. */
+  .simbar-readouts {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, max-content)) minmax(0, 1fr);
+    gap: 6px 18px;
+  }
+
+  .simbar-readout {
+    min-width: 0;
+  }
+
+  .simbar-readout .lbl {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .simbar-value {
+    margin-top: 4px;
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+
+  .simbar-future {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    justify-self: end;
+  }
+
+  .simbar-futurelbl {
+    font-size: 11px;
+    white-space: nowrap;
+    padding: 0 2px;
+  }
+
+  /* A lamp: whether this future held. The words are in its label and title. */
+  .simbar-held {
+    --ch-hue: var(--st-idle);
+    flex: none;
+    width: 6px;
+    height: 6px;
+    margin-left: 6px;
+    background: var(--ch-hue);
+  }
+
+  .simbar-held.ok {
+    --ch-hue: var(--st-ok);
+  }
+
+  .simbar-held.bad {
+    --ch-hue: var(--st-bad);
+  }
+
+  /* ---------- Key + comparison ---------- */
+  .simbar-foot {
+    justify-content: space-between;
+    flex-wrap: wrap;
+    row-gap: 6px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+
+  .simbar-keys {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 14px;
+  }
+
+  .simbar-key {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+
+  .simbar-ramp {
+    width: 34px;
+    height: 6px;
+    background: linear-gradient(
+      90deg,
+      var(--sim-heat-0),
+      var(--sim-heat-1) 30%,
+      var(--sim-heat-2) 65%,
+      var(--sim-heat-3)
+    );
+    box-shadow: inset 0 0 0 1px var(--border-subtle);
+  }
+
+  /* Round, the one exception here: it is the key for a round mark on the map. */
+  .simbar-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .simbar-seg button {
+    padding: 2px 9px;
+    white-space: nowrap;
+  }
+
+  @container (max-width: 480px) {
+    .simbar-readouts {
+      grid-template-columns: repeat(3, minmax(0, max-content));
+    }
+
+    .simbar-future {
+      grid-column: 1 / -1;
+      justify-self: start;
+      margin-left: -4px;
+    }
+
+    .simbar-value {
+      font-size: 15px;
+    }
+  }
+}
+
+@layer components {
+  /* The map column is the dock's container. Below 700px there is no free
+     stretch of bottom edge between the layer panel and the zoom control, so
+     the bar moves to the top edge and spans it instead of painting over the
+     side panels. */
+  .simview {
+    container: simview / inline-size;
+  }
+
+  @container simview (max-width: 700px) {
+    .simbar-dock {
+      top: 12px;
+      bottom: auto;
+      left: 12px;
+      right: 12px;
+    }
+  }
+
+  /* A very small bar gives the scrubber its own line. */
+  @container (max-width: 420px) {
+    .simbar > .simbar-row:first-child {
+      flex-wrap: wrap;
+      row-gap: 8px;
+    }
+
+    .simbar-scrub {
+      flex-basis: 100%;
+    }
+  }
+}

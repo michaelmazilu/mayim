@@ -13,8 +13,10 @@ import { LAYER_META, type LayerId } from "./layers";
 export function LayerControl(props: {
   layers: Record<LayerId, boolean>;
   onToggle: (id: LayerId) => void;
+  /** Toggles with nothing behind them for this run, e.g. a simulation that was not produced. */
+  hidden?: LayerId[];
 }): JSX.Element {
-  const { layers, onToggle } = props;
+  const { layers, onToggle, hidden = [] } = props;
 
   return (
     <motion.div
@@ -28,7 +30,7 @@ export function LayerControl(props: {
       </div>
 
       <div className="py-1">
-        {LAYER_META.map((meta) => {
+        {LAYER_META.filter((meta) => !hidden.includes(meta.id)).map((meta) => {
           const on = layers[meta.id];
           return (
             <button

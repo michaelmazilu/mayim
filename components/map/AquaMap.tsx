@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import type { JSX } from "react";
 import * as maplibregl from "maplibre-gl";
 import type { GeoJSONSource, Map as GLMap, MapLayerMouseEvent, Marker, Popup } from "maplibre-gl";
+import type { ExpressionSpecification } from "@maplibre/maplibre-gl-style-spec";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -11,6 +12,8 @@ import type { AnalysisRun, Candidate, LngLat, ScoreBreakdown, TownRef } from "@/
 import type { ConceptualLayout } from "@/lib/geospatial/layout";
 import { WEIGHTS, WEIGHT_LABELS } from "@/lib/config/coefficients";
 import { stageReached, type LayerId, type MapStage } from "./layers";
+import type { ReplayStats, SimFrameView, SimulationFeed } from "@/components/sim/types";
+import type { SimulationReplay } from "@/lib/types";
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -37,6 +40,11 @@ const SATELLITE_ATTRIB =
 
 const BASE_ATTRIB =
   "&copy; OpenStreetMap contributors, &copy; CARTO";
+
+/* Read as a literal `process.env.NEXT_PUBLIC_…` so Next inlines it into the
+   client bundle; a dynamic lookup would come back undefined in the browser. */
+const CARTO_KEY = process.env.NEXT_PUBLIC_CARTO_API_KEY;
+
 
 const BASE_STYLE: maplibregl.StyleSpecification = {
   version: 8,
@@ -190,6 +198,8 @@ const SOURCE = {
   taps: "aq-design-taps",
   nodes: "aq-design-nodes",
   ring: "aq-design-ring",
+  sim: "aq-sim",
+  simTaps: "aq-sim-taps",
 } as const;
 
 const LAYER = {
@@ -213,6 +223,9 @@ const LAYER = {
   taps: "aq-design-tap-circle",
   nodes: "aq-design-node-circle",
   nodeLabels: "aq-design-node-label",
+  simHeat: "aq-sim-heat",
+  simDots: "aq-sim-dots",
+  simTaps: "aq-sim-tap-circle",
 } as const;
 
 /** Every layer whose paint depends on the ink/halo pair, and which property of
@@ -233,6 +246,7 @@ const INK_LAYERS: {
   { layer: LAYER.nodes, prop: "circle-stroke-color", key: "halo" },
   { layer: LAYER.nodeLabels, prop: "text-color", key: "ink" },
   { layer: LAYER.nodeLabels, prop: "text-halo-color", key: "halo" },
+  { layer: LAYER.simDots, prop: "circle-stroke-color", key: "halo" },
 ];
 
 function show(map: GLMap, id: string, on: boolean): void {
@@ -264,6 +278,99 @@ function applyBasemap(map: GLMap, mode: MapMode, satellite: boolean): void {
   for (const { layer, prop, key } of INK_LAYERS) {
     if (map.getLayer(layer)) map.setPaintProperty(layer, prop, m[key]);
   }
+}
+
+/* ---------- Household simulation paint ----------
+   The heat is a single warm scale for "time spent carrying water"; its stops
+   mirror --sim-heat-0..3 in globals.css, which the playback bar's key draws,
+   so the key and the map agree. Blue is spent on one thing only while the
+   simulation runs: households the new taps serve. That is why existing water
+   points are re-inked grey for the duration. */
+const SIM_PAINT = {
+  light: {
+    heat: ["rgba(253,196,90,0)", "rgba(250,184,72,0.5)", "rgba(232,120,40,0.78)", "rgba(160,30,24,0.92)"],
+    dotNear: "rgba(120,126,133,0.5)",
+    dotFar: "rgba(176,96,58,0.72)",
+    served: "#2d72d2",
+    tapFill: "#ffffff",
+    tapStroke: "#2d72d2",
+    downFill: "#c2c6cc",
+    downStroke: "#b42318",
+    ghostFill: "#ffffff",
+    ghostStroke: "#9aa0a6",
+    existingWater: "#5c6066",
+  },
+  dark: {
+    heat: ["rgba(255,190,80,0)", "rgba(255,184,77,0.45)", "rgba(244,132,56,0.75)", "rgba(232,72,54,0.92)"],
+    dotNear: "rgba(160,166,173,0.45)",
+    dotFar: "rgba(222,150,110,0.72)",
+    served: "#4c90f0",
+    tapFill: "#ffffff",
+    tapStroke: "#4c90f0",
+    downFill: "#5c6066",
+    downStroke: "#f0736a",
+    ghostFill: "#2a2d31",
+    ghostStroke: "#8b9199",
+    existingWater: "#a2a9b4",
+  },
+} as const;
+
+/** Metres per screen pixel at a zoom, for MapLibre's 512px world tiles. */
+function metresPerPixel(zoom: number, lat: number): number {
+  return (78_271.517 * Math.max(0.05, Math.cos((lat * Math.PI) / 180))) / 2 ** zoom;
+}
+
+function simHeatColor(mode: MapMode): ExpressionSpecification {
+  const [c0, c1, c2, c3] = SIM_PAINT[mode].heat;
+  return ["interpolate", ["linear"], ["heatmap-density"], 0, c0, 0.3, c1, 0.65, c2, 1, c3];
+}
+
+function simDotColor(mode: MapMode): ExpressionSpecification {
+  const p = SIM_PAINT[mode];
+  return [
+    "case",
+    [">", ["get", "s"], 0.5],
+    p.served,
+    ["interpolate", ["linear"], ["get", "m"], 10, p.dotNear, 60, p.dotFar],
+  ];
+}
+
+/** Weight = people x round-trip minutes, against the replay's week-zero reference. */
+function simHeatWeight(stats: ReplayStats): ExpressionSpecification {
+  return ["min", 4, ["/", ["*", ["get", "p"], ["get", "m"]], stats.weightRef]];
+}
+
+/** A kernel a fixed number of metres wide, so neighbouring clusters blend at any zoom. */
+function simHeatRadius(stats: ReplayStats): ExpressionSpecification {
+  const metres = Math.max(60, stats.spacingM * 2.2);
+  const px = (zoom: number): number => Math.max(2, metres / metresPerPixel(zoom, stats.centerLat));
+  return ["interpolate", ["exponential", 2], ["zoom"], 10, px(10), 16.5, px(16.5)];
+}
+
+/** Area proportional to people, against the replay's median cluster. */
+function simDotRadius(stats: ReplayStats): ExpressionSpecification {
+  const size: ExpressionSpecification = ["sqrt", ["/", ["max", ["get", "p"], 0], stats.peopleRef]];
+  return [
+    "interpolate",
+    ["linear"],
+    ["zoom"],
+    12,
+    ["min", 3, ["max", 0.8, ["*", 1.1, size]]],
+    15,
+    ["min", 6.5, ["max", 1.6, ["*", 2.2, size]]],
+    18,
+    ["min", 13, ["max", 3, ["*", 4.5, size]]],
+  ];
+}
+
+function facilitiesColor(water: string): ExpressionSpecification {
+  return ["match", ["get", "group"], "school", "#a78bfa", "clinic", "#f472b6", "water", water, "#6b7075"];
+}
+
+/** Heat and dot colours follow the theme; everything else about them follows the data. */
+function applySimTheme(map: GLMap, mode: MapMode): void {
+  if (map.getLayer(LAYER.simHeat)) map.setPaintProperty(LAYER.simHeat, "heatmap-color", simHeatColor(mode));
+  if (map.getLayer(LAYER.simDots)) map.setPaintProperty(LAYER.simDots, "circle-color", simDotColor(mode));
 }
 
 const CLICKABLE = [LAYER.candidates, LAYER.top3, LAYER.excluded];
@@ -626,6 +733,45 @@ function buildDesign(layout: NormalizedLayout): DesignCollections {
   };
 }
 
+/**
+ * One point per household cluster, carrying only what the paint reads:
+ * m = round-trip minutes for the mode on screen, p = people, s = share served
+ * by the new taps. Rebuilt from the engine's buffers at most ~15 times a second.
+ */
+function buildSimPoints(view: SimFrameView): GeoJSON.FeatureCollection {
+  const today = view.mode === "today";
+  const features: GeoJSON.Feature<GeoJSON.Point>[] = [];
+  for (let i = 0; i < view.n; i++) {
+    const lon = view.lon[i];
+    const lat = view.lat[i];
+    if (!finite(lon, lat)) continue;
+    const m = today ? view.baseline[i] : view.minutes[i];
+    const s = today ? 0 : view.servedFrac[i];
+    features.push({
+      type: "Feature",
+      geometry: { type: "Point", coordinates: [lon, lat] },
+      properties: {
+        m: Math.round(m * 10) / 10,
+        p: Math.round(view.people[i] * 10) / 10,
+        s: Math.round(s * 100) / 100,
+      },
+    });
+  }
+  return { type: "FeatureCollection", features };
+}
+
+function buildSimTaps(replay: SimulationReplay): GeoJSON.FeatureCollection {
+  const features: GeoJSON.Feature<GeoJSON.Point>[] = [];
+  for (let t = 0; t < replay.tapCount; t++) {
+    const lon = replay.tapLon[t];
+    const lat = replay.tapLat[t];
+    if (typeof lon === "number" && typeof lat === "number" && finite(lon, lat)) {
+      features.push(pointFeature(lon, lat, { index: t }));
+    }
+  }
+  return { type: "FeatureCollection", features };
+}
+
 // ---------------------------------------------------------------------------
 // Opacity choreography
 // ---------------------------------------------------------------------------
@@ -642,20 +788,27 @@ type GroupKey =
   | "town"
   | "roads"
   | "water"
+  | "buildings"
   | "existing"
   | "environment"
   | "excluded"
   | "candidates"
   | "heat"
   | "top3"
-  | "design";
+  | "design"
+  | "ringFill"
+  | "pipes"
+  | "designTaps"
+  | "simHeat"
+  | "simDots"
+  | "simTaps";
 
 const OPACITY_TABLE: { layer: string; group: GroupKey; props: { prop: OpacityProp; max: number }[] }[] = [
   { layer: LAYER.townFill, group: "town", props: [{ prop: "fill-opacity", max: 0.05 }] },
   { layer: LAYER.townLine, group: "town", props: [{ prop: "line-opacity", max: 0.6 }] },
   { layer: LAYER.roads, group: "roads", props: [{ prop: "line-opacity", max: 0.85 }] },
   { layer: LAYER.water, group: "water", props: [{ prop: "line-opacity", max: 0.9 }] },
-  { layer: LAYER.buildings, group: "existing", props: [{ prop: "circle-opacity", max: 0.3 }] },
+  { layer: LAYER.buildings, group: "buildings", props: [{ prop: "circle-opacity", max: 0.3 }] },
   {
     layer: LAYER.facilities,
     group: "existing",
@@ -693,12 +846,12 @@ const OPACITY_TABLE: { layer: string; group: GroupKey; props: { prop: OpacityPro
   },
   { layer: LAYER.top3, group: "top3", props: [{ prop: "circle-stroke-opacity", max: 0.95 }] },
   { layer: LAYER.top3Label, group: "top3", props: [{ prop: "text-opacity", max: 1 }] },
-  { layer: LAYER.ringFill, group: "design", props: [{ prop: "fill-opacity", max: 0.1 }] },
+  { layer: LAYER.ringFill, group: "ringFill", props: [{ prop: "fill-opacity", max: 0.1 }] },
   { layer: LAYER.ringLine, group: "design", props: [{ prop: "line-opacity", max: 0.5 }] },
-  { layer: LAYER.pipes, group: "design", props: [{ prop: "line-opacity", max: 0.95 }] },
+  { layer: LAYER.pipes, group: "pipes", props: [{ prop: "line-opacity", max: 0.95 }] },
   {
     layer: LAYER.taps,
-    group: "design",
+    group: "designTaps",
     props: [
       { prop: "circle-opacity", max: 0.9 },
       { prop: "circle-stroke-opacity", max: 0.8 },
@@ -713,12 +866,42 @@ const OPACITY_TABLE: { layer: string; group: GroupKey; props: { prop: OpacityPro
     ],
   },
   { layer: LAYER.nodeLabels, group: "design", props: [{ prop: "text-opacity", max: 1 }] },
+  { layer: LAYER.simHeat, group: "simHeat", props: [{ prop: "heatmap-opacity", max: 0.8 }] },
+  {
+    layer: LAYER.simDots,
+    group: "simDots",
+    props: [
+      { prop: "circle-opacity", max: 1 },
+      { prop: "circle-stroke-opacity", max: 0.9 },
+    ],
+  },
+  {
+    layer: LAYER.simTaps,
+    group: "simTaps",
+    props: [
+      { prop: "circle-opacity", max: 1 },
+      { prop: "circle-stroke-opacity", max: 1 },
+    ],
+  },
 ];
 
-function groupAlpha(stage: MapStage, layers: Record<LayerId, boolean>): Record<GroupKey, number> {
+/** What the simulation is showing right now, as far as the choreography cares. */
+type SimVisual = { available: boolean; down: boolean; today: boolean };
+const SIM_OFF: SimVisual = { available: false, down: false, today: false };
+
+function simShowing(stage: MapStage, layers: Record<LayerId, boolean>, sim: SimVisual): boolean {
+  return sim.available && stageReached(stage, "simulation") && layers.simulation;
+}
+
+function groupAlpha(
+  stage: MapStage,
+  layers: Record<LayerId, boolean>,
+  sim: SimVisual,
+): Record<GroupKey, number> {
   const gate = (reached: boolean, enabled: boolean): number => (reached && enabled ? 1 : 0);
   const suitability = stageReached(stage, "candidates") && layers.suitability;
   const heatMoment = stage === "heatmap";
+  const simOn = simShowing(stage, layers, sim);
 
   // Points recede while the heatmap reads and again once the winner takes over,
   // but they never disappear — the field stays legible behind the conclusion.
@@ -729,18 +912,86 @@ function groupAlpha(stage: MapStage, layers: Record<LayerId, boolean>): Record<G
     else candidates = 1;
   }
 
+  // During the simulation the households are the subject: the search that
+  // found the site recedes, and the design stays as the thing being tested.
+  if (simOn && candidates > 0) candidates = 0.12;
+  const existing = gate(stageReached(stage, "facilities"), layers.existing);
+  const design = gate(stageReached(stage, "design"), layers.design);
+
+  // Pipes carry the system's state: faint when it does not exist yet (Today),
+  // dimmed while it is out of service.
+  let pipes = design;
+  if (simOn) pipes = design * (sim.today ? 0.25 : sim.down ? 0.35 : 1);
+
   return {
     town: stageReached(stage, "town") ? 1 : 0,
     roads: gate(stageReached(stage, "context"), layers.roads),
     water: gate(stageReached(stage, "context"), layers.water),
-    existing: gate(stageReached(stage, "facilities"), layers.existing),
+    buildings: existing * (simOn ? 0.35 : 1),
+    existing: existing * (simOn ? 0.75 : 1),
     environment: gate(stageReached(stage, "constraints"), layers.environment),
     excluded: suitability && !stageReached(stage, "eliminated") ? 1 : 0,
     candidates,
     heat: suitability && heatMoment ? 1 : 0,
-    top3: gate(stageReached(stage, "top3"), layers.suitability),
-    design: gate(stageReached(stage, "design"), layers.design),
+    top3: gate(stageReached(stage, "top3"), layers.suitability) * (simOn ? 0.3 : 1),
+    design,
+    ringFill: simOn ? 0 : design,
+    pipes,
+    // The simulation draws its own taps, with their state; the design's give way.
+    designTaps: simOn ? 0 : design,
+    simHeat: simOn ? 1 : 0,
+    simDots: simOn ? 1 : 0,
+    simTaps: simOn ? (sim.today ? 0.55 : 1) : 0,
   };
+}
+
+/**
+ * Stage, toggles and simulation state, applied to the style. Idempotent and
+ * cached per property, so it can run from React effects and from the playback
+ * stream alike without touching a property that has not changed.
+ */
+function applyChoreography(
+  map: GLMap,
+  stage: MapStage,
+  layers: Record<LayerId, boolean>,
+  sim: SimVisual,
+  mode: MapMode,
+  applied: Record<string, number | string>,
+): void {
+  const alpha = groupAlpha(stage, layers, sim);
+  for (const entry of OPACITY_TABLE) {
+    if (!map.getLayer(entry.layer)) continue;
+    for (const { prop, max } of entry.props) {
+      const value = Number((max * alpha[entry.group]).toFixed(3));
+      const key = `${entry.layer}:${prop}`;
+      if (applied[key] === value) continue;
+      applied[key] = value;
+      map.setPaintProperty(entry.layer, prop, value);
+    }
+  }
+
+  const simOn = simShowing(stage, layers, sim);
+  const paint = SIM_PAINT[mode];
+
+  const water = simOn ? paint.existingWater : ACCENT;
+  if (map.getLayer(LAYER.facilities) && applied["facilities:water"] !== water) {
+    applied["facilities:water"] = water;
+    map.setPaintProperty(LAYER.facilities, "circle-color", facilitiesColor(water));
+  }
+
+  if (map.getLayer(LAYER.simTaps)) {
+    const [fill, stroke] = sim.today
+      ? [paint.ghostFill, paint.ghostStroke]
+      : sim.down
+        ? [paint.downFill, paint.downStroke]
+        : [paint.tapFill, paint.tapStroke];
+    const key = `${fill}|${stroke}`;
+    if (applied["simTaps:color"] !== key) {
+      applied["simTaps:color"] = key;
+      map.setPaintProperty(LAYER.simTaps, "circle-color", fill);
+      map.setPaintProperty(LAYER.simTaps, "circle-stroke-color", stroke);
+    }
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -999,6 +1250,50 @@ function installStyle(map: GLMap): void {
     },
   });
 
+  // Household simulation: under the search results and the design, over the
+  // ground. Weight, radius and dot size are replaced per replay (see
+  // simHeatWeight and friends); these literals are placeholders.
+  add({
+    id: LAYER.simHeat,
+    type: "heatmap",
+    source: SOURCE.sim,
+    paint: {
+      "heatmap-weight": ["min", 4, ["/", ["*", ["get", "p"], ["get", "m"]], 1000]],
+      "heatmap-intensity": 1,
+      "heatmap-color": [
+        "interpolate",
+        ["linear"],
+        ["heatmap-density"],
+        0,
+        SIM_PAINT.light.heat[0],
+        0.3,
+        SIM_PAINT.light.heat[1],
+        0.65,
+        SIM_PAINT.light.heat[2],
+        1,
+        SIM_PAINT.light.heat[3],
+      ],
+      "heatmap-radius": 20,
+      "heatmap-opacity": 0,
+      "heatmap-opacity-transition": { duration: 700 },
+    },
+  });
+  add({
+    id: LAYER.simDots,
+    type: "circle",
+    source: SOURCE.sim,
+    paint: {
+      "circle-color": SIM_PAINT.light.dotNear,
+      "circle-radius": 2,
+      "circle-stroke-width": ["case", [">", ["get", "s"], 0.5], 1, 0],
+      "circle-stroke-color": HALO,
+      "circle-opacity": 0,
+      "circle-stroke-opacity": 0,
+      "circle-opacity-transition": { duration: 600 },
+      "circle-stroke-opacity-transition": { duration: 600 },
+    },
+  });
+
   add({
     id: LAYER.heatmap,
     type: "heatmap",
@@ -1174,6 +1469,23 @@ function installStyle(map: GLMap): void {
     },
   });
   add({
+    id: LAYER.simTaps,
+    type: "circle",
+    source: SOURCE.simTaps,
+    paint: {
+      "circle-color": SIM_PAINT.light.tapFill,
+      "circle-radius": ["interpolate", ["linear"], ["zoom"], 12, 3.4, 15, 5.2, 18, 8.5],
+      "circle-stroke-width": ["interpolate", ["linear"], ["zoom"], 12, 1.6, 16, 2.2],
+      "circle-stroke-color": SIM_PAINT.light.tapStroke,
+      "circle-opacity": 0,
+      "circle-stroke-opacity": 0,
+      "circle-color-transition": { duration: 350 },
+      "circle-stroke-color-transition": { duration: 350 },
+      "circle-opacity-transition": { duration: 500 },
+      "circle-stroke-opacity-transition": { duration: 500 },
+    },
+  });
+  add({
     id: LAYER.nodes,
     type: "circle",
     source: SOURCE.nodes,
@@ -1232,9 +1544,11 @@ export function AquaMap(props: {
   stage: MapStage;
   layers: Record<LayerId, boolean>;
   focusCandidateId: string | null;
+  /** The household-simulation playback, when the run carries one. */
+  simulation?: SimulationFeed | null;
   onMapReady?: () => void;
 }): JSX.Element {
-  const { town, run, layout, stage, layers, focusCandidateId, onMapReady } = props;
+  const { town, run, layout, stage, layers, focusCandidateId, simulation = null, onMapReady } = props;
 
   const containerRef = useRef<HTMLDivElement | null>(null);
   const winnerElRef = useRef<HTMLDivElement | null>(null);
@@ -1242,10 +1556,17 @@ export function AquaMap(props: {
   const markerRef = useRef<Marker | null>(null);
   const popupRef = useRef<Popup | null>(null);
   const onReadyRef = useRef<(() => void) | undefined>(onMapReady);
-  const appliedRef = useRef<Record<string, number>>({});
+  const appliedRef = useRef<Record<string, number | string>>({});
   const flownTownRef = useRef<string | null>(null);
   const flownWinnerRef = useRef<string | null>(null);
   const fittedDesignRef = useRef<string | null>(null);
+  const fittedSimRef = useRef<string | null>(null);
+  // The playback stream arrives outside React, so it reads the latest stage,
+  // toggles and theme from refs that the choreography effect keeps current.
+  const stageRef = useRef<MapStage>(stage);
+  const layersRef = useRef<Record<LayerId, boolean>>(layers);
+  const modeRef = useRef<MapMode>("light");
+  const simVisualRef = useRef<SimVisual>(SIM_OFF);
 
   const [styleReady, setStyleReady] = useState(false);
   const [mode, setMode] = useState<MapMode>("light");
@@ -1278,6 +1599,7 @@ export function AquaMap(props: {
     const map = mapRef.current;
     if (!map || !styleReady) return;
     applyBasemap(map, mode, layers.satellite);
+    applySimTheme(map, mode);
   }, [styleReady, mode, layers.satellite]);
   const [runtimeError, setRuntimeError] = useState<string | null>(null);
 
@@ -1423,22 +1745,13 @@ export function AquaMap(props: {
   // --- stage + toggle choreography -----------------------------------------
 
   useEffect(() => {
+    stageRef.current = stage;
+    layersRef.current = layers;
+    modeRef.current = mode;
     const map = mapRef.current;
     if (!map || !styleReady) return;
-
-    const alpha = groupAlpha(stage, layers);
-    for (const entry of OPACITY_TABLE) {
-      if (!map.getLayer(entry.layer)) continue;
-      for (const { prop, max } of entry.props) {
-        const value = Number((max * alpha[entry.group]).toFixed(3));
-        const key = `${entry.layer}:${prop}`;
-        if (appliedRef.current[key] === value) continue;
-        appliedRef.current[key] = value;
-        map.setPaintProperty(entry.layer, prop, value);
-      }
-    }
-
-  }, [styleReady, stage, layers]);
+    applyChoreography(map, stage, layers, simVisualRef.current, mode, appliedRef.current);
+  }, [styleReady, stage, layers, mode]);
 
   // --- cinematic camera: town ----------------------------------------------
 
@@ -1502,6 +1815,81 @@ export function AquaMap(props: {
     for (const coord of ring) bounds.extend(coord);
     map.fitBounds(bounds, { padding: 96, duration: 1400, pitch: 40, essential: true });
   }, [styleReady, stage, layers.design, normalizedLayout, town]);
+
+  // --- household simulation: the frame stream --------------------------------
+  //
+  // Subscribed once per playback. Frames arrive from the player's animation
+  // loop at most ~15 times a second and go straight into the GeoJSON source;
+  // React is not involved. Only a change of state (the system failing, the
+  // Today / With project switch) re-runs the choreography.
+
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !styleReady || !simulation) return;
+    const { stats, replay } = simulation;
+
+    setSourceData(map, SOURCE.simTaps, buildSimTaps(replay));
+    map.setPaintProperty(LAYER.simHeat, "heatmap-weight", simHeatWeight(stats));
+    map.setPaintProperty(LAYER.simHeat, "heatmap-radius", simHeatRadius(stats));
+    map.setPaintProperty(LAYER.simDots, "circle-radius", simDotRadius(stats));
+
+    const sync = (next: SimVisual): void => {
+      const prev = simVisualRef.current;
+      if (prev.available === next.available && prev.down === next.down && prev.today === next.today) return;
+      simVisualRef.current = next;
+      applyChoreography(map, stageRef.current, layersRef.current, next, modeRef.current, appliedRef.current);
+    };
+
+    const onFrame = (view: SimFrameView): void => {
+      if (mapRef.current !== map) return;
+      setSourceData(map, SOURCE.sim, buildSimPoints(view));
+      sync({ available: true, down: !view.systemUp, today: view.mode === "today" });
+    };
+
+    sync({ available: true, down: false, today: false });
+    const current = simulation.peekFrame();
+    if (current) onFrame(current);
+    const unsubscribe = simulation.subscribeFrames(onFrame);
+
+    return () => {
+      unsubscribe();
+      if (mapRef.current !== map) {
+        simVisualRef.current = SIM_OFF;
+        return;
+      }
+      setSourceData(map, SOURCE.sim, emptyCollection());
+      setSourceData(map, SOURCE.simTaps, emptyCollection());
+      sync(SIM_OFF);
+    };
+  }, [styleReady, simulation]);
+
+  // --- cinematic camera: household simulation --------------------------------
+
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !styleReady || !simulation) return;
+    if (!stageReached(stage, "simulation") || !layers.simulation) return;
+    const key = `${town?.slug ?? ""}:${simulation.replay.projectId}`;
+    if (fittedSimRef.current === key) return;
+    fittedSimRef.current = key;
+
+    const [[west, south], [east, north]] = simulation.stats.bounds;
+    if (!(east > west) || !(north > south)) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // The bottom inset clears the playback bar docked over the map.
+    map.fitBounds(
+      [
+        [west, south],
+        [east, north],
+      ],
+      {
+        padding: { top: 72, right: 96, bottom: 176, left: 96 },
+        pitch: 35,
+        duration: reduce ? 0 : 1600,
+        essential: true,
+      },
+    );
+  }, [styleReady, stage, layers.simulation, simulation, town]);
 
   // --- winner marker --------------------------------------------------------
 
@@ -1604,8 +1992,11 @@ export function AquaMap(props: {
 
   // --- render ---------------------------------------------------------------
 
-  const showLegend = stageReached(stage, "candidates") && layers.suitability;
-  const showDesignPill = stageReached(stage, "design") && layers.design && hasDesign;
+  const simOn = simulation !== null && stageReached(stage, "simulation") && layers.simulation;
+  // The suitability key is about the search; once households are on screen,
+  // the playback bar carries the key for what is drawn.
+  const showLegend = stageReached(stage, "candidates") && layers.suitability && !simOn;
+  const showDesignPill = stageReached(stage, "design") && layers.design && hasDesign && !simOn;
 
   return (
     <div className="aq-map relative h-full w-full overflow-hidden bg-[var(--bg-canvas)]">
@@ -1632,6 +2023,18 @@ export function AquaMap(props: {
             className="pointer-events-none absolute left-4 top-4 z-10"
           >
             <span className="ch-pill live bg-[var(--bg-elevated)]">Conceptual layout</span>
+          </motion.div>
+        )}
+        {simOn && (
+          <motion.div
+            key="sim-pill"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="pointer-events-none absolute left-4 top-4 z-10"
+          >
+            <span className="ch-pill live bg-[var(--bg-elevated)]">Household simulation · 10 years</span>
           </motion.div>
         )}
       </AnimatePresence>
