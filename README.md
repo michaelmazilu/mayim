@@ -1,10 +1,10 @@
-# AquaSite
+# Mayim
 
 **Finds the highest-leverage site for new clean-water infrastructure in an underserved town, then designs and costs it.**
 
 Billions of dollars go into water and humanitarian development, yet more than 400 million people in Africa still lack access to basic drinking water (African Development Bank). The binding constraint is no longer intent — it is deciding *where* a new water point does the most good.
 
-AquaSite answers that one town at a time. Enter a name; it pulls live terrain, climate and OpenStreetMap data, researches institutional sources with **Exa**, screens hundreds of candidate sites against mapped constraints, ranks the survivors with a transparent deterministic model, and returns a costed conceptual design on satellite imagery — every number traceable to a formula or a source.
+Mayim answers that one town at a time. Enter a name; it pulls live terrain, climate and OpenStreetMap data, researches institutional sources with **Exa**, screens hundreds of candidate sites against mapped constraints, ranks the survivors with a transparent deterministic model, and returns a costed conceptual design on satellite imagery — every number traceable to a formula or a source.
 
 > Pre-feasibility screening. Field survey and licensed engineering are still required.
 

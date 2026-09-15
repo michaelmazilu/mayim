@@ -25,7 +25,7 @@ import { buildRecommendation } from "@/lib/infrastructure/select";
 
 export type Emit = (track: TrackId, message: string, status: AnalysisEvent["status"], sourceCount?: number) => void;
 
-const UA = "AquaSite/1.0 (hackathon pre-feasibility demo)";
+const UA = "Mayim/1.0 (hackathon pre-feasibility demo)";
 
 /** Planning figure: one community tap stand per this many people served. */
 const PEOPLE_PER_TAP = 250;

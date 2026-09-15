@@ -185,7 +185,7 @@ export function SearchModule(props: {
             <div className="flex items-center gap-2.5">
               <DropGlyph />
               <h1 className="text-[34px] font-[300] leading-none tracking-[-0.02em]">
-                AquaSite
+                Mayim
               </h1>
             </div>
             <p className="muted mt-3 text-[13px]">
@@ -213,7 +213,7 @@ export function SearchModule(props: {
                   spellCheck={false}
                   role="combobox"
                   aria-expanded={showDropdown}
-                  aria-controls="aquasite-town-results"
+                  aria-controls="mayim-town-results"
                   aria-autocomplete="list"
                   aria-activedescendant={
                     showDropdown && results[highlight] ? `town-opt-${highlight}` : undefined
@@ -229,7 +229,7 @@ export function SearchModule(props: {
                 {showDropdown && (
                   <motion.div
                     key="dropdown"
-                    id="aquasite-town-results"
+                    id="mayim-town-results"
                     role="listbox"
                     initial={{ opacity: 0, y: -4 }}
                     animate={{ opacity: 1, y: 0 }}

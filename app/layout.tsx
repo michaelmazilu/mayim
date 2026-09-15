@@ -17,7 +17,7 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AquaSite — Water Infrastructure Planner",
+  title: "Mayim — Water Infrastructure Planner",
   description:
     "Evidence-backed preliminary water infrastructure planning using geospatial intelligence and live research.",
 };
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
  * The default is "light" rather than "auto": this console is a white surface,
  * and a reader who has not asked for dark should not get it from their OS.
  */
-const THEME_BOOTSTRAP = `(function(){try{var t=localStorage.getItem("aquasite-theme");if(t!=="light"&&t!=="dark"&&t!=="auto")t="light";document.documentElement.setAttribute("data-theme",t);document.documentElement.style.colorScheme=t==="auto"?"light dark":t;}catch(e){document.documentElement.setAttribute("data-theme","light");}})();`;
+const THEME_BOOTSTRAP = `(function(){try{var t=localStorage.getItem("mayim-theme");if(t!=="light"&&t!=="dark"&&t!=="auto")t="light";document.documentElement.setAttribute("data-theme",t);document.documentElement.style.colorScheme=t==="auto"?"light dark":t;}catch(e){document.documentElement.setAttribute("data-theme","light");}})();`;
 
 export default function RootLayout({
   children,

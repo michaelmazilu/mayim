@@ -1,5 +1,5 @@
 /**
- * AquaSite — shared type contract.
+ * Mayim — shared type contract.
  * Single source of truth. Every module imports from here; nothing here imports from a module.
  */
 

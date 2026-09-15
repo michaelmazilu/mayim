@@ -6,7 +6,7 @@ import type { TownRef } from "@/lib/types";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const UA = "AquaSite/1.0 (hackathon pre-feasibility demo)";
+const UA = "Mayim/1.0 (hackathon pre-feasibility demo)";
 
 function pad(center: [number, number], km: number): [number, number, number, number] {
   const dLat = km / 111;

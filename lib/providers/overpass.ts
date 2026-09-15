@@ -10,7 +10,7 @@ import { fetchJson } from "@/lib/providers/fetchWithTimeout";
  * mirror only after the primary endpoint has failed.
  */
 
-const USER_AGENT = "AquaSite/1.0 (hackathon pre-feasibility demo)";
+const USER_AGENT = "Mayim/1.0 (hackathon pre-feasibility demo)";
 const TIMEOUT_MS = 25_000;
 
 const ENDPOINTS = [

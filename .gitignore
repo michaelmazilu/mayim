@@ -40,7 +40,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# AquaSite
+# Mayim
 .env.local
 .env
 data/runs/*.json

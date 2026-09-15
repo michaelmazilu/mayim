@@ -1,5 +1,5 @@
 /**
- * AquaSite planning coefficients.
+ * Mayim planning coefficients.
  *
  * Every number used by the cost and water-output models lives here, with an
  * explicit provenance label rendered in the UI. These are ORDER-OF-MAGNITUDE

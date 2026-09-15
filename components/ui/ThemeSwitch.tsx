@@ -18,7 +18,7 @@ import { useCallback, useSyncExternalStore, type JSX } from "react";
  */
 type Theme = "light" | "dark" | "auto";
 
-const KEY = "aquasite-theme";
+const KEY = "mayim-theme";
 const ORDER: Theme[] = ["light", "dark", "auto"];
 const LABEL: Record<Theme, string> = {
   light: "Light",
@@ -30,7 +30,7 @@ const LABEL: Record<Theme, string> = {
    source of truth — the inline bootstrap in the layout writes it before first
    paint — so this reads it as an external store rather than keeping a second
    copy that has to be reconciled with it after mount. */
-const EVENT = "aquasite:themechange";
+const EVENT = "mayim:themechange";
 
 function subscribe(onChange: () => void): () => void {
   window.addEventListener(EVENT, onChange);
