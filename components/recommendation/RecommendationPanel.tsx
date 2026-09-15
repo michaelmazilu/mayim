@@ -9,8 +9,16 @@ import { WhyTab } from "./tabs/WhyTab";
 import { AlternativesTab } from "./tabs/AlternativesTab";
 import { EvidenceTab } from "./tabs/EvidenceTab";
 import { ValidationTab } from "./tabs/ValidationTab";
+import { PartnersTab } from "./tabs/PartnersTab";
 
-type TabId = "overview" | "simulation" | "why" | "alternatives" | "evidence" | "validation";
+type TabId =
+  | "overview"
+  | "simulation"
+  | "why"
+  | "alternatives"
+  | "evidence"
+  | "validation"
+  | "partners";
 
 type TabProps = { run: AnalysisRun; onFocusCandidate?: (id: string | null) => void };
 
@@ -23,6 +31,7 @@ const TABS: { id: TabId; label: string; Body: (props: TabProps) => JSX.Element }
   { id: "alternatives", label: "Alternatives", Body: AlternativesTab },
   { id: "evidence", label: "Evidence", Body: EvidenceTab },
   { id: "validation", label: "Validation", Body: ValidationTab },
+  { id: "partners", label: "Partners", Body: PartnersTab },
 ];
 
 export function RecommendationPanel(props: {

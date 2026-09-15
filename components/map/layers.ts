@@ -13,6 +13,7 @@ export type LayerId =
   | "water"
   | "existing"
   | "environment"
+  | "households"
   | "design";
 
 export const LAYER_META: { id: LayerId; label: string }[] = [
@@ -22,6 +23,7 @@ export const LAYER_META: { id: LayerId; label: string }[] = [
   { id: "water", label: "Waterways" },
   { id: "existing", label: "Existing service" },
   { id: "environment", label: "Constraints" },
+  { id: "households", label: "Household journeys" },
   { id: "design", label: "Conceptual design" },
 ];
 
@@ -39,6 +41,7 @@ export type MapStage =
   | "candidates"
   | "eliminated"
   | "heatmap"
+  | "households"
   | "top3"
   | "tour3"
   | "tour2"
@@ -54,6 +57,7 @@ export const STAGE_ORDER: MapStage[] = [
   "candidates",
   "eliminated",
   "heatmap",
+  "households",
   "top3",
   "tour3",
   "tour2",

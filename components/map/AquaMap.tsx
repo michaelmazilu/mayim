@@ -8,7 +8,14 @@ import "maplibre-gl/dist/maplibre-gl.css";
 
 import { AnimatePresence, motion } from "framer-motion";
 
-import type { AnalysisRun, Candidate, LngLat, ScoreBreakdown, TownRef } from "@/lib/types";
+import type {
+  AnalysisRun,
+  Candidate,
+  LngLat,
+  ScoreBreakdown,
+  SimulationReplay,
+  TownRef,
+} from "@/lib/types";
 import type { ConceptualLayout } from "@/lib/geospatial/layout";
 import { WEIGHTS, WEIGHT_LABELS } from "@/lib/config/coefficients";
 import { stageReached, type LayerId, type MapStage } from "./layers";
@@ -200,6 +207,7 @@ const SOURCE = {
   facilities: "aq-facilities",
   hazards: "aq-hazards",
   protectedAreas: "aq-protected",
+  households: "aq-households",
   pipes: "aq-design-pipes",
   taps: "aq-design-taps",
   nodes: "aq-design-nodes",
@@ -221,6 +229,7 @@ const LAYER = {
   candidates: "aq-candidates-circle",
   top3: "aq-candidates-top3",
   top3Label: "aq-candidates-top3-label",
+  households: "aq-households-line",
   ringFill: "aq-design-ring-fill",
   ringLine: "aq-design-ring-line",
   pipes: "aq-design-pipe-line",
@@ -610,6 +619,60 @@ function normalizeLayout(layout: ConceptualLayout | null): NormalizedLayout {
   return { pipes, taps, nodes, ring };
 }
 
+/**
+ * One line per household cluster, from where it lives to the tap it would
+ * actually use — lines rather than dots, because the argument is the journey
+ * and a field of dots only shows where people are.
+ *
+ * `minutesSaved` carries the before/after difference, which is what the colour
+ * reads from: a line that barely changes stays dim, and a cluster walking an
+ * hour less burns bright. Clusters the system cannot reach are dropped rather
+ * than drawn grey — an unreachable household has no journey to this tap.
+ */
+function buildHouseholds(replay: SimulationReplay | null): GeoJSON.FeatureCollection {
+  const features: GeoJSON.Feature[] = [];
+  if (!replay || replay.tapCount < 1) {
+    return { type: "FeatureCollection", features };
+  }
+
+  for (let i = 0; i < replay.n; i += 1) {
+    let bestTap = -1;
+    let bestMin = Infinity;
+    for (let t = 0; t < replay.tapCount; t += 1) {
+      const m = replay.tapMin[i * replay.tapCount + t];
+      if (m >= 0 && m < bestMin) {
+        bestMin = m;
+        bestTap = t;
+      }
+    }
+    if (bestTap < 0) continue;
+
+    // baseMin is n*3 (1st-3rd nearest existing source); the first is the one
+    // the household uses today. -1 means it has no improved source at all.
+    const before = replay.baseMin[i * 3];
+    const saved = before >= 0 ? before - bestMin : bestMin;
+
+    features.push({
+      type: "Feature",
+      geometry: {
+        type: "LineString",
+        coordinates: [
+          [replay.lon[i], replay.lat[i]],
+          [replay.tapLon[bestTap], replay.tapLat[bestTap]],
+        ],
+      },
+      properties: {
+        people: replay.people[i],
+        afterMin: Math.round(bestMin),
+        beforeMin: before >= 0 ? Math.round(before) : -1,
+        minutesSaved: Math.max(0, Math.round(saved)),
+      },
+    });
+  }
+
+  return { type: "FeatureCollection", features };
+}
+
 type DesignCollections = {
   pipes: GeoJSON.FeatureCollection;
   taps: GeoJSON.FeatureCollection;
@@ -661,6 +724,7 @@ type GroupKey =
   | "excluded"
   | "candidates"
   | "heat"
+  | "households"
   | "top3"
   | "design";
 
@@ -707,6 +771,7 @@ const OPACITY_TABLE: { layer: string; group: GroupKey; props: { prop: OpacityPro
   },
   { layer: LAYER.top3, group: "top3", props: [{ prop: "circle-stroke-opacity", max: 0.95 }] },
   { layer: LAYER.top3Label, group: "top3", props: [{ prop: "text-opacity", max: 1 }] },
+  { layer: LAYER.households, group: "households", props: [{ prop: "line-opacity", max: 0.75 }] },
   { layer: LAYER.ringFill, group: "design", props: [{ prop: "fill-opacity", max: 0.1 }] },
   { layer: LAYER.ringLine, group: "design", props: [{ prop: "line-opacity", max: 0.5 }] },
   { layer: LAYER.pipes, group: "design", props: [{ prop: "line-opacity", max: 0.95 }] },
@@ -752,6 +817,7 @@ function groupAlpha(stage: MapStage, layers: Record<LayerId, boolean>): Record<G
     excluded: suitability && !stageReached(stage, "eliminated") ? 1 : 0,
     candidates,
     heat: suitability && heatMoment ? 1 : 0,
+    households: gate(stageReached(stage, "households"), layers.households),
     top3: gate(stageReached(stage, "top3"), layers.suitability),
     design: gate(stageReached(stage, "design"), layers.design),
   };
@@ -1136,6 +1202,31 @@ function installStyle(map: GLMap): void {
   });
 
   add({
+    id: LAYER.households,
+    type: "line",
+    source: SOURCE.households,
+    layout: { "line-cap": "round" },
+    paint: {
+      // Same ramp as suitability, same sentence: the brighter it burns, the
+      // more this household gains. Capped at an hour saved.
+      "line-color": [
+        "interpolate",
+        ["linear"],
+        ["get", "minutesSaved"],
+        0,
+        SCORE_LOW,
+        20,
+        SCORE_MID,
+        60,
+        SCORE_HIGH,
+      ],
+      "line-width": ["interpolate", ["linear"], ["zoom"], 11, 0.4, 14, 0.8, 17, 1.6],
+      "line-opacity": 0,
+      "line-opacity-transition": { duration: 700 },
+    },
+  });
+
+  add({
     id: LAYER.ringFill,
     type: "fill",
     source: SOURCE.ring,
@@ -1327,6 +1418,10 @@ export function AquaMap(props: {
   const osmData = useMemo(() => buildOsm(run), [run]);
   const townData = useMemo(() => buildTown(town), [town]);
   const designData = useMemo(() => buildDesign(normalizedLayout), [normalizedLayout]);
+  const householdData = useMemo(
+    () => buildHouseholds(run?.simulation?.replay ?? null),
+    [run],
+  );
 
   const hasDesign =
     normalizedLayout.pipes.length > 0 ||
@@ -1432,7 +1527,8 @@ export function AquaMap(props: {
     setSourceData(map, SOURCE.taps, designData.taps);
     setSourceData(map, SOURCE.nodes, designData.nodes);
     setSourceData(map, SOURCE.ring, designData.ring);
-  }, [styleReady, designData]);
+    setSourceData(map, SOURCE.households, householdData);
+  }, [styleReady, designData, householdData]);
 
   // --- stage + toggle choreography -----------------------------------------
 

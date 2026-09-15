@@ -23,6 +23,7 @@ const DEFAULT_LAYERS: Record<LayerId, boolean> = {
   water: true,
   existing: true,
   environment: true,
+  households: true,
   design: true,
 };
 
@@ -41,6 +42,9 @@ const REVEAL: { stage: MapStage; hold: number }[] = [
   { stage: "candidates", hold: 560 },
   { stage: "eliminated", hold: 460 },
   { stage: "heatmap", hold: 560 },
+  // The household journeys are the simulation's whole argument, so they hold
+  // longer than any other build-up step: 661 lines need a beat to be read.
+  { stage: "households", hold: 1900 },
   { stage: "top3", hold: 1250 },
   { stage: "tour3", hold: 2200 },
   { stage: "tour2", hold: 2200 },
