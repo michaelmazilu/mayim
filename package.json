@@ -3,13 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "postinstall": "node scripts/copy-maplibre-worker.mjs",
+    "predev": "node scripts/copy-maplibre-worker.mjs",
     "dev": "next dev",
+    "prebuild": "node scripts/copy-maplibre-worker.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
     "test": "node --import tsx --test lib/__tests__/*.test.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "evidence:refresh": "node --env-file-if-exists=.env.local --import tsx scripts/refresh-evidence.ts",
+    "scan:refresh": "node --import tsx scripts/refresh-scan.ts",
+    "demo:recache": "node --env-file-if-exists=.env.local --import tsx scripts/recache-demo.ts"
   },
   "dependencies": {
     "@turf/turf": "^7.4.0",

@@ -19,6 +19,20 @@ const FULL_COVERAGE_FINDINGS = 6;
 /** Quality assigned when there is no evidence at all. */
 const NO_EVIDENCE_QUALITY = 0.25;
 
+/**
+ * Evidence can move a factor at most this far from its baseline, however many
+ * sources agree — the same ceiling llm.ts puts on a single finding. Without it,
+ * a live search returning a dozen same-direction findings pins factors to 0 or
+ * 1 and the desk study reads as certainty. More agreeing sources still raise
+ * `quality` through coverage.
+ */
+export const MAX_FACTOR_SHIFT = 0.35;
+
+/** Sign-preserving saturation: ≈ linear for small sums, approaching ±MAX_FACTOR_SHIFT for large ones. */
+function boundedShift(raw: number): number {
+  return MAX_FACTOR_SHIFT * Math.tanh(raw / MAX_FACTOR_SHIFT);
+}
+
 function clamp01(value: number): number {
   if (!Number.isFinite(value)) return 0;
   return Math.min(1, Math.max(0, value));
@@ -59,13 +73,9 @@ function neutralCopy(): EvidenceSignals {
 export function aggregateSignals(findings: EvidenceFinding[]): EvidenceSignals {
   if (findings.length === 0) return neutralCopy();
 
-  const values: Record<ScoreFactor, number> = {
-    need: FACTOR_BASELINE,
-    groundwater: FACTOR_BASELINE,
-    risk: FACTOR_BASELINE,
-    cost: FACTOR_BASELINE,
-    access: FACTOR_BASELINE,
-  };
+  // Raw signed evidence per factor, bounded once every finding is counted.
+  const shifts: Record<ScoreFactor, number> = { need: 0, groundwater: 0, risk: 0, cost: 0, access: 0 };
+  const values = { ...shifts };
   const contributors = emptyContributors();
 
   let confidenceSum = 0;
@@ -79,12 +89,12 @@ export function aggregateSignals(findings: EvidenceFinding[]): EvidenceSignals {
 
     const magnitude = clamp01(impact.magnitude);
     const sign = impact.direction === "increase" ? 1 : impact.direction === "decrease" ? -1 : 0;
-    values[impact.factor] += sign * magnitude * confidence;
+    shifts[impact.factor] += sign * magnitude * confidence;
     contributors[impact.factor].push(finding.id);
   }
 
   for (const factor of FACTORS) {
-    values[factor] = clamp01(values[factor]);
+    values[factor] = clamp01(FACTOR_BASELINE + boundedShift(shifts[factor]));
     contributors[factor].sort(compareIds);
   }
 

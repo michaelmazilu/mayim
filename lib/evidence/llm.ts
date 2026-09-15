@@ -16,6 +16,7 @@ import type {
   TownRef,
 } from "@/lib/types";
 import type { RawEvidence } from "@/lib/evidence/exa";
+import { canonicalPublisher, publisherFor } from "@/lib/evidence/structure";
 
 const ENDPOINT = "https://api.openai.com/v1/chat/completions";
 const DEFAULT_MODEL = "gpt-4.1-mini";
@@ -101,13 +102,20 @@ const SYSTEM = [
   "Summaries must be grounded strictly in the supplied excerpt text: ONE short factual sentence, max 25 words, no marketing language.",
   "sourceName is the publishing organisation (e.g. 'World Health Organization'), not the article title.",
   "confidence is 0..1 and reflects how authoritative and on-topic the source is for this specific town.",
-  "Set impactFactor/impactDirection/impactMagnitude only when the source genuinely bears on that factor; otherwise set all three to null.",
+  "Set impactFactor/impactDirection/impactMagnitude only when the excerpt makes a claim about this town or its immediate region that bears on the factor; otherwise set all three to null.",
+  "Factor meanings — 'increase' always means MORE of the named quantity:",
+  "need = share of people lacking safe drinking water (increase = more unmet need).",
+  "groundwater = likelihood a drilled borehole finds productive water (increase = productive aquifer, good yields; decrease = low or variable yields, high drilling failure, deep water table). Only for sources describing the aquifer itself.",
+  "risk = environmental hazard to a water point: flooding, contamination, drought (increase = more hazard).",
+  "cost = pressure on construction or operating cost, e.g. deep drilling, hard rock, remoteness (increase = more expensive). Funding announcements and project budgets are NOT cost evidence.",
+  "access = difficulty of reaching a site for construction (increase = harder to reach; decrease = good roads and nearby supply chains).",
+  "News about planned or funded water projects is infrastructure context: classify it, but leave its impact null.",
   `impactMagnitude must never exceed ${MAX_MAGNITUDE}.`,
 ].join(" ");
 
 type ChatResponse = { choices?: { message?: { content?: string } }[] };
 
-async function callOpenAI(
+export async function callOpenAI(
   messages: { role: "system" | "user"; content: string }[],
   timeoutMs: number,
   responseFormat?: Record<string, unknown>,
@@ -157,7 +165,7 @@ export async function structureFindings(
     index: i,
     retrievedFor: r.category,
     title: r.title,
-    publisherHint: new URL(r.url).hostname.replace(/^www\./, ""),
+    publisherHint: publisherFor(r.url),
     publishedDate: r.publishedDate ?? null,
     excerpt: (r.highlights.join(" ") || r.text || "").slice(0, 1400),
   }));
@@ -199,7 +207,7 @@ export async function structureFindings(
       category: f.category,
       title: f.title.slice(0, 200),
       summary: f.summary.slice(0, 240),
-      sourceName: f.sourceName.slice(0, 120),
+      sourceName: canonicalPublisher(src.url, f.sourceName).slice(0, 120),
       sourceUrl: src.url,
       publishedDate: src.publishedDate,
       confidence: clamp(f.confidence, 0, 1),

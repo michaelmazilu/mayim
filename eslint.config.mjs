@@ -12,7 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
-    // Vendored MapLibre worker bundle — third-party, minified, not ours to lint.
+    // The MapLibre worker copied in by `predev`/`prebuild`: third-party and
+    // minified, and linting it buries our own findings under ~1,000 warnings.
     "public/maplibre/**",
   ]),
 ]);
