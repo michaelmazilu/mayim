@@ -29,7 +29,7 @@ import { discoverPartners, type PartnerSearch } from "@/lib/partners/discover";
 import { analysisRadiusM, generateCandidateGrid } from "@/lib/geospatial/candidates";
 import { buildFeatureContext, computeAllFeatures } from "@/lib/geospatial/features";
 import { estimatePopulationServed, populationDisagreement } from "@/lib/geospatial/population";
-import { populationGrowthRate } from "@/lib/config/behaviour";
+import { growthRateForTown } from "@/lib/config/behaviour";
 import { countryIso2 } from "@/lib/geo/countries";
 import { buildConceptualLayout } from "@/lib/geospatial/layout";
 import { rankCandidates, scoreCandidate } from "@/lib/scoring/score";
@@ -193,16 +193,20 @@ export async function runAnalysis(inputTown: TownRef, emit: Emit): Promise<Analy
     if (structuredBy === "deterministic") {
       warnings.push("Live sources were quoted without LLM structuring — they widen the evidence base but do not adjust factor scores.");
     }
-    await saveEvidenceSnapshot({
-      version: 1,
-      slug: town.slug,
-      displayName: town.displayName,
-      retrievedAt: new Date(startedAt).toISOString(),
-      structuredBy,
-      queries: evidence.outcomes,
-      findings,
-      partners: partnerSearch.partners,
-    });
+    // Seed a fallback for towns that have none. Existing (committed) snapshots
+    // change only through `npm run evidence:refresh`, so live runs never churn them.
+    if (!(await loadEvidenceSnapshot(town.slug))) {
+      await saveEvidenceSnapshot({
+        version: 1,
+        slug: town.slug,
+        displayName: town.displayName,
+        retrievedAt: new Date(startedAt).toISOString(),
+        structuredBy,
+        queries: evidence.outcomes,
+        findings,
+        partners: partnerSearch.partners,
+      });
+    }
   } else {
     const gap = evidenceGap(evidence);
     snapshot = await loadEvidenceSnapshot(town.slug);
@@ -299,7 +303,7 @@ export async function runAnalysis(inputTown: TownRef, emit: Emit): Promise<Analy
     totalBuildingsInArea: osm.buildings.length,
     serviceRadiusM,
     worldpop,
-    growth: populationGrowthRate(countryIso2(town.country)),
+    growth: growthRateForTown(town.slug, countryIso2(town.country)),
     asOfYear,
   });
   if (winner) {

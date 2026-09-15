@@ -144,6 +144,17 @@ export function publisherFor(url: string): string {
   return best ? best[1] : host || "Unknown publisher";
 }
 
+/**
+ * The publisher from our table when the host is known; otherwise the fallback
+ * (typically the LLM's reading of the source). Keeps names consistent whichever
+ * path structured the finding.
+ */
+export function canonicalPublisher(url: string, fallback: string): string {
+  const mapped = publisherFor(url);
+  if (mapped !== hostnameOf(url)) return mapped;
+  return fallback.trim() || mapped;
+}
+
 export function sourceTier(url: string): "authoritative" | "officialOrAcademic" | "other" {
   const host = hostnameOf(url);
   if (AUTHORITATIVE_DOMAINS.some((d) => hostMatches(host, d))) return "authoritative";

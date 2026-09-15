@@ -1,0 +1,4915 @@
+{
+  "version": 1,
+  "country": "Uganda",
+  "iso3": "UGA",
+  "retrievedAt": "2026-09-15T17:15:37.140Z",
+  "source": "Water Point Data Exchange (WPdx+), CC BY 4.0",
+  "sourceUrl": "https://data.waterpointdata.org/dataset/Water-Point-Data-Exchange-Plus-WPdx-/eqje-vguj",
+  "method": "Districts ranked by the number of people who would regain access to water if their broken water points were repaired, then by the share of surveyed points not working. Districts where 90% or more of surveyed points are broken are ranked after the rest: that pattern usually means a survey of broken points only, not a full inventory.",
+  "limitations": [
+    "Only water points surveyed and shared with WPdx are counted. Survey coverage and dates vary by district, so a district with few or old records can look better than it is.",
+    "'Would regain access' is WPdx's estimate from gridded population: people within 1 km of a broken point who have no other working point nearby.",
+    "Status is the most recent report per point; districts whose newest report is more than 8 years old are flagged stale.",
+    "Districts with fewer than 30 surveyed points are flagged as thin data (Mayim screening thresholds).",
+    "District names follow WPdx's administrative level 2 and may not match current boundaries."
+  ],
+  "totals": {
+    "working": 4865,
+    "needs_repair": 62083,
+    "idle": 2344,
+    "broken": 28083,
+    "seasonal": 915,
+    "abandoned": 477,
+    "unknown": 0,
+    "total": 98767,
+    "wouldRegainAccess": 1370517,
+    "districts": 135
+  },
+  "districts": [
+    {
+      "id": "northern-pakwach",
+      "rank": 1,
+      "district": "Pakwach",
+      "region": "Northern",
+      "center": [
+        31.40084,
+        2.4574
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 137,
+        "idle": 4,
+        "broken": 92,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 233
+      },
+      "notWorkingShare": 0.395,
+      "wouldRegainAccess": 48478,
+      "latestReport": "2014-01-17",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 230
+        },
+        {
+          "name": "World Vision",
+          "points": 3
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "western-kikuube",
+      "rank": 2,
+      "district": "Kikuube",
+      "region": "Western",
+      "center": [
+        31.09562,
+        1.29345
+      ],
+      "waterPoints": {
+        "working": 825,
+        "needs_repair": 380,
+        "idle": 1,
+        "broken": 369,
+        "seasonal": 0,
+        "abandoned": 204,
+        "unknown": 0,
+        "total": 1779
+      },
+      "notWorkingShare": 0.322,
+      "wouldRegainAccess": 45836,
+      "latestReport": "2022-03-14",
+      "sources": [
+        {
+          "name": "The Water Trust",
+          "points": 1269
+        },
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 439
+        },
+        {
+          "name": "World Vision",
+          "points": 70
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "western-kyenjojo",
+      "rank": 3,
+      "district": "Kyenjojo",
+      "region": "Western",
+      "center": [
+        30.67182,
+        0.65846
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 595,
+        "idle": 11,
+        "broken": 420,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 1026
+      },
+      "notWorkingShare": 0.409,
+      "wouldRegainAccess": 44492,
+      "latestReport": "2025-12-06",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 828
+        },
+        {
+          "name": "Water4",
+          "points": 195
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 2
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "central-nakasongola",
+      "rank": 4,
+      "district": "Nakasongola",
+      "region": "Central",
+      "center": [
+        32.46064,
+        1.31282
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 648,
+        "idle": 17,
+        "broken": 356,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 1021
+      },
+      "notWorkingShare": 0.349,
+      "wouldRegainAccess": 42236,
+      "latestReport": "2021-04-22",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 923
+        },
+        {
+          "name": "World Vision",
+          "points": 92
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 5
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "western-kyegegwa",
+      "rank": 5,
+      "district": "Kyegegwa",
+      "region": "Western",
+      "center": [
+        31.01162,
+        0.45825
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 188,
+        "idle": 0,
+        "broken": 163,
+        "seasonal": 13,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 364
+      },
+      "notWorkingShare": 0.484,
+      "wouldRegainAccess": 36830,
+      "latestReport": "2019-05-22",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 259
+        },
+        {
+          "name": "TTC Mobile",
+          "points": 100
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 3
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "northern-nebbi",
+      "rank": 6,
+      "district": "Nebbi",
+      "region": "Northern",
+      "center": [
+        31.14334,
+        2.3998
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 485,
+        "idle": 12,
+        "broken": 234,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 731
+      },
+      "notWorkingShare": 0.32,
+      "wouldRegainAccess": 33327,
+      "latestReport": "2014-01-17",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 731
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "northern-kole",
+      "rank": 7,
+      "district": "Kole",
+      "region": "Northern",
+      "center": [
+        32.78193,
+        2.31126
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 346,
+        "idle": 4,
+        "broken": 203,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 553
+      },
+      "notWorkingShare": 0.367,
+      "wouldRegainAccess": 31270,
+      "latestReport": "2022-04-29",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 551
+        },
+        {
+          "name": "Aquaya",
+          "points": 1
+        },
+        {
+          "name": "Stanford University and International Lifeline Fund",
+          "points": 1
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "central-wakiso",
+      "rank": 8,
+      "district": "Wakiso",
+      "region": "Central",
+      "center": [
+        32.49589,
+        0.32828
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 2152,
+        "idle": 12,
+        "broken": 719,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 2883
+      },
+      "notWorkingShare": 0.249,
+      "wouldRegainAccess": 28935,
+      "latestReport": "2023-07-13",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 2532
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 344
+        },
+        {
+          "name": "Living Water International",
+          "points": 5
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "eastern-namayingo",
+      "rank": 9,
+      "district": "Namayingo",
+      "region": "Eastern",
+      "center": [
+        33.83825,
+        0.29816
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 141,
+        "idle": 3,
+        "broken": 96,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 240
+      },
+      "notWorkingShare": 0.4,
+      "wouldRegainAccess": 26770,
+      "latestReport": "2018-07-25",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 208
+        },
+        {
+          "name": "charity: water",
+          "points": 32
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "northern-arua",
+      "rank": 10,
+      "district": "Arua",
+      "region": "Northern",
+      "center": [
+        30.95389,
+        3.02209
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 1555,
+        "idle": 22,
+        "broken": 344,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 1921
+      },
+      "notWorkingShare": 0.179,
+      "wouldRegainAccess": 24712,
+      "latestReport": "2020-03-03",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 1914
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 6
+        },
+        {
+          "name": "UNHCR",
+          "points": 1
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "central-kassanda",
+      "rank": 11,
+      "district": "Kassanda",
+      "region": "Central",
+      "center": [
+        31.79018,
+        0.55452
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 186,
+        "idle": 0,
+        "broken": 69,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 255
+      },
+      "notWorkingShare": 0.271,
+      "wouldRegainAccess": 23894,
+      "latestReport": "2023-03-23",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 245
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 9
+        },
+        {
+          "name": "Living Water International",
+          "points": 1
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "central-mukono",
+      "rank": 12,
+      "district": "Mukono",
+      "region": "Central",
+      "center": [
+        32.79846,
+        0.43787
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 1111,
+        "idle": 4,
+        "broken": 261,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 1376
+      },
+      "notWorkingShare": 0.19,
+      "wouldRegainAccess": 23762,
+      "latestReport": "2023-06-19",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 1316
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 54
+        },
+        {
+          "name": "Living Water International",
+          "points": 5
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "northern-napak",
+      "rank": 13,
+      "district": "Napak",
+      "region": "Northern",
+      "center": [
+        34.38242,
+        2.37801
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 121,
+        "idle": 1,
+        "broken": 536,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 658
+      },
+      "notWorkingShare": 0.815,
+      "wouldRegainAccess": 23236,
+      "latestReport": "2014-07-30",
+      "sources": [
+        {
+          "name": "C & D",
+          "points": 261
+        },
+        {
+          "name": "OCHA ROSEA",
+          "points": 232
+        },
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 165
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "central-mpigi",
+      "rank": 14,
+      "district": "Mpigi",
+      "region": "Central",
+      "center": [
+        32.23177,
+        0.18208
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 337,
+        "idle": 4,
+        "broken": 188,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 529
+      },
+      "notWorkingShare": 0.355,
+      "wouldRegainAccess": 23083,
+      "latestReport": "2023-06-21",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 461
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 67
+        },
+        {
+          "name": "Living Water International",
+          "points": 1
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "northern-oyam",
+      "rank": 15,
+      "district": "Oyam",
+      "region": "Northern",
+      "center": [
+        32.48563,
+        2.38233
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 509,
+        "idle": 6,
+        "broken": 259,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 774
+      },
+      "notWorkingShare": 0.335,
+      "wouldRegainAccess": 21915,
+      "latestReport": "2016-04-11",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 644
+        },
+        {
+          "name": "World Vision",
+          "points": 129
+        },
+        {
+          "name": "Living Water International",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "northern-kitgum",
+      "rank": 16,
+      "district": "Kitgum",
+      "region": "Northern",
+      "center": [
+        33.14402,
+        3.34508
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 375,
+        "idle": 13,
+        "broken": 228,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 616
+      },
+      "notWorkingShare": 0.37,
+      "wouldRegainAccess": 21889,
+      "latestReport": "2016-11-03",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 615
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "central-gomba",
+      "rank": 17,
+      "district": "Gomba",
+      "region": "Central",
+      "center": [
+        31.82186,
+        0.19607
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 266,
+        "idle": 18,
+        "broken": 91,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 375
+      },
+      "notWorkingShare": 0.243,
+      "wouldRegainAccess": 21291,
+      "latestReport": "2023-06-18",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 371
+        },
+        {
+          "name": "Living Water International",
+          "points": 2
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 2
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "northern-amolatar",
+      "rank": 18,
+      "district": "Amolatar",
+      "region": "Northern",
+      "center": [
+        32.81126,
+        1.64372
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 241,
+        "idle": 0,
+        "broken": 83,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 324
+      },
+      "notWorkingShare": 0.256,
+      "wouldRegainAccess": 21263,
+      "latestReport": "2013-10-29",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 324
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "eastern-kumi",
+      "rank": 19,
+      "district": "Kumi",
+      "region": "Eastern",
+      "center": [
+        33.93119,
+        1.43476
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 336,
+        "idle": 26,
+        "broken": 69,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 431
+      },
+      "notWorkingShare": 0.16,
+      "wouldRegainAccess": 20635,
+      "latestReport": "2015-03-02",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 430
+        },
+        {
+          "name": "CARE-Uganda-Otuke",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "northern-apac",
+      "rank": 20,
+      "district": "Apac",
+      "region": "Northern",
+      "center": [
+        32.47696,
+        1.9408
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 85,
+        "idle": 0,
+        "broken": 263,
+        "seasonal": 413,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 761
+      },
+      "notWorkingShare": 0.888,
+      "wouldRegainAccess": 20354,
+      "latestReport": "2019-11-27",
+      "sources": [
+        {
+          "name": "Lifeline",
+          "points": 472
+        },
+        {
+          "name": "Stanford University and International Lifeline Fund",
+          "points": 143
+        },
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 125
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "western-kasese",
+      "rank": 21,
+      "district": "Kasese",
+      "region": "Western",
+      "center": [
+        29.86734,
+        0.08183
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 2321,
+        "idle": 220,
+        "broken": 630,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 3171
+      },
+      "notWorkingShare": 0.199,
+      "wouldRegainAccess": 20233,
+      "latestReport": "2021-09-03",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 3167
+        },
+        {
+          "name": "Living Water International",
+          "points": 2
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 2
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "western-buliisa",
+      "rank": 22,
+      "district": "Buliisa",
+      "region": "Western",
+      "center": [
+        31.43036,
+        1.94814
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 145,
+        "idle": 3,
+        "broken": 111,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 259
+      },
+      "notWorkingShare": 0.429,
+      "wouldRegainAccess": 20125,
+      "latestReport": "2014-08-13",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 211
+        },
+        {
+          "name": "World Vision",
+          "points": 48
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "central-kalungu",
+      "rank": 23,
+      "district": "Kalungu",
+      "region": "Central",
+      "center": [
+        31.80785,
+        -0.11229
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 168,
+        "idle": 5,
+        "broken": 141,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 314
+      },
+      "notWorkingShare": 0.449,
+      "wouldRegainAccess": 19530,
+      "latestReport": "2023-05-07",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 304
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 8
+        },
+        {
+          "name": "Living Water International",
+          "points": 2
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "central-mityana",
+      "rank": 24,
+      "district": "Mityana",
+      "region": "Central",
+      "center": [
+        32.07422,
+        0.4134
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 759,
+        "idle": 4,
+        "broken": 261,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 1024
+      },
+      "notWorkingShare": 0.255,
+      "wouldRegainAccess": 19058,
+      "latestReport": "2022-08-04",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 1005
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 19
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "central-bukomansimbi",
+      "rank": 25,
+      "district": "Bukomansimbi",
+      "region": "Central",
+      "center": [
+        31.63466,
+        -0.16645
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 362,
+        "idle": 4,
+        "broken": 195,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 561
+      },
+      "notWorkingShare": 0.348,
+      "wouldRegainAccess": 18255,
+      "latestReport": "2014-07-31",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 561
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "northern-agago",
+      "rank": 26,
+      "district": "Agago",
+      "region": "Northern",
+      "center": [
+        33.32168,
+        2.88607
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 535,
+        "idle": 3,
+        "broken": 283,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 821
+      },
+      "notWorkingShare": 0.345,
+      "wouldRegainAccess": 18201,
+      "latestReport": "2023-06-22",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 746
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 75
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "western-kagadi",
+      "rank": 27,
+      "district": "Kagadi",
+      "region": "Western",
+      "center": [
+        30.81123,
+        0.98898
+      ],
+      "waterPoints": {
+        "working": 1,
+        "needs_repair": 555,
+        "idle": 7,
+        "broken": 139,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 702
+      },
+      "notWorkingShare": 0.198,
+      "wouldRegainAccess": 17648,
+      "latestReport": "2022-03-06",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 701
+        },
+        {
+          "name": "The Water Trust",
+          "points": 1
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "eastern-kamuli",
+      "rank": 28,
+      "district": "Kamuli",
+      "region": "Eastern",
+      "center": [
+        33.11935,
+        0.90585
+      ],
+      "waterPoints": {
+        "working": 1,
+        "needs_repair": 647,
+        "idle": 2,
+        "broken": 76,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 726
+      },
+      "notWorkingShare": 0.105,
+      "wouldRegainAccess": 17124,
+      "latestReport": "2021-02-27",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 723
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 2
+        },
+        {
+          "name": "Water For People",
+          "points": 1
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "western-kamwenge",
+      "rank": 29,
+      "district": "Kamwenge",
+      "region": "Western",
+      "center": [
+        30.54856,
+        0.28352
+      ],
+      "waterPoints": {
+        "working": 693,
+        "needs_repair": 610,
+        "idle": 6,
+        "broken": 562,
+        "seasonal": 54,
+        "abandoned": 15,
+        "unknown": 0,
+        "total": 1940
+      },
+      "notWorkingShare": 0.325,
+      "wouldRegainAccess": 16797,
+      "latestReport": "2021-04-30",
+      "sources": [
+        {
+          "name": "Water For People",
+          "points": 771
+        },
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 516
+        },
+        {
+          "name": "Water for People",
+          "points": 516
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "western-ntungamo",
+      "rank": 30,
+      "district": "Ntungamo",
+      "region": "Western",
+      "center": [
+        30.27266,
+        -0.88384
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 2104,
+        "idle": 50,
+        "broken": 706,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 2860
+      },
+      "notWorkingShare": 0.247,
+      "wouldRegainAccess": 16548,
+      "latestReport": "2022-01-06",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 2696
+        },
+        {
+          "name": "Living Water International",
+          "points": 113
+        },
+        {
+          "name": "Evidence Action",
+          "points": 51
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "eastern-soroti",
+      "rank": 31,
+      "district": "Soroti",
+      "region": "Eastern",
+      "center": [
+        33.58774,
+        1.77543
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 534,
+        "idle": 21,
+        "broken": 128,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 683
+      },
+      "notWorkingShare": 0.187,
+      "wouldRegainAccess": 16459,
+      "latestReport": "2018-04-18",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 679
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 4
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "eastern-butaleja",
+      "rank": 32,
+      "district": "Butaleja",
+      "region": "Eastern",
+      "center": [
+        33.9445,
+        0.88833
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 242,
+        "idle": 0,
+        "broken": 457,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 699
+      },
+      "notWorkingShare": 0.654,
+      "wouldRegainAccess": 16327,
+      "latestReport": "2022-10-12",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 401
+        },
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 297
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 1
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "eastern-kaberamaido",
+      "rank": 33,
+      "district": "Kaberamaido",
+      "region": "Eastern",
+      "center": [
+        33.14159,
+        1.74585
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 145,
+        "idle": 10,
+        "broken": 53,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 208
+      },
+      "notWorkingShare": 0.255,
+      "wouldRegainAccess": 16200,
+      "latestReport": "2013-12-10",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 208
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "central-masaka",
+      "rank": 34,
+      "district": "Masaka",
+      "region": "Central",
+      "center": [
+        31.76631,
+        -0.41696
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 233,
+        "idle": 9,
+        "broken": 87,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 329
+      },
+      "notWorkingShare": 0.264,
+      "wouldRegainAccess": 15217,
+      "latestReport": "2023-03-22",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 319
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 10
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "western-ntoroko",
+      "rank": 35,
+      "district": "Ntoroko",
+      "region": "Western",
+      "center": [
+        30.26028,
+        0.88835
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 122,
+        "idle": 4,
+        "broken": 74,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 200
+      },
+      "notWorkingShare": 0.37,
+      "wouldRegainAccess": 15062,
+      "latestReport": "2013-10-18",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 197
+        },
+        {
+          "name": "Living Water International",
+          "points": 3
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "central-mubende",
+      "rank": 36,
+      "district": "Mubende",
+      "region": "Central",
+      "center": [
+        31.38922,
+        0.51862
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 140,
+        "idle": 12,
+        "broken": 50,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 202
+      },
+      "notWorkingShare": 0.248,
+      "wouldRegainAccess": 14100,
+      "latestReport": "2018-09-26",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 190
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 11
+        },
+        {
+          "name": "Living Water International",
+          "points": 1
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "eastern-serere",
+      "rank": 37,
+      "district": "Serere",
+      "region": "Eastern",
+      "center": [
+        33.42943,
+        1.50941
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 463,
+        "idle": 16,
+        "broken": 51,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 530
+      },
+      "notWorkingShare": 0.096,
+      "wouldRegainAccess": 13827,
+      "latestReport": "2014-07-31",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 530
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "northern-dokolo",
+      "rank": 38,
+      "district": "Dokolo",
+      "region": "Northern",
+      "center": [
+        33.11159,
+        1.95312
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 360,
+        "idle": 3,
+        "broken": 93,
+        "seasonal": 3,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 459
+      },
+      "notWorkingShare": 0.209,
+      "wouldRegainAccess": 13815,
+      "latestReport": "2016-11-02",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 455
+        },
+        {
+          "name": "Lifeline",
+          "points": 3
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "eastern-buyende",
+      "rank": 39,
+      "district": "Buyende",
+      "region": "Eastern",
+      "center": [
+        33.17952,
+        1.20929
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 390,
+        "idle": 1,
+        "broken": 38,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 429
+      },
+      "notWorkingShare": 0.089,
+      "wouldRegainAccess": 13374,
+      "latestReport": "2014-07-31",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 429
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "central-kayunga",
+      "rank": 40,
+      "district": "Kayunga",
+      "region": "Central",
+      "center": [
+        32.93412,
+        0.81528
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 520,
+        "idle": 3,
+        "broken": 126,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 649
+      },
+      "notWorkingShare": 0.194,
+      "wouldRegainAccess": 13136,
+      "latestReport": "2021-08-26",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 624
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 25
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "eastern-jinja",
+      "rank": 41,
+      "district": "Jinja",
+      "region": "Eastern",
+      "center": [
+        33.20634,
+        0.58646
+      ],
+      "waterPoints": {
+        "working": 3,
+        "needs_repair": 618,
+        "idle": 8,
+        "broken": 106,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 735
+      },
+      "notWorkingShare": 0.144,
+      "wouldRegainAccess": 13038,
+      "latestReport": "2023-12-07",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 708
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 13
+        },
+        {
+          "name": "Water4",
+          "points": 10
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "northern-alebtong",
+      "rank": 42,
+      "district": "Alebtong",
+      "region": "Northern",
+      "center": [
+        33.229,
+        2.23716
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 469,
+        "idle": 9,
+        "broken": 197,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 675
+      },
+      "notWorkingShare": 0.292,
+      "wouldRegainAccess": 12952,
+      "latestReport": "2016-11-02",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 674
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "western-kiryandongo",
+      "rank": 43,
+      "district": "Kiryandongo",
+      "region": "Western",
+      "center": [
+        32.09368,
+        1.92076
+      ],
+      "waterPoints": {
+        "working": 646,
+        "needs_repair": 223,
+        "idle": 1,
+        "broken": 168,
+        "seasonal": 0,
+        "abandoned": 83,
+        "unknown": 0,
+        "total": 1121
+      },
+      "notWorkingShare": 0.224,
+      "wouldRegainAccess": 12059,
+      "latestReport": "2023-02-10",
+      "sources": [
+        {
+          "name": "The Water Trust",
+          "points": 843
+        },
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 274
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 4
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "northern-kotido",
+      "rank": 44,
+      "district": "Kotido",
+      "region": "Northern",
+      "center": [
+        34.07336,
+        3.01645
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 203,
+        "idle": 0,
+        "broken": 359,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 562
+      },
+      "notWorkingShare": 0.639,
+      "wouldRegainAccess": 11627,
+      "latestReport": "2014-12-03",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 287
+        },
+        {
+          "name": "C & D",
+          "points": 269
+        },
+        {
+          "name": "World Vision",
+          "points": 5
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "western-isingiro",
+      "rank": 45,
+      "district": "Isingiro",
+      "region": "Western",
+      "center": [
+        30.77836,
+        -0.84211
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 1918,
+        "idle": 15,
+        "broken": 211,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 2144
+      },
+      "notWorkingShare": 0.098,
+      "wouldRegainAccess": 11532,
+      "latestReport": "2023-02-11",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 2131
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 12
+        },
+        {
+          "name": "Living Water International",
+          "points": 1
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "central-luwero",
+      "rank": 46,
+      "district": "Luwero",
+      "region": "Central",
+      "center": [
+        32.56871,
+        0.75295
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 523,
+        "idle": 27,
+        "broken": 479,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 1029
+      },
+      "notWorkingShare": 0.466,
+      "wouldRegainAccess": 11520,
+      "latestReport": "2023-07-17",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 652
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 375
+        },
+        {
+          "name": "Living Water International",
+          "points": 2
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "northern-kwania",
+      "rank": 47,
+      "district": "Kwania",
+      "region": "Northern",
+      "center": [
+        32.74159,
+        1.97093
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 71,
+        "idle": 0,
+        "broken": 235,
+        "seasonal": 381,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 687
+      },
+      "notWorkingShare": 0.897,
+      "wouldRegainAccess": 11096,
+      "latestReport": "2019-12-20",
+      "sources": [
+        {
+          "name": "Lifeline",
+          "points": 404
+        },
+        {
+          "name": "Stanford University and International Lifeline Fund",
+          "points": 154
+        },
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 111
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "western-kakumiro",
+      "rank": 48,
+      "district": "Kakumiro",
+      "region": "Western",
+      "center": [
+        31.30873,
+        0.95671
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 302,
+        "idle": 3,
+        "broken": 51,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 356
+      },
+      "notWorkingShare": 0.143,
+      "wouldRegainAccess": 11088,
+      "latestReport": "2023-01-16",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 349
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 7
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "western-hoima",
+      "rank": 49,
+      "district": "Hoima",
+      "region": "Western",
+      "center": [
+        31.34654,
+        1.48655
+      ],
+      "waterPoints": {
+        "working": 2,
+        "needs_repair": 574,
+        "idle": 0,
+        "broken": 105,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 681
+      },
+      "notWorkingShare": 0.154,
+      "wouldRegainAccess": 10135,
+      "latestReport": "2022-03-13",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 664
+        },
+        {
+          "name": "World Vision",
+          "points": 15
+        },
+        {
+          "name": "The Water Trust",
+          "points": 2
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "eastern-bukedea",
+      "rank": 50,
+      "district": "Bukedea",
+      "region": "Eastern",
+      "center": [
+        34.09763,
+        1.29589
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 314,
+        "idle": 10,
+        "broken": 44,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 368
+      },
+      "notWorkingShare": 0.12,
+      "wouldRegainAccess": 10115,
+      "latestReport": "2014-05-15",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 367
+        },
+        {
+          "name": "Evidence Action",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "northern-madi-okollo",
+      "rank": 51,
+      "district": "Madi Okollo",
+      "region": "Northern",
+      "center": [
+        31.20274,
+        2.82136
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 263,
+        "idle": 22,
+        "broken": 75,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 360
+      },
+      "notWorkingShare": 0.208,
+      "wouldRegainAccess": 10114,
+      "latestReport": "2014-10-14",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 360
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "western-kabarole",
+      "rank": 52,
+      "district": "Kabarole",
+      "region": "Western",
+      "center": [
+        30.27188,
+        0.64885
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 345,
+        "idle": 508,
+        "broken": 684,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 1537
+      },
+      "notWorkingShare": 0.445,
+      "wouldRegainAccess": 10072,
+      "latestReport": "2025-12-06",
+      "sources": [
+        {
+          "name": "IRC",
+          "points": 762
+        },
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 474
+        },
+        {
+          "name": "Water4",
+          "points": 164
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "central-kiboga",
+      "rank": 53,
+      "district": "Kiboga",
+      "region": "Central",
+      "center": [
+        31.90401,
+        0.80407
+      ],
+      "waterPoints": {
+        "working": 1,
+        "needs_repair": 309,
+        "idle": 5,
+        "broken": 131,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 446
+      },
+      "notWorkingShare": 0.294,
+      "wouldRegainAccess": 9651,
+      "latestReport": "2021-03-11",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 431
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 13
+        },
+        {
+          "name": "CARE-Uganda-Otuke",
+          "points": 1
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "central-nakaseke",
+      "rank": 54,
+      "district": "Nakaseke",
+      "region": "Central",
+      "center": [
+        32.30543,
+        0.81247
+      ],
+      "waterPoints": {
+        "working": 1,
+        "needs_repair": 436,
+        "idle": 1,
+        "broken": 153,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 591
+      },
+      "notWorkingShare": 0.259,
+      "wouldRegainAccess": 9612,
+      "latestReport": "2021-11-23",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 564
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 25
+        },
+        {
+          "name": "CARE-Uganda-Otuke",
+          "points": 1
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "northern-zombo",
+      "rank": 55,
+      "district": "Zombo",
+      "region": "Northern",
+      "center": [
+        30.90674,
+        2.4965
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 887,
+        "idle": 27,
+        "broken": 275,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 1189
+      },
+      "notWorkingShare": 0.231,
+      "wouldRegainAccess": 9611,
+      "latestReport": "2014-07-30",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 1189
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "northern-amuru",
+      "rank": 56,
+      "district": "Amuru",
+      "region": "Northern",
+      "center": [
+        32.08406,
+        2.96206
+      ],
+      "waterPoints": {
+        "working": 1,
+        "needs_repair": 385,
+        "idle": 7,
+        "broken": 242,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 635
+      },
+      "notWorkingShare": 0.381,
+      "wouldRegainAccess": 9103,
+      "latestReport": "2022-05-01",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 548
+        },
+        {
+          "name": "World Vision",
+          "points": 85
+        },
+        {
+          "name": "Living Water International",
+          "points": 1
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "northern-nabilatuk",
+      "rank": 57,
+      "district": "Nabilatuk",
+      "region": "Northern",
+      "center": [
+        34.55625,
+        2.07419
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 42,
+        "idle": 2,
+        "broken": 254,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 298
+      },
+      "notWorkingShare": 0.852,
+      "wouldRegainAccess": 8908,
+      "latestReport": "2014-07-31",
+      "sources": [
+        {
+          "name": "OCHA ROSEA",
+          "points": 132
+        },
+        {
+          "name": "C & D",
+          "points": 114
+        },
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 52
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "western-bunyangabu",
+      "rank": 58,
+      "district": "Bunyangabu",
+      "region": "Western",
+      "center": [
+        30.19423,
+        0.50549
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 388,
+        "idle": 36,
+        "broken": 119,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 543
+      },
+      "notWorkingShare": 0.219,
+      "wouldRegainAccess": 8804,
+      "latestReport": "2023-07-11",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 540
+        },
+        {
+          "name": "IRC",
+          "points": 2
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 1
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "central-lwengo",
+      "rank": 59,
+      "district": "Lwengo",
+      "region": "Central",
+      "center": [
+        31.42618,
+        -0.42431
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 832,
+        "idle": 25,
+        "broken": 191,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 1048
+      },
+      "notWorkingShare": 0.182,
+      "wouldRegainAccess": 8791,
+      "latestReport": "2023-03-23",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 1018
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 30
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "western-mitooma",
+      "rank": 60,
+      "district": "Mitooma",
+      "region": "Western",
+      "center": [
+        30.03116,
+        -0.62694
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 548,
+        "idle": 18,
+        "broken": 203,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 769
+      },
+      "notWorkingShare": 0.264,
+      "wouldRegainAccess": 7774,
+      "latestReport": "2023-05-29",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 762
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 7
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "western-rubirizi",
+      "rank": 61,
+      "district": "Rubirizi",
+      "region": "Western",
+      "center": [
+        30.01888,
+        -0.24331
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 858,
+        "idle": 14,
+        "broken": 160,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 1032
+      },
+      "notWorkingShare": 0.155,
+      "wouldRegainAccess": 7767,
+      "latestReport": "2014-10-14",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 1032
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "eastern-mayuge",
+      "rank": 62,
+      "district": "Mayuge",
+      "region": "Eastern",
+      "center": [
+        33.50474,
+        0.36736
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 355,
+        "idle": 6,
+        "broken": 1017,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 1378
+      },
+      "notWorkingShare": 0.738,
+      "wouldRegainAccess": 7321,
+      "latestReport": "2025-12-07",
+      "sources": [
+        {
+          "name": "Water4",
+          "points": 903
+        },
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 411
+        },
+        {
+          "name": "Living Water International",
+          "points": 63
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "northern-lira",
+      "rank": 63,
+      "district": "Lira",
+      "region": "Northern",
+      "center": [
+        32.95081,
+        2.30422
+      ],
+      "waterPoints": {
+        "working": 2,
+        "needs_repair": 596,
+        "idle": 21,
+        "broken": 366,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 985
+      },
+      "notWorkingShare": 0.372,
+      "wouldRegainAccess": 7220,
+      "latestReport": "2023-05-08",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 776
+        },
+        {
+          "name": "Aquaya",
+          "points": 201
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 5
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "central-rakai",
+      "rank": 64,
+      "district": "Rakai",
+      "region": "Central",
+      "center": [
+        31.29346,
+        -0.64074
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 758,
+        "idle": 7,
+        "broken": 116,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 881
+      },
+      "notWorkingShare": 0.132,
+      "wouldRegainAccess": 7189,
+      "latestReport": "2023-03-21",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 860
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 21
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "central-buikwe",
+      "rank": 65,
+      "district": "Buikwe",
+      "region": "Central",
+      "center": [
+        33.03032,
+        0.32309
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 733,
+        "idle": 7,
+        "broken": 157,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 897
+      },
+      "notWorkingShare": 0.175,
+      "wouldRegainAccess": 7019,
+      "latestReport": "2023-06-11",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 831
+        },
+        {
+          "name": "World Vision",
+          "points": 33
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 31
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "eastern-ngora",
+      "rank": 66,
+      "district": "Ngora",
+      "region": "Eastern",
+      "center": [
+        33.78903,
+        1.50677
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 177,
+        "idle": 14,
+        "broken": 16,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 207
+      },
+      "notWorkingShare": 0.077,
+      "wouldRegainAccess": 6892,
+      "latestReport": "2019-08-27",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 206
+        },
+        {
+          "name": "Living Water International",
+          "points": 1
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "central-butambala",
+      "rank": 67,
+      "district": "Butambala",
+      "region": "Central",
+      "center": [
+        32.13353,
+        0.18915
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 291,
+        "idle": 5,
+        "broken": 61,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 357
+      },
+      "notWorkingShare": 0.171,
+      "wouldRegainAccess": 6890,
+      "latestReport": "2021-08-19",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 355
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 2
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "central-ssembabule",
+      "rank": 68,
+      "district": "Ssembabule",
+      "region": "Central",
+      "center": [
+        31.43525,
+        -0.20481
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 339,
+        "idle": 15,
+        "broken": 76,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 430
+      },
+      "notWorkingShare": 0.177,
+      "wouldRegainAccess": 6742,
+      "latestReport": "2022-12-11",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 423
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 7
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "western-bundibugyo",
+      "rank": 69,
+      "district": "Bundibugyo",
+      "region": "Western",
+      "center": [
+        30.05021,
+        0.69858
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 691,
+        "idle": 28,
+        "broken": 194,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 913
+      },
+      "notWorkingShare": 0.212,
+      "wouldRegainAccess": 6683,
+      "latestReport": "2021-11-27",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 838
+        },
+        {
+          "name": "World Vision",
+          "points": 63
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 12
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "northern-kaabong",
+      "rank": 70,
+      "district": "Kaabong",
+      "region": "Northern",
+      "center": [
+        34.12697,
+        3.55536
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 73,
+        "idle": 5,
+        "broken": 161,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 239
+      },
+      "notWorkingShare": 0.674,
+      "wouldRegainAccess": 6551,
+      "latestReport": "2014-10-30",
+      "sources": [
+        {
+          "name": "C & D",
+          "points": 147
+        },
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 84
+        },
+        {
+          "name": "World Vision",
+          "points": 8
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "northern-otuke",
+      "rank": 71,
+      "district": "Otuke",
+      "region": "Northern",
+      "center": [
+        33.32409,
+        2.47469
+      ],
+      "waterPoints": {
+        "working": 7,
+        "needs_repair": 231,
+        "idle": 6,
+        "broken": 62,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 306
+      },
+      "notWorkingShare": 0.203,
+      "wouldRegainAccess": 6439,
+      "latestReport": "2019-07-05",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 283
+        },
+        {
+          "name": "Living Water International",
+          "points": 11
+        },
+        {
+          "name": "CARE-Uganda-Otuke",
+          "points": 10
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "western-kanungu",
+      "rank": 72,
+      "district": "Kanungu",
+      "region": "Western",
+      "center": [
+        29.76416,
+        -0.81409
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 680,
+        "idle": 12,
+        "broken": 122,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 814
+      },
+      "notWorkingShare": 0.15,
+      "wouldRegainAccess": 6287,
+      "latestReport": "2017-01-31",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 812
+        },
+        {
+          "name": "Living Water International",
+          "points": 1
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "northern-maracha",
+      "rank": 73,
+      "district": "Maracha",
+      "region": "Northern",
+      "center": [
+        30.9239,
+        3.23132
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 502,
+        "idle": 25,
+        "broken": 113,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 640
+      },
+      "notWorkingShare": 0.177,
+      "wouldRegainAccess": 6248,
+      "latestReport": "2014-07-31",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 640
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "northern-abim",
+      "rank": 74,
+      "district": "Abim",
+      "region": "Northern",
+      "center": [
+        33.7142,
+        2.63335
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 96,
+        "idle": 4,
+        "broken": 353,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 453
+      },
+      "notWorkingShare": 0.779,
+      "wouldRegainAccess": 5621,
+      "latestReport": "2014-12-03",
+      "sources": [
+        {
+          "name": "C & D",
+          "points": 218
+        },
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 135
+        },
+        {
+          "name": "OCHA ROSEA",
+          "points": 96
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "northern-nwoya",
+      "rank": 75,
+      "district": "Nwoya",
+      "region": "Northern",
+      "center": [
+        31.95292,
+        2.59529
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 240,
+        "idle": 6,
+        "broken": 85,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 331
+      },
+      "notWorkingShare": 0.257,
+      "wouldRegainAccess": 5602,
+      "latestReport": "2014-11-05",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 326
+        },
+        {
+          "name": "World Vision",
+          "points": 5
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "northern-adjumani",
+      "rank": 76,
+      "district": "Adjumani",
+      "region": "Northern",
+      "center": [
+        31.80693,
+        3.35021
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 186,
+        "idle": 268,
+        "broken": 99,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 553
+      },
+      "notWorkingShare": 0.179,
+      "wouldRegainAccess": 5600,
+      "latestReport": "2020-03-05",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 542
+        },
+        {
+          "name": "UNHCR",
+          "points": 11
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "western-rukungiri",
+      "rank": 77,
+      "district": "Rukungiri",
+      "region": "Western",
+      "center": [
+        29.91143,
+        -0.74683
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 2426,
+        "idle": 39,
+        "broken": 631,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 3096
+      },
+      "notWorkingShare": 0.204,
+      "wouldRegainAccess": 5397,
+      "latestReport": "2023-05-23",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 3075
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 19
+        },
+        {
+          "name": "Living Water International",
+          "points": 2
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "western-kitagwenda",
+      "rank": 78,
+      "district": "Kitagwenda",
+      "region": "Western",
+      "center": [
+        30.37354,
+        -0.03766
+      ],
+      "waterPoints": {
+        "working": 364,
+        "needs_repair": 554,
+        "idle": 27,
+        "broken": 396,
+        "seasonal": 48,
+        "abandoned": 3,
+        "unknown": 0,
+        "total": 1392
+      },
+      "notWorkingShare": 0.321,
+      "wouldRegainAccess": 5298,
+      "latestReport": "2020-11-23",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 691
+        },
+        {
+          "name": "Water For People",
+          "points": 437
+        },
+        {
+          "name": "Water for People",
+          "points": 240
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "central-kyankwanzi",
+      "rank": 79,
+      "district": "Kyankwanzi",
+      "region": "Central",
+      "center": [
+        31.626,
+        1.05135
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 279,
+        "idle": 2,
+        "broken": 70,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 351
+      },
+      "notWorkingShare": 0.199,
+      "wouldRegainAccess": 5285,
+      "latestReport": "2021-04-30",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 321
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 29
+        },
+        {
+          "name": "Living Water International",
+          "points": 1
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "eastern-amuria",
+      "rank": 80,
+      "district": "Amuria",
+      "region": "Eastern",
+      "center": [
+        33.64505,
+        2.00395
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 333,
+        "idle": 6,
+        "broken": 36,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 375
+      },
+      "notWorkingShare": 0.096,
+      "wouldRegainAccess": 5223,
+      "latestReport": "2014-07-30",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 375
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "eastern-namutumba",
+      "rank": 81,
+      "district": "Namutumba",
+      "region": "Eastern",
+      "center": [
+        33.67013,
+        0.85195
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 228,
+        "idle": 9,
+        "broken": 447,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 684
+      },
+      "notWorkingShare": 0.654,
+      "wouldRegainAccess": 5137,
+      "latestReport": "2022-03-30",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 429
+        },
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 252
+        },
+        {
+          "name": "WaterAid",
+          "points": 3
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "central-kyotera",
+      "rank": 82,
+      "district": "Kyotera",
+      "region": "Central",
+      "center": [
+        31.61455,
+        -0.70597
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 263,
+        "idle": 23,
+        "broken": 74,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 360
+      },
+      "notWorkingShare": 0.206,
+      "wouldRegainAccess": 5043,
+      "latestReport": "2023-06-20",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 353
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 7
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "western-kiruhura",
+      "rank": 83,
+      "district": "Kiruhura",
+      "region": "Western",
+      "center": [
+        30.94404,
+        -0.42601
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 641,
+        "idle": 1,
+        "broken": 221,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 863
+      },
+      "notWorkingShare": 0.256,
+      "wouldRegainAccess": 4928,
+      "latestReport": "2022-01-06",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 747
+        },
+        {
+          "name": "Living Water International",
+          "points": 114
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 2
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "northern-omoro",
+      "rank": 84,
+      "district": "Omoro",
+      "region": "Northern",
+      "center": [
+        32.46509,
+        2.66102
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 415,
+        "idle": 21,
+        "broken": 190,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 626
+      },
+      "notWorkingShare": 0.304,
+      "wouldRegainAccess": 4868,
+      "latestReport": "2016-09-30",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 529
+        },
+        {
+          "name": "World Vision",
+          "points": 93
+        },
+        {
+          "name": "Living Water International",
+          "points": 4
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "eastern-bulambuli",
+      "rank": 85,
+      "district": "Bulambuli",
+      "region": "Eastern",
+      "center": [
+        34.34987,
+        1.27873
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 471,
+        "idle": 9,
+        "broken": 72,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 552
+      },
+      "notWorkingShare": 0.13,
+      "wouldRegainAccess": 4800,
+      "latestReport": "2021-03-24",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 549
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 2
+        },
+        {
+          "name": "Evidence Action",
+          "points": 1
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "eastern-kaliro",
+      "rank": 86,
+      "district": "Kaliro",
+      "region": "Eastern",
+      "center": [
+        33.48087,
+        1.04071
+      ],
+      "waterPoints": {
+        "working": 1,
+        "needs_repair": 360,
+        "idle": 6,
+        "broken": 31,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 398
+      },
+      "notWorkingShare": 0.078,
+      "wouldRegainAccess": 4718,
+      "latestReport": "2019-04-30",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 397
+        },
+        {
+          "name": "Water For People",
+          "points": 1
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "western-masindi",
+      "rank": 87,
+      "district": "Masindi",
+      "region": "Western",
+      "center": [
+        31.6804,
+        1.68045
+      ],
+      "waterPoints": {
+        "working": 1181,
+        "needs_repair": 582,
+        "idle": 15,
+        "broken": 241,
+        "seasonal": 0,
+        "abandoned": 170,
+        "unknown": 0,
+        "total": 2189
+      },
+      "notWorkingShare": 0.188,
+      "wouldRegainAccess": 4653,
+      "latestReport": "2022-02-26",
+      "sources": [
+        {
+          "name": "The Water Trust",
+          "points": 1465
+        },
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 710
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 7
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "northern-koboko",
+      "rank": 88,
+      "district": "Koboko",
+      "region": "Northern",
+      "center": [
+        30.98972,
+        3.46069
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 398,
+        "idle": 14,
+        "broken": 95,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 507
+      },
+      "notWorkingShare": 0.187,
+      "wouldRegainAccess": 4562,
+      "latestReport": "2019-10-29",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 502
+        },
+        {
+          "name": "UNHCR",
+          "points": 5
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "central-buvuma",
+      "rank": 89,
+      "district": "Buvuma",
+      "region": "Central",
+      "center": [
+        33.26968,
+        0.19691
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 44,
+        "idle": 15,
+        "broken": 12,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 71
+      },
+      "notWorkingShare": 0.169,
+      "wouldRegainAccess": 4453,
+      "latestReport": "2014-07-31",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 71
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "western-kabale",
+      "rank": 90,
+      "district": "Kabale",
+      "region": "Western",
+      "center": [
+        30.05479,
+        -1.2763
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 342,
+        "idle": 1,
+        "broken": 56,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 399
+      },
+      "notWorkingShare": 0.14,
+      "wouldRegainAccess": 4406,
+      "latestReport": "2014-07-31",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 399
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "western-kibaale",
+      "rank": 91,
+      "district": "Kibaale",
+      "region": "Western",
+      "center": [
+        31.0831,
+        0.80081
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 260,
+        "idle": 6,
+        "broken": 43,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 309
+      },
+      "notWorkingShare": 0.139,
+      "wouldRegainAccess": 4192,
+      "latestReport": "2019-10-16",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 308
+        },
+        {
+          "name": "UNHCR",
+          "points": 1
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "northern-gulu",
+      "rank": 92,
+      "district": "Gulu",
+      "region": "Northern",
+      "center": [
+        32.33977,
+        2.85463
+      ],
+      "waterPoints": {
+        "working": 495,
+        "needs_repair": 281,
+        "idle": 61,
+        "broken": 260,
+        "seasonal": 3,
+        "abandoned": 2,
+        "unknown": 0,
+        "total": 1102
+      },
+      "notWorkingShare": 0.24,
+      "wouldRegainAccess": 4125,
+      "latestReport": "2022-06-01",
+      "sources": [
+        {
+          "name": "YouthMappers Gulu Chapter",
+          "points": 684
+        },
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 344
+        },
+        {
+          "name": "World Vision",
+          "points": 65
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "northern-pader",
+      "rank": 93,
+      "district": "Pader",
+      "region": "Northern",
+      "center": [
+        32.9387,
+        2.92787
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 350,
+        "idle": 10,
+        "broken": 97,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 457
+      },
+      "notWorkingShare": 0.212,
+      "wouldRegainAccess": 4070,
+      "latestReport": "2021-09-21",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 456
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 1
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "eastern-mbale",
+      "rank": 94,
+      "district": "Mbale",
+      "region": "Eastern",
+      "center": [
+        34.21371,
+        1.03393
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 730,
+        "idle": 13,
+        "broken": 837,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 1580
+      },
+      "notWorkingShare": 0.53,
+      "wouldRegainAccess": 3877,
+      "latestReport": "2021-03-24",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 865
+        },
+        {
+          "name": "Evidence Action",
+          "points": 709
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 6
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "northern-amudat",
+      "rank": 95,
+      "district": "Amudat",
+      "region": "Northern",
+      "center": [
+        34.90375,
+        1.8644
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 85,
+        "idle": 7,
+        "broken": 120,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 212
+      },
+      "notWorkingShare": 0.566,
+      "wouldRegainAccess": 3757,
+      "latestReport": "2013-09-13",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 92
+        },
+        {
+          "name": "C & D",
+          "points": 83
+        },
+        {
+          "name": "OCHA ROSEA",
+          "points": 37
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "western-rwampara",
+      "rank": 96,
+      "district": "Rwampara",
+      "region": "Western",
+      "center": [
+        30.52837,
+        -0.76126
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 1601,
+        "idle": 27,
+        "broken": 240,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 1868
+      },
+      "notWorkingShare": 0.128,
+      "wouldRegainAccess": 3731,
+      "latestReport": "2023-03-28",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 1863
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 5
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "eastern-tororo",
+      "rank": 97,
+      "district": "Tororo",
+      "region": "Eastern",
+      "center": [
+        34.10321,
+        0.72985
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 649,
+        "idle": 0,
+        "broken": 747,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 1396
+      },
+      "notWorkingShare": 0.535,
+      "wouldRegainAccess": 3506,
+      "latestReport": "2021-04-28",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 713
+        },
+        {
+          "name": "Evidence Action",
+          "points": 680
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 2
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "western-bushenyi",
+      "rank": 98,
+      "district": "Bushenyi",
+      "region": "Western",
+      "center": [
+        30.15867,
+        -0.53593
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 449,
+        "idle": 3,
+        "broken": 86,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 538
+      },
+      "notWorkingShare": 0.16,
+      "wouldRegainAccess": 3468,
+      "latestReport": "2014-07-30",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 538
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "eastern-busia",
+      "rank": 99,
+      "district": "Busia",
+      "region": "Eastern",
+      "center": [
+        34.02519,
+        0.43409
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 410,
+        "idle": 7,
+        "broken": 710,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 1127
+      },
+      "notWorkingShare": 0.63,
+      "wouldRegainAccess": 3307,
+      "latestReport": "2017-10-16",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 619
+        },
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 506
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "central-lyantonde",
+      "rank": 100,
+      "district": "Lyantonde",
+      "region": "Central",
+      "center": [
+        31.18716,
+        -0.32817
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 307,
+        "idle": 4,
+        "broken": 56,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 367
+      },
+      "notWorkingShare": 0.153,
+      "wouldRegainAccess": 2916,
+      "latestReport": "2014-10-30",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 367
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "northern-yumbe",
+      "rank": 101,
+      "district": "Yumbe",
+      "region": "Northern",
+      "center": [
+        31.24852,
+        3.45678
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 524,
+        "idle": 45,
+        "broken": 48,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 617
+      },
+      "notWorkingShare": 0.078,
+      "wouldRegainAccess": 2905,
+      "latestReport": "2019-10-29",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 612
+        },
+        {
+          "name": "UNHCR",
+          "points": 5
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "northern-lamwo",
+      "rank": 102,
+      "district": "Lamwo",
+      "region": "Northern",
+      "center": [
+        32.75064,
+        3.52776
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 471,
+        "idle": 4,
+        "broken": 115,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 590
+      },
+      "notWorkingShare": 0.195,
+      "wouldRegainAccess": 2788,
+      "latestReport": "2022-08-28",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 576
+        },
+        {
+          "name": "Drop in the Bucket",
+          "points": 13
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 1
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "eastern-iganga",
+      "rank": 103,
+      "district": "Iganga",
+      "region": "Eastern",
+      "center": [
+        33.47803,
+        0.70844
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 416,
+        "idle": 9,
+        "broken": 55,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 480
+      },
+      "notWorkingShare": 0.115,
+      "wouldRegainAccess": 2541,
+      "latestReport": "2023-12-03",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 462
+        },
+        {
+          "name": "Water4",
+          "points": 16
+        },
+        {
+          "name": "Living Water International",
+          "points": 2
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "eastern-kalaki",
+      "rank": 104,
+      "district": "Kalaki",
+      "region": "Eastern",
+      "center": [
+        33.33018,
+        1.86745
+      ],
+      "waterPoints": {
+        "working": 1,
+        "needs_repair": 219,
+        "idle": 14,
+        "broken": 26,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 260
+      },
+      "notWorkingShare": 0.1,
+      "wouldRegainAccess": 1971,
+      "latestReport": "2015-03-02",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 259
+        },
+        {
+          "name": "CARE-Uganda-Otuke",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "northern-moyo",
+      "rank": 105,
+      "district": "Moyo",
+      "region": "Northern",
+      "center": [
+        31.75721,
+        3.63725
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 338,
+        "idle": 33,
+        "broken": 104,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 475
+      },
+      "notWorkingShare": 0.219,
+      "wouldRegainAccess": 1865,
+      "latestReport": "2015-03-13",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 475
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "eastern-katakwi",
+      "rank": 106,
+      "district": "Katakwi",
+      "region": "Eastern",
+      "center": [
+        34.00114,
+        1.94397
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 335,
+        "idle": 5,
+        "broken": 37,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 377
+      },
+      "notWorkingShare": 0.098,
+      "wouldRegainAccess": 1863,
+      "latestReport": "2014-07-30",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 370
+        },
+        {
+          "name": "C & D",
+          "points": 5
+        },
+        {
+          "name": "OCHA ROSEA",
+          "points": 2
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "eastern-kibuku",
+      "rank": 107,
+      "district": "Kibuku",
+      "region": "Eastern",
+      "center": [
+        33.8143,
+        1.06038
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 293,
+        "idle": 0,
+        "broken": 74,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 367
+      },
+      "notWorkingShare": 0.202,
+      "wouldRegainAccess": 1799,
+      "latestReport": "2014-06-24",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 319
+        },
+        {
+          "name": "Evidence Action",
+          "points": 48
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "northern-moroto",
+      "rank": 108,
+      "district": "Moroto",
+      "region": "Northern",
+      "center": [
+        34.65107,
+        2.5213
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 64,
+        "idle": 15,
+        "broken": 469,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 548
+      },
+      "notWorkingShare": 0.856,
+      "wouldRegainAccess": 1664,
+      "latestReport": "2014-07-16",
+      "sources": [
+        {
+          "name": "C & D",
+          "points": 227
+        },
+        {
+          "name": "OCHA ROSEA",
+          "points": 223
+        },
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 98
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "western-mbarara",
+      "rank": 109,
+      "district": "Mbarara",
+      "region": "Western",
+      "center": [
+        30.58983,
+        -0.61388
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 1229,
+        "idle": 20,
+        "broken": 89,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 1338
+      },
+      "notWorkingShare": 0.067,
+      "wouldRegainAccess": 1620,
+      "latestReport": "2021-06-29",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 1335
+        },
+        {
+          "name": "Living Water International",
+          "points": 3
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "western-sheema",
+      "rank": 110,
+      "district": "Sheema",
+      "region": "Western",
+      "center": [
+        30.32779,
+        -0.60929
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 1276,
+        "idle": 7,
+        "broken": 161,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 1444
+      },
+      "notWorkingShare": 0.111,
+      "wouldRegainAccess": 1558,
+      "latestReport": "2014-07-31",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 1444
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "western-rubanda",
+      "rank": 111,
+      "district": "Rubanda",
+      "region": "Western",
+      "center": [
+        29.90107,
+        -1.16879
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 610,
+        "idle": 8,
+        "broken": 108,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 726
+      },
+      "notWorkingShare": 0.149,
+      "wouldRegainAccess": 1535,
+      "latestReport": "2021-03-05",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 722
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 4
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "eastern-bugiri",
+      "rank": 112,
+      "district": "Bugiri",
+      "region": "Eastern",
+      "center": [
+        33.76321,
+        0.51723
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 299,
+        "idle": 21,
+        "broken": 682,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 1002
+      },
+      "notWorkingShare": 0.681,
+      "wouldRegainAccess": 1492,
+      "latestReport": "2018-12-07",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 521
+        },
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 388
+        },
+        {
+          "name": "charity: water",
+          "points": 92
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "eastern-sironko",
+      "rank": 113,
+      "district": "Sironko",
+      "region": "Eastern",
+      "center": [
+        34.30441,
+        1.1711
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 756,
+        "idle": 25,
+        "broken": 427,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 1208
+      },
+      "notWorkingShare": 0.353,
+      "wouldRegainAccess": 1481,
+      "latestReport": "2014-12-05",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 890
+        },
+        {
+          "name": "Evidence Action",
+          "points": 318
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "eastern-manafwa",
+      "rank": 114,
+      "district": "Manafwa",
+      "region": "Eastern",
+      "center": [
+        34.28622,
+        0.909
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 226,
+        "idle": 5,
+        "broken": 461,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 692
+      },
+      "notWorkingShare": 0.666,
+      "wouldRegainAccess": 1392,
+      "latestReport": "2014-11-01",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 439
+        },
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 253
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "northern-karenga",
+      "rank": 115,
+      "district": "Karenga",
+      "region": "Northern",
+      "center": [
+        33.80172,
+        3.62707
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 38,
+        "idle": 3,
+        "broken": 102,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 143
+      },
+      "notWorkingShare": 0.713,
+      "wouldRegainAccess": 1306,
+      "latestReport": "2014-12-03",
+      "sources": [
+        {
+          "name": "C & D",
+          "points": 92
+        },
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 48
+        },
+        {
+          "name": "World Vision",
+          "points": 3
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "northern-nakapiripirit",
+      "rank": 116,
+      "district": "Nakapiripirit",
+      "region": "Northern",
+      "center": [
+        34.63198,
+        1.82296
+      ],
+      "waterPoints": {
+        "working": 1,
+        "needs_repair": 56,
+        "idle": 2,
+        "broken": 275,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 334
+      },
+      "notWorkingShare": 0.823,
+      "wouldRegainAccess": 1299,
+      "latestReport": "2015-03-02",
+      "sources": [
+        {
+          "name": "C & D",
+          "points": 144
+        },
+        {
+          "name": "OCHA ROSEA",
+          "points": 123
+        },
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 66
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "eastern-kween",
+      "rank": 117,
+      "district": "Kween",
+      "region": "Eastern",
+      "center": [
+        34.56351,
+        1.41575
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 192,
+        "idle": 8,
+        "broken": 23,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 223
+      },
+      "notWorkingShare": 0.103,
+      "wouldRegainAccess": 1240,
+      "latestReport": "2014-07-31",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 223
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "northern-obongi",
+      "rank": 118,
+      "district": "Obongi",
+      "region": "Northern",
+      "center": [
+        31.58935,
+        3.41192
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 127,
+        "idle": 9,
+        "broken": 224,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 360
+      },
+      "notWorkingShare": 0.622,
+      "wouldRegainAccess": 1115,
+      "latestReport": "2020-02-24",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 198
+        },
+        {
+          "name": "UNHCR",
+          "points": 158
+        },
+        {
+          "name": "Living Water International",
+          "points": 4
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "eastern-bugweri",
+      "rank": 119,
+      "district": "Bugweri",
+      "region": "Eastern",
+      "center": [
+        33.60324,
+        0.62289
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 237,
+        "idle": 0,
+        "broken": 26,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 263
+      },
+      "notWorkingShare": 0.099,
+      "wouldRegainAccess": 862,
+      "latestReport": "2016-08-16",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 262
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "eastern-kapchorwa",
+      "rank": 120,
+      "district": "Kapchorwa",
+      "region": "Eastern",
+      "center": [
+        34.40817,
+        1.36684
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 430,
+        "idle": 14,
+        "broken": 46,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 490
+      },
+      "notWorkingShare": 0.094,
+      "wouldRegainAccess": 814,
+      "latestReport": "2013-12-04",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 490
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "eastern-kapelebyong",
+      "rank": 121,
+      "district": "Kapelebyong",
+      "region": "Eastern",
+      "center": [
+        33.72653,
+        2.18572
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 227,
+        "idle": 2,
+        "broken": 10,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 239
+      },
+      "notWorkingShare": 0.042,
+      "wouldRegainAccess": 782,
+      "latestReport": "2013-08-01",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 239
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "western-ibanda",
+      "rank": 122,
+      "district": "Ibanda",
+      "region": "Western",
+      "center": [
+        30.4249,
+        -0.05666
+      ],
+      "waterPoints": {
+        "working": 1,
+        "needs_repair": 65,
+        "idle": 0,
+        "broken": 97,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 163
+      },
+      "notWorkingShare": 0.595,
+      "wouldRegainAccess": 613,
+      "latestReport": "2022-01-27",
+      "sources": [
+        {
+          "name": "Living Water International",
+          "points": 87
+        },
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 74
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 1
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "western-buhweju",
+      "rank": 123,
+      "district": "Buhweju",
+      "region": "Western",
+      "center": [
+        30.32958,
+        -0.34655
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 114,
+        "idle": 0,
+        "broken": 33,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 147
+      },
+      "notWorkingShare": 0.224,
+      "wouldRegainAccess": 356,
+      "latestReport": "2013-10-25",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 147
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "eastern-budaka",
+      "rank": 124,
+      "district": "Budaka",
+      "region": "Eastern",
+      "center": [
+        33.99035,
+        1.0727
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 450,
+        "idle": 4,
+        "broken": 57,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 511
+      },
+      "notWorkingShare": 0.112,
+      "wouldRegainAccess": 256,
+      "latestReport": "2015-03-25",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 509
+        },
+        {
+          "name": "Evidence Action",
+          "points": 2
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "western-rukiga",
+      "rank": 125,
+      "district": "Rukiga",
+      "region": "Western",
+      "center": [
+        30.0409,
+        -1.13481
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 752,
+        "idle": 2,
+        "broken": 106,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 860
+      },
+      "notWorkingShare": 0.123,
+      "wouldRegainAccess": 181,
+      "latestReport": "2017-02-03",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 858
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 2
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "eastern-luuka",
+      "rank": 126,
+      "district": "Luuka",
+      "region": "Eastern",
+      "center": [
+        33.33686,
+        0.76659
+      ],
+      "waterPoints": {
+        "working": 638,
+        "needs_repair": 179,
+        "idle": 0,
+        "broken": 63,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 880
+      },
+      "notWorkingShare": 0.072,
+      "wouldRegainAccess": 179,
+      "latestReport": "2021-04-02",
+      "sources": [
+        {
+          "name": "Water For People",
+          "points": 691
+        },
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 188
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 1
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "eastern-pallisa",
+      "rank": 127,
+      "district": "Pallisa",
+      "region": "Eastern",
+      "center": [
+        33.73302,
+        1.21061
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 226,
+        "idle": 1,
+        "broken": 570,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 797
+      },
+      "notWorkingShare": 0.715,
+      "wouldRegainAccess": 130,
+      "latestReport": "2015-03-23",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 506
+        },
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 291
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "eastern-namisindwa",
+      "rank": 128,
+      "district": "Namisindwa",
+      "region": "Eastern",
+      "center": [
+        34.35993,
+        0.88052
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 280,
+        "idle": 3,
+        "broken": 633,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 916
+      },
+      "notWorkingShare": 0.691,
+      "wouldRegainAccess": 98,
+      "latestReport": "2014-11-01",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 612
+        },
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 304
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "eastern-bududa",
+      "rank": 129,
+      "district": "Bududa",
+      "region": "Eastern",
+      "center": [
+        34.35802,
+        1.02974
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 659,
+        "idle": 19,
+        "broken": 38,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 716
+      },
+      "notWorkingShare": 0.053,
+      "wouldRegainAccess": 85,
+      "latestReport": "2014-05-20",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 714
+        },
+        {
+          "name": "Evidence Action",
+          "points": 2
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "eastern-bukwo",
+      "rank": 130,
+      "district": "Bukwo",
+      "region": "Eastern",
+      "center": [
+        34.728,
+        1.28049
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 275,
+        "idle": 27,
+        "broken": 15,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 317
+      },
+      "notWorkingShare": 0.047,
+      "wouldRegainAccess": 58,
+      "latestReport": "2014-11-11",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 317
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "central-kalangala",
+      "rank": 131,
+      "district": "Kalangala",
+      "region": "Central",
+      "center": [
+        32.25925,
+        -0.3188
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 135,
+        "idle": 0,
+        "broken": 8,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 143
+      },
+      "notWorkingShare": 0.056,
+      "wouldRegainAccess": 32,
+      "latestReport": "2014-07-21",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 143
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "eastern-butebo",
+      "rank": 132,
+      "district": "Butebo",
+      "region": "Eastern",
+      "center": [
+        33.99308,
+        1.17625
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 115,
+        "idle": 4,
+        "broken": 343,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 462
+      },
+      "notWorkingShare": 0.742,
+      "wouldRegainAccess": 0,
+      "latestReport": "2021-03-25",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 296
+        },
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 165
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 1
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "central-kampala",
+      "rank": 133,
+      "district": "Kampala",
+      "region": "Central",
+      "center": [
+        32.57181,
+        0.32575
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 4,
+        "idle": 0,
+        "broken": 11,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 15
+      },
+      "notWorkingShare": 0.733,
+      "wouldRegainAccess": 0,
+      "latestReport": "2022-02-28",
+      "sources": [
+        {
+          "name": "Ugandan Water Project",
+          "points": 10
+        },
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 4
+        },
+        {
+          "name": "WaterAid",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "thin_sample"
+      ]
+    },
+    {
+      "id": "western-kisoro",
+      "rank": 134,
+      "district": "Kisoro",
+      "region": "Western",
+      "center": [
+        29.80149,
+        -1.2519
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 3,
+        "idle": 1,
+        "broken": 0,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 4
+      },
+      "notWorkingShare": 0,
+      "wouldRegainAccess": 0,
+      "latestReport": "2010-04-29",
+      "sources": [
+        {
+          "name": "Ministry of Water and Environment, Uganda",
+          "points": 4
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "stale"
+      ]
+    },
+    {
+      "id": "western-kazo",
+      "rank": 135,
+      "district": "Kazo",
+      "region": "Western",
+      "center": [
+        30.72749,
+        0.03215
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 35,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 35
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2023-01-08",
+      "sources": [
+        {
+          "name": "Living Water International",
+          "points": 33
+        },
+        {
+          "name": "Ugandan Water Project",
+          "points": 2
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    }
+  ]
+}

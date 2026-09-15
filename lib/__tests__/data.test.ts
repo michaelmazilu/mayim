@@ -9,8 +9,19 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 
-import type { AnalysisRun, InfrastructureRecommendation, Partner, TownRef } from "@/lib/types";
-import { countryIso2 } from "@/lib/geo/countries";
+import type {
+  AnalysisRun,
+  EvidenceFinding,
+  InfrastructureRecommendation,
+  Partner,
+  ScoreFactor,
+  TownRef,
+} from "@/lib/types";
+import { aggregateSignals, MAX_FACTOR_SHIFT, NEUTRAL_SIGNALS } from "@/lib/evidence/signals";
+import { loadEvidenceSnapshot } from "@/lib/evidence/snapshot";
+import { countryIso2, countryIso3 } from "@/lib/geo/countries";
+import { classifyStatus, parseDistrictRows, type DistrictStatusRow } from "@/lib/providers/wpdx";
+import { buildRegionalScan, rollupDistricts } from "@/lib/scan/regional";
 import {
   buildQueries,
   mergeEvidence,
@@ -20,6 +31,7 @@ import {
   type RawEvidence,
 } from "@/lib/evidence/exa";
 import {
+  canonicalPublisher,
   cleanTitle,
   leadingSentences,
   publisherFor,
@@ -37,13 +49,17 @@ import { VERIFIED_PARTNERS, verifiedPartnersFor } from "@/lib/partners/verified"
 import { costPerPersonServed } from "@/lib/metrics/cost-per-person";
 import { buildProjectBrief } from "@/lib/brief/brief";
 import {
+  CITY_GROWTH,
   DEMAND_LITERS_PER_PERSON_DAY,
   DROUGHT_FUNCTIONALITY,
   HOUSEHOLD_SIZE,
+  MOTORISED_SCHEME_DOWN_SHARE,
   POPULATION_GROWTH,
   REPAIR_DAYS,
   WATER_POINT_DOWN_SHARE,
+  WATER_POINT_DOWN_SHARE_BY_COUNTRY,
   WALKING_SPEED_M_PER_S,
+  growthRateForTown,
   householdSize,
   meanDaysBetweenBreakdowns,
   populationGrowthRate,
@@ -92,6 +108,125 @@ describe("countryIso2", () => {
     assert.equal(countryIso2("ug"), "UG");
     assert.equal(countryIso2("Atlantis"), undefined);
     assert.equal(countryIso2(undefined), undefined);
+  });
+
+  test("maps names and codes to ISO3 for WPdx", () => {
+    assert.equal(countryIso3("Uganda"), "UGA");
+    assert.equal(countryIso3("GH"), "GHA");
+    assert.equal(countryIso3("ken"), "KEN");
+    assert.equal(countryIso3("XYZ"), undefined);
+    assert.equal(countryIso3(undefined), undefined);
+  });
+});
+
+describe("regional scan (WPdx)", () => {
+  test("functionality comes from status_clean categories", () => {
+    assert.equal(classifyStatus("Functional"), "working");
+    assert.equal(classifyStatus("Functional, needs repair"), "needs_repair");
+    assert.equal(classifyStatus("Functional, not in use"), "idle");
+    assert.equal(classifyStatus("Non-Functional"), "broken");
+    assert.equal(classifyStatus("Non-Functional, dry season"), "seasonal");
+    assert.equal(classifyStatus("Abandoned/Decommissioned"), "abandoned");
+    assert.equal(classifyStatus("Other"), "unknown");
+    assert.equal(classifyStatus(undefined), "unknown");
+  });
+
+  test("parses Socrata string aggregates and drops unusable rows", () => {
+    const rows = parseDistrictRows([
+      { clean_adm1: "Northern", clean_adm2: "Gulu", source: "CWSA", status_clean: "Non-Functional", n: "20", gain: "4000.4", lat: "2.9", lon: "32.4", latest: "2023-01-01T00:00:00.000" },
+      { clean_adm2: "NoSource", n: "2" },
+      { clean_adm2: "", n: "3" },
+      { clean_adm2: "Empty", n: "0" },
+      "junk",
+    ]);
+    assert.equal(rows.length, 2);
+    assert.equal(rows[1].source, "Unknown source");
+    assert.deepEqual(rows[0], {
+      region: "Northern",
+      district: "Gulu",
+      source: "CWSA",
+      status: "broken",
+      count: 20,
+      wouldRegainAccess: 4000.4,
+      lat: 2.9,
+      lon: 32.4,
+      latestReport: "2023-01-01",
+    });
+    assert.deepEqual(parseDistrictRows({ error: true }), []);
+  });
+
+  const ASOF = new Date("2026-09-15T00:00:00Z");
+  const row = (over: Partial<DistrictStatusRow>): DistrictStatusRow => ({
+    region: "Northern",
+    district: "Gulu",
+    source: "MWE",
+    status: "working",
+    count: 1,
+    wouldRegainAccess: 0,
+    lat: null,
+    lon: null,
+    latestReport: null,
+    ...over,
+  });
+  const rows = [
+    row({ status: "working", count: 80, lat: 2.8, lon: 32.3, latestReport: "2022-06-01" }),
+    row({ status: "broken", count: 20, wouldRegainAccess: 4000.4, lat: 2.9, lon: 32.4, latestReport: "2023-01-01" }),
+    row({ status: "unknown", count: 10 }),
+    row({ region: "Western", district: "Hoima", status: "seasonal", count: 5, wouldRegainAccess: 6000, lat: 1.4, lon: 31.3 }),
+    row({ region: "Western", district: "Hoima", status: "working", count: 15, lat: 1.4, lon: 31.3 }),
+  ];
+
+  test("rolls status groups up per district", () => {
+    const [hoima, gulu] = rollupDistricts(rows, ASOF);
+    assert.equal(gulu.district, "Gulu");
+    assert.equal(gulu.waterPoints.total, 110);
+    assert.equal(gulu.notWorkingShare, 0.2); // 20 broken of 100 with a known status
+    assert.equal(gulu.wouldRegainAccess, 4000);
+    assert.deepEqual(gulu.center, [32.32, 2.82]); // weighted by point count
+    assert.equal(gulu.latestReport, "2023-01-01");
+    assert.deepEqual(gulu.sources, [{ name: "MWE", points: 110 }]);
+    assert.deepEqual(gulu.flags, []);
+    assert.equal(hoima.notWorkingShare, 0.25);
+    assert.deepEqual(hoima.flags, ["thin_sample", "stale"]); // 20 points, no dated report
+  });
+
+  test("flags stale districts against the scan date", () => {
+    const old = [row({ district: "Old", count: 40, latestReport: "2014-01-17" })];
+    assert.deepEqual(rollupDistricts(old, ASOF)[0].flags, ["stale"]); // 2014 < 2026 - 8
+    assert.deepEqual(rollupDistricts(old, new Date("2020-01-01T00:00:00Z"))[0].flags, []);
+  });
+
+  test("ranks by people who would regain access, then share not working", () => {
+    assert.deepEqual(rollupDistricts(rows, ASOF).map((d) => [d.rank, d.district]), [[1, "Hoima"], [2, "Gulu"]]);
+    const tied = [
+      row({ district: "A", status: "broken", count: 1, wouldRegainAccess: 100 }),
+      row({ district: "A", status: "working", count: 3 }),
+      row({ district: "B", status: "broken", count: 1, wouldRegainAccess: 100 }),
+      row({ district: "B", status: "working", count: 1 }),
+    ];
+    assert.deepEqual(rollupDistricts(tied, ASOF).map((d) => d.district), ["B", "A"]);
+    assert.deepEqual(rollupDistricts([...rows].reverse(), ASOF), rollupDistricts(rows, ASOF));
+  });
+
+  test("a survey of broken points only is flagged and ranked after the rest", () => {
+    const skewed = [
+      ...rows,
+      row({ district: "Jomoro", source: "CWSA", status: "broken", count: 132, wouldRegainAccess: 94770, latestReport: "2025-05-02" }),
+    ];
+    const ranked = rollupDistricts(skewed, ASOF);
+    const jomoro = ranked.find((d) => d.district === "Jomoro")!;
+    assert.deepEqual(jomoro.flags, ["one_sided_survey"]);
+    assert.equal(jomoro.rank, 3); // most people, but last: 100% broken means a partial survey
+    assert.deepEqual(jomoro.sources, [{ name: "CWSA", points: 132 }]);
+  });
+
+  test("scan totals add up and carry their limitations", () => {
+    const scan = buildRegionalScan({ country: "Uganda", iso3: "UGA", rows, retrievedAt: new Date("2026-09-15T00:00:00Z") });
+    assert.equal(scan.totals.total, 130);
+    assert.equal(scan.totals.wouldRegainAccess, 10000);
+    assert.equal(scan.totals.districts, 2);
+    assert.equal(scan.retrievedAt, "2026-09-15T00:00:00.000Z");
+    assert.ok(scan.limitations.some((l) => /coverage/.test(l)));
   });
 });
 
@@ -181,6 +316,12 @@ describe("deterministic structuring", () => {
     assert.equal(cleanTitle("Gulu water project", "u", "X", "infrastructure"), "Gulu water project");
   });
 
+  test("canonical publisher prefers the table, else the given reading", () => {
+    assert.equal(canonicalPublisher("https://link.springer.com/article/1", "link.springer.com"), "Springer");
+    assert.equal(canonicalPublisher("https://obscure.example.org/x", "Obscure Institute"), "Obscure Institute");
+    assert.equal(canonicalPublisher("https://obscure.example.org/x", "  "), "obscure.example.org");
+  });
+
   test("findings quote the excerpt, carry no score impact and stay under the ceiling", () => {
     const findings = structureDeterministically(
       [raw(), raw({ url: "https://news.example.com/a", highlights: ["Unrelated town."] })],
@@ -198,6 +339,19 @@ describe("deterministic structuring", () => {
     const text = "First sentence is here. Second sentence is also here. Third one would overflow the limit entirely.";
     assert.equal(leadingSentences(text, 60), "First sentence is here. Second sentence is also here.");
     assert.equal(leadingSentences("Short.", 60), "Short.");
+  });
+});
+
+describe("evidence snapshots", () => {
+  test("committed demo snapshots load with canonical publisher names", async () => {
+    for (const slug of ["kisumu-kenya", "tamale-ghana"]) {
+      const snap = await loadEvidenceSnapshot(slug);
+      assert.ok(snap && snap.findings.length > 0, slug);
+      for (const f of snap.findings) {
+        assert.equal(f.sourceName, canonicalPublisher(f.sourceUrl, f.sourceName), f.sourceUrl);
+        assert.doesNotMatch(f.sourceName, /^(link\.springer\.com|documents1\.worldbank\.org|earthwise\.bgs\.ac\.uk)$/);
+      }
+    }
   });
 });
 
@@ -344,9 +498,28 @@ describe("behaviour rates", () => {
     ...Object.entries(HOUSEHOLD_SIZE),
     ...Object.entries(REPAIR_DAYS),
     ...Object.entries(DROUGHT_FUNCTIONALITY),
+    ...Object.entries(CITY_GROWTH),
+    ...(Object.entries(WATER_POINT_DOWN_SHARE_BY_COUNTRY) as [string, Rate][]),
     ["downShare", WATER_POINT_DOWN_SHARE],
+    ["motorised", MOTORISED_SCHEME_DOWN_SHARE],
     ["walking", WALKING_SPEED_M_PER_S],
   ];
+
+  test("town growth uses a sourced city rate, else the national one", () => {
+    // Kisumu County: 968,909 (2009) → 1,155,574 (2019).
+    const cagr = ((1155574 / 968909) ** (1 / 10) - 1) * 100;
+    assert.ok(Math.abs(cagr - CITY_GROWTH["kisumu-kenya"].central) < 0.01, String(cagr));
+    assert.equal(growthRateForTown("kisumu-kenya", "KE"), CITY_GROWTH["kisumu-kenya"]);
+    // Boundary changes make city rates invalid for these two.
+    assert.equal(growthRateForTown("tamale-ghana", "GH"), POPULATION_GROWTH.GH);
+    assert.equal(growthRateForTown("gulu-uganda", "UG"), POPULATION_GROWTH.UG);
+    assert.equal(growthRateForTown(undefined, undefined), POPULATION_GROWTH.SSA);
+  });
+
+  test("motorised schemes are down more often and for longer than handpumps", () => {
+    assert.ok(MOTORISED_SCHEME_DOWN_SHARE.central > WATER_POINT_DOWN_SHARE.central);
+    assert.ok(REPAIR_DAYS.motorisedCommunityManaged.low > REPAIR_DAYS.communityManaged.central);
+  });
 
   test("every rate is ordered and cited", () => {
     for (const [name, r] of all) {
@@ -421,6 +594,51 @@ describe("population: WorldPop primary", () => {
     assert.ok(p.limitations.some((l) => /differs by 3\.4×/.test(l)));
     const close = estimatePopulationServed({ ...mappedArgs, worldpop: { ...worldpop, people: 400 }, asOfYear: 2020 });
     assert.equal(populationDisagreement(close), null);
+  });
+});
+
+describe("evidence signals", () => {
+  const finding = (
+    id: string,
+    factor: ScoreFactor,
+    direction: "increase" | "decrease",
+    magnitude: number,
+    confidence = 0.9,
+  ): EvidenceFinding => ({
+    id,
+    category: "hydrogeology",
+    title: id,
+    summary: id,
+    sourceName: "Source",
+    sourceUrl: `https://source.org/${id}`,
+    confidence,
+    scoreImpact: { factor, direction, magnitude },
+  });
+
+  test("many agreeing sources cannot pin a factor to the bound", () => {
+    const many = Array.from({ length: 12 }, (_, i) => finding(`f${i}`, "risk", "increase", 0.3));
+    const up = aggregateSignals(many);
+    assert.ok(up.risk > 0.8 && up.risk < 0.5 + MAX_FACTOR_SHIFT, String(up.risk));
+    const down = aggregateSignals(
+      many.map((f) => ({ ...f, scoreImpact: { ...f.scoreImpact!, direction: "decrease" as const } })),
+    );
+    assert.ok(Math.abs(0.5 - down.risk - (up.risk - 0.5)) < 1e-12);
+  });
+
+  test("a single modest source moves its factor almost linearly", () => {
+    const s = aggregateSignals([finding("f0", "groundwater", "increase", 0.1, 0.5)]);
+    assert.ok(Math.abs(s.groundwater - 0.55) < 0.002, String(s.groundwater));
+  });
+
+  test("opposing sources cancel and untouched factors stay at baseline", () => {
+    const s = aggregateSignals([finding("f0", "need", "increase", 0.2), finding("f1", "need", "decrease", 0.2)]);
+    assert.equal(s.need, 0.5);
+    assert.equal(s.cost, 0.5);
+    assert.deepEqual(s.contributors.need, ["f0", "f1"]);
+  });
+
+  test("no findings gives the neutral signals", () => {
+    assert.deepEqual(aggregateSignals([]), NEUTRAL_SIGNALS);
   });
 });
 

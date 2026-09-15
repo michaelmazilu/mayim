@@ -1,0 +1,5639 @@
+{
+  "version": 1,
+  "country": "Kenya",
+  "iso3": "KEN",
+  "retrievedAt": "2026-09-15T17:15:36.474Z",
+  "source": "Water Point Data Exchange (WPdx+), CC BY 4.0",
+  "sourceUrl": "https://data.waterpointdata.org/dataset/Water-Point-Data-Exchange-Plus-WPdx-/eqje-vguj",
+  "method": "Districts ranked by the number of people who would regain access to water if their broken water points were repaired, then by the share of surveyed points not working. Districts where 90% or more of surveyed points are broken are ranked after the rest: that pattern usually means a survey of broken points only, not a full inventory.",
+  "limitations": [
+    "Only water points surveyed and shared with WPdx are counted. Survey coverage and dates vary by district, so a district with few or old records can look better than it is.",
+    "'Would regain access' is WPdx's estimate from gridded population: people within 1 km of a broken point who have no other working point nearby.",
+    "Status is the most recent report per point; districts whose newest report is more than 8 years old are flagged stale.",
+    "Districts with fewer than 30 surveyed points are flagged as thin data (Mayim screening thresholds).",
+    "District names follow WPdx's administrative level 2 and may not match current boundaries."
+  ],
+  "totals": {
+    "working": 1964,
+    "needs_repair": 1461,
+    "idle": 4757,
+    "broken": 13578,
+    "seasonal": 190,
+    "abandoned": 3,
+    "unknown": 0,
+    "total": 21953,
+    "wouldRegainAccess": 315134,
+    "districts": 161
+  },
+  "districts": [
+    {
+      "id": "makueni-kibwezi-west",
+      "rank": 1,
+      "district": "Kibwezi West",
+      "region": "Makueni",
+      "center": [
+        37.79281,
+        -2.20165
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 62,
+        "idle": 114,
+        "broken": 92,
+        "seasonal": 18,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 286
+      },
+      "notWorkingShare": 0.385,
+      "wouldRegainAccess": 28165,
+      "latestReport": "2021-02-12",
+      "sources": [
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 286
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "makueni-makueni",
+      "rank": 2,
+      "district": "Makueni",
+      "region": "Makueni",
+      "center": [
+        37.69565,
+        -1.92005
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 103,
+        "idle": 139,
+        "broken": 63,
+        "seasonal": 60,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 365
+      },
+      "notWorkingShare": 0.337,
+      "wouldRegainAccess": 24286,
+      "latestReport": "2021-02-12",
+      "sources": [
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 365
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "kisumu-nyakach",
+      "rank": 3,
+      "district": "Nyakach",
+      "region": "Kisumu",
+      "center": [
+        34.93048,
+        -0.32933
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 4,
+        "idle": 76,
+        "broken": 53,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 133
+      },
+      "notWorkingShare": 0.398,
+      "wouldRegainAccess": 15790,
+      "latestReport": "2022-09-06",
+      "sources": [
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 114
+        },
+        {
+          "name": "Living Water International",
+          "points": 17
+        },
+        {
+          "name": "World Vision",
+          "points": 2
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "kisumu-kisumu-west",
+      "rank": 4,
+      "district": "Kisumu West",
+      "region": "Kisumu",
+      "center": [
+        34.65434,
+        -0.05902
+      ],
+      "waterPoints": {
+        "working": 13,
+        "needs_repair": 4,
+        "idle": 48,
+        "broken": 60,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 125
+      },
+      "notWorkingShare": 0.48,
+      "wouldRegainAccess": 14002,
+      "latestReport": "2023-11-30",
+      "sources": [
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 82
+        },
+        {
+          "name": "Evidence Action",
+          "points": 19
+        },
+        {
+          "name": "Virtual Kenya",
+          "points": 15
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "makueni-kilome",
+      "rank": 5,
+      "district": "Kilome",
+      "region": "Makueni",
+      "center": [
+        37.28777,
+        -1.84353
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 80,
+        "idle": 67,
+        "broken": 49,
+        "seasonal": 5,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 201
+      },
+      "notWorkingShare": 0.269,
+      "wouldRegainAccess": 12684,
+      "latestReport": "2021-02-15",
+      "sources": [
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 201
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "makueni-kibwezi-east",
+      "rank": 6,
+      "district": "Kibwezi East",
+      "region": "Makueni",
+      "center": [
+        38.07436,
+        -2.56893
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 36,
+        "idle": 141,
+        "broken": 40,
+        "seasonal": 14,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 231
+      },
+      "notWorkingShare": 0.234,
+      "wouldRegainAccess": 11013,
+      "latestReport": "2021-02-12",
+      "sources": [
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 231
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "siaya-rarieda",
+      "rank": 7,
+      "district": "Rarieda",
+      "region": "Siaya",
+      "center": [
+        34.35682,
+        -0.17902
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 40,
+        "idle": 34,
+        "broken": 13,
+        "seasonal": 9,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 96
+      },
+      "notWorkingShare": 0.229,
+      "wouldRegainAccess": 9219,
+      "latestReport": "2024-01-22",
+      "sources": [
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 91
+        },
+        {
+          "name": "Evidence Action",
+          "points": 3
+        },
+        {
+          "name": "Living Water International",
+          "points": 2
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "makueni-kaiti",
+      "rank": 8,
+      "district": "Kaiti",
+      "region": "Makueni",
+      "center": [
+        37.39759,
+        -1.76222
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 45,
+        "idle": 85,
+        "broken": 38,
+        "seasonal": 8,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 176
+      },
+      "notWorkingShare": 0.261,
+      "wouldRegainAccess": 8331,
+      "latestReport": "2021-02-12",
+      "sources": [
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 176
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "siaya-alego-usonga",
+      "rank": 9,
+      "district": "Alego Usonga",
+      "region": "Siaya",
+      "center": [
+        34.26186,
+        0.08059
+      ],
+      "waterPoints": {
+        "working": 4,
+        "needs_repair": 19,
+        "idle": 127,
+        "broken": 350,
+        "seasonal": 4,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 504
+      },
+      "notWorkingShare": 0.702,
+      "wouldRegainAccess": 7151,
+      "latestReport": "2024-12-01",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 317
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 180
+        },
+        {
+          "name": "Virtual Kenya",
+          "points": 4
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "migori-nyatike",
+      "rank": 10,
+      "district": "Nyatike",
+      "region": "Migori",
+      "center": [
+        34.21576,
+        -0.87749
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 3,
+        "idle": 16,
+        "broken": 15,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 34
+      },
+      "notWorkingShare": 0.441,
+      "wouldRegainAccess": 6739,
+      "latestReport": "2023-12-15",
+      "sources": [
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 28
+        },
+        {
+          "name": "Evidence Action",
+          "points": 5
+        },
+        {
+          "name": "Engineering Sciences and Global Development",
+          "points": 1
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "siaya-bondo",
+      "rank": 11,
+      "district": "Bondo",
+      "region": "Siaya",
+      "center": [
+        34.2306,
+        -0.09297
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 1,
+        "idle": 75,
+        "broken": 19,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 95
+      },
+      "notWorkingShare": 0.2,
+      "wouldRegainAccess": 5614,
+      "latestReport": "2024-01-24",
+      "sources": [
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 93
+        },
+        {
+          "name": "Evidence Action",
+          "points": 2
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "makueni-mbooni",
+      "rank": 12,
+      "district": "Mbooni",
+      "region": "Makueni",
+      "center": [
+        37.55554,
+        -1.64276
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 97,
+        "idle": 136,
+        "broken": 38,
+        "seasonal": 5,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 276
+      },
+      "notWorkingShare": 0.156,
+      "wouldRegainAccess": 5508,
+      "latestReport": "2022-09-06",
+      "sources": [
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 269
+        },
+        {
+          "name": "Living Water International",
+          "points": 7
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "busia-budalangi",
+      "rank": 13,
+      "district": "Budalangi",
+      "region": "Busia",
+      "center": [
+        34.02945,
+        0.11307
+      ],
+      "waterPoints": {
+        "working": 95,
+        "needs_repair": 53,
+        "idle": 59,
+        "broken": 40,
+        "seasonal": 1,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 248
+      },
+      "notWorkingShare": 0.165,
+      "wouldRegainAccess": 4909,
+      "latestReport": "2021-02-15",
+      "sources": [
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 127
+        },
+        {
+          "name": "Virtual Kenya",
+          "points": 121
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "kisumu-seme",
+      "rank": 14,
+      "district": "Seme",
+      "region": "Kisumu",
+      "center": [
+        34.50898,
+        -0.10559
+      ],
+      "waterPoints": {
+        "working": 63,
+        "needs_repair": 7,
+        "idle": 93,
+        "broken": 47,
+        "seasonal": 3,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 213
+      },
+      "notWorkingShare": 0.235,
+      "wouldRegainAccess": 4811,
+      "latestReport": "2024-01-19",
+      "sources": [
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 132
+        },
+        {
+          "name": "Virtual Kenya",
+          "points": 75
+        },
+        {
+          "name": "Evidence Action",
+          "points": 5
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "kisumu-muhoroni",
+      "rank": 15,
+      "district": "Muhoroni",
+      "region": "Kisumu",
+      "center": [
+        35.05009,
+        -0.12384
+      ],
+      "waterPoints": {
+        "working": 98,
+        "needs_repair": 0,
+        "idle": 50,
+        "broken": 37,
+        "seasonal": 1,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 186
+      },
+      "notWorkingShare": 0.204,
+      "wouldRegainAccess": 4486,
+      "latestReport": "2022-08-22",
+      "sources": [
+        {
+          "name": "Virtual Kenya",
+          "points": 110
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 57
+        },
+        {
+          "name": "Living Water International",
+          "points": 19
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "embu-mbeere-south",
+      "rank": 16,
+      "district": "Mbeere South",
+      "region": "Embu",
+      "center": [
+        37.57083,
+        -0.72128
+      ],
+      "waterPoints": {
+        "working": 1,
+        "needs_repair": 2,
+        "idle": 322,
+        "broken": 72,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 397
+      },
+      "notWorkingShare": 0.181,
+      "wouldRegainAccess": 4402,
+      "latestReport": "2012-12-06",
+      "sources": [
+        {
+          "name": "Virtual Kenya",
+          "points": 397
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "kiambu-lari",
+      "rank": 17,
+      "district": "Lari",
+      "region": "Kiambu",
+      "center": [
+        36.63298,
+        -1.00004
+      ],
+      "waterPoints": {
+        "working": 20,
+        "needs_repair": 0,
+        "idle": 5,
+        "broken": 5,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 30
+      },
+      "notWorkingShare": 0.167,
+      "wouldRegainAccess": 4286,
+      "latestReport": "2012-10-12",
+      "sources": [
+        {
+          "name": "Virtual Kenya",
+          "points": 30
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "embu-manyatta",
+      "rank": 18,
+      "district": "Manyatta",
+      "region": "Embu",
+      "center": [
+        37.49036,
+        -0.49449
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 75,
+        "broken": 9,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 84
+      },
+      "notWorkingShare": 0.107,
+      "wouldRegainAccess": 4251,
+      "latestReport": "2012-10-30",
+      "sources": [
+        {
+          "name": "Virtual Kenya",
+          "points": 84
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "marsabit-moyale",
+      "rank": 19,
+      "district": "Moyale",
+      "region": "Marsabit",
+      "center": [
+        38.9297,
+        3.28597
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 15,
+        "broken": 3,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 18
+      },
+      "notWorkingShare": 0.167,
+      "wouldRegainAccess": 3944,
+      "latestReport": "2012-11-29",
+      "sources": [
+        {
+          "name": "MarsabitWater.com With Support From Concern Worldwide",
+          "points": 18
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "stale"
+      ]
+    },
+    {
+      "id": "kisumu-nyando",
+      "rank": 20,
+      "district": "Nyando",
+      "region": "Kisumu",
+      "center": [
+        34.88092,
+        -0.1745
+      ],
+      "waterPoints": {
+        "working": 362,
+        "needs_repair": 57,
+        "idle": 63,
+        "broken": 128,
+        "seasonal": 1,
+        "abandoned": 1,
+        "unknown": 0,
+        "total": 612
+      },
+      "notWorkingShare": 0.212,
+      "wouldRegainAccess": 3822,
+      "latestReport": "2022-08-30",
+      "sources": [
+        {
+          "name": "Virtual Kenya",
+          "points": 458
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 131
+        },
+        {
+          "name": "Living Water International",
+          "points": 23
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "kakamega-navakholo",
+      "rank": 21,
+      "district": "Navakholo",
+      "region": "Kakamega",
+      "center": [
+        34.67318,
+        0.39548
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 1,
+        "idle": 58,
+        "broken": 150,
+        "seasonal": 2,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 211
+      },
+      "notWorkingShare": 0.72,
+      "wouldRegainAccess": 3084,
+      "latestReport": "2024-12-01",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 131
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 79
+        },
+        {
+          "name": "Living Water International",
+          "points": 1
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "migori-rongo",
+      "rank": 22,
+      "district": "Rongo",
+      "region": "Migori",
+      "center": [
+        34.59981,
+        -0.76348
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 12,
+        "idle": 20,
+        "broken": 118,
+        "seasonal": 2,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 152
+      },
+      "notWorkingShare": 0.789,
+      "wouldRegainAccess": 3018,
+      "latestReport": "2024-12-01",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 110
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 42
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "kisumu-kisumu-east",
+      "rank": 23,
+      "district": "Kisumu East",
+      "region": "Kisumu",
+      "center": [
+        34.79939,
+        -0.1018
+      ],
+      "waterPoints": {
+        "working": 28,
+        "needs_repair": 9,
+        "idle": 82,
+        "broken": 46,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 165
+      },
+      "notWorkingShare": 0.279,
+      "wouldRegainAccess": 2311,
+      "latestReport": "2022-04-19",
+      "sources": [
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 103
+        },
+        {
+          "name": "Virtual Kenya",
+          "points": 35
+        },
+        {
+          "name": "Living Water International",
+          "points": 27
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "kajiado-kajiado-central",
+      "rank": 24,
+      "district": "Kajiado Central",
+      "region": "Kajiado",
+      "center": [
+        36.78574,
+        -2.21239
+      ],
+      "waterPoints": {
+        "working": 97,
+        "needs_repair": 1,
+        "idle": 34,
+        "broken": 24,
+        "seasonal": 2,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 158
+      },
+      "notWorkingShare": 0.165,
+      "wouldRegainAccess": 2115,
+      "latestReport": "2014-10-02",
+      "sources": [
+        {
+          "name": "Virtual Kenya",
+          "points": 144
+        },
+        {
+          "name": "World Vision",
+          "points": 14
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "migori-suna-west",
+      "rank": 25,
+      "district": "Suna West",
+      "region": "Migori",
+      "center": [
+        34.39356,
+        -1.08259
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 13,
+        "idle": 45,
+        "broken": 70,
+        "seasonal": 1,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 129
+      },
+      "notWorkingShare": 0.55,
+      "wouldRegainAccess": 1970,
+      "latestReport": "2024-01-22",
+      "sources": [
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 71
+        },
+        {
+          "name": "Evidence Action",
+          "points": 58
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "busia-teso-south",
+      "rank": 26,
+      "district": "Teso South",
+      "region": "Busia",
+      "center": [
+        34.21146,
+        0.5348
+      ],
+      "waterPoints": {
+        "working": 79,
+        "needs_repair": 27,
+        "idle": 80,
+        "broken": 359,
+        "seasonal": 1,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 546
+      },
+      "notWorkingShare": 0.659,
+      "wouldRegainAccess": 1645,
+      "latestReport": "2024-11-01",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 317
+        },
+        {
+          "name": "Virtual Kenya",
+          "points": 117
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 112
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "nyamira-west-mugirango",
+      "rank": 27,
+      "district": "West Mugirango",
+      "region": "Nyamira",
+      "center": [
+        34.91873,
+        -0.56449
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 82,
+        "idle": 93,
+        "broken": 7,
+        "seasonal": 1,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 183
+      },
+      "notWorkingShare": 0.044,
+      "wouldRegainAccess": 1643,
+      "latestReport": "2024-01-22",
+      "sources": [
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 177
+        },
+        {
+          "name": "Evidence Action",
+          "points": 5
+        },
+        {
+          "name": "Living Water International",
+          "points": 1
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "busia-funyula",
+      "rank": 28,
+      "district": "Funyula",
+      "region": "Busia",
+      "center": [
+        34.09526,
+        0.26975
+      ],
+      "waterPoints": {
+        "working": 92,
+        "needs_repair": 35,
+        "idle": 81,
+        "broken": 294,
+        "seasonal": 3,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 505
+      },
+      "notWorkingShare": 0.588,
+      "wouldRegainAccess": 1545,
+      "latestReport": "2024-12-01",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 228
+        },
+        {
+          "name": "Virtual Kenya",
+          "points": 141
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 136
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "migori-awendo",
+      "rank": 29,
+      "district": "Awendo",
+      "region": "Migori",
+      "center": [
+        34.53575,
+        -0.87205
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 10,
+        "idle": 18,
+        "broken": 123,
+        "seasonal": 1,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 152
+      },
+      "notWorkingShare": 0.816,
+      "wouldRegainAccess": 1544,
+      "latestReport": "2024-12-01",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 112
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 37
+        },
+        {
+          "name": "Engineering Sciences and Global Development",
+          "points": 3
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "migori-kuria-east",
+      "rank": 30,
+      "district": "Kuria East",
+      "region": "Migori",
+      "center": [
+        34.62413,
+        -1.28089
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 7,
+        "idle": 46,
+        "broken": 194,
+        "seasonal": 2,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 249
+      },
+      "notWorkingShare": 0.787,
+      "wouldRegainAccess": 1447,
+      "latestReport": "2024-11-01",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 183
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 66
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "kiambu-juja",
+      "rank": 31,
+      "district": "Juja",
+      "region": "Kiambu",
+      "center": [
+        37.0054,
+        -1.12416
+      ],
+      "waterPoints": {
+        "working": 55,
+        "needs_repair": 0,
+        "idle": 4,
+        "broken": 4,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 63
+      },
+      "notWorkingShare": 0.063,
+      "wouldRegainAccess": 1429,
+      "latestReport": "2012-11-12",
+      "sources": [
+        {
+          "name": "Virtual Kenya",
+          "points": 63
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "siaya-ugenya",
+      "rank": 32,
+      "district": "Ugenya",
+      "region": "Siaya",
+      "center": [
+        34.23957,
+        0.25322
+      ],
+      "waterPoints": {
+        "working": 15,
+        "needs_repair": 6,
+        "idle": 90,
+        "broken": 381,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 492
+      },
+      "notWorkingShare": 0.774,
+      "wouldRegainAccess": 1351,
+      "latestReport": "2024-12-01",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 350
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 116
+        },
+        {
+          "name": "Virtual Kenya",
+          "points": 26
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "nyamira-north-mugirango",
+      "rank": 33,
+      "district": "North Mugirango",
+      "region": "Nyamira",
+      "center": [
+        34.9845,
+        -0.50909
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 14,
+        "idle": 95,
+        "broken": 10,
+        "seasonal": 1,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 120
+      },
+      "notWorkingShare": 0.092,
+      "wouldRegainAccess": 1343,
+      "latestReport": "2024-11-01",
+      "sources": [
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 114
+        },
+        {
+          "name": "Evidence Action",
+          "points": 6
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "kiambu-limuru",
+      "rank": 34,
+      "district": "Limuru",
+      "region": "Kiambu",
+      "center": [
+        36.63512,
+        -1.13482
+      ],
+      "waterPoints": {
+        "working": 33,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 4,
+        "seasonal": 1,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 38
+      },
+      "notWorkingShare": 0.132,
+      "wouldRegainAccess": 1273,
+      "latestReport": "2012-10-25",
+      "sources": [
+        {
+          "name": "Virtual Kenya",
+          "points": 38
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "nyamira-kitutu-masaba",
+      "rank": 35,
+      "district": "Kitutu Masaba",
+      "region": "Nyamira",
+      "center": [
+        34.89443,
+        -0.68692
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 82,
+        "idle": 290,
+        "broken": 23,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 395
+      },
+      "notWorkingShare": 0.058,
+      "wouldRegainAccess": 1213,
+      "latestReport": "2021-02-10",
+      "sources": [
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 395
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "migori-suna-east",
+      "rank": 36,
+      "district": "Suna East",
+      "region": "Migori",
+      "center": [
+        34.50038,
+        -1.0559
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 17,
+        "idle": 50,
+        "broken": 94,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 161
+      },
+      "notWorkingShare": 0.584,
+      "wouldRegainAccess": 1128,
+      "latestReport": "2024-12-01",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 81
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 80
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "kajiado-kajiado-south",
+      "rank": 37,
+      "district": "Kajiado South",
+      "region": "Kajiado",
+      "center": [
+        37.61252,
+        -2.93632
+      ],
+      "waterPoints": {
+        "working": 168,
+        "needs_repair": 2,
+        "idle": 27,
+        "broken": 6,
+        "seasonal": 4,
+        "abandoned": 1,
+        "unknown": 0,
+        "total": 208
+      },
+      "notWorkingShare": 0.053,
+      "wouldRegainAccess": 1028,
+      "latestReport": "2012-10-29",
+      "sources": [
+        {
+          "name": "Virtual Kenya",
+          "points": 208
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "busia-matayos",
+      "rank": 38,
+      "district": "Matayos",
+      "region": "Busia",
+      "center": [
+        34.17061,
+        0.40574
+      ],
+      "waterPoints": {
+        "working": 38,
+        "needs_repair": 11,
+        "idle": 57,
+        "broken": 331,
+        "seasonal": 3,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 440
+      },
+      "notWorkingShare": 0.759,
+      "wouldRegainAccess": 1024,
+      "latestReport": "2024-09-01",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 309
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 80
+        },
+        {
+          "name": "Virtual Kenya",
+          "points": 51
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "uasin-gishu-turbo",
+      "rank": 39,
+      "district": "Turbo",
+      "region": "Uasin Gishu",
+      "center": [
+        35.0063,
+        0.61738
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 10,
+        "broken": 20,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 30
+      },
+      "notWorkingShare": 0.667,
+      "wouldRegainAccess": 901,
+      "latestReport": "2024-10-01",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 17
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 13
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "embu-runyenjes",
+      "rank": 40,
+      "district": "Runyenjes",
+      "region": "Embu",
+      "center": [
+        37.60039,
+        -0.43929
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 113,
+        "broken": 14,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 127
+      },
+      "notWorkingShare": 0.11,
+      "wouldRegainAccess": 885,
+      "latestReport": "2013-06-26",
+      "sources": [
+        {
+          "name": "Virtual Kenya",
+          "points": 127
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "migori-kuria-west",
+      "rank": 41,
+      "district": "Kuria West",
+      "region": "Migori",
+      "center": [
+        34.52463,
+        -1.17837
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 18,
+        "idle": 46,
+        "broken": 243,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 307
+      },
+      "notWorkingShare": 0.792,
+      "wouldRegainAccess": 855,
+      "latestReport": "2024-11-01",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 238
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 69
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "bungoma-lugari",
+      "rank": 42,
+      "district": "Lugari",
+      "region": "Bungoma",
+      "center": [
+        34.93629,
+        0.66435
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 2,
+        "idle": 48,
+        "broken": 152,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 202
+      },
+      "notWorkingShare": 0.752,
+      "wouldRegainAccess": 853,
+      "latestReport": "2024-11-01",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 138
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 63
+        },
+        {
+          "name": "World Vision",
+          "points": 1
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "kakamega-malava",
+      "rank": 43,
+      "district": "Malava",
+      "region": "Kakamega",
+      "center": [
+        34.82024,
+        0.44324
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 26,
+        "idle": 49,
+        "broken": 425,
+        "seasonal": 1,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 501
+      },
+      "notWorkingShare": 0.85,
+      "wouldRegainAccess": 612,
+      "latestReport": "2024-11-01",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 412
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 86
+        },
+        {
+          "name": "World Vision",
+          "points": 3
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "siaya-gem",
+      "rank": 44,
+      "district": "Gem",
+      "region": "Siaya",
+      "center": [
+        34.47372,
+        0.07315
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 15,
+        "idle": 117,
+        "broken": 481,
+        "seasonal": 2,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 615
+      },
+      "notWorkingShare": 0.785,
+      "wouldRegainAccess": 602,
+      "latestReport": "2024-12-01",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 444
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 167
+        },
+        {
+          "name": "Living Water International",
+          "points": 4
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "kiambu-githunguri",
+      "rank": 45,
+      "district": "Githunguri",
+      "region": "Kiambu",
+      "center": [
+        36.79637,
+        -1.06806
+      ],
+      "waterPoints": {
+        "working": 8,
+        "needs_repair": 0,
+        "idle": 2,
+        "broken": 1,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 11
+      },
+      "notWorkingShare": 0.091,
+      "wouldRegainAccess": 522,
+      "latestReport": "2021-05-18",
+      "sources": [
+        {
+          "name": "Virtual Kenya",
+          "points": 10
+        },
+        {
+          "name": "Living Water International",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "thin_sample"
+      ]
+    },
+    {
+      "id": "nyamira-borabu",
+      "rank": 46,
+      "district": "Borabu",
+      "region": "Nyamira",
+      "center": [
+        35.01019,
+        -0.71597
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 43,
+        "idle": 67,
+        "broken": 7,
+        "seasonal": 2,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 119
+      },
+      "notWorkingShare": 0.076,
+      "wouldRegainAccess": 515,
+      "latestReport": "2021-02-11",
+      "sources": [
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 119
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "kisumu-kisumu-central",
+      "rank": 47,
+      "district": "Kisumu Central",
+      "region": "Kisumu",
+      "center": [
+        34.76456,
+        -0.10437
+      ],
+      "waterPoints": {
+        "working": 6,
+        "needs_repair": 11,
+        "idle": 122,
+        "broken": 12,
+        "seasonal": 1,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 152
+      },
+      "notWorkingShare": 0.086,
+      "wouldRegainAccess": 507,
+      "latestReport": "2021-12-01",
+      "sources": [
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 141
+        },
+        {
+          "name": "Virtual Kenya",
+          "points": 9
+        },
+        {
+          "name": "Living Water International",
+          "points": 2
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "machakos-mavoko",
+      "rank": 48,
+      "district": "Mavoko",
+      "region": "Machakos",
+      "center": [
+        36.90153,
+        -1.44703
+      ],
+      "waterPoints": {
+        "working": 1,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 1,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 2
+      },
+      "notWorkingShare": 0.5,
+      "wouldRegainAccess": 410,
+      "latestReport": "2012-12-27",
+      "sources": [
+        {
+          "name": "Virtual Kenya",
+          "points": 2
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "stale"
+      ]
+    },
+    {
+      "id": "busia-nambale",
+      "rank": 49,
+      "district": "Nambale",
+      "region": "Busia",
+      "center": [
+        34.31994,
+        0.48267
+      ],
+      "waterPoints": {
+        "working": 19,
+        "needs_repair": 12,
+        "idle": 70,
+        "broken": 289,
+        "seasonal": 0,
+        "abandoned": 1,
+        "unknown": 0,
+        "total": 391
+      },
+      "notWorkingShare": 0.742,
+      "wouldRegainAccess": 353,
+      "latestReport": "2024-10-01",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 254
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 86
+        },
+        {
+          "name": "Virtual Kenya",
+          "points": 51
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "busia-teso-north",
+      "rank": 50,
+      "district": "Teso North",
+      "region": "Busia",
+      "center": [
+        34.34303,
+        0.68457
+      ],
+      "waterPoints": {
+        "working": 56,
+        "needs_repair": 29,
+        "idle": 41,
+        "broken": 194,
+        "seasonal": 3,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 323
+      },
+      "notWorkingShare": 0.61,
+      "wouldRegainAccess": 274,
+      "latestReport": "2024-01-25",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 168
+        },
+        {
+          "name": "Virtual Kenya",
+          "points": 103
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 42
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "bungoma-likuyani",
+      "rank": 51,
+      "district": "Likuyani",
+      "region": "Bungoma",
+      "center": [
+        35.09551,
+        0.79118
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 52,
+        "idle": 74,
+        "broken": 109,
+        "seasonal": 2,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 237
+      },
+      "notWorkingShare": 0.468,
+      "wouldRegainAccess": 258,
+      "latestReport": "2024-12-01",
+      "sources": [
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 136
+        },
+        {
+          "name": "Evidence Action",
+          "points": 101
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "machakos-mwala",
+      "rank": 52,
+      "district": "Mwala",
+      "region": "Machakos",
+      "center": [
+        37.67808,
+        -1.61358
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 1,
+        "broken": 2,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 3
+      },
+      "notWorkingShare": 0.667,
+      "wouldRegainAccess": 231,
+      "latestReport": "2021-02-09",
+      "sources": [
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 3
+        }
+      ],
+      "flags": [
+        "thin_sample"
+      ]
+    },
+    {
+      "id": "kisii-nyaribari-masaba",
+      "rank": 53,
+      "district": "Nyaribari Masaba",
+      "region": "Kisii",
+      "center": [
+        34.92963,
+        -0.76017
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 2,
+        "broken": 1,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 3
+      },
+      "notWorkingShare": 0.333,
+      "wouldRegainAccess": 156,
+      "latestReport": "2021-02-04",
+      "sources": [
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 3
+        }
+      ],
+      "flags": [
+        "thin_sample"
+      ]
+    },
+    {
+      "id": "kiambu-gatundu-south",
+      "rank": 54,
+      "district": "Gatundu South",
+      "region": "Kiambu",
+      "center": [
+        36.86099,
+        -0.99823
+      ],
+      "waterPoints": {
+        "working": 12,
+        "needs_repair": 0,
+        "idle": 1,
+        "broken": 2,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 15
+      },
+      "notWorkingShare": 0.133,
+      "wouldRegainAccess": 155,
+      "latestReport": "2012-10-23",
+      "sources": [
+        {
+          "name": "Virtual Kenya",
+          "points": 15
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "stale"
+      ]
+    },
+    {
+      "id": "migori-uriri",
+      "rank": 55,
+      "district": "Uriri",
+      "region": "Migori",
+      "center": [
+        34.49065,
+        -0.9484
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 36,
+        "idle": 13,
+        "broken": 127,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 176
+      },
+      "notWorkingShare": 0.722,
+      "wouldRegainAccess": 140,
+      "latestReport": "2024-12-01",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 118
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 57
+        },
+        {
+          "name": "Engineering Sciences and Global Development",
+          "points": 1
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "kajiado-kajiado-west",
+      "rank": 56,
+      "district": "Kajiado West",
+      "region": "Kajiado",
+      "center": [
+        36.63927,
+        -1.68138
+      ],
+      "waterPoints": {
+        "working": 48,
+        "needs_repair": 1,
+        "idle": 19,
+        "broken": 4,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 72
+      },
+      "notWorkingShare": 0.056,
+      "wouldRegainAccess": 124,
+      "latestReport": "2013-02-15",
+      "sources": [
+        {
+          "name": "Virtual Kenya",
+          "points": 72
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "kakamega-ikolomani",
+      "rank": 57,
+      "district": "Ikolomani",
+      "region": "Kakamega",
+      "center": [
+        34.70544,
+        0.1943
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 37,
+        "idle": 74,
+        "broken": 168,
+        "seasonal": 3,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 282
+      },
+      "notWorkingShare": 0.606,
+      "wouldRegainAccess": 99,
+      "latestReport": "2024-12-01",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 159
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 121
+        },
+        {
+          "name": "Living Water International",
+          "points": 2
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "kakamega-lugari",
+      "rank": 58,
+      "district": "Lugari",
+      "region": "Kakamega",
+      "center": [
+        34.80172,
+        0.57165
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 5,
+        "idle": 22,
+        "broken": 138,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 165
+      },
+      "notWorkingShare": 0.836,
+      "wouldRegainAccess": 96,
+      "latestReport": "2024-11-01",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 121
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 29
+        },
+        {
+          "name": "World Vision",
+          "points": 15
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "siaya-ugunja",
+      "rank": 59,
+      "district": "Ugunja",
+      "region": "Siaya",
+      "center": [
+        34.33827,
+        0.19993
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 7,
+        "idle": 78,
+        "broken": 309,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 394
+      },
+      "notWorkingShare": 0.784,
+      "wouldRegainAccess": 65,
+      "latestReport": "2024-12-01",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 289
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 105
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "kisii-nyaribari-chache",
+      "rank": 60,
+      "district": "Nyaribari Chache",
+      "region": "Kisii",
+      "center": [
+        34.82779,
+        -0.69868
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 4,
+        "idle": 9,
+        "broken": 2,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 15
+      },
+      "notWorkingShare": 0.133,
+      "wouldRegainAccess": 45,
+      "latestReport": "2021-02-03",
+      "sources": [
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 15
+        }
+      ],
+      "flags": [
+        "thin_sample"
+      ]
+    },
+    {
+      "id": "kakamega-matungu",
+      "rank": 61,
+      "district": "Matungu",
+      "region": "Kakamega",
+      "center": [
+        34.4543,
+        0.40686
+      ],
+      "waterPoints": {
+        "working": 9,
+        "needs_repair": 15,
+        "idle": 84,
+        "broken": 194,
+        "seasonal": 1,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 303
+      },
+      "notWorkingShare": 0.644,
+      "wouldRegainAccess": 22,
+      "latestReport": "2024-03-01",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 192
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 99
+        },
+        {
+          "name": "Virtual Kenya",
+          "points": 12
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "machakos-unknown-7",
+      "rank": 62,
+      "district": "unknown 7",
+      "region": "Machakos",
+      "center": [
+        37.15781,
+        -1.76227
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 1,
+        "broken": 1,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 2
+      },
+      "notWorkingShare": 0.5,
+      "wouldRegainAccess": 21,
+      "latestReport": "2021-02-11",
+      "sources": [
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 2
+        }
+      ],
+      "flags": [
+        "thin_sample"
+      ]
+    },
+    {
+      "id": "kakamega-lurambi",
+      "rank": 63,
+      "district": "Lurambi",
+      "region": "Kakamega",
+      "center": [
+        34.71699,
+        0.29138
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 33,
+        "idle": 107,
+        "broken": 272,
+        "seasonal": 10,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 422
+      },
+      "notWorkingShare": 0.668,
+      "wouldRegainAccess": 12,
+      "latestReport": "2024-12-01",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 240
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 170
+        },
+        {
+          "name": "Living Water International",
+          "points": 12
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "kisii-kitutu-chache-south",
+      "rank": 64,
+      "district": "Kitutu Chache South",
+      "region": "Kisii",
+      "center": [
+        34.74102,
+        -0.57304
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 2,
+        "idle": 0,
+        "broken": 12,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 14
+      },
+      "notWorkingShare": 0.857,
+      "wouldRegainAccess": 0,
+      "latestReport": "2023-11-30",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 12
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 2
+        }
+      ],
+      "flags": [
+        "thin_sample"
+      ]
+    },
+    {
+      "id": "kakamega-butere",
+      "rank": 65,
+      "district": "Butere",
+      "region": "Kakamega",
+      "center": [
+        34.5218,
+        0.22267
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 10,
+        "idle": 150,
+        "broken": 894,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 1054
+      },
+      "notWorkingShare": 0.848,
+      "wouldRegainAccess": 0,
+      "latestReport": "2024-12-01",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 751
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 182
+        },
+        {
+          "name": "Living Water International",
+          "points": 121
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "vihiga-emuhaya",
+      "rank": 66,
+      "district": "Emuhaya",
+      "region": "Vihiga",
+      "center": [
+        34.63437,
+        0.10953
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 1,
+        "idle": 20,
+        "broken": 81,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 102
+      },
+      "notWorkingShare": 0.794,
+      "wouldRegainAccess": 0,
+      "latestReport": "2024-01-16",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 76
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 24
+        },
+        {
+          "name": "Living Water International",
+          "points": 2
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "kakamega-shinyalu",
+      "rank": 67,
+      "district": "Shinyalu",
+      "region": "Kakamega",
+      "center": [
+        34.81622,
+        0.26459
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 42,
+        "idle": 48,
+        "broken": 341,
+        "seasonal": 2,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 433
+      },
+      "notWorkingShare": 0.792,
+      "wouldRegainAccess": 0,
+      "latestReport": "2024-11-01",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 338
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 92
+        },
+        {
+          "name": "Living Water International",
+          "points": 3
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "kakamega-khwisero",
+      "rank": 68,
+      "district": "Khwisero",
+      "region": "Kakamega",
+      "center": [
+        34.58725,
+        0.15227
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 5,
+        "idle": 118,
+        "broken": 402,
+        "seasonal": 1,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 526
+      },
+      "notWorkingShare": 0.766,
+      "wouldRegainAccess": 0,
+      "latestReport": "2024-11-01",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 380
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 136
+        },
+        {
+          "name": "Living Water International",
+          "points": 10
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "kisii-kitutu-chache-north",
+      "rank": 69,
+      "district": "Kitutu Chache North",
+      "region": "Kisii",
+      "center": [
+        34.8205,
+        -0.52011
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 1,
+        "idle": 0,
+        "broken": 3,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 4
+      },
+      "notWorkingShare": 0.75,
+      "wouldRegainAccess": 0,
+      "latestReport": "2023-11-28",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 3
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "thin_sample"
+      ]
+    },
+    {
+      "id": "nandi-mosop",
+      "rank": 70,
+      "district": "Mosop",
+      "region": "Nandi",
+      "center": [
+        34.94772,
+        0.40738
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 1,
+        "idle": 0,
+        "broken": 3,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 4
+      },
+      "notWorkingShare": 0.75,
+      "wouldRegainAccess": 0,
+      "latestReport": "2024-01-23",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 3
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "thin_sample"
+      ]
+    },
+    {
+      "id": "kakamega-mumias-east",
+      "rank": 71,
+      "district": "Mumias East",
+      "region": "Kakamega",
+      "center": [
+        34.56578,
+        0.32527
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 14,
+        "idle": 77,
+        "broken": 231,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 322
+      },
+      "notWorkingShare": 0.717,
+      "wouldRegainAccess": 0,
+      "latestReport": "2024-12-01",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 223
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 99
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "busia-butula",
+      "rank": 72,
+      "district": "Butula",
+      "region": "Busia",
+      "center": [
+        34.30163,
+        0.35215
+      ],
+      "waterPoints": {
+        "working": 272,
+        "needs_repair": 45,
+        "idle": 42,
+        "broken": 773,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 1132
+      },
+      "notWorkingShare": 0.683,
+      "wouldRegainAccess": 0,
+      "latestReport": "2024-01-26",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 719
+        },
+        {
+          "name": "Virtual Kenya",
+          "points": 357
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 56
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "kakamega-mumias-west",
+      "rank": 73,
+      "district": "Mumias West",
+      "region": "Kakamega",
+      "center": [
+        34.47129,
+        0.31688
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 40,
+        "idle": 131,
+        "broken": 77,
+        "seasonal": 3,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 251
+      },
+      "notWorkingShare": 0.319,
+      "wouldRegainAccess": 0,
+      "latestReport": "2024-10-01",
+      "sources": [
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 187
+        },
+        {
+          "name": "Evidence Action",
+          "points": 59
+        },
+        {
+          "name": "Living Water International",
+          "points": 5
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "kiambu-thika-town",
+      "rank": 74,
+      "district": "Thika Town",
+      "region": "Kiambu",
+      "center": [
+        37.12758,
+        -1.05533
+      ],
+      "waterPoints": {
+        "working": 17,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 2,
+        "seasonal": 4,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 23
+      },
+      "notWorkingShare": 0.261,
+      "wouldRegainAccess": 0,
+      "latestReport": "2012-10-15",
+      "sources": [
+        {
+          "name": "Virtual Kenya",
+          "points": 23
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "stale"
+      ]
+    },
+    {
+      "id": "marsabit-laisamis",
+      "rank": 75,
+      "district": "Laisamis",
+      "region": "Marsabit",
+      "center": [
+        37.30819,
+        2.22208
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 18,
+        "broken": 4,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 22
+      },
+      "notWorkingShare": 0.182,
+      "wouldRegainAccess": 0,
+      "latestReport": "2012-11-30",
+      "sources": [
+        {
+          "name": "MarsabitWater.com With Support From Concern Worldwide",
+          "points": 18
+        },
+        {
+          "name": "ACTED",
+          "points": 4
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "stale"
+      ]
+    },
+    {
+      "id": "kericho-sigowet-soin",
+      "rank": 76,
+      "district": "Sigowet/Soin",
+      "region": "Kericho",
+      "center": [
+        35.19439,
+        -0.15916
+      ],
+      "waterPoints": {
+        "working": 29,
+        "needs_repair": 0,
+        "idle": 2,
+        "broken": 5,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 36
+      },
+      "notWorkingShare": 0.139,
+      "wouldRegainAccess": 0,
+      "latestReport": "2021-02-19",
+      "sources": [
+        {
+          "name": "Virtual Kenya",
+          "points": 35
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 1
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "marsabit-north-horr",
+      "rank": 77,
+      "district": "North Horr",
+      "region": "Marsabit",
+      "center": [
+        37.66058,
+        3.38646
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 24,
+        "broken": 3,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 27
+      },
+      "notWorkingShare": 0.111,
+      "wouldRegainAccess": 0,
+      "latestReport": "2012-11-30",
+      "sources": [
+        {
+          "name": "MarsabitWater.com With Support From Concern Worldwide",
+          "points": 27
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "stale"
+      ]
+    },
+    {
+      "id": "kiambu-kiambaa",
+      "rank": 78,
+      "district": "Kiambaa",
+      "region": "Kiambu",
+      "center": [
+        36.76256,
+        -1.18465
+      ],
+      "waterPoints": {
+        "working": 15,
+        "needs_repair": 0,
+        "idle": 4,
+        "broken": 2,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 21
+      },
+      "notWorkingShare": 0.095,
+      "wouldRegainAccess": 0,
+      "latestReport": "2012-09-27",
+      "sources": [
+        {
+          "name": "Virtual Kenya",
+          "points": 21
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "stale"
+      ]
+    },
+    {
+      "id": "kajiado-kajiado-east",
+      "rank": 79,
+      "district": "Kajiado East",
+      "region": "Kajiado",
+      "center": [
+        37.02183,
+        -1.80344
+      ],
+      "waterPoints": {
+        "working": 51,
+        "needs_repair": 1,
+        "idle": 11,
+        "broken": 1,
+        "seasonal": 2,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 66
+      },
+      "notWorkingShare": 0.045,
+      "wouldRegainAccess": 0,
+      "latestReport": "2021-02-02",
+      "sources": [
+        {
+          "name": "Virtual Kenya",
+          "points": 60
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 6
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "kiambu-ruiru",
+      "rank": 80,
+      "district": "Ruiru",
+      "region": "Kiambu",
+      "center": [
+        36.95356,
+        -1.15542
+      ],
+      "waterPoints": {
+        "working": 62,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 2,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 64
+      },
+      "notWorkingShare": 0.031,
+      "wouldRegainAccess": 0,
+      "latestReport": "2012-11-10",
+      "sources": [
+        {
+          "name": "Virtual Kenya",
+          "points": 64
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "kiambu-kikuyu",
+      "rank": 81,
+      "district": "Kikuyu",
+      "region": "Kiambu",
+      "center": [
+        36.63396,
+        -1.24889
+      ],
+      "waterPoints": {
+        "working": 48,
+        "needs_repair": 0,
+        "idle": 1,
+        "broken": 1,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 50
+      },
+      "notWorkingShare": 0.02,
+      "wouldRegainAccess": 0,
+      "latestReport": "2012-12-10",
+      "sources": [
+        {
+          "name": "Virtual Kenya",
+          "points": 50
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "kericho-ainamoi",
+      "rank": 82,
+      "district": "Ainamoi",
+      "region": "Kericho",
+      "center": [
+        35.25942,
+        -0.21835
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 1,
+        "broken": 0,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 1
+      },
+      "notWorkingShare": 0,
+      "wouldRegainAccess": 0,
+      "latestReport": "2021-02-01",
+      "sources": [
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "thin_sample"
+      ]
+    },
+    {
+      "id": "nairobi-dagoretti-south",
+      "rank": 83,
+      "district": "Dagoretti South",
+      "region": "Nairobi",
+      "center": [
+        36.69852,
+        -1.2563
+      ],
+      "waterPoints": {
+        "working": 9,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 0,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 9
+      },
+      "notWorkingShare": 0,
+      "wouldRegainAccess": 0,
+      "latestReport": "2012-12-10",
+      "sources": [
+        {
+          "name": "Virtual Kenya",
+          "points": 9
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "stale"
+      ]
+    },
+    {
+      "id": "kiambu-gatundu-north",
+      "rank": 84,
+      "district": "Gatundu North",
+      "region": "Kiambu",
+      "center": [
+        36.77587,
+        -0.90115
+      ],
+      "waterPoints": {
+        "working": 1,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 0,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 1
+      },
+      "notWorkingShare": 0,
+      "wouldRegainAccess": 0,
+      "latestReport": "2012-10-17",
+      "sources": [
+        {
+          "name": "Virtual Kenya",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "stale"
+      ]
+    },
+    {
+      "id": "kiambu-kabete",
+      "rank": 85,
+      "district": "Kabete",
+      "region": "Kiambu",
+      "center": [
+        36.69172,
+        -1.21884
+      ],
+      "waterPoints": {
+        "working": 10,
+        "needs_repair": 0,
+        "idle": 1,
+        "broken": 0,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 11
+      },
+      "notWorkingShare": 0,
+      "wouldRegainAccess": 0,
+      "latestReport": "2012-12-06",
+      "sources": [
+        {
+          "name": "Virtual Kenya",
+          "points": 11
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "stale"
+      ]
+    },
+    {
+      "id": "kajiado-kajiado-north",
+      "rank": 86,
+      "district": "Kajiado North",
+      "region": "Kajiado",
+      "center": [
+        36.69228,
+        -1.37631
+      ],
+      "waterPoints": {
+        "working": 14,
+        "needs_repair": 0,
+        "idle": 1,
+        "broken": 0,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 15
+      },
+      "notWorkingShare": 0,
+      "wouldRegainAccess": 0,
+      "latestReport": "2012-06-27",
+      "sources": [
+        {
+          "name": "Virtual Kenya",
+          "points": 15
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "stale"
+      ]
+    },
+    {
+      "id": "kiambu-kiambu",
+      "rank": 87,
+      "district": "Kiambu",
+      "region": "Kiambu",
+      "center": [
+        36.8142,
+        -1.15914
+      ],
+      "waterPoints": {
+        "working": 8,
+        "needs_repair": 0,
+        "idle": 1,
+        "broken": 0,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 9
+      },
+      "notWorkingShare": 0,
+      "wouldRegainAccess": 0,
+      "latestReport": "2012-09-26",
+      "sources": [
+        {
+          "name": "Virtual Kenya",
+          "points": 9
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "stale"
+      ]
+    },
+    {
+      "id": "machakos-machakos-town",
+      "rank": 88,
+      "district": "Machakos Town",
+      "region": "Machakos",
+      "center": [
+        37.30029,
+        -1.68527
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 3,
+        "idle": 0,
+        "broken": 0,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 3
+      },
+      "notWorkingShare": 0,
+      "wouldRegainAccess": 0,
+      "latestReport": "2021-02-08",
+      "sources": [
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 3
+        }
+      ],
+      "flags": [
+        "thin_sample"
+      ]
+    },
+    {
+      "id": "marsabit-saku",
+      "rank": 89,
+      "district": "Saku",
+      "region": "Marsabit",
+      "center": [
+        38.00218,
+        2.3607
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 1,
+        "broken": 0,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 1
+      },
+      "notWorkingShare": 0,
+      "wouldRegainAccess": 0,
+      "latestReport": "2012-01-12",
+      "sources": [
+        {
+          "name": "MarsabitWater.com With Support From Concern Worldwide",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "stale"
+      ]
+    },
+    {
+      "id": "bomet-sotik",
+      "rank": 90,
+      "district": "Sotik",
+      "region": "Bomet",
+      "center": [
+        35.06129,
+        -0.78295
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 1,
+        "idle": 2,
+        "broken": 0,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 3
+      },
+      "notWorkingShare": 0,
+      "wouldRegainAccess": 0,
+      "latestReport": "2021-02-11",
+      "sources": [
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 3
+        }
+      ],
+      "flags": [
+        "thin_sample"
+      ]
+    },
+    {
+      "id": "taita-taveta-taveta",
+      "rank": 91,
+      "district": "Taveta",
+      "region": "Taita Taveta",
+      "center": [
+        37.73373,
+        -3.17589
+      ],
+      "waterPoints": {
+        "working": 6,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 0,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 6
+      },
+      "notWorkingShare": 0,
+      "wouldRegainAccess": 0,
+      "latestReport": "2012-06-12",
+      "sources": [
+        {
+          "name": "Virtual Kenya",
+          "points": 6
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "stale"
+      ]
+    },
+    {
+      "id": "taita-taveta-voi",
+      "rank": 92,
+      "district": "Voi",
+      "region": "Taita Taveta",
+      "center": [
+        38.12979,
+        -2.69893
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 2,
+        "broken": 0,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 2
+      },
+      "notWorkingShare": 0,
+      "wouldRegainAccess": 0,
+      "latestReport": "2021-02-11",
+      "sources": [
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 2
+        }
+      ],
+      "flags": [
+        "thin_sample"
+      ]
+    },
+    {
+      "id": "nairobi-westlands",
+      "rank": 93,
+      "district": "Westlands",
+      "region": "Nairobi",
+      "center": [
+        36.79357,
+        -1.19113
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 2,
+        "broken": 0,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 2
+      },
+      "notWorkingShare": 0,
+      "wouldRegainAccess": 0,
+      "latestReport": "2012-09-20",
+      "sources": [
+        {
+          "name": "Virtual Kenya",
+          "points": 2
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "stale"
+      ]
+    },
+    {
+      "id": "homa-bay-suba",
+      "rank": 94,
+      "district": "Suba",
+      "region": "Homa Bay",
+      "center": [
+        34.1772,
+        -0.63606
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 96,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 96
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 21762,
+      "latestReport": "2011-03-28",
+      "sources": [
+        {
+          "name": "Engineering Sciences and Global Development",
+          "points": 96
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "homa-bay-mbita",
+      "rank": 95,
+      "district": "Mbita",
+      "region": "Homa Bay",
+      "center": [
+        34.23348,
+        -0.49463
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 77,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 77
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 19841,
+      "latestReport": "2014-06-26",
+      "sources": [
+        {
+          "name": "Engineering Sciences and Global Development",
+          "points": 76
+        },
+        {
+          "name": "Living Water International",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "homa-bay-ndhiwa",
+      "rank": 96,
+      "district": "Ndhiwa",
+      "region": "Homa Bay",
+      "center": [
+        34.40152,
+        -0.72371
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 323,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 323
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 10735,
+      "latestReport": "2024-10-01",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 239
+        },
+        {
+          "name": "Engineering Sciences and Global Development",
+          "points": 81
+        },
+        {
+          "name": "Living Water International",
+          "points": 3
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "samburu-samburu-north",
+      "rank": 97,
+      "district": "Samburu North",
+      "region": "Samburu",
+      "center": [
+        36.884,
+        1.60468
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 1,
+        "broken": 74,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 75
+      },
+      "notWorkingShare": 0.987,
+      "wouldRegainAccess": 10010,
+      "latestReport": "2012-11-02",
+      "sources": [
+        {
+          "name": "ACTED",
+          "points": 74
+        },
+        {
+          "name": "MarsabitWater.com With Support From Concern Worldwide",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "baringo-tiaty",
+      "rank": 98,
+      "district": "Tiaty",
+      "region": "Baringo",
+      "center": [
+        36.019,
+        1.01015
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 97,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 97
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 4479,
+      "latestReport": "2012-11-02",
+      "sources": [
+        {
+          "name": "ACTED",
+          "points": 97
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "samburu-samburu-east",
+      "rank": 99,
+      "district": "Samburu East",
+      "region": "Samburu",
+      "center": [
+        37.27258,
+        1.00367
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 2,
+        "broken": 114,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 116
+      },
+      "notWorkingShare": 0.983,
+      "wouldRegainAccess": 4205,
+      "latestReport": "2012-12-02",
+      "sources": [
+        {
+          "name": "ACTED",
+          "points": 114
+        },
+        {
+          "name": "MarsabitWater.com With Support From Concern Worldwide",
+          "points": 2
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "turkana-turkana-west",
+      "rank": 100,
+      "district": "Turkana West",
+      "region": "Turkana",
+      "center": [
+        34.83681,
+        3.75048
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 17,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 17
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 3148,
+      "latestReport": "2020-03-03",
+      "sources": [
+        {
+          "name": "UNHCR",
+          "points": 17
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "samburu-samburu-west",
+      "rank": 101,
+      "district": "Samburu West",
+      "region": "Samburu",
+      "center": [
+        36.70728,
+        0.99505
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 147,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 147
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 3115,
+      "latestReport": "2012-11-02",
+      "sources": [
+        {
+          "name": "ACTED",
+          "points": 147
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "homa-bay-rangwe",
+      "rank": 102,
+      "district": "Rangwe",
+      "region": "Homa Bay",
+      "center": [
+        34.58577,
+        -0.54539
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 53,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 53
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 2670,
+      "latestReport": "2023-11-28",
+      "sources": [
+        {
+          "name": "Engineering Sciences and Global Development",
+          "points": 52
+        },
+        {
+          "name": "Evidence Action",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "bungoma-tongaren",
+      "rank": 103,
+      "district": "Tongaren",
+      "region": "Bungoma",
+      "center": [
+        34.90252,
+        0.77235
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 1,
+        "broken": 343,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 344
+      },
+      "notWorkingShare": 0.997,
+      "wouldRegainAccess": 2313,
+      "latestReport": "2024-12-01",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 342
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 2
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "bungoma-webuye-east",
+      "rank": 104,
+      "district": "Webuye East",
+      "region": "Bungoma",
+      "center": [
+        34.79995,
+        0.68301
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 1,
+        "broken": 54,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 55
+      },
+      "notWorkingShare": 0.982,
+      "wouldRegainAccess": 1999,
+      "latestReport": "2024-01-24",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 53
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 2
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "trans-nzoia-cherangany",
+      "rank": 105,
+      "district": "Cherangany",
+      "region": "Trans Nzoia",
+      "center": [
+        35.19063,
+        1.05513
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 174,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 174
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 1823,
+      "latestReport": "2024-01-26",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 174
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "narok-kilgoris",
+      "rank": 106,
+      "district": "Kilgoris",
+      "region": "Narok",
+      "center": [
+        34.87234,
+        -1.05259
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 1,
+        "idle": 0,
+        "broken": 13,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 14
+      },
+      "notWorkingShare": 0.929,
+      "wouldRegainAccess": 1336,
+      "latestReport": "2023-11-14",
+      "sources": [
+        {
+          "name": "World Vision",
+          "points": 6
+        },
+        {
+          "name": "AMREF Kenya",
+          "points": 4
+        },
+        {
+          "name": "Evidence Action",
+          "points": 2
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "bungoma-sirisia",
+      "rank": 107,
+      "district": "Sirisia",
+      "region": "Bungoma",
+      "center": [
+        34.45821,
+        0.74237
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 2,
+        "broken": 24,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 26
+      },
+      "notWorkingShare": 0.923,
+      "wouldRegainAccess": 981,
+      "latestReport": "2023-12-22",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 23
+        },
+        {
+          "name": "Virtual Kenya",
+          "points": 2
+        },
+        {
+          "name": "World Vision",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "homa-bay-homa-bay-town",
+      "rank": 108,
+      "district": "Homa Bay Town",
+      "region": "Homa Bay",
+      "center": [
+        34.47295,
+        -0.57863
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 27,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 27
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 817,
+      "latestReport": "2014-05-07",
+      "sources": [
+        {
+          "name": "Engineering Sciences and Global Development",
+          "points": 26
+        },
+        {
+          "name": "Evidence Action",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "tana-river-bura",
+      "rank": 109,
+      "district": "Bura",
+      "region": "Tana River",
+      "center": [
+        39.71003,
+        -0.86384
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 7,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 7
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 686,
+      "latestReport": "2023-05-03",
+      "sources": [
+        {
+          "name": "World Vision International Kenya",
+          "points": 6
+        },
+        {
+          "name": "Living Water International",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "nandi-aldai",
+      "rank": 110,
+      "district": "Aldai",
+      "region": "Nandi",
+      "center": [
+        34.8235,
+        0.05916
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 46,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 46
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 673,
+      "latestReport": "2024-01-24",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 40
+        },
+        {
+          "name": "Living Water International",
+          "points": 6
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "kitui-mwingi-north",
+      "rank": 111,
+      "district": "Mwingi North",
+      "region": "Kitui",
+      "center": [
+        38.27825,
+        -0.28703
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 21,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 21
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 650,
+      "latestReport": "2014-10-02",
+      "sources": [
+        {
+          "name": "World Vision",
+          "points": 21
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "machakos-matungulu",
+      "rank": 112,
+      "district": "Matungulu",
+      "region": "Machakos",
+      "center": [
+        37.32383,
+        -1.20604
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 4,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 4
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 429,
+      "latestReport": "2021-03-11",
+      "sources": [
+        {
+          "name": "Living Water International",
+          "points": 3
+        },
+        {
+          "name": "Virtual Kenya",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "baringo-baringo-south",
+      "rank": 113,
+      "district": "Baringo South",
+      "region": "Baringo",
+      "center": [
+        36.09947,
+        0.69292
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 3,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 3
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 386,
+      "latestReport": "2012-01-20",
+      "sources": [
+        {
+          "name": "ACTED",
+          "points": 3
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "turkana-turkana-east",
+      "rank": 114,
+      "district": "Turkana East",
+      "region": "Turkana",
+      "center": [
+        36.10919,
+        1.25762
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 10,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 10
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 294,
+      "latestReport": "2012-08-02",
+      "sources": [
+        {
+          "name": "ACTED",
+          "points": 10
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "narok-narok-west",
+      "rank": 115,
+      "district": "Narok West",
+      "region": "Narok",
+      "center": [
+        35.48106,
+        -1.46664
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 12,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 12
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 258,
+      "latestReport": "2023-03-03",
+      "sources": [
+        {
+          "name": "AMREF Kenya",
+          "points": 12
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "homa-bay-kabondo-kasipul",
+      "rank": 116,
+      "district": "Kabondo Kasipul",
+      "region": "Homa Bay",
+      "center": [
+        34.86176,
+        -0.4528
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 2,
+        "broken": 104,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 106
+      },
+      "notWorkingShare": 0.981,
+      "wouldRegainAccess": 123,
+      "latestReport": "2024-11-01",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 103
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 3
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "laikipia-laikipia-west",
+      "rank": 117,
+      "district": "Laikipia West",
+      "region": "Laikipia",
+      "center": [
+        36.32414,
+        0.6614
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 2,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 2
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 86,
+      "latestReport": "2012-01-18",
+      "sources": [
+        {
+          "name": "ACTED",
+          "points": 2
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "tana-river-garsen",
+      "rank": 118,
+      "district": "Garsen",
+      "region": "Tana River",
+      "center": [
+        39.79375,
+        -2.13221
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 3,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 3
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 78,
+      "latestReport": "2023-05-03",
+      "sources": [
+        {
+          "name": "World Vision International Kenya",
+          "points": 3
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "uasin-gishu-ainabkoi",
+      "rank": 119,
+      "district": "Ainabkoi",
+      "region": "Uasin Gishu",
+      "center": [
+        35.46249,
+        0.28318
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 17,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 17
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2014-11-20",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 17
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "nakuru-bahati",
+      "rank": 120,
+      "district": "Bahati",
+      "region": "Nakuru",
+      "center": [
+        36.02283,
+        -0.2535
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 1,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 1
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2022-03-30",
+      "sources": [
+        {
+          "name": "Living Water International",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "mandera-banissa",
+      "rank": 121,
+      "district": "Banissa",
+      "region": "Mandera",
+      "center": [
+        40.41426,
+        4.02474
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 2,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 2
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2023-05-04",
+      "sources": [
+        {
+          "name": "Rural Agency for Community Development and Assistance",
+          "points": 1
+        },
+        {
+          "name": "Save the Children Kenya",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "baringo-baringo-north",
+      "rank": 122,
+      "district": "Baringo North",
+      "region": "Baringo",
+      "center": [
+        35.8089,
+        0.7764
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 1,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 1
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2014-08-04",
+      "sources": [
+        {
+          "name": "World Vision",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "kisii-bobasi",
+      "rank": 123,
+      "district": "Bobasi",
+      "region": "Kisii",
+      "center": [
+        34.84272,
+        -0.86822
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 3,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 3
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2020-10-03",
+      "sources": [
+        {
+          "name": "Living Water International",
+          "points": 3
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "kisii-bomachoge-chache",
+      "rank": 124,
+      "district": "Bomachoge Chache",
+      "region": "Kisii",
+      "center": [
+        34.68333,
+        -0.77217
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 1,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 1
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2014-05-30",
+      "sources": [
+        {
+          "name": "Living Water International",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "garissa-daadab",
+      "rank": 125,
+      "district": "Daadab",
+      "region": "Garissa",
+      "center": [
+        40.29618,
+        0.1566
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 10,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 10
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2019-10-20",
+      "sources": [
+        {
+          "name": "UNHCR",
+          "points": 10
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "nandi-emgwen",
+      "rank": 126,
+      "district": "Emgwen",
+      "region": "Nandi",
+      "center": [
+        34.92066,
+        0.16844
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 4,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 4
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2023-10-31",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 3
+        },
+        {
+          "name": "Living Water International",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "narok-emurua-dikirr",
+      "rank": 127,
+      "district": "Emurua Dikirr",
+      "region": "Narok",
+      "center": [
+        35.1133,
+        -0.9906
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 2,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 2
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2013-08-29",
+      "sources": [
+        {
+          "name": "World Vision",
+          "points": 2
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "garissa-fafi",
+      "rank": 128,
+      "district": "Fafi",
+      "region": "Garissa",
+      "center": [
+        40.3264,
+        -0.08349
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 6,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 6
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2023-05-03",
+      "sources": [
+        {
+          "name": "UNHCR",
+          "points": 5
+        },
+        {
+          "name": "World Vision International Kenya",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "kilifi-ganze",
+      "rank": 129,
+      "district": "Ganze",
+      "region": "Kilifi",
+      "center": [
+        39.5427,
+        -3.5357
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 1,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 1
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2013-09-23",
+      "sources": [
+        {
+          "name": "World Vision",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "isiolo-isiolo-north",
+      "rank": 130,
+      "district": "Isiolo North",
+      "region": "Isiolo",
+      "center": [
+        37.70701,
+        0.71251
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 10,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 10
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2023-02-03",
+      "sources": [
+        {
+          "name": "ACTED",
+          "points": 8
+        },
+        {
+          "name": "We World",
+          "points": 2
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "bungoma-kabuchai",
+      "rank": 131,
+      "district": "Kabuchai",
+      "region": "Bungoma",
+      "center": [
+        34.60399,
+        0.68695
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 67,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 67
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2024-11-01",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 67
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "homa-bay-karachuonyo",
+      "rank": 132,
+      "district": "Karachuonyo",
+      "region": "Homa Bay",
+      "center": [
+        34.635,
+        -0.3806
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 1,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 1
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2014-05-07",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "homa-bay-kasipul",
+      "rank": 133,
+      "district": "Kasipul",
+      "region": "Homa Bay",
+      "center": [
+        34.72919,
+        -0.50286
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 151,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 151
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2024-12-01",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 151
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "uasin-gishu-kesses",
+      "rank": 134,
+      "district": "Kesses",
+      "region": "Uasin Gishu",
+      "center": [
+        35.40583,
+        0.1959
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 3,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 3
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2014-09-29",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 3
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "kilifi-kilifi-south",
+      "rank": 135,
+      "district": "Kilifi South",
+      "region": "Kilifi",
+      "center": [
+        39.7533,
+        -3.9323
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 16,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 16
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2014-12-03",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 16
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "bungoma-kimilili",
+      "rank": 136,
+      "district": "Kimilili",
+      "region": "Bungoma",
+      "center": [
+        34.73264,
+        0.77205
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 10,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 10
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2024-01-24",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 10
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "trans-nzoia-kiminini",
+      "rank": 137,
+      "district": "Kiminini",
+      "region": "Trans Nzoia",
+      "center": [
+        34.94958,
+        0.91197
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 144,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 144
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2024-01-25",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 144
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "trans-nzoia-kwanza",
+      "rank": 138,
+      "district": "Kwanza",
+      "region": "Trans Nzoia",
+      "center": [
+        34.97354,
+        1.20246
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 7,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 7
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2014-03-12",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 7
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "laikipia-laikipia-north",
+      "rank": 139,
+      "district": "Laikipia North",
+      "region": "Laikipia",
+      "center": [
+        36.73676,
+        0.81425
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 7,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 7
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2012-07-02",
+      "sources": [
+        {
+          "name": "ACTED",
+          "points": 7
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "mandera-mandera-west",
+      "rank": 140,
+      "district": "Mandera West",
+      "region": "Mandera",
+      "center": [
+        40.17429,
+        3.53609
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 3,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 3
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2023-05-04",
+      "sources": [
+        {
+          "name": "Save the Children Kenya",
+          "points": 3
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "elgeyo-marakwet-marakwet-west",
+      "rank": 141,
+      "district": "Marakwet West",
+      "region": "Elgeyo-Marakwet",
+      "center": [
+        35.34458,
+        1.05708
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 2,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 2
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2023-12-13",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 2
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "uasin-gishu-moiben",
+      "rank": 142,
+      "district": "Moiben",
+      "region": "Uasin Gishu",
+      "center": [
+        35.32623,
+        0.74441
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 3,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 3
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2024-01-25",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 2
+        },
+        {
+          "name": "Living Water International",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "bungoma-mt-elgon",
+      "rank": 143,
+      "district": "Mt. Elgon",
+      "region": "Bungoma",
+      "center": [
+        34.51842,
+        0.78559
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 3,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 3
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2023-01-12",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 3
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "narok-narok-south",
+      "rank": 144,
+      "district": "Narok South",
+      "region": "Narok",
+      "center": [
+        35.78419,
+        -1.23528
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 1,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 1
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2023-01-03",
+      "sources": [
+        {
+          "name": "AMREF Kenya",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "nyandarua-ol-kalou",
+      "rank": 145,
+      "district": "Ol Kalou",
+      "region": "Nyandarua",
+      "center": [
+        36.24,
+        -0.17
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 1,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 1
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2023-01-03",
+      "sources": [
+        {
+          "name": "Association of Volunteers in International Service",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "west-pokot-pokot-south",
+      "rank": 146,
+      "district": "Pokot South",
+      "region": "West Pokot",
+      "center": [
+        35.27133,
+        1.33305
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 3,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 3
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2014-04-03",
+      "sources": [
+        {
+          "name": "World Vision",
+          "points": 3
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "nakuru-rongai",
+      "rank": 147,
+      "district": "Rongai",
+      "region": "Nakuru",
+      "center": [
+        36.17858,
+        0.07823
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 6,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 6
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2014-10-02",
+      "sources": [
+        {
+          "name": "World Vision",
+          "points": 6
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "west-pokot-sigor",
+      "rank": 148,
+      "district": "Sigor",
+      "region": "West Pokot",
+      "center": [
+        35.44313,
+        1.70103
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 4,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 4
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2015-04-15",
+      "sources": [
+        {
+          "name": "World Vision",
+          "points": 4
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "kisii-south-mugirango",
+      "rank": 149,
+      "district": "South Mugirango",
+      "region": "Kisii",
+      "center": [
+        34.65358,
+        -0.77365
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 9,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 9
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2023-08-11",
+      "sources": [
+        {
+          "name": "Living Water International",
+          "points": 5
+        },
+        {
+          "name": "Evidence Action",
+          "points": 4
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "vihiga-vihiga",
+      "rank": 150,
+      "district": "Vihiga",
+      "region": "Vihiga",
+      "center": [
+        34.69667,
+        0.04504
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 484,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 484
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2024-10-01",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 479
+        },
+        {
+          "name": "Living Water International",
+          "points": 5
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "wajir-wajir-north",
+      "rank": 151,
+      "district": "Wajir North",
+      "region": "Wajir",
+      "center": [
+        39.56667,
+        3.19542
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 4,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 4
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2023-03-23",
+      "sources": [
+        {
+          "name": "Save the Children Kenya",
+          "points": 4
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "wajir-wajir-south",
+      "rank": 152,
+      "district": "Wajir South",
+      "region": "Wajir",
+      "center": [
+        39.71269,
+        1.22443
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 4,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 4
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2023-03-23",
+      "sources": [
+        {
+          "name": "Save the Children Kenya",
+          "points": 4
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "wajir-wajir-west",
+      "rank": 153,
+      "district": "Wajir West",
+      "region": "Wajir",
+      "center": [
+        39.69438,
+        1.64045
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 6,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 6
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2023-03-23",
+      "sources": [
+        {
+          "name": "Save the Children Kenya",
+          "points": 6
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "bungoma-webute-west",
+      "rank": 154,
+      "district": "Webute West",
+      "region": "Bungoma",
+      "center": [
+        34.69483,
+        0.63232
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 61,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 61
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2024-01-24",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 61
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "vihiga-hamisi",
+      "rank": 155,
+      "district": "Hamisi",
+      "region": "Vihiga",
+      "center": [
+        34.80057,
+        0.07895
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 3,
+        "idle": 2,
+        "broken": 525,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 530
+      },
+      "notWorkingShare": 0.991,
+      "wouldRegainAccess": 0,
+      "latestReport": "2024-11-01",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 519
+        },
+        {
+          "name": "Living Water International",
+          "points": 6
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 5
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "vihiga-sabatia",
+      "rank": 156,
+      "district": "Sabatia",
+      "region": "Vihiga",
+      "center": [
+        34.76297,
+        0.11626
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 4,
+        "broken": 433,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 437
+      },
+      "notWorkingShare": 0.991,
+      "wouldRegainAccess": 0,
+      "latestReport": "2024-11-01",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 395
+        },
+        {
+          "name": "Living Water International",
+          "points": 36
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 6
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "uasin-gishu-soy",
+      "rank": 157,
+      "district": "Soy",
+      "region": "Uasin Gishu",
+      "center": [
+        35.19533,
+        0.83824
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 1,
+        "broken": 48,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 49
+      },
+      "notWorkingShare": 0.98,
+      "wouldRegainAccess": 0,
+      "latestReport": "2024-01-26",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 48
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "bungoma-bumula",
+      "rank": 158,
+      "district": "Bumula",
+      "region": "Bungoma",
+      "center": [
+        34.46693,
+        0.53088
+      ],
+      "waterPoints": {
+        "working": 2,
+        "needs_repair": 1,
+        "idle": 0,
+        "broken": 142,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 145
+      },
+      "notWorkingShare": 0.979,
+      "wouldRegainAccess": 0,
+      "latestReport": "2024-01-26",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 142
+        },
+        {
+          "name": "Virtual Kenya",
+          "points": 2
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "bungoma-kanduyi",
+      "rank": 159,
+      "district": "Kanduyi",
+      "region": "Bungoma",
+      "center": [
+        34.58127,
+        0.55684
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 1,
+        "idle": 2,
+        "broken": 74,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 77
+      },
+      "notWorkingShare": 0.961,
+      "wouldRegainAccess": 0,
+      "latestReport": "2024-11-01",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 74
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 3
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "vihiga-luanda",
+      "rank": 160,
+      "district": "Luanda",
+      "region": "Vihiga",
+      "center": [
+        34.5857,
+        0.0234
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 2,
+        "broken": 28,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 30
+      },
+      "notWorkingShare": 0.933,
+      "wouldRegainAccess": 0,
+      "latestReport": "2023-11-30",
+      "sources": [
+        {
+          "name": "Evidence Action",
+          "points": 28
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 2
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "kitui-kitui-south",
+      "rank": 161,
+      "district": "Kitui South",
+      "region": "Kitui",
+      "center": [
+        38.25288,
+        -1.89504
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 1,
+        "idle": 0,
+        "broken": 11,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 12
+      },
+      "notWorkingShare": 0.917,
+      "wouldRegainAccess": 0,
+      "latestReport": "2021-02-11",
+      "sources": [
+        {
+          "name": "World Vision",
+          "points": 11
+        },
+        {
+          "name": "USAID/KEA KIWASH",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey"
+      ]
+    }
+  ]
+}

@@ -55,6 +55,32 @@ export function populationGrowthRate(iso2: string | undefined): Rate {
   return code && code in POPULATION_GROWTH ? POPULATION_GROWTH[code as Iso] : POPULATION_GROWTH.SSA;
 }
 
+/**
+ * Town-level intercensal growth, keyed by town slug, where a boundary-consistent
+ * figure exists. Two demo towns are absent on purpose and use the national rate:
+ *   - Tamale: Sagnarigu district was split from Tamale Metropolitan in 2012, so
+ *     the 2010 and 2021 census counts cover different areas.
+ *   - Gulu: became a city in 2020 with a larger boundary. 2024 is 232,723
+ *     (UBOS), but published 2014 baselines disagree (150,306 municipality,
+ *     152,276, and a recomputed 185,042 we could not verify), so no rate is claimed.
+ */
+export const CITY_GROWTH: Record<string, Rate> = {
+  "kisumu-kenya": {
+    low: 1.78,
+    central: 1.78,
+    high: 1.78,
+    unit: "%/yr",
+    source: "KNBS census: Kisumu County 968,909 (2009) → 1,155,574 (2019), compound annual rate",
+    url: "https://www.knbs.or.ke/wp-content/uploads/2023/09/2015-County-Statistical-Abstracts-Kisumu.pdf",
+    note: "County-wide, including rural areas; the city itself plausibly grows faster.",
+  },
+};
+
+/** The town's own sourced rate when there is one, otherwise the national rate. */
+export function growthRateForTown(slug: string | undefined, iso2: string | undefined): Rate {
+  return (slug ? CITY_GROWTH[slug] : undefined) ?? populationGrowthRate(iso2);
+}
+
 // ---------------------------------------------------------------------------
 // Household size — national censuses
 // ---------------------------------------------------------------------------
@@ -122,8 +148,46 @@ export const WATER_POINT_DOWN_SHARE: Rate = {
   note: "Includes abandoned points that are never repaired, so it overstates the share a managed scheme would see.",
 };
 
+/** Country-specific share of handpump/borehole points down, where a sourced figure exists. */
+export const WATER_POINT_DOWN_SHARE_BY_COUNTRY: Partial<Record<Iso, Rate>> = {
+  UG: {
+    low: 0.16,
+    central: 0.16,
+    high: 0.16,
+    unit: "share non-functional at any time",
+    source: "Uganda MWE Sector Performance Report 2018 (84% functionality of rural boreholes and handpumps)",
+    url: "https://www.mwe.go.ug/library/sector-performance-reports",
+  },
+  GH: {
+    low: 0.13,
+    central: 0.16,
+    high: 0.19,
+    unit: "share non-functional at any time",
+    source:
+      "Schultes et al. (2022), Longitudinal borehole functionality in 15 rural Ghanaian towns, BMC Research Notes (\"BH functionality rates ranged between 81 and 87%\")",
+    url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC8939079/",
+    note: "Eastern Region, 2014–16 — not Northern Region. central is the midpoint.",
+  },
+};
+
+/** Motorised / piped schemes under normal (non-drought) conditions. */
+export const MOTORISED_SCHEME_DOWN_SHARE: Rate = {
+  low: 0.35,
+  central: 0.4,
+  high: 0.45,
+  unit: "share not fully operational",
+  source:
+    "UNICEF/REACH/Oxford, Maintaining Africa's water infrastructure: Water Audit in Kitui County, Kenya (2016) " +
+    "(\"Over half the schemes are operational (55%) and 10% are partly functional\")",
+  url: "https://reachwater.uk/wp-content/uploads/2024/01/16_09_05_Kitui-policy-brief.pdf",
+  note: "low = not operational; high = not operational or only partly functional; central is the midpoint. One county.",
+};
+
 /** Days a broken point stays down. */
-export const REPAIR_DAYS: Record<"communityManaged" | "professionalService" | "pipedCommunityManaged", Rate> = {
+export const REPAIR_DAYS: Record<
+  "communityManaged" | "professionalService" | "pipedCommunityManaged" | "motorisedCommunityManaged",
+  Rate
+> = {
   communityManaged: {
     low: 30,
     central: 43,
@@ -152,6 +216,16 @@ export const REPAIR_DAYS: Record<"communityManaged" | "professionalService" | "p
     source: "Oxford REACH Kitui maintenance policy brief (piped systems 46–67 days without professional maintenance)",
     url: "https://www.smithschool.ox.ac.uk/sites/default/files/2022-02/Kitui-maintenance-policy-brief_0.pdf",
     note: "central is the midpoint of the published range.",
+  },
+  motorisedCommunityManaged: {
+    low: 90,
+    central: 195,
+    high: 300,
+    unit: "days",
+    source:
+      "UNICEF/REACH/Oxford Kitui County Water Audit (2016) (\"Average breakdown times vary from three months for a minor repair to ten months for a major repair\")",
+    url: "https://reachwater.uk/wp-content/uploads/2024/01/16_09_05_Kitui-policy-brief.pdf",
+    note: "Pump and genset failures dominate. central is the midpoint.",
   },
 };
 
@@ -263,7 +337,8 @@ export function roundTripMinutes(args: {
 
 /**
  * Not sourced, deliberately left out:
- *   - city-level growth rates for Kisumu, Gulu, Tamale (use national urban);
- *   - a Ghana national water-point functionality rate;
- *   - motorised/solar scheme failure rates outside drought conditions.
+ *   - boundary-consistent growth rates for Tamale (Sagnarigu split off in 2012)
+ *     and Gulu (city boundary created 2020; 2014 baselines conflict);
+ *   - a Northern Region Ghana functionality rate (the Ghana figure is Eastern Region);
+ *   - Uganda national motorised-scheme functionality.
  */

@@ -2,8 +2,8 @@
   "version": 1,
   "slug": "gulu-uganda",
   "displayName": "Gulu, Uganda",
-  "retrievedAt": "2026-09-15T16:50:13.555Z",
-  "structuredBy": "deterministic",
+  "retrievedAt": "2026-09-15T17:03:29.358Z",
+  "structuredBy": "llm:gpt-4.1-mini",
   "queries": [
     {
       "category": "water_need",
@@ -34,156 +34,190 @@
     {
       "id": "f00",
       "category": "water_need",
-      "title": "World Bank — water access document",
-      "summary": "“DISTANCE TO NEAREST WATER SOURCE .................................................................. 202 ... The water supply system in Gulu covers the entire municipality and part of its surrounding peri-urban communities ...”",
-      "sourceName": "World Bank",
+      "title": "Water supply coverage in Gulu municipality",
+      "summary": "Gulu's water supply system covers the municipality and peri-urban areas but meets only about one third of total water demand.",
+      "sourceName": "documents1.worldbank.org",
       "sourceUrl": "https://documents1.worldbank.org/curated/en/929471598418857476/txt/Environmental-and-Social-Impact-Assessment-for-Karuma-Gulu-Water-Supply-Project.txt",
-      "confidence": 0.65
+      "confidence": 0.9,
+      "scoreImpact": {
+        "factor": "need",
+        "direction": "increase",
+        "magnitude": 0.3
+      }
     },
     {
       "id": "f01",
       "category": "hydrogeology",
-      "title": "Permeability of the weathered bedrock aquifers in Uganda: evidence from a large pumping-test dataset and its implications for rural water supply | Hydrogeology Journal | Springer Nature Link",
-      "summary": "“5 m2/d). Pairwise comparisons indicate statistical significance in transmissivity across the categories, with slightly higher transmissivity values where borehole depths are <50 m (Table 5).”",
-      "sourceName": "Springer",
-      "sourceUrl": "https://link.springer.com/article/10.1007/s10040-022-02534-0",
-      "confidence": 0.6,
-      "publishedDate": "2022-09-30"
+      "title": "Groundwater characteristics in Uganda",
+      "summary": "Most boreholes in Uganda tap groundwater from weathered and fractured basement aquifers, with depths mostly less than 80 m and yields varying widely.",
+      "sourceName": "earthwise.bgs.ac.uk",
+      "sourceUrl": "https://earthwise.bgs.ac.uk/index.php/Hydrogeology_of_Uganda",
+      "confidence": 0.8
     },
     {
       "id": "f02",
       "category": "environment",
-      "title": "Predictors of Water Point Sustainability and Water Quality in Gulu, Uganda | Journal of Water Resources Planning and Management | Vol 152, No 6",
-      "summary": "“and length of breakdowns is essential to sustain functioning water systems, remediate nonfunctioning systems, and maintain water safety of nonpiped water sources in sub-Saharan Africa.”",
-      "sourceName": "ASCE Library",
-      "sourceUrl": "https://ascelibrary.org/doi/10.1061/JWRMD5.WRENG-7044",
-      "confidence": 0.55,
-      "publishedDate": "2026-06-01"
+      "title": "Water contamination risks in Gulu District",
+      "summary": "Contamination of drinking water in Gulu can cause acute water-borne diseases such as cholera, dysentery, and typhoid.",
+      "sourceName": "nora.nerc.ac.uk",
+      "sourceUrl": "https://nora.nerc.ac.uk/id/eprint/538316/1/1-s2.0-S0048969724072759-main.pdf",
+      "publishedDate": "2024-10-22",
+      "confidence": 0.85,
+      "scoreImpact": {
+        "factor": "risk",
+        "direction": "increase",
+        "magnitude": 0.25
+      }
     },
     {
       "id": "f03",
       "category": "infrastructure",
-      "title": "Gulu City's Sh2.1b clean water project to supply over 400,000, save extinction of natural dams – Daily Express",
-      "summary": "“Gulu City, Uganda: In January 2025, the Ministry of Water and Environment, together with the National Water and Sewerage Corporation (NWSC), launched a Sh.”",
+      "title": "Gulu clean water supply project launched",
+      "summary": "A 2.1 billion shilling project was launched in 2025 to expand safe drinking water supply and protect natural water sources in Gulu City.",
       "sourceName": "dailyexpress.co.ug",
       "sourceUrl": "https://dailyexpress.co.ug/2025/08/15/gulu-citys-sh2-1b-clean-water-project-to-supply-over-400000-save-extinction-of-natural-dams/",
-      "confidence": 0.4,
-      "publishedDate": "2025-08-15"
+      "publishedDate": "2025-08-15",
+      "confidence": 0.9
     },
     {
       "id": "f04",
       "category": "water_need",
-      "title": "Uganda: Gulu District - Water Sources by Operational Status & Accessibility (June 2010) - Uganda | ReliefWeb",
-      "summary": "“org/. ## Related Content Activities will include constructing at least 100 new classrooms, training nearly 1,000 teachers and building more than 480 gender sensitive sanitation facilities in schools.”",
-      "sourceName": "ReliefWeb (UN OCHA)",
+      "title": "Water sources status in Gulu District (2010)",
+      "summary": "A 2010 report details operational status and accessibility of water sources in Gulu District.",
+      "sourceName": "reliefweb.int",
       "sourceUrl": "https://reliefweb.int/map/uganda/uganda-gulu-district-water-sources-operational-status-accessibility-june-2010",
-      "confidence": 0.65
+      "confidence": 0.7
     },
     {
       "id": "f05",
       "category": "hydrogeology",
-      "title": "Hydrogeology of Uganda - BGS Earthwise - British Geological Survey",
-      "summary": "“can range from 1 to 45 m, but is typically 5-20 m below the ground surface. The aquifers are typically between 20 and 45 ... Most of the rural population relies on groundwater, dominantly from shared boreholes equipped with handpumps.”",
-      "sourceName": "British Geological Survey",
-      "sourceUrl": "https://earthwise.bgs.ac.uk/index.php/Hydrogeology_of_Uganda",
-      "confidence": 0.6,
-      "publishedDate": "2023-12-19"
+      "title": "Permeability of weathered bedrock aquifers in Uganda",
+      "summary": "Most boreholes in Uganda are deeper than 50 m with average depth around 70 m; transmissivity varies significantly with depth category.",
+      "sourceName": "link.springer.com",
+      "sourceUrl": "https://link.springer.com/article/10.1007/s10040-022-02534-0",
+      "publishedDate": "2022-09-30",
+      "confidence": 0.85
     },
     {
       "id": "f06",
       "category": "environment",
-      "title": "Surface-derived groundwater contamination in Gulu District, Uganda: Chemical and microbial tracers | Gulu University",
-      "summary": "“(NO3−, SO42−, Cl/Br) from various sources: boreholes (12–76 m depth; n = 90), protected springs (n = 11) and municipal taps (n = 4). 05). Interestingly, human and animal waste indicators E.”",
-      "sourceName": "Gulu University",
-      "sourceUrl": "https://gu.ac.ug/publication/surface-derived-groundwater-contamination-in-gulu-district-uganda-chemical-and-microbial-tracers/",
-      "confidence": 0.55,
-      "publishedDate": "2025-08-14"
+      "title": "Predictors of water point sustainability in Gulu",
+      "summary": "Water source technology types and contamination risk scores predict sustainability and water quality of nonpiped water sources in Gulu.",
+      "sourceName": "ascelibrary.org",
+      "sourceUrl": "https://ascelibrary.org/doi/10.1061/JWRMD5.WRENG-7044",
+      "publishedDate": "2026-06-01",
+      "confidence": 0.9,
+      "scoreImpact": {
+        "factor": "risk",
+        "direction": "increase",
+        "magnitude": 0.3
+      }
     },
     {
       "id": "f07",
       "category": "infrastructure",
-      "title": "Gulu Water Supply and Sanitation Project (GWSSP) | Gulu City",
-      "summary": "“Government through National Water and Sewerage Corporation (NWSC) has started construction of a Gulu Water Supply and Sanitation project to serve over 341,000 people in Gulu, Karuma, Kamdini, Minakulu, Bobi, Palenga, Koro- Abili and the…”",
-      "sourceName": "Gulu City Council",
+      "title": "Gulu Water Supply and Sanitation Project",
+      "summary": "Construction started on a water supply and sanitation project serving over 341,000 people in Gulu and surrounding areas, drawing water from the Nile at Karuma.",
+      "sourceName": "mail.gulucity.go.ug",
       "sourceUrl": "https://mail.gulucity.go.ug/projects/gulu-water-supply-and-sanitation-project-gwssp",
-      "confidence": 0.55
+      "confidence": 0.9
     },
     {
       "id": "f08",
       "category": "water_need",
-      "title": "Skybird Bird Project Transforms Lives With Access To Clean Water In Gulu District - Uganda | ReliefWeb",
-      "summary": "“In 2022, URCS with support from the Austrian Development Cooperation through the Austrian Red Cross, conducted a comprehensive Water Hygiene and Sanitation (WASH) assessment in Gulu District.”",
-      "sourceName": "ReliefWeb (UN OCHA)",
+      "title": "WASH assessment in Gulu District",
+      "summary": "A 2022 WASH assessment identified severe water shortages in Gulu District, especially in Paico and Bungatila sub-counties.",
+      "sourceName": "reliefweb.int",
       "sourceUrl": "https://reliefweb.int/report/uganda/skybird-bird-project-transforms-lives-access-clean-water-gulu-district",
-      "confidence": 0.65,
-      "publishedDate": "2023-07-08"
+      "publishedDate": "2023-07-08",
+      "confidence": 0.85,
+      "scoreImpact": {
+        "factor": "need",
+        "direction": "increase",
+        "magnitude": 0.3
+      }
     },
     {
       "id": "f09",
       "category": "hydrogeology",
-      "title": "Case Study Water Point Failure Uganda",
-      "summary": "“In both districts, most water points are deep boreholes (ranging from 15 to 100 m deep overall, but most are 40 to 60 m deep) fitted with hand pumps, of which 90% are community managed.”",
-      "sourceName": "British Geological Survey",
-      "sourceUrl": "https://earthwise.bgs.ac.uk/index.php/Case_Study_Water_Point_Failure_Uganda",
-      "confidence": 0.6
+      "title": "Uganda borehole and transmissivity dataset",
+      "summary": "A digital dataset includes over 655 borehole records with metadata and pumping test data across Uganda including Gulu.",
+      "sourceName": "www2.bgs.ac.uk",
+      "sourceUrl": "https://www2.bgs.ac.uk/nationalgeosciencedatacentre/citedData/catalogue/e01c3db6-b904-466e-9ab9-0406d909c276.html",
+      "confidence": 0.8
     },
     {
       "id": "f10",
       "category": "environment",
-      "title": "Thousands in Gulu City drink contaminated water – tndNews, Uganda",
-      "summary": "“Okeng told TND News that the communities are facing challenges of unclean water during the rainy season, with floods at all water sources.”",
+      "title": "Water contamination and flooding in Gulu City",
+      "summary": "Flooding during rainy seasons contaminates water sources in Gulu City, causing challenges in water quality and supply.",
       "sourceName": "tndnewsuganda.com",
       "sourceUrl": "https://tndnewsuganda.com/2022/03/thousands-in-gulu-city-drinks-contaminated-water/",
-      "confidence": 0.4,
-      "publishedDate": "2022-03-26"
+      "publishedDate": "2022-03-26",
+      "confidence": 0.9,
+      "scoreImpact": {
+        "factor": "risk",
+        "direction": "increase",
+        "magnitude": 0.3
+      }
     },
     {
       "id": "f11",
       "category": "infrastructure",
-      "title": "Karuma-Gulu water project to be complete by end of this year",
-      "summary": "“Gulu, Uganda | THE INDEPENDENT | The multi-billion shillings Karuma-Gulu water project construction works kicked off in August 2022 with joint funding from the government of Uganda and Kfw and a loan from the World Bank.”",
-      "sourceName": "The Independent (Uganda)",
+      "title": "Karuma-Gulu water project construction",
+      "summary": "Construction began in 2022 on the Karuma-Gulu water project including treatment plant and pipelines to Gulu city and peri-urban towns.",
+      "sourceName": "independent.co.ug",
       "sourceUrl": "https://www.independent.co.ug/karuma-gulu-water-project-to-be-complete-by-end-of-this-year/",
-      "confidence": 0.4,
-      "publishedDate": "2024-12-04"
+      "publishedDate": "2024-12-04",
+      "confidence": 0.9
     },
     {
       "id": "f12",
       "category": "water_need",
-      "title": "ReliefWeb (UN OCHA) — water access document",
-      "summary": "“6%) collected most drinking water from an apparently protected source; however, water quantity was below the minimum standard 15 L per person per day and collection times were high (Table 1).  Table 14.”",
-      "sourceName": "ReliefWeb (UN OCHA)",
+      "title": "Household water source and collection in Northern Uganda",
+      "summary": "Most households collect drinking water from protected sources but water quantity is below minimum standards and collection times are high.",
+      "sourceName": "reliefweb.int",
       "sourceUrl": "https://reliefweb.int/attachments/47f2c433-7b3c-320f-a3f6-2515bedd8d1f/461F14718C3CD52885257077006E2350-govuga-uga-31jul.pdf",
-      "confidence": 0.65
+      "confidence": 0.85,
+      "scoreImpact": {
+        "factor": "need",
+        "direction": "increase",
+        "magnitude": 0.25
+      }
     },
     {
       "id": "f13",
       "category": "hydrogeology",
-      "title": "Borehole and transmissivity dataset, Uganda | Our data | British Geological Survey (BGS)",
-      "summary": "“2000 to 2018. In total over 1000 paper borehole records were initially collated and reviewed. This work was carried out over several months visiting the district water offices.”",
-      "sourceName": "British Geological Survey",
-      "sourceUrl": "https://www2.bgs.ac.uk/nationalgeosciencedatacentre/citedData/catalogue/f99ff6c7-ce82-4011-ac3e-9328d7db3502.html",
-      "confidence": 0.6
+      "title": "Water point failure case study in Uganda",
+      "summary": "Most water points in studied districts are deep boreholes (40-60 m) tapping weathered regolith and fractured bedrock aquifers with groundwater levels 1-5 m below ground.",
+      "sourceName": "earthwise.bgs.ac.uk",
+      "sourceUrl": "https://earthwise.bgs.ac.uk/index.php/Case_Study_Water_Point_Failure_Uganda",
+      "confidence": 0.85
     },
     {
       "id": "f14",
       "category": "environment",
-      "title": "Gulu Integrated Catchment Management Partnership in Uganda unites forces for catchment protection - NatuReS",
-      "summary": "“Gulu City lies within the Albert Nile and Aswa Catchments of the Upper Nile Water Management Zone. Both catchments are characterized by high vulnerability to dry spells.”",
+      "title": "Catchment vulnerability in Gulu City",
+      "summary": "Gulu City lies in catchments vulnerable to dry spells; recent climate change has dried key water sources and micro-catchment degradation is worsened by human activities.",
       "sourceName": "nature-stewardship.org",
       "sourceUrl": "https://nature-stewardship.org/uncategorized/development-and-validation-of-the-water-source-protection-implementation-plan-for-oyitino-micro-catchment-in-gulu-city-uganda/",
-      "confidence": 0.4,
-      "publishedDate": "2022-03-17"
+      "publishedDate": "2022-03-17",
+      "confidence": 0.9,
+      "scoreImpact": {
+        "factor": "risk",
+        "direction": "increase",
+        "magnitude": 0.3
+      }
     },
     {
       "id": "f15",
       "category": "infrastructure",
-      "title": "Gulu district to rehabilitate war time piped water schemes",
-      "summary": "“5 billion shillings to rehabilitate and upgrade six abandoned piped water schemes originally set up to serve Internally Displaced Persons (IDPs) during the Lord’s Resistance Army (LRA) insurgency.”",
-      "sourceName": "The Independent (Uganda)",
+      "title": "Rehabilitation of war-time piped water schemes in Gulu",
+      "summary": "Gulu district plans to rehabilitate six abandoned piped water schemes originally built for displaced persons during the LRA insurgency.",
+      "sourceName": "independent.co.ug",
       "sourceUrl": "https://www.independent.co.ug/gulu-district-to-rehabilitate-war-time-piped-water-schemes/",
-      "confidence": 0.4,
-      "publishedDate": "2024-12-29"
+      "publishedDate": "2024-12-29",
+      "confidence": 0.9
     }
   ],
   "partners": [

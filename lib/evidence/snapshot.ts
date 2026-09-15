@@ -6,13 +6,15 @@
  * hand-written bundled placeholders: when the key is missing or Exa is down,
  * a demo town still shows genuine sources, labelled with their retrieval date.
  *
- * Written by `npm run evidence:refresh` and, best-effort, by every live run.
+ * Written by `npm run evidence:refresh`, and by a town's first live run when it
+ * has no snapshot yet. Live runs never overwrite an existing one.
  */
 
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import type { EvidenceFinding, Partner } from "@/lib/types";
 import type { QueryOutcome } from "@/lib/evidence/exa";
+import { canonicalPublisher } from "@/lib/evidence/structure";
 
 const EVIDENCE_DIR = path.join(process.cwd(), "data", "evidence");
 
@@ -39,6 +41,8 @@ export async function loadEvidenceSnapshot(slug: string): Promise<EvidenceSnapsh
   try {
     const parsed = JSON.parse(await fs.readFile(fileFor(slug), "utf8")) as EvidenceSnapshot;
     if (parsed?.version !== 1 || !Array.isArray(parsed.findings) || parsed.findings.length === 0) return null;
+    // Older LLM-structured snapshots carry hostnames ("link.springer.com") as publishers.
+    parsed.findings = parsed.findings.map((f) => ({ ...f, sourceName: canonicalPublisher(f.sourceUrl, f.sourceName) }));
     return parsed;
   } catch {
     return null;

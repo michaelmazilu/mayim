@@ -91,3 +91,24 @@ export function countryIso2(name: string | undefined): string | undefined {
   if (/^[a-z]{2}$/.test(key)) return key.toUpperCase();
   return ISO2_BY_NAME[key];
 }
+
+/** ISO alpha-3 for every country in ISO2_BY_NAME — WPdx keys countries this way. */
+const ISO3_BY_ISO2: Record<string, string> = {
+  DZ: "DZA", AO: "AGO", BJ: "BEN", BW: "BWA", BF: "BFA", BI: "BDI", CM: "CMR", CV: "CPV",
+  CF: "CAF", TD: "TCD", KM: "COM", CG: "COG", CD: "COD", CI: "CIV", DJ: "DJI", EG: "EGY",
+  GQ: "GNQ", ER: "ERI", SZ: "SWZ", ET: "ETH", GA: "GAB", GM: "GMB", GH: "GHA", GN: "GIN",
+  GW: "GNB", KE: "KEN", LS: "LSO", LR: "LBR", LY: "LBY", MG: "MDG", MW: "MWI", ML: "MLI",
+  MR: "MRT", MU: "MUS", MA: "MAR", MZ: "MOZ", NA: "NAM", NE: "NER", NG: "NGA", RW: "RWA",
+  SN: "SEN", SL: "SLE", SO: "SOM", ZA: "ZAF", SS: "SSD", SD: "SDN", TZ: "TZA", TG: "TGO",
+  TN: "TUN", UG: "UGA", ZM: "ZMB", ZW: "ZWE", BD: "BGD", HT: "HTI", IN: "IND", NP: "NPL",
+  PK: "PAK",
+};
+
+/** "Uganda" / "UG" / "UGA" → "UGA". Undefined when unknown. */
+export function countryIso3(name: string | undefined): string | undefined {
+  if (!name) return undefined;
+  const key = normalise(name).toUpperCase();
+  if (/^[A-Z]{3}$/.test(key) && Object.values(ISO3_BY_ISO2).includes(key)) return key;
+  const iso2 = countryIso2(name);
+  return iso2 ? ISO3_BY_ISO2[iso2] : undefined;
+}
