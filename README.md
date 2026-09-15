@@ -105,6 +105,7 @@ Server keys are read only inside `app/api/*/route.ts` and the `lib/` modules the
 | `GET /api/brief?slug=<slug>[&download=1]` | Markdown project brief for a stored run (404 if that town has no stored run). |
 | `POST /api/brief` `{ run }` | Markdown brief for a run the client already holds — use this for live runs on a read-only host. |
 | `GET /api/partners?country=<name>[&live=0]` | Verified water organisations for the country, plus search finds when `EXA_API_KEY` is set. |
+| `GET /api/scan?country=<name>` | Districts ranked by people who would regain water access if broken points were repaired (WPdx+), with share not working and a thin-data flag. Falls back to `data/scan/<ISO3>.json` (`npm run scan:refresh`). |
 
 Partner discovery is the fifth Exa query of every run (`run.partners`). The verified fallback list (`lib/partners/verified.ts`) has every URL checked by hand; search finds are labelled unreviewed. Sourced simulation rates (growth, household size, breakdown and repair time, walking speed, Sphere flow rates, demand) live in `lib/config/behaviour.ts`, each with its citation.
 
@@ -120,6 +121,6 @@ lib/     types.ts · pipeline.ts · config/coefficients.ts (every coefficient, s
 
 ## Data sources
 
-OpenStreetMap via Overpass (ODbL) · NASA POWER climatology (MERRA-2) · Open-Elevation / OpenTopoData (SRTM) · WorldPop 2020 100 m population (CC BY 4.0; the primary people-within-reach estimate, projected forward with national growth, with mapped buildings as fallback and cross-check) · Esri World Imagery + CARTO labels via MapLibre GL · Nominatim · Exa · OpenAI · World Bank WDI, national censuses, Sphere, WHO and REACH/UPGro studies for simulation rates.
+OpenStreetMap via Overpass (ODbL) · NASA POWER climatology (MERRA-2) · Open-Elevation / OpenTopoData (SRTM) · WorldPop 2020 100 m population (CC BY 4.0; the primary people-within-reach estimate, projected forward with national growth, with mapped buildings as fallback and cross-check) · Water Point Data Exchange WPdx+ (CC BY 4.0; surveyed water points and functional status for the regional scan) · Esri World Imagery + CARTO labels via MapLibre GL · Nominatim · Exa · OpenAI · World Bank WDI, national censuses, Sphere, WHO and REACH/UPGro studies for simulation rates.
 
 Cost coefficients are order-of-magnitude planning figures from published rural water supply benchmarking, labelled in `lib/config/coefficients.ts`. They are screening inputs, not quotations.

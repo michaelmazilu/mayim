@@ -18,7 +18,9 @@ import type {
   TownRef,
 } from "@/lib/types";
 import { aggregateSignals, MAX_FACTOR_SHIFT, NEUTRAL_SIGNALS } from "@/lib/evidence/signals";
-import { countryIso2 } from "@/lib/geo/countries";
+import { countryIso2, countryIso3 } from "@/lib/geo/countries";
+import { classifyStatus, parseDistrictRows, type DistrictStatusRow } from "@/lib/providers/wpdx";
+import { buildRegionalScan, rollupDistricts } from "@/lib/scan/regional";
 import {
   buildQueries,
   mergeEvidence,
@@ -100,6 +102,125 @@ describe("countryIso2", () => {
     assert.equal(countryIso2("ug"), "UG");
     assert.equal(countryIso2("Atlantis"), undefined);
     assert.equal(countryIso2(undefined), undefined);
+  });
+
+  test("maps names and codes to ISO3 for WPdx", () => {
+    assert.equal(countryIso3("Uganda"), "UGA");
+    assert.equal(countryIso3("GH"), "GHA");
+    assert.equal(countryIso3("ken"), "KEN");
+    assert.equal(countryIso3("XYZ"), undefined);
+    assert.equal(countryIso3(undefined), undefined);
+  });
+});
+
+describe("regional scan (WPdx)", () => {
+  test("functionality comes from status_clean categories", () => {
+    assert.equal(classifyStatus("Functional"), "working");
+    assert.equal(classifyStatus("Functional, needs repair"), "needs_repair");
+    assert.equal(classifyStatus("Functional, not in use"), "idle");
+    assert.equal(classifyStatus("Non-Functional"), "broken");
+    assert.equal(classifyStatus("Non-Functional, dry season"), "seasonal");
+    assert.equal(classifyStatus("Abandoned/Decommissioned"), "abandoned");
+    assert.equal(classifyStatus("Other"), "unknown");
+    assert.equal(classifyStatus(undefined), "unknown");
+  });
+
+  test("parses Socrata string aggregates and drops unusable rows", () => {
+    const rows = parseDistrictRows([
+      { clean_adm1: "Northern", clean_adm2: "Gulu", source: "CWSA", status_clean: "Non-Functional", n: "20", gain: "4000.4", lat: "2.9", lon: "32.4", latest: "2023-01-01T00:00:00.000" },
+      { clean_adm2: "NoSource", n: "2" },
+      { clean_adm2: "", n: "3" },
+      { clean_adm2: "Empty", n: "0" },
+      "junk",
+    ]);
+    assert.equal(rows.length, 2);
+    assert.equal(rows[1].source, "Unknown source");
+    assert.deepEqual(rows[0], {
+      region: "Northern",
+      district: "Gulu",
+      source: "CWSA",
+      status: "broken",
+      count: 20,
+      wouldRegainAccess: 4000.4,
+      lat: 2.9,
+      lon: 32.4,
+      latestReport: "2023-01-01",
+    });
+    assert.deepEqual(parseDistrictRows({ error: true }), []);
+  });
+
+  const ASOF = new Date("2026-09-15T00:00:00Z");
+  const row = (over: Partial<DistrictStatusRow>): DistrictStatusRow => ({
+    region: "Northern",
+    district: "Gulu",
+    source: "MWE",
+    status: "working",
+    count: 1,
+    wouldRegainAccess: 0,
+    lat: null,
+    lon: null,
+    latestReport: null,
+    ...over,
+  });
+  const rows = [
+    row({ status: "working", count: 80, lat: 2.8, lon: 32.3, latestReport: "2022-06-01" }),
+    row({ status: "broken", count: 20, wouldRegainAccess: 4000.4, lat: 2.9, lon: 32.4, latestReport: "2023-01-01" }),
+    row({ status: "unknown", count: 10 }),
+    row({ region: "Western", district: "Hoima", status: "seasonal", count: 5, wouldRegainAccess: 6000, lat: 1.4, lon: 31.3 }),
+    row({ region: "Western", district: "Hoima", status: "working", count: 15, lat: 1.4, lon: 31.3 }),
+  ];
+
+  test("rolls status groups up per district", () => {
+    const [hoima, gulu] = rollupDistricts(rows, ASOF);
+    assert.equal(gulu.district, "Gulu");
+    assert.equal(gulu.waterPoints.total, 110);
+    assert.equal(gulu.notWorkingShare, 0.2); // 20 broken of 100 with a known status
+    assert.equal(gulu.wouldRegainAccess, 4000);
+    assert.deepEqual(gulu.center, [32.32, 2.82]); // weighted by point count
+    assert.equal(gulu.latestReport, "2023-01-01");
+    assert.deepEqual(gulu.sources, [{ name: "MWE", points: 110 }]);
+    assert.deepEqual(gulu.flags, []);
+    assert.equal(hoima.notWorkingShare, 0.25);
+    assert.deepEqual(hoima.flags, ["thin_sample", "stale"]); // 20 points, no dated report
+  });
+
+  test("flags stale districts against the scan date", () => {
+    const old = [row({ district: "Old", count: 40, latestReport: "2014-01-17" })];
+    assert.deepEqual(rollupDistricts(old, ASOF)[0].flags, ["stale"]); // 2014 < 2026 - 8
+    assert.deepEqual(rollupDistricts(old, new Date("2020-01-01T00:00:00Z"))[0].flags, []);
+  });
+
+  test("ranks by people who would regain access, then share not working", () => {
+    assert.deepEqual(rollupDistricts(rows, ASOF).map((d) => [d.rank, d.district]), [[1, "Hoima"], [2, "Gulu"]]);
+    const tied = [
+      row({ district: "A", status: "broken", count: 1, wouldRegainAccess: 100 }),
+      row({ district: "A", status: "working", count: 3 }),
+      row({ district: "B", status: "broken", count: 1, wouldRegainAccess: 100 }),
+      row({ district: "B", status: "working", count: 1 }),
+    ];
+    assert.deepEqual(rollupDistricts(tied, ASOF).map((d) => d.district), ["B", "A"]);
+    assert.deepEqual(rollupDistricts([...rows].reverse(), ASOF), rollupDistricts(rows, ASOF));
+  });
+
+  test("a survey of broken points only is flagged and ranked after the rest", () => {
+    const skewed = [
+      ...rows,
+      row({ district: "Jomoro", source: "CWSA", status: "broken", count: 132, wouldRegainAccess: 94770, latestReport: "2025-05-02" }),
+    ];
+    const ranked = rollupDistricts(skewed, ASOF);
+    const jomoro = ranked.find((d) => d.district === "Jomoro")!;
+    assert.deepEqual(jomoro.flags, ["one_sided_survey"]);
+    assert.equal(jomoro.rank, 3); // most people, but last: 100% broken means a partial survey
+    assert.deepEqual(jomoro.sources, [{ name: "CWSA", points: 132 }]);
+  });
+
+  test("scan totals add up and carry their limitations", () => {
+    const scan = buildRegionalScan({ country: "Uganda", iso3: "UGA", rows, retrievedAt: new Date("2026-09-15T00:00:00Z") });
+    assert.equal(scan.totals.total, 130);
+    assert.equal(scan.totals.wouldRegainAccess, 10000);
+    assert.equal(scan.totals.districts, 2);
+    assert.equal(scan.retrievedAt, "2026-09-15T00:00:00.000Z");
+    assert.ok(scan.limitations.some((l) => /coverage/.test(l)));
   });
 });
 

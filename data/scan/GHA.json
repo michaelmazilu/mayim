@@ -1,0 +1,5073 @@
+{
+  "version": 1,
+  "country": "Ghana",
+  "iso3": "GHA",
+  "retrievedAt": "2026-09-15T17:15:37.611Z",
+  "source": "Water Point Data Exchange (WPdx+), CC BY 4.0",
+  "sourceUrl": "https://data.waterpointdata.org/dataset/Water-Point-Data-Exchange-Plus-WPdx-/eqje-vguj",
+  "method": "Districts ranked by the number of people who would regain access to water if their broken water points were repaired, then by the share of surveyed points not working. Districts where 90% or more of surveyed points are broken are ranked after the rest: that pattern usually means a survey of broken points only, not a full inventory.",
+  "limitations": [
+    "Only water points surveyed and shared with WPdx are counted. Survey coverage and dates vary by district, so a district with few or old records can look better than it is.",
+    "'Would regain access' is WPdx's estimate from gridded population: people within 1 km of a broken point who have no other working point nearby.",
+    "Status is the most recent report per point; districts whose newest report is more than 8 years old are flagged stale.",
+    "Districts with fewer than 30 surveyed points are flagged as thin data (Mayim screening thresholds).",
+    "District names follow WPdx's administrative level 2 and may not match current boundaries."
+  ],
+  "totals": {
+    "working": 127,
+    "needs_repair": 2589,
+    "idle": 2,
+    "broken": 20211,
+    "seasonal": 303,
+    "abandoned": 9,
+    "unknown": 3126,
+    "total": 26367,
+    "wouldRegainAccess": 1297724,
+    "districts": 145
+  },
+  "districts": [
+    {
+      "id": "ahafo-asunafo-south",
+      "rank": 1,
+      "district": "Asunafo South",
+      "region": "Ahafo",
+      "center": [
+        -2.53052,
+        6.55654
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 182,
+        "idle": 0,
+        "broken": 61,
+        "seasonal": 1,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 244
+      },
+      "notWorkingShare": 0.254,
+      "wouldRegainAccess": 51085,
+      "latestReport": "2015-03-10",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 244
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "bono-dormaa-municipal",
+      "rank": 2,
+      "district": "Dormaa Municipal",
+      "region": "Bono",
+      "center": [
+        -2.88232,
+        7.28054
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 111,
+        "idle": 0,
+        "broken": 54,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 165
+      },
+      "notWorkingShare": 0.327,
+      "wouldRegainAccess": 35652,
+      "latestReport": "2015-07-26",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 162
+        },
+        {
+          "name": "Living Water International",
+          "points": 3
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "bono-east-nkoranza-south",
+      "rank": 3,
+      "district": "Nkoranza South",
+      "region": "Bono East",
+      "center": [
+        -1.69928,
+        7.46651
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 56,
+        "idle": 0,
+        "broken": 31,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 87
+      },
+      "notWorkingShare": 0.356,
+      "wouldRegainAccess": 27729,
+      "latestReport": "2015-02-12",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 87
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "bono-east-nkoranza-north",
+      "rank": 4,
+      "district": "Nkoranza North",
+      "region": "Bono East",
+      "center": [
+        -1.70147,
+        7.69177
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 69,
+        "idle": 0,
+        "broken": 61,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 130
+      },
+      "notWorkingShare": 0.469,
+      "wouldRegainAccess": 26990,
+      "latestReport": "2015-04-14",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 130
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "bono-east-kintampo-north-municipal",
+      "rank": 5,
+      "district": "Kintampo North Municipal",
+      "region": "Bono East",
+      "center": [
+        -1.65198,
+        8.25804
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 72,
+        "idle": 0,
+        "broken": 53,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 125
+      },
+      "notWorkingShare": 0.424,
+      "wouldRegainAccess": 21846,
+      "latestReport": "2014-09-23",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 121
+        },
+        {
+          "name": "World Vision",
+          "points": 4
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "bono-dormaa-west",
+      "rank": 6,
+      "district": "Dormaa West",
+      "region": "Bono",
+      "center": [
+        -2.97653,
+        6.99779
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 36,
+        "idle": 0,
+        "broken": 10,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 46
+      },
+      "notWorkingShare": 0.217,
+      "wouldRegainAccess": 18402,
+      "latestReport": "2015-01-08",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 46
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "ahafo-asunafo-north-municipal",
+      "rank": 7,
+      "district": "Asunafo North Municipal",
+      "region": "Ahafo",
+      "center": [
+        -2.69404,
+        6.83579
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 161,
+        "idle": 0,
+        "broken": 58,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 219
+      },
+      "notWorkingShare": 0.265,
+      "wouldRegainAccess": 17239,
+      "latestReport": "2022-05-10",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 216
+        },
+        {
+          "name": "Aquaya",
+          "points": 2
+        },
+        {
+          "name": "Living Water International",
+          "points": 1
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "bono-east-sene-east",
+      "rank": 8,
+      "district": "Sene East",
+      "region": "Bono East",
+      "center": [
+        -0.31146,
+        7.8109
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 39,
+        "idle": 0,
+        "broken": 51,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 90
+      },
+      "notWorkingShare": 0.567,
+      "wouldRegainAccess": 17227,
+      "latestReport": "2014-11-03",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 90
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "bono-wenchi-municipal",
+      "rank": 9,
+      "district": "Wenchi Municipal",
+      "region": "Bono",
+      "center": [
+        -2.11929,
+        7.70028
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 68,
+        "idle": 0,
+        "broken": 47,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 115
+      },
+      "notWorkingShare": 0.409,
+      "wouldRegainAccess": 14561,
+      "latestReport": "2022-06-17",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 105
+        },
+        {
+          "name": "Living Water International",
+          "points": 10
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "bono-east-techiman-north",
+      "rank": 10,
+      "district": "Techiman North",
+      "region": "Bono East",
+      "center": [
+        -1.99519,
+        7.69243
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 27,
+        "idle": 0,
+        "broken": 22,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 49
+      },
+      "notWorkingShare": 0.449,
+      "wouldRegainAccess": 13837,
+      "latestReport": "2014-10-15",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 48
+        },
+        {
+          "name": "World Vision",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "bono-east-techiman-municipal",
+      "rank": 11,
+      "district": "Techiman Municipal",
+      "region": "Bono East",
+      "center": [
+        -1.9831,
+        7.54189
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 53,
+        "idle": 0,
+        "broken": 40,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 93
+      },
+      "notWorkingShare": 0.43,
+      "wouldRegainAccess": 6906,
+      "latestReport": "2014-12-01",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 93
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "bono-east-pru-east",
+      "rank": 12,
+      "district": "Pru East",
+      "region": "Bono East",
+      "center": [
+        -0.81703,
+        8.14262
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 63,
+        "idle": 0,
+        "broken": 45,
+        "seasonal": 1,
+        "abandoned": 0,
+        "unknown": 1,
+        "total": 110
+      },
+      "notWorkingShare": 0.422,
+      "wouldRegainAccess": 6168,
+      "latestReport": "2014-10-13",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 110
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "savannah-east-gonja-municipal",
+      "rank": 13,
+      "district": "East Gonja Municipal",
+      "region": "Savannah",
+      "center": [
+        -0.98589,
+        8.36625
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 6,
+        "idle": 0,
+        "broken": 27,
+        "seasonal": 1,
+        "abandoned": 0,
+        "unknown": 1,
+        "total": 35
+      },
+      "notWorkingShare": 0.824,
+      "wouldRegainAccess": 5712,
+      "latestReport": "2014-10-16",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 35
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "bono-sunyani-municipal",
+      "rank": 14,
+      "district": "Sunyani Municipal",
+      "region": "Bono",
+      "center": [
+        -2.3641,
+        7.24084
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 59,
+        "idle": 0,
+        "broken": 36,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 95
+      },
+      "notWorkingShare": 0.379,
+      "wouldRegainAccess": 5558,
+      "latestReport": "2022-06-17",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 69
+        },
+        {
+          "name": "Living Water International",
+          "points": 26
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "bono-jaman-south-municipal",
+      "rank": 15,
+      "district": "Jaman South Municipal",
+      "region": "Bono",
+      "center": [
+        -2.82208,
+        7.62293
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 176,
+        "idle": 0,
+        "broken": 54,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 230
+      },
+      "notWorkingShare": 0.235,
+      "wouldRegainAccess": 5476,
+      "latestReport": "2015-04-23",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 230
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "ahafo-tano-north-municipal",
+      "rank": 16,
+      "district": "Tano North Municipal",
+      "region": "Ahafo",
+      "center": [
+        -2.1808,
+        7.18689
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 91,
+        "idle": 0,
+        "broken": 30,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 121
+      },
+      "notWorkingShare": 0.248,
+      "wouldRegainAccess": 5001,
+      "latestReport": "2015-12-06",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 119
+        },
+        {
+          "name": "Living Water International",
+          "points": 2
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "northern-kpandai",
+      "rank": 17,
+      "district": "Kpandai",
+      "region": "Northern",
+      "center": [
+        -0.06908,
+        8.42393
+      ],
+      "waterPoints": {
+        "working": 2,
+        "needs_repair": 16,
+        "idle": 0,
+        "broken": 88,
+        "seasonal": 1,
+        "abandoned": 0,
+        "unknown": 35,
+        "total": 142
+      },
+      "notWorkingShare": 0.832,
+      "wouldRegainAccess": 4692,
+      "latestReport": "2014-12-19",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 141
+        },
+        {
+          "name": "World Vision",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "bono-east-atebubu-amantin",
+      "rank": 18,
+      "district": "Atebubu Amantin",
+      "region": "Bono East",
+      "center": [
+        -1.04014,
+        7.69787
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 106,
+        "idle": 0,
+        "broken": 42,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 148
+      },
+      "notWorkingShare": 0.284,
+      "wouldRegainAccess": 3898,
+      "latestReport": "2014-10-25",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 148
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "ahafo-asutifi-south",
+      "rank": 19,
+      "district": "Asutifi South",
+      "region": "Ahafo",
+      "center": [
+        -2.40177,
+        6.85221
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 77,
+        "idle": 0,
+        "broken": 32,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 109
+      },
+      "notWorkingShare": 0.294,
+      "wouldRegainAccess": 3893,
+      "latestReport": "2014-10-13",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 109
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "bono-east-kintampo-south",
+      "rank": 20,
+      "district": "Kintampo South",
+      "region": "Bono East",
+      "center": [
+        -1.77894,
+        7.93495
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 136,
+        "idle": 0,
+        "broken": 135,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 271
+      },
+      "notWorkingShare": 0.498,
+      "wouldRegainAccess": 2608,
+      "latestReport": "2015-08-01",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 178
+        },
+        {
+          "name": "World Vision",
+          "points": 93
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "bono-sunyani-west",
+      "rank": 21,
+      "district": "Sunyani West",
+      "region": "Bono",
+      "center": [
+        -2.34356,
+        7.41017
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 139,
+        "idle": 0,
+        "broken": 52,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 191
+      },
+      "notWorkingShare": 0.272,
+      "wouldRegainAccess": 2346,
+      "latestReport": "2022-09-12",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 171
+        },
+        {
+          "name": "Living Water International",
+          "points": 20
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "bono-east-sene-west",
+      "rank": 22,
+      "district": "Sene West",
+      "region": "Bono East",
+      "center": [
+        -0.6175,
+        7.78449
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 100,
+        "idle": 0,
+        "broken": 66,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 166
+      },
+      "notWorkingShare": 0.398,
+      "wouldRegainAccess": 2143,
+      "latestReport": "2014-12-07",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 166
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "bono-tain",
+      "rank": 23,
+      "district": "Tain",
+      "region": "Bono",
+      "center": [
+        -2.39981,
+        7.78178
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 200,
+        "idle": 0,
+        "broken": 56,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 256
+      },
+      "notWorkingShare": 0.219,
+      "wouldRegainAccess": 1498,
+      "latestReport": "2015-06-05",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 256
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "bono-berekum-west",
+      "rank": 24,
+      "district": "Berekum West",
+      "region": "Bono",
+      "center": [
+        -2.65057,
+        7.43246
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 37,
+        "idle": 0,
+        "broken": 10,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 47
+      },
+      "notWorkingShare": 0.213,
+      "wouldRegainAccess": 909,
+      "latestReport": "2019-05-22",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 45
+        },
+        {
+          "name": "UNHCR",
+          "points": 2
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "bono-dormaa-east",
+      "rank": 25,
+      "district": "Dormaa East",
+      "region": "Bono",
+      "center": [
+        -2.67241,
+        7.27035
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 58,
+        "idle": 0,
+        "broken": 22,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 80
+      },
+      "notWorkingShare": 0.275,
+      "wouldRegainAccess": 889,
+      "latestReport": "2022-06-17",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 69
+        },
+        {
+          "name": "Living Water International",
+          "points": 11
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "ahafo-tano-south-municipal",
+      "rank": 26,
+      "district": "Tano South Municipal",
+      "region": "Ahafo",
+      "center": [
+        -1.9992,
+        7.15785
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 93,
+        "idle": 0,
+        "broken": 21,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 114
+      },
+      "notWorkingShare": 0.184,
+      "wouldRegainAccess": 849,
+      "latestReport": "2015-06-16",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 113
+        },
+        {
+          "name": "Living Water International",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "bono-east-pru-west",
+      "rank": 27,
+      "district": "Pru West",
+      "region": "Bono East",
+      "center": [
+        -1.32207,
+        7.99379
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 33,
+        "idle": 0,
+        "broken": 11,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 44
+      },
+      "notWorkingShare": 0.25,
+      "wouldRegainAccess": 688,
+      "latestReport": "2014-09-24",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 44
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "ahafo-asutifi-north",
+      "rank": 28,
+      "district": "Asutifi North",
+      "region": "Ahafo",
+      "center": [
+        -2.47257,
+        7.03038
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 90,
+        "idle": 0,
+        "broken": 169,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 259
+      },
+      "notWorkingShare": 0.653,
+      "wouldRegainAccess": 409,
+      "latestReport": "2022-05-11",
+      "sources": [
+        {
+          "name": "Aquaya",
+          "points": 150
+        },
+        {
+          "name": "CWSA",
+          "points": 99
+        },
+        {
+          "name": "Living Water International",
+          "points": 10
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "bono-jaman-north",
+      "rank": 29,
+      "district": "Jaman North",
+      "region": "Bono",
+      "center": [
+        -2.66938,
+        7.8679
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 117,
+        "idle": 0,
+        "broken": 54,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 171
+      },
+      "notWorkingShare": 0.316,
+      "wouldRegainAccess": 47,
+      "latestReport": "2015-05-11",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 164
+        },
+        {
+          "name": "Living Water International",
+          "points": 7
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "bono-berekum-east-municipal",
+      "rank": 30,
+      "district": "Berekum East Municipal",
+      "region": "Bono",
+      "center": [
+        -2.57312,
+        7.45988
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 61,
+        "idle": 0,
+        "broken": 10,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 71
+      },
+      "notWorkingShare": 0.141,
+      "wouldRegainAccess": 45,
+      "latestReport": "2022-06-17",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 66
+        },
+        {
+          "name": "Living Water International",
+          "points": 5
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "ashanti-atwima-mponua",
+      "rank": 31,
+      "district": "Atwima Mponua",
+      "region": "Ashanti",
+      "center": [
+        -2.33184,
+        6.55762
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 3,
+        "idle": 0,
+        "broken": 3,
+        "seasonal": 1,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 7
+      },
+      "notWorkingShare": 0.571,
+      "wouldRegainAccess": 24,
+      "latestReport": "2015-02-18",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 7
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "stale"
+      ]
+    },
+    {
+      "id": "ashanti-ahafo-ano-north",
+      "rank": 32,
+      "district": "Ahafo Ano North",
+      "region": "Ashanti",
+      "center": [
+        -2.29628,
+        6.90335
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 2,
+        "idle": 0,
+        "broken": 1,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 3
+      },
+      "notWorkingShare": 0.333,
+      "wouldRegainAccess": 0,
+      "latestReport": "2014-10-15",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 3
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "stale"
+      ]
+    },
+    {
+      "id": "ashanti-ejura-sekyedumase",
+      "rank": 33,
+      "district": "Ejura-Sekyedumase",
+      "region": "Ashanti",
+      "center": [
+        -1.44723,
+        7.42946
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 2,
+        "idle": 0,
+        "broken": 1,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 3
+      },
+      "notWorkingShare": 0.333,
+      "wouldRegainAccess": 0,
+      "latestReport": "2022-06-16",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 2
+        },
+        {
+          "name": "Water4",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "thin_sample"
+      ]
+    },
+    {
+      "id": "bono-banda",
+      "rank": 34,
+      "district": "Banda",
+      "region": "Bono",
+      "center": [
+        -2.38476,
+        8.09907
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 28,
+        "idle": 0,
+        "broken": 10,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 38
+      },
+      "notWorkingShare": 0.263,
+      "wouldRegainAccess": 0,
+      "latestReport": "2015-01-21",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 38
+        }
+      ],
+      "flags": [
+        "stale"
+      ]
+    },
+    {
+      "id": "western-jomoro",
+      "rank": 35,
+      "district": "Jomoro",
+      "region": "Western",
+      "center": [
+        -2.75841,
+        5.06956
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 131,
+        "seasonal": 1,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 132
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 94770,
+      "latestReport": "2015-05-02",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 132
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "western-wassa-amenfi-west",
+      "rank": 36,
+      "district": "Wassa Amenfi West",
+      "region": "Western",
+      "center": [
+        -2.4685,
+        5.71796
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 130,
+        "seasonal": 21,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 151
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 71578,
+      "latestReport": "2014-09-12",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 151
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "savannah-central-gonja",
+      "rank": 37,
+      "district": "Central Gonja",
+      "region": "Savannah",
+      "center": [
+        -1.23827,
+        8.9138
+      ],
+      "waterPoints": {
+        "working": 2,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 47,
+        "seasonal": 1,
+        "abandoned": 0,
+        "unknown": 23,
+        "total": 73
+      },
+      "notWorkingShare": 0.96,
+      "wouldRegainAccess": 69101,
+      "latestReport": "2014-11-07",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 72
+        },
+        {
+          "name": "World Vision",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "central-assin-south",
+      "rank": 38,
+      "district": "Assin South",
+      "region": "Central",
+      "center": [
+        -1.25543,
+        5.52936
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 1,
+        "idle": 0,
+        "broken": 245,
+        "seasonal": 8,
+        "abandoned": 0,
+        "unknown": 1,
+        "total": 255
+      },
+      "notWorkingShare": 0.996,
+      "wouldRegainAccess": 43006,
+      "latestReport": "2015-05-27",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 255
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "central-asikuma-odoben-brakwa",
+      "rank": 39,
+      "district": "Asikuma-Odoben-Brakwa",
+      "region": "Central",
+      "center": [
+        -1.00108,
+        5.63206
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 221,
+        "seasonal": 6,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 227
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 39684,
+      "latestReport": "2015-03-30",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 227
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "savannah-north-east-gonja",
+      "rank": 40,
+      "district": "North East Gonja",
+      "region": "Savannah",
+      "center": [
+        -0.4639,
+        8.50145
+      ],
+      "waterPoints": {
+        "working": 5,
+        "needs_repair": 1,
+        "idle": 0,
+        "broken": 78,
+        "seasonal": 3,
+        "abandoned": 0,
+        "unknown": 28,
+        "total": 115
+      },
+      "notWorkingShare": 0.931,
+      "wouldRegainAccess": 39648,
+      "latestReport": "2014-12-14",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 115
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "central-assin-north",
+      "rank": 41,
+      "district": "Assin North",
+      "region": "Central",
+      "center": [
+        -1.38481,
+        5.83538
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 236,
+        "seasonal": 5,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 241
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 35086,
+      "latestReport": "2015-05-07",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 241
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "western-north-bodi",
+      "rank": 42,
+      "district": "Bodi",
+      "region": "Western North",
+      "center": [
+        -2.81365,
+        6.26046
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 112,
+        "seasonal": 5,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 117
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 33938,
+      "latestReport": "2014-10-02",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 117
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "central-gomoa-west",
+      "rank": 43,
+      "district": "Gomoa West",
+      "region": "Central",
+      "center": [
+        -0.82143,
+        5.37538
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 29,
+        "seasonal": 1,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 30
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 29512,
+      "latestReport": "2018-04-19",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 29
+        },
+        {
+          "name": "Living Water International",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "northern-nanumba-north",
+      "rank": 44,
+      "district": "Nanumba North",
+      "region": "Northern",
+      "center": [
+        -0.05389,
+        8.9679
+      ],
+      "waterPoints": {
+        "working": 1,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 121,
+        "seasonal": 7,
+        "abandoned": 0,
+        "unknown": 83,
+        "total": 212
+      },
+      "notWorkingShare": 0.992,
+      "wouldRegainAccess": 28407,
+      "latestReport": "2021-03-22",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 208
+        },
+        {
+          "name": "CRS",
+          "points": 4
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "central-awutu-senya",
+      "rank": 45,
+      "district": "Awutu Senya",
+      "region": "Central",
+      "center": [
+        -0.53766,
+        5.6476
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 106,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 106
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 28397,
+      "latestReport": "2015-04-26",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 106
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "western-north-juaboso",
+      "rank": 46,
+      "district": "Juaboso",
+      "region": "Western North",
+      "center": [
+        -2.91061,
+        6.39044
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 1,
+        "idle": 0,
+        "broken": 92,
+        "seasonal": 22,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 115
+      },
+      "notWorkingShare": 0.991,
+      "wouldRegainAccess": 25918,
+      "latestReport": "2014-09-23",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 115
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "northern-nanumba-south",
+      "rank": 47,
+      "district": "Nanumba South",
+      "region": "Northern",
+      "center": [
+        0.01292,
+        8.70416
+      ],
+      "waterPoints": {
+        "working": 1,
+        "needs_repair": 1,
+        "idle": 0,
+        "broken": 98,
+        "seasonal": 2,
+        "abandoned": 0,
+        "unknown": 95,
+        "total": 197
+      },
+      "notWorkingShare": 0.98,
+      "wouldRegainAccess": 22849,
+      "latestReport": "2021-04-28",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 193
+        },
+        {
+          "name": "WaterAid",
+          "points": 3
+        },
+        {
+          "name": "CRS",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "northern-yendi-municipal",
+      "rank": 48,
+      "district": "Yendi Municipal",
+      "region": "Northern",
+      "center": [
+        0.03931,
+        9.44684
+      ],
+      "waterPoints": {
+        "working": 1,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 115,
+        "seasonal": 4,
+        "abandoned": 0,
+        "unknown": 92,
+        "total": 212
+      },
+      "notWorkingShare": 0.992,
+      "wouldRegainAccess": 22203,
+      "latestReport": "2014-12-03",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 212
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "central-mfantseman-municipal",
+      "rank": 49,
+      "district": "Mfantseman Municipal",
+      "region": "Central",
+      "center": [
+        -1.10525,
+        5.29194
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 80,
+        "seasonal": 1,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 81
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 19604,
+      "latestReport": "2015-01-20",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 81
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "central-komenda-edina-eguafo-abirem-municipal",
+      "rank": 50,
+      "district": "Komenda-Edina-Eguafo-Abirem Municipal",
+      "region": "Central",
+      "center": [
+        -1.44146,
+        5.16257
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 230,
+        "seasonal": 1,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 231
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 19496,
+      "latestReport": "2025-12-06",
+      "sources": [
+        {
+          "name": "Water4",
+          "points": 142
+        },
+        {
+          "name": "CWSA",
+          "points": 83
+        },
+        {
+          "name": "Water4 Headquarters",
+          "points": 5
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "western-ahanta-west-municipal",
+      "rank": 51,
+      "district": "Ahanta West Municipal",
+      "region": "Western",
+      "center": [
+        -1.97117,
+        4.85512
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 215,
+        "seasonal": 11,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 226
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 18879,
+      "latestReport": "2015-02-25",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 226
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "northern-savelugu",
+      "rank": 52,
+      "district": "Savelugu",
+      "region": "Northern",
+      "center": [
+        -0.85545,
+        9.74405
+      ],
+      "waterPoints": {
+        "working": 1,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 119,
+        "seasonal": 1,
+        "abandoned": 0,
+        "unknown": 42,
+        "total": 163
+      },
+      "notWorkingShare": 0.992,
+      "wouldRegainAccess": 18446,
+      "latestReport": "2014-12-22",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 163
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "western-tarkwa-nsuaem",
+      "rank": 53,
+      "district": "Tarkwa Nsuaem",
+      "region": "Western",
+      "center": [
+        -2.01082,
+        5.19385
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 138,
+        "seasonal": 2,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 140
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 18444,
+      "latestReport": "2015-03-31",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 140
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "central-gomoa-east",
+      "rank": 54,
+      "district": "Gomoa East",
+      "region": "Central",
+      "center": [
+        -0.63938,
+        5.48929
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 39,
+        "seasonal": 3,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 42
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 18193,
+      "latestReport": "2015-04-14",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 42
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "northern-east-east-mamprusi",
+      "rank": 55,
+      "district": "East Mamprusi",
+      "region": "Northern East",
+      "center": [
+        -0.37442,
+        10.45487
+      ],
+      "waterPoints": {
+        "working": 1,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 84,
+        "seasonal": 1,
+        "abandoned": 0,
+        "unknown": 113,
+        "total": 199
+      },
+      "notWorkingShare": 0.988,
+      "wouldRegainAccess": 16899,
+      "latestReport": "2021-03-22",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 186
+        },
+        {
+          "name": "CRS",
+          "points": 13
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "central-twifo-hemang-lower-denkyira",
+      "rank": 56,
+      "district": "Twifo Hemang Lower Denkyira",
+      "region": "Central",
+      "center": [
+        -1.45984,
+        5.39344
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 288,
+        "seasonal": 6,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 294
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 15668,
+      "latestReport": "2025-12-06",
+      "sources": [
+        {
+          "name": "Water4",
+          "points": 161
+        },
+        {
+          "name": "CWSA",
+          "points": 133
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "western-effia-kwesimintsim-municipal",
+      "rank": 57,
+      "district": "Effia Kwesimintsim Municipal",
+      "region": "Western",
+      "center": [
+        -1.79722,
+        4.96029
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 11,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 11
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 13549,
+      "latestReport": "2015-04-07",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 11
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "northern-karaga",
+      "rank": 58,
+      "district": "Karaga",
+      "region": "Northern",
+      "center": [
+        -0.53216,
+        9.93038
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 419,
+        "seasonal": 6,
+        "abandoned": 0,
+        "unknown": 33,
+        "total": 458
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 12608,
+      "latestReport": "2025-11-04",
+      "sources": [
+        {
+          "name": "Water4",
+          "points": 251
+        },
+        {
+          "name": "CWSA",
+          "points": 199
+        },
+        {
+          "name": "CRS",
+          "points": 8
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "western-prestea-huni-valley",
+      "rank": 59,
+      "district": "Prestea/Huni Valley",
+      "region": "Western",
+      "center": [
+        -2.00334,
+        5.47422
+      ],
+      "waterPoints": {
+        "working": 1,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 190,
+        "seasonal": 6,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 197
+      },
+      "notWorkingShare": 0.995,
+      "wouldRegainAccess": 11995,
+      "latestReport": "2015-02-02",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 197
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "western-north-sefwi-wiawso",
+      "rank": 60,
+      "district": "Sefwi-Wiawso",
+      "region": "Western North",
+      "center": [
+        -2.52076,
+        6.29367
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 1,
+        "idle": 0,
+        "broken": 176,
+        "seasonal": 6,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 183
+      },
+      "notWorkingShare": 0.995,
+      "wouldRegainAccess": 11946,
+      "latestReport": "2015-04-17",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 183
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "western-nzema-east",
+      "rank": 61,
+      "district": "Nzema East",
+      "region": "Western",
+      "center": [
+        -2.18792,
+        4.98933
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 70,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 2,
+        "total": 72
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 11437,
+      "latestReport": "2015-03-30",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 72
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "northern-saboba",
+      "rank": 62,
+      "district": "Saboba",
+      "region": "Northern",
+      "center": [
+        0.20242,
+        9.73973
+      ],
+      "waterPoints": {
+        "working": 6,
+        "needs_repair": 1,
+        "idle": 0,
+        "broken": 125,
+        "seasonal": 0,
+        "abandoned": 1,
+        "unknown": 63,
+        "total": 196
+      },
+      "notWorkingShare": 0.947,
+      "wouldRegainAccess": 11294,
+      "latestReport": "2021-03-22",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 186
+        },
+        {
+          "name": "World Vision",
+          "points": 9
+        },
+        {
+          "name": "CRS",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "upper-west-wa-east",
+      "rank": 63,
+      "district": "Wa East",
+      "region": "Upper West",
+      "center": [
+        -2.22715,
+        9.97207
+      ],
+      "waterPoints": {
+        "working": 1,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 431,
+        "seasonal": 1,
+        "abandoned": 0,
+        "unknown": 64,
+        "total": 497
+      },
+      "notWorkingShare": 0.998,
+      "wouldRegainAccess": 9775,
+      "latestReport": "2025-12-05",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 282
+        },
+        {
+          "name": "Water4",
+          "points": 215
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "western-ellembelle",
+      "rank": 64,
+      "district": "Ellembelle",
+      "region": "Western",
+      "center": [
+        -2.37421,
+        4.98436
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 144,
+        "seasonal": 2,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 146
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 8953,
+      "latestReport": "2014-08-07",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 146
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "central-upper-denkyira-west",
+      "rank": 65,
+      "district": "Upper Denkyira West",
+      "region": "Central",
+      "center": [
+        -2.01098,
+        6.10256
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 141,
+        "seasonal": 2,
+        "abandoned": 1,
+        "unknown": 0,
+        "total": 144
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 8904,
+      "latestReport": "2015-05-18",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 144
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "central-ekumfi",
+      "rank": 66,
+      "district": "Ekumfi",
+      "region": "Central",
+      "center": [
+        -0.90509,
+        5.27418
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 43,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 43
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 8193,
+      "latestReport": "2015-03-20",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 43
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "northern-east-chereponi",
+      "rank": 67,
+      "district": "Chereponi",
+      "region": "Northern East",
+      "center": [
+        0.24316,
+        10.16947
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 81,
+        "seasonal": 2,
+        "abandoned": 0,
+        "unknown": 51,
+        "total": 134
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 7923,
+      "latestReport": "2021-03-22",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 132
+        },
+        {
+          "name": "CRS",
+          "points": 2
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "western-wassa-amenfi-central",
+      "rank": 68,
+      "district": "Wassa Amenfi Central",
+      "region": "Western",
+      "center": [
+        -2.27757,
+        5.8453
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 112,
+        "seasonal": 1,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 113
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 7478,
+      "latestReport": "2015-05-21",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 113
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "northern-nanton",
+      "rank": 69,
+      "district": "Nanton",
+      "region": "Northern",
+      "center": [
+        -0.72237,
+        9.57451
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 832,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 41,
+        "total": 873
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 7372,
+      "latestReport": "2025-12-06",
+      "sources": [
+        {
+          "name": "Water4",
+          "points": 726
+        },
+        {
+          "name": "CWSA",
+          "points": 147
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "central-abura-asebu-kwamankese",
+      "rank": 70,
+      "district": "Abura-Asebu-Kwamankese",
+      "region": "Central",
+      "center": [
+        -1.1864,
+        5.30313
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 181,
+        "seasonal": 8,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 189
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 7173,
+      "latestReport": "2015-03-20",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 189
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "western-north-bia-west",
+      "rank": 71,
+      "district": "Bia West",
+      "region": "Western North",
+      "center": [
+        -3.12133,
+        6.62046
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 72,
+        "seasonal": 3,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 75
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 6857,
+      "latestReport": "2022-06-17",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 74
+        },
+        {
+          "name": "Living Water International",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "northern-mion",
+      "rank": 72,
+      "district": "Mion",
+      "region": "Northern",
+      "center": [
+        -0.23047,
+        9.3688
+      ],
+      "waterPoints": {
+        "working": 1,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 81,
+        "seasonal": 9,
+        "abandoned": 0,
+        "unknown": 66,
+        "total": 157
+      },
+      "notWorkingShare": 0.989,
+      "wouldRegainAccess": 6691,
+      "latestReport": "2014-12-15",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 157
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "northern-east-bunkpurugu-nakpanduri",
+      "rank": 73,
+      "district": "Bunkpurugu Nakpanduri",
+      "region": "Northern East",
+      "center": [
+        0.00187,
+        10.54773
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 160,
+        "seasonal": 1,
+        "abandoned": 0,
+        "unknown": 44,
+        "total": 205
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 6403,
+      "latestReport": "2014-12-07",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 205
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "western-north-sefwi-akontombra",
+      "rank": 74,
+      "district": "Sefwi Akontombra",
+      "region": "Western North",
+      "center": [
+        -2.65044,
+        6.12014
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 130,
+        "seasonal": 5,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 135
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 5432,
+      "latestReport": "2015-05-05",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 135
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "western-north-aowin",
+      "rank": 75,
+      "district": "Aowin",
+      "region": "Western North",
+      "center": [
+        -2.79001,
+        5.78756
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 239,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 239
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 5253,
+      "latestReport": "2015-02-08",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 238
+        },
+        {
+          "name": "Living Water International",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "savannah-sawla-tuna-kalba",
+      "rank": 76,
+      "district": "Sawla-Tuna-Kalba",
+      "region": "Savannah",
+      "center": [
+        -2.4435,
+        9.50031
+      ],
+      "waterPoints": {
+        "working": 3,
+        "needs_repair": 0,
+        "idle": 1,
+        "broken": 789,
+        "seasonal": 1,
+        "abandoned": 0,
+        "unknown": 138,
+        "total": 932
+      },
+      "notWorkingShare": 0.995,
+      "wouldRegainAccess": 4993,
+      "latestReport": "2025-12-06",
+      "sources": [
+        {
+          "name": "Water4",
+          "points": 612
+        },
+        {
+          "name": "CWSA",
+          "points": 318
+        },
+        {
+          "name": "CRS",
+          "points": 2
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "northern-zabzugu",
+      "rank": 77,
+      "district": "Zabzugu",
+      "region": "Northern",
+      "center": [
+        0.3417,
+        9.14822
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 5,
+        "idle": 0,
+        "broken": 88,
+        "seasonal": 1,
+        "abandoned": 0,
+        "unknown": 58,
+        "total": 152
+      },
+      "notWorkingShare": 0.947,
+      "wouldRegainAccess": 4672,
+      "latestReport": "2014-11-01",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 152
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "upper-east-bawku-west",
+      "rank": 78,
+      "district": "Bawku West",
+      "region": "Upper East",
+      "center": [
+        -0.46863,
+        10.88932
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 198,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 76,
+        "total": 274
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 4671,
+      "latestReport": "2015-06-03",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 214
+        },
+        {
+          "name": "World Vision",
+          "points": 60
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "northern-tolon",
+      "rank": 79,
+      "district": "Tolon",
+      "region": "Northern",
+      "center": [
+        -1.14191,
+        9.51121
+      ],
+      "waterPoints": {
+        "working": 2,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 86,
+        "seasonal": 0,
+        "abandoned": 1,
+        "unknown": 37,
+        "total": 126
+      },
+      "notWorkingShare": 0.978,
+      "wouldRegainAccess": 4474,
+      "latestReport": "2014-11-21",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 126
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "northern-east-west-mamprusi-municipal",
+      "rank": 80,
+      "district": "West Mamprusi Municipal",
+      "region": "Northern East",
+      "center": [
+        -0.81594,
+        10.34178
+      ],
+      "waterPoints": {
+        "working": 3,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 285,
+        "seasonal": 2,
+        "abandoned": 0,
+        "unknown": 73,
+        "total": 363
+      },
+      "notWorkingShare": 0.99,
+      "wouldRegainAccess": 4460,
+      "latestReport": "2021-03-22",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 293
+        },
+        {
+          "name": "CRS",
+          "points": 70
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "western-north-bibiani-anhwiaso-bekwai-municipal",
+      "rank": 81,
+      "district": "Bibiani-Anhwiaso-Bekwai Municipal",
+      "region": "Western North",
+      "center": [
+        -2.28531,
+        6.29254
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 188,
+        "seasonal": 11,
+        "abandoned": 0,
+        "unknown": 1,
+        "total": 200
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 4333,
+      "latestReport": "2015-03-30",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 200
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "northern-tatale-sanguli",
+      "rank": 82,
+      "district": "Tatale Sanguli",
+      "region": "Northern",
+      "center": [
+        0.45821,
+        9.27193
+      ],
+      "waterPoints": {
+        "working": 12,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 176,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 40,
+        "total": 228
+      },
+      "notWorkingShare": 0.936,
+      "wouldRegainAccess": 4271,
+      "latestReport": "2014-10-14",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 228
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "upper-west-wa-municipal",
+      "rank": 83,
+      "district": "Wa Municipal",
+      "region": "Upper West",
+      "center": [
+        -2.45757,
+        10.0674
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 205,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 52,
+        "total": 257
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 4060,
+      "latestReport": "2025-11-07",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 131
+        },
+        {
+          "name": "Water4",
+          "points": 125
+        },
+        {
+          "name": "WaterAid UK",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "northern-east-yunyoo-nasuan",
+      "rank": 84,
+      "district": "Yunyoo-Nasuan",
+      "region": "Northern East",
+      "center": [
+        -0.0839,
+        10.46575
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 40,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 20,
+        "total": 60
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 3755,
+      "latestReport": "2021-03-22",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 56
+        },
+        {
+          "name": "CRS",
+          "points": 3
+        },
+        {
+          "name": "World Vision",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "northern-east-mamprugu-moagduri",
+      "rank": 85,
+      "district": "Mamprugu Moagduri",
+      "region": "Northern East",
+      "center": [
+        -1.30044,
+        10.22039
+      ],
+      "waterPoints": {
+        "working": 5,
+        "needs_repair": 1,
+        "idle": 0,
+        "broken": 135,
+        "seasonal": 3,
+        "abandoned": 2,
+        "unknown": 31,
+        "total": 177
+      },
+      "notWorkingShare": 0.959,
+      "wouldRegainAccess": 3612,
+      "latestReport": "2021-03-22",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 171
+        },
+        {
+          "name": "CRS",
+          "points": 6
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "upper-west-lawra",
+      "rank": 86,
+      "district": "Lawra",
+      "region": "Upper West",
+      "center": [
+        -2.828,
+        10.62485
+      ],
+      "waterPoints": {
+        "working": 6,
+        "needs_repair": 1,
+        "idle": 0,
+        "broken": 208,
+        "seasonal": 2,
+        "abandoned": 0,
+        "unknown": 39,
+        "total": 256
+      },
+      "notWorkingShare": 0.968,
+      "wouldRegainAccess": 3600,
+      "latestReport": "2015-02-10",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 256
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "central-agona-east",
+      "rank": 87,
+      "district": "Agona East",
+      "region": "Central",
+      "center": [
+        -0.67473,
+        5.66052
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 151,
+        "seasonal": 2,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 153
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 3286,
+      "latestReport": "2015-04-05",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 153
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "central-ajumako-enyan-essiam",
+      "rank": 88,
+      "district": "Ajumako-Enyan-Essiam",
+      "region": "Central",
+      "center": [
+        -1.00676,
+        5.41524
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 144,
+        "seasonal": 1,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 145
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 3177,
+      "latestReport": "2015-01-29",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 145
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "northern-gushegu",
+      "rank": 89,
+      "district": "Gushegu",
+      "region": "Northern",
+      "center": [
+        -0.16066,
+        9.94629
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 214,
+        "seasonal": 3,
+        "abandoned": 0,
+        "unknown": 52,
+        "total": 269
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 3101,
+      "latestReport": "2021-03-22",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 262
+        },
+        {
+          "name": "CRS",
+          "points": 5
+        },
+        {
+          "name": "World Vision",
+          "points": 2
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "western-north-bia-east",
+      "rank": 90,
+      "district": "Bia East",
+      "region": "Western North",
+      "center": [
+        -3.00829,
+        6.8164
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 1,
+        "idle": 0,
+        "broken": 88,
+        "seasonal": 1,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 90
+      },
+      "notWorkingShare": 0.989,
+      "wouldRegainAccess": 2994,
+      "latestReport": "2022-06-17",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 67
+        },
+        {
+          "name": "Living Water International",
+          "points": 23
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "western-wassa-amenfi-east",
+      "rank": 91,
+      "district": "Wassa Amenfi East",
+      "region": "Western",
+      "center": [
+        -2.00955,
+        5.81376
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 165,
+        "seasonal": 17,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 182
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 2590,
+      "latestReport": "2015-05-21",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 182
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "upper-west-wa-west",
+      "rank": 92,
+      "district": "Wa West",
+      "region": "Upper West",
+      "center": [
+        -2.564,
+        9.84847
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 660,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 109,
+        "total": 769
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 2572,
+      "latestReport": "2025-12-06",
+      "sources": [
+        {
+          "name": "Water4",
+          "points": 439
+        },
+        {
+          "name": "CWSA",
+          "points": 330
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "greater-accra-weija-gbawe-municipal",
+      "rank": 93,
+      "district": "Weija Gbawe Municipal",
+      "region": "Greater Accra",
+      "center": [
+        -0.38316,
+        5.48665
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 1,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 1
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 2548,
+      "latestReport": "2015-01-13",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "central-assin-fosu",
+      "rank": 94,
+      "district": "Assin Fosu",
+      "region": "Central",
+      "center": [
+        -1.31606,
+        5.74159
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 89,
+        "seasonal": 4,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 93
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 2386,
+      "latestReport": "2015-02-04",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 93
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "savannah-bole",
+      "rank": 95,
+      "district": "Bole",
+      "region": "Savannah",
+      "center": [
+        -2.36596,
+        8.81162
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 150,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 15,
+        "total": 165
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 2204,
+      "latestReport": "2021-03-22",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 164
+        },
+        {
+          "name": "CRS",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "central-agona-west-municipal",
+      "rank": 96,
+      "district": "Agona West Municipal",
+      "region": "Central",
+      "center": [
+        -0.79937,
+        5.62886
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 71,
+        "seasonal": 5,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 76
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 1954,
+      "latestReport": "2015-02-10",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 76
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "upper-east-builsa-south",
+      "rank": 97,
+      "district": "Builsa South",
+      "region": "Upper East",
+      "center": [
+        -1.33524,
+        10.50927
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 145,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 45,
+        "total": 190
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 1928,
+      "latestReport": "2021-03-22",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 165
+        },
+        {
+          "name": "CRS",
+          "points": 25
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "upper-east-binduri",
+      "rank": 98,
+      "district": "Binduri",
+      "region": "Upper East",
+      "center": [
+        -0.30676,
+        10.98332
+      ],
+      "waterPoints": {
+        "working": 5,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 98,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 72,
+        "total": 175
+      },
+      "notWorkingShare": 0.951,
+      "wouldRegainAccess": 1683,
+      "latestReport": "2015-03-20",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 175
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "central-awutu-senya-east",
+      "rank": 99,
+      "district": "Awutu Senya East",
+      "region": "Central",
+      "center": [
+        -0.47777,
+        5.55358
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 6,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 6
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 1676,
+      "latestReport": "2015-04-26",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 6
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "western-mpohor",
+      "rank": 100,
+      "district": "Mpohor",
+      "region": "Western",
+      "center": [
+        -1.84497,
+        5.04463
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 83,
+        "seasonal": 3,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 86
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 1187,
+      "latestReport": "2025-11-06",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 83
+        },
+        {
+          "name": "Water4",
+          "points": 3
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "upper-east-pusiga",
+      "rank": 101,
+      "district": "Pusiga",
+      "region": "Upper East",
+      "center": [
+        -0.10423,
+        11.06704
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 52,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 115,
+        "total": 167
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 1171,
+      "latestReport": "2015-05-06",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 167
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "central-effutu-municipal",
+      "rank": 102,
+      "district": "Effutu Municipal",
+      "region": "Central",
+      "center": [
+        -0.57569,
+        5.39877
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 1,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 1
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 990,
+      "latestReport": "2014-12-19",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "upper-west-jirapa",
+      "rank": 103,
+      "district": "Jirapa",
+      "region": "Upper West",
+      "center": [
+        -2.60695,
+        10.59497
+      ],
+      "waterPoints": {
+        "working": 3,
+        "needs_repair": 0,
+        "idle": 1,
+        "broken": 541,
+        "seasonal": 1,
+        "abandoned": 0,
+        "unknown": 117,
+        "total": 663
+      },
+      "notWorkingShare": 0.993,
+      "wouldRegainAccess": 981,
+      "latestReport": "2025-12-02",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 356
+        },
+        {
+          "name": "Water4",
+          "points": 307
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "upper-east-bawku-municipal",
+      "rank": 104,
+      "district": "Bawku Municipal",
+      "region": "Upper East",
+      "center": [
+        -0.22898,
+        11.04167
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 142,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 72,
+        "total": 214
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 931,
+      "latestReport": "2015-02-20",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 213
+        },
+        {
+          "name": "World Vision",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "northern-sagnerigu",
+      "rank": 105,
+      "district": "Sagnerigu",
+      "region": "Northern",
+      "center": [
+        -0.87111,
+        9.4436
+      ],
+      "waterPoints": {
+        "working": 1,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 9,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 5,
+        "total": 15
+      },
+      "notWorkingShare": 0.9,
+      "wouldRegainAccess": 808,
+      "latestReport": "2021-03-22",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 14
+        },
+        {
+          "name": "CRS",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "upper-west-sissala-east",
+      "rank": 106,
+      "district": "Sissala East",
+      "region": "Upper West",
+      "center": [
+        -1.90034,
+        10.67671
+      ],
+      "waterPoints": {
+        "working": 2,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 98,
+        "seasonal": 1,
+        "abandoned": 0,
+        "unknown": 90,
+        "total": 191
+      },
+      "notWorkingShare": 0.98,
+      "wouldRegainAccess": 740,
+      "latestReport": "2014-11-03",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 191
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "western-wassa-east",
+      "rank": 107,
+      "district": "Wassa East",
+      "region": "Western",
+      "center": [
+        -1.62526,
+        5.33764
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 1,
+        "idle": 0,
+        "broken": 1497,
+        "seasonal": 7,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 1505
+      },
+      "notWorkingShare": 0.999,
+      "wouldRegainAccess": 694,
+      "latestReport": "2025-12-06",
+      "sources": [
+        {
+          "name": "Water4",
+          "points": 912
+        },
+        {
+          "name": "Water4 Headquarters",
+          "points": 219
+        },
+        {
+          "name": "CWSA",
+          "points": 178
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "northern-kumbungu",
+      "rank": 108,
+      "district": "Kumbungu",
+      "region": "Northern",
+      "center": [
+        -1.04261,
+        9.58381
+      ],
+      "waterPoints": {
+        "working": 4,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 47,
+        "seasonal": 1,
+        "abandoned": 0,
+        "unknown": 16,
+        "total": 68
+      },
+      "notWorkingShare": 0.923,
+      "wouldRegainAccess": 620,
+      "latestReport": "2014-12-01",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 68
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "northern-tamale-metropolitan",
+      "rank": 109,
+      "district": "Tamale Metropolitan",
+      "region": "Northern",
+      "center": [
+        -0.76049,
+        9.4531
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 5,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 5
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 605,
+      "latestReport": "2014-12-06",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 5
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "upper-east-talensi",
+      "rank": 110,
+      "district": "Talensi",
+      "region": "Upper East",
+      "center": [
+        -0.7513,
+        10.72682
+      ],
+      "waterPoints": {
+        "working": 1,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 339,
+        "seasonal": 1,
+        "abandoned": 0,
+        "unknown": 88,
+        "total": 429
+      },
+      "notWorkingShare": 0.997,
+      "wouldRegainAccess": 597,
+      "latestReport": "2021-03-22",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 326
+        },
+        {
+          "name": "CRS",
+          "points": 69
+        },
+        {
+          "name": "World Vision",
+          "points": 34
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "upper-east-garu",
+      "rank": 111,
+      "district": "Garu",
+      "region": "Upper East",
+      "center": [
+        -0.19851,
+        10.78794
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 202,
+        "seasonal": 3,
+        "abandoned": 0,
+        "unknown": 68,
+        "total": 273
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 553,
+      "latestReport": "2015-04-28",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 243
+        },
+        {
+          "name": "World Vision",
+          "points": 30
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "savannah-west-gonja",
+      "rank": 112,
+      "district": "West Gonja",
+      "region": "Savannah",
+      "center": [
+        -1.74478,
+        9.12038
+      ],
+      "waterPoints": {
+        "working": 3,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 108,
+        "seasonal": 3,
+        "abandoned": 0,
+        "unknown": 19,
+        "total": 133
+      },
+      "notWorkingShare": 0.974,
+      "wouldRegainAccess": 535,
+      "latestReport": "2021-03-22",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 120
+        },
+        {
+          "name": "World Vision",
+          "points": 11
+        },
+        {
+          "name": "CRS",
+          "points": 2
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "upper-west-sissala-west",
+      "rank": 113,
+      "district": "Sissala West",
+      "region": "Upper West",
+      "center": [
+        -2.33649,
+        10.88615
+      ],
+      "waterPoints": {
+        "working": 14,
+        "needs_repair": 1,
+        "idle": 0,
+        "broken": 139,
+        "seasonal": 1,
+        "abandoned": 0,
+        "unknown": 88,
+        "total": 243
+      },
+      "notWorkingShare": 0.903,
+      "wouldRegainAccess": 533,
+      "latestReport": "2014-12-11",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 243
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "upper-east-bongo",
+      "rank": 114,
+      "district": "Bongo",
+      "region": "Upper East",
+      "center": [
+        -0.82015,
+        10.91851
+      ],
+      "waterPoints": {
+        "working": 13,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 343,
+        "seasonal": 9,
+        "abandoned": 1,
+        "unknown": 59,
+        "total": 425
+      },
+      "notWorkingShare": 0.964,
+      "wouldRegainAccess": 490,
+      "latestReport": "2021-04-26",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 422
+        },
+        {
+          "name": "World Vision",
+          "points": 2
+        },
+        {
+          "name": "WaterAid",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "upper-east-kasena-nankana-west",
+      "rank": 115,
+      "district": "Kasena Nankana West",
+      "region": "Upper East",
+      "center": [
+        -1.11049,
+        10.91113
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 253,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 88,
+        "total": 341
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 486,
+      "latestReport": "2021-04-26",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 292
+        },
+        {
+          "name": "CRS",
+          "points": 24
+        },
+        {
+          "name": "World Vision",
+          "points": 22
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "western-north-suaman",
+      "rank": 116,
+      "district": "Suaman",
+      "region": "Western North",
+      "center": [
+        -3.02515,
+        6.13677
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 39,
+        "seasonal": 1,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 40
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 447,
+      "latestReport": "2015-02-08",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 40
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "central-cape-coast-metropolitan",
+      "rank": 117,
+      "district": "Cape Coast Metropolitan",
+      "region": "Central",
+      "center": [
+        -1.29456,
+        5.17045
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 28,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 28
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 410,
+      "latestReport": "2014-11-27",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 28
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "upper-west-nadowli-kaleo",
+      "rank": 118,
+      "district": "Nadowli-Kaleo",
+      "region": "Upper West",
+      "center": [
+        -2.58898,
+        10.2781
+      ],
+      "waterPoints": {
+        "working": 1,
+        "needs_repair": 1,
+        "idle": 0,
+        "broken": 834,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 109,
+        "total": 945
+      },
+      "notWorkingShare": 0.998,
+      "wouldRegainAccess": 408,
+      "latestReport": "2025-12-05",
+      "sources": [
+        {
+          "name": "Water4",
+          "points": 618
+        },
+        {
+          "name": "CWSA",
+          "points": 327
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "upper-west-lambussie-karni",
+      "rank": 119,
+      "district": "Lambussie-Karni",
+      "region": "Upper West",
+      "center": [
+        -2.63799,
+        10.87528
+      ],
+      "waterPoints": {
+        "working": 2,
+        "needs_repair": 1,
+        "idle": 0,
+        "broken": 167,
+        "seasonal": 1,
+        "abandoned": 0,
+        "unknown": 37,
+        "total": 208
+      },
+      "notWorkingShare": 0.982,
+      "wouldRegainAccess": 376,
+      "latestReport": "2014-12-20",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 208
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "oti-nkwanta-north",
+      "rank": 120,
+      "district": "Nkwanta North",
+      "region": "Oti",
+      "center": [
+        0.23531,
+        8.60119
+      ],
+      "waterPoints": {
+        "working": 3,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 14,
+        "seasonal": 23,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 40
+      },
+      "notWorkingShare": 0.925,
+      "wouldRegainAccess": 365,
+      "latestReport": "2021-09-24",
+      "sources": [
+        {
+          "name": "YouthMappers Ghana Chapter",
+          "points": 40
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "upper-east-tempane",
+      "rank": 121,
+      "district": "Tempane",
+      "region": "Upper East",
+      "center": [
+        -0.07621,
+        10.90334
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 277,
+        "seasonal": 6,
+        "abandoned": 0,
+        "unknown": 101,
+        "total": 384
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 310,
+      "latestReport": "2015-04-29",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 322
+        },
+        {
+          "name": "World Vision",
+          "points": 62
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "upper-west-nandom",
+      "rank": 122,
+      "district": "Nandom",
+      "region": "Upper West",
+      "center": [
+        -2.77776,
+        10.84597
+      ],
+      "waterPoints": {
+        "working": 1,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 215,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 47,
+        "total": 263
+      },
+      "notWorkingShare": 0.995,
+      "wouldRegainAccess": 296,
+      "latestReport": "2015-02-10",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 263
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "central-twifo-atti-morkwa",
+      "rank": 123,
+      "district": "Twifo Atti-Morkwa",
+      "region": "Central",
+      "center": [
+        -1.57107,
+        5.6592
+      ],
+      "waterPoints": {
+        "working": 1,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 283,
+        "seasonal": 6,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 290
+      },
+      "notWorkingShare": 0.997,
+      "wouldRegainAccess": 207,
+      "latestReport": "2025-12-05",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 238
+        },
+        {
+          "name": "Water4",
+          "points": 52
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "upper-east-builsa-north",
+      "rank": 124,
+      "district": "Builsa North",
+      "region": "Upper East",
+      "center": [
+        -1.25832,
+        10.70313
+      ],
+      "waterPoints": {
+        "working": 2,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 225,
+        "seasonal": 1,
+        "abandoned": 0,
+        "unknown": 54,
+        "total": 282
+      },
+      "notWorkingShare": 0.991,
+      "wouldRegainAccess": 205,
+      "latestReport": "2021-03-22",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 280
+        },
+        {
+          "name": "CRS",
+          "points": 1
+        },
+        {
+          "name": "Living Water International",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "savannah-north-gonja",
+      "rank": 125,
+      "district": "North Gonja",
+      "region": "Savannah",
+      "center": [
+        -1.36975,
+        9.78884
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 60,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 32,
+        "total": 92
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 160,
+      "latestReport": "2014-12-19",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 92
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "upper-east-bolgatanga-municipal",
+      "rank": 126,
+      "district": "Bolgatanga Municipal",
+      "region": "Upper East",
+      "center": [
+        -0.88868,
+        10.8092
+      ],
+      "waterPoints": {
+        "working": 4,
+        "needs_repair": 3,
+        "idle": 0,
+        "broken": 217,
+        "seasonal": 1,
+        "abandoned": 1,
+        "unknown": 32,
+        "total": 258
+      },
+      "notWorkingShare": 0.969,
+      "wouldRegainAccess": 100,
+      "latestReport": "2021-03-22",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 254
+        },
+        {
+          "name": "CRS",
+          "points": 2
+        },
+        {
+          "name": "World Vision",
+          "points": 2
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "upper-east-kasena-nankana-east",
+      "rank": 127,
+      "district": "Kasena Nankana East",
+      "region": "Upper East",
+      "center": [
+        -1.03921,
+        10.85919
+      ],
+      "waterPoints": {
+        "working": 2,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 197,
+        "seasonal": 0,
+        "abandoned": 1,
+        "unknown": 48,
+        "total": 248
+      },
+      "notWorkingShare": 0.99,
+      "wouldRegainAccess": 90,
+      "latestReport": "2021-03-22",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 234
+        },
+        {
+          "name": "World Vision",
+          "points": 10
+        },
+        {
+          "name": "CRS",
+          "points": 4
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "western-shama",
+      "rank": 128,
+      "district": "Shama",
+      "region": "Western",
+      "center": [
+        -1.61885,
+        5.10246
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 33,
+        "seasonal": 1,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 34
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 89,
+      "latestReport": "2019-01-01",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 33
+        },
+        {
+          "name": "Water4",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "upper-west-daffiama-bussie-issa",
+      "rank": 129,
+      "district": "Daffiama Bussie Issa",
+      "region": "Upper West",
+      "center": [
+        -2.38767,
+        10.40287
+      ],
+      "waterPoints": {
+        "working": 10,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 745,
+        "seasonal": 3,
+        "abandoned": 0,
+        "unknown": 25,
+        "total": 783
+      },
+      "notWorkingShare": 0.987,
+      "wouldRegainAccess": 33,
+      "latestReport": "2025-12-02",
+      "sources": [
+        {
+          "name": "Water4",
+          "points": 628
+        },
+        {
+          "name": "CWSA",
+          "points": 155
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "upper-east-nabdam",
+      "rank": 130,
+      "district": "Nabdam",
+      "region": "Upper East",
+      "center": [
+        -0.68135,
+        10.81913
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 175,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 26,
+        "total": 201
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 18,
+      "latestReport": "2021-03-22",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 164
+        },
+        {
+          "name": "World Vision",
+          "points": 21
+        },
+        {
+          "name": "CRS",
+          "points": 16
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "ashanti-asokore-mampong-municipal",
+      "rank": 131,
+      "district": "Asokore Mampong Municipal",
+      "region": "Ashanti",
+      "center": [
+        -1.57805,
+        6.70793
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 62,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 62
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2017-10-25",
+      "sources": [
+        {
+          "name": "Global Environment and Technology Foundation",
+          "points": 62
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "ashanti-atwima-nwabiagya-south",
+      "rank": 132,
+      "district": "Atwima Nwabiagya South",
+      "region": "Ashanti",
+      "center": [
+        -1.71707,
+        6.7024
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 10,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 10
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2017-10-25",
+      "sources": [
+        {
+          "name": "Global Environment and Technology Foundation",
+          "points": 10
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "ashanti-ejisu-municipal",
+      "rank": 133,
+      "district": "Ejisu Municipal",
+      "region": "Ashanti",
+      "center": [
+        -1.31029,
+        6.45126
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 1,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 1
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2022-06-23",
+      "sources": [
+        {
+          "name": "Water4",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "central-gomoa-central",
+      "rank": 134,
+      "district": "Gomoa Central",
+      "region": "Central",
+      "center": [
+        -0.7742,
+        5.40811
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 1,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 1
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2014-10-16",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "oti-kadjebi",
+      "rank": 135,
+      "district": "Kadjebi",
+      "region": "Oti",
+      "center": [
+        0.53,
+        7.864
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 1,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 1
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2013-07-08",
+      "sources": [
+        {
+          "name": "World Vision",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "oti-krachi-east-municipal",
+      "rank": 136,
+      "district": "Krachi East Municipal",
+      "region": "Oti",
+      "center": [
+        0.2589,
+        7.91182
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 30,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 30
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2013-10-25",
+      "sources": [
+        {
+          "name": "World Vision",
+          "points": 30
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "oti-krachi-west",
+      "rank": 137,
+      "district": "Krachi West",
+      "region": "Oti",
+      "center": [
+        -0.00433,
+        7.92328
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 20,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 20
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2013-10-31",
+      "sources": [
+        {
+          "name": "World Vision",
+          "points": 20
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "oti-nkwanta-south-municipal",
+      "rank": 138,
+      "district": "Nkwanta South Municipal",
+      "region": "Oti",
+      "center": [
+        0.3157,
+        8.24807
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 8,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 8
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2021-03-22",
+      "sources": [
+        {
+          "name": "CRS",
+          "points": 8
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "ashanti-oforikrom-municipal",
+      "rank": 139,
+      "district": "Oforikrom Municipal",
+      "region": "Ashanti",
+      "center": [
+        -1.57321,
+        6.69742
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 1,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 1
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2017-10-25",
+      "sources": [
+        {
+          "name": "Global Environment and Technology Foundation",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "ashanti-old-tafo-municipal",
+      "rank": 140,
+      "district": "Old Tafo Municipal",
+      "region": "Ashanti",
+      "center": [
+        -1.58765,
+        6.73066
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 1,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 1
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2017-10-25",
+      "sources": [
+        {
+          "name": "Global Environment and Technology Foundation",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "western-sekondi-takoradi-metropolis",
+      "rank": 141,
+      "district": "Sekondi Takoradi Metropolis",
+      "region": "Western",
+      "center": [
+        -1.73407,
+        4.95636
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 2,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 2
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2015-03-03",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 2
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "eastern-suhum-municipal",
+      "rank": 142,
+      "district": "Suhum Municipal",
+      "region": "Eastern",
+      "center": [
+        -0.31346,
+        6.01721
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 3,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 3
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2019-12-13",
+      "sources": [
+        {
+          "name": "Living Water International",
+          "points": 3
+        }
+      ],
+      "flags": [
+        "thin_sample",
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "central-upper-denkyira-east-municipal",
+      "rank": 143,
+      "district": "Upper Denkyira East Municipal",
+      "region": "Central",
+      "center": [
+        -1.74125,
+        5.88207
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 135,
+        "seasonal": 3,
+        "abandoned": 1,
+        "unknown": 1,
+        "total": 140
+      },
+      "notWorkingShare": 1,
+      "wouldRegainAccess": 0,
+      "latestReport": "2015-05-18",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 140
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    },
+    {
+      "id": "upper-east-bolga-east",
+      "rank": 144,
+      "district": "Bolga  East",
+      "region": "Upper East",
+      "center": [
+        -0.79672,
+        10.79717
+      ],
+      "waterPoints": {
+        "working": 1,
+        "needs_repair": 0,
+        "idle": 0,
+        "broken": 97,
+        "seasonal": 5,
+        "abandoned": 0,
+        "unknown": 53,
+        "total": 156
+      },
+      "notWorkingShare": 0.99,
+      "wouldRegainAccess": 0,
+      "latestReport": "2021-03-22",
+      "sources": [
+        {
+          "name": "CWSA",
+          "points": 151
+        },
+        {
+          "name": "World Vision",
+          "points": 3
+        },
+        {
+          "name": "CRS",
+          "points": 2
+        }
+      ],
+      "flags": [
+        "one_sided_survey"
+      ]
+    },
+    {
+      "id": "oti-krachi-nchumuru",
+      "rank": 145,
+      "district": "Krachi Nchumuru",
+      "region": "Oti",
+      "center": [
+        0.01963,
+        8.15971
+      ],
+      "waterPoints": {
+        "working": 0,
+        "needs_repair": 1,
+        "idle": 0,
+        "broken": 36,
+        "seasonal": 0,
+        "abandoned": 0,
+        "unknown": 0,
+        "total": 37
+      },
+      "notWorkingShare": 0.973,
+      "wouldRegainAccess": 0,
+      "latestReport": "2014-10-20",
+      "sources": [
+        {
+          "name": "World Vision",
+          "points": 36
+        },
+        {
+          "name": "CWSA",
+          "points": 1
+        }
+      ],
+      "flags": [
+        "one_sided_survey",
+        "stale"
+      ]
+    }
+  ]
+}
