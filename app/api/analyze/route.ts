@@ -74,6 +74,15 @@ export async function POST(req: Request) {
             close();
             return;
           }
+          // 3. A committed snapshot of this exact town (the preset towns): instant, and
+          //    reliable on hosts with no local run cache. "Re-run live research" forces live.
+          const snapshot = await loadDemoRun(town.slug);
+          if (snapshot && snapshot.town.slug === town.slug && snapshot.simulation) {
+            sse(controller, "meta", { provenance: "demo" });
+            await replay(controller, snapshot, signal);
+            close();
+            return;
+          }
         }
 
         // 1. Live analysis.

@@ -51,7 +51,6 @@ const BASE_ATTRIB =
 
 /* Read as a literal `process.env.NEXT_PUBLIC_…` so Next inlines it into the
    client bundle; a dynamic lookup would come back undefined in the browser. */
-const CARTO_KEY = process.env.NEXT_PUBLIC_CARTO_API_KEY;
 
 
 const BASE_STYLE: maplibregl.StyleSpecification = {
