@@ -39,7 +39,7 @@ function subscribe(onChange: () => void): () => void {
 
 function read(): Theme {
   const v = document.documentElement.getAttribute("data-theme");
-  return v === "light" || v === "dark" || v === "auto" ? v : "light";
+  return v === "light" || v === "dark" || v === "auto" ? v : "dark";
 }
 
 function apply(theme: Theme): void {
@@ -87,9 +87,9 @@ function Glyph({ theme }: { theme: Theme }): JSX.Element {
 }
 
 export function ThemeSwitch(): JSX.Element {
-  // "light" on the server: it is what the layout renders and what the bootstrap
+  // "dark" on the server: it is what the layout renders and what the bootstrap
   // falls back to, so the first client snapshot matches the markup.
-  const theme = useSyncExternalStore(subscribe, read, () => "light" as Theme);
+  const theme = useSyncExternalStore(subscribe, read, () => "dark" as Theme);
 
   const cycle = useCallback((): void => {
     apply(ORDER[(ORDER.indexOf(read()) + 1) % ORDER.length]);

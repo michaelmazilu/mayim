@@ -110,10 +110,16 @@
 
   /* The suitability ramp. Its own names because it is a SCALE, not a set of
      states: the map's heatmap, the legend and the score figures all read from
-     these three stops and must agree. */
-  --score-low: var(--st-bad);
-  --score-mid: var(--st-warn);
-  --score-high: var(--st-ok);
+     these three stops and must agree.
+
+     One hue, rising in intensity, rather than red-to-green. A site that scores
+     badly is not an error — it is a dimmer reading of the same measurement, and
+     a single-hue ramp says that where a traffic-light ramp says "broken". It
+     also frees red and green to mean something else, and leaves one sentence to
+     explain the whole map: the brighter it burns, the better the site. */
+  --score-low: #0d3b4d;
+  --score-mid: #1a8aa8;
+  --score-high: #22d3ee;
 
   /* Rectangles. See the note at the top of this file. */
   --radius: 0;

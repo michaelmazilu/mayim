@@ -5,6 +5,20 @@ import type { JSX } from "react";
 import * as maplibregl from "maplibre-gl";
 import type { GeoJSONSource, Map as GLMap, MapLayerMouseEvent, Marker, Popup } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
+
+/**
+ * MapLibre parses GeoJSON in a web worker it loads as an ES module. Turbopack
+ * does not serve that module from inside node_modules, so the request came back
+ * as the dev server's HTML 404 page and the worker died on a MIME-type error —
+ * silently, because raster tiles are decoded on the main thread and kept
+ * working. Every GeoJSON source stayed `isSourceLoaded() === false` forever,
+ * which meant candidates, the suitability heatmap, roads, constraints and the
+ * conceptual design never drew at all.
+ *
+ * The worker and the chunk it imports are copied into public/maplibre by the
+ * postinstall script, so this URL is a real file served with a JS MIME type.
+ */
+maplibregl.setWorkerUrl("/maplibre/maplibre-gl-worker.mjs");
 import { AnimatePresence, motion } from "framer-motion";
 
 import type { AnalysisRun, Candidate, LngLat, ScoreBreakdown, TownRef } from "@/lib/types";
@@ -17,18 +31,27 @@ import { stageReached, type LayerId, type MapStage } from "./layers";
 // ---------------------------------------------------------------------------
 
 /**
- * Keyless satellite basemap.
+ * Basemap sources.
  *
- * Esri World Imagery supplies the satellite raster and CARTO supplies dark
- * place labels; neither needs an API key, so the demo runs anywhere. Glyphs
- * come from the MapLibre demo font stack, which is why symbol layers below
- * use "Noto Sans Regular" rather than a Mapbox-hosted font.
+ * Esri World Imagery supplies the satellite raster and needs no key. CARTO
+ * supplies the ground and the place labels and now DOES require one — without
+ * it every tile comes back stamped "API KEY REQUIRED", so the key is appended
+ * when present and the URLs are left bare otherwise. Glyphs come from the
+ * MapLibre demo font stack, which is why symbol layers below use
+ * "Noto Sans Regular" rather than a Mapbox-hosted font.
  */
 const SATELLITE_ATTRIB =
   "Imagery &copy; Esri, Maxar, Earthstar Geographics | Basemap &copy; OpenStreetMap contributors, &copy; CARTO";
 
 const BASE_ATTRIB =
   "&copy; OpenStreetMap contributors, &copy; CARTO";
+
+const CARTO_KEY = process.env.NEXT_PUBLIC_CARTO_API_KEY ?? "";
+
+function cartoTiles(style: string): string[] {
+  const url = `https://basemaps.cartocdn.com/${style}/{z}/{x}/{y}@2x.png`;
+  return [CARTO_KEY ? `${url}?key=${CARTO_KEY}` : url];
+}
 
 const BASE_STYLE: maplibregl.StyleSpecification = {
   version: 8,
@@ -52,14 +75,14 @@ const BASE_STYLE: maplibregl.StyleSpecification = {
        extra source and swap instantly. */
     "base-light": {
       type: "raster",
-      tiles: ["https://basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png"],
+      tiles: cartoTiles("light_all"),
       tileSize: 256,
       maxzoom: 19,
       attribution: BASE_ATTRIB,
     },
     "base-dark": {
       type: "raster",
-      tiles: ["https://basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png"],
+      tiles: cartoTiles("dark_all"),
       tileSize: 256,
       maxzoom: 19,
       attribution: BASE_ATTRIB,
@@ -67,13 +90,13 @@ const BASE_STYLE: maplibregl.StyleSpecification = {
     /* Labels alone, re-drawn over imagery so place names survive it. */
     "labels-light": {
       type: "raster",
-      tiles: ["https://basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}@2x.png"],
+      tiles: cartoTiles("light_only_labels"),
       tileSize: 256,
       maxzoom: 19,
     },
     "labels-dark": {
       type: "raster",
-      tiles: ["https://basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}@2x.png"],
+      tiles: cartoTiles("dark_only_labels"),
       tileSize: 256,
       maxzoom: 19,
     },
@@ -115,11 +138,22 @@ const BASE_STYLE: maplibregl.StyleSpecification = {
   ],
 };
 
-/* The accent means "this is the recommendation", and it is spent on the winner,
-   the town outline and the conceptual design — nowhere else. The three ramp
-   stops are the suitability SCALE, and the legend below reads from the same
-   three so a colour on the map and a colour in the key cannot disagree. */
-const ACCENT = "#2d72d2";
+/* ---------- The colour system ----------
+   Four meanings, and nothing on this map gets a fifth:
+
+     CYAN RAMP   a candidate's suitability. The brighter it burns, the better
+                 the site. The only scale on the map.
+     WHITE       what is being proposed — winner, pipes, tank, taps, ring.
+     AMBER       ruled out. Excluded sites, hazards, protected land.
+     GREY        the town as it already is — roads, water, buildings, schools.
+
+   Before this there were seven independent palettes: purple meant both "school"
+   and "treatment unit", green meant both "protected area" and "water source",
+   and one blue was simultaneously the town outline, the service ring and the
+   pipe runs. The map read as confetti because no colour meant one thing. */
+const PROPOSAL = "#ffffff";
+const AMBER = "#f59e0b";
+const CONTEXT = "#8b939c";
 
 /* ---------- The basemap follows the theme ----------
    The map is a background, and a white ground inside a dark shell is the
@@ -155,18 +189,20 @@ type MapMode = keyof typeof BASEMAP;
 
 /** The theme lives on <html>; "auto" defers to the OS. */
 function resolveMode(): MapMode {
-  if (typeof document === "undefined") return "light";
+  if (typeof document === "undefined") return "dark";
   const t = document.documentElement.getAttribute("data-theme");
   if (t === "dark") return "dark";
   if (t === "light") return "light";
   return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
 
-const INK = BASEMAP.light.ink;
-const HALO = BASEMAP.light.halo;
-const SCORE_LOW = "#b42318";
-const SCORE_MID = "#b54708";
-const SCORE_HIGH = "#1a7f37";
+/* Initial values only — THEME_SYNC rebinds every ink/halo paint property when
+   the theme resolves, so these are the dark defaults the markup starts in. */
+const INK = BASEMAP.dark.ink;
+const HALO = BASEMAP.dark.halo;
+const SCORE_LOW = "#0d3b4d";
+const SCORE_MID = "#1a8aa8";
+const SCORE_HIGH = "#22d3ee";
 const MONO = "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace";
 
 const SOURCE = {
@@ -878,14 +914,14 @@ function installStyle(map: GLMap): void {
     id: LAYER.townFill,
     type: "fill",
     source: SOURCE.town,
-    paint: { "fill-color": ACCENT, "fill-opacity": 0, "fill-opacity-transition": { duration: 600 } },
+    paint: { "fill-color": CONTEXT, "fill-opacity": 0, "fill-opacity-transition": { duration: 600 } },
   });
   add({
     id: LAYER.townLine,
     type: "line",
     source: SOURCE.town,
     paint: {
-      "line-color": ACCENT,
+      "line-color": CONTEXT,
       "line-width": 1,
       "line-dasharray": [3, 2],
       "line-opacity": 0,
@@ -935,17 +971,10 @@ function installStyle(map: GLMap): void {
     type: "circle",
     source: SOURCE.facilities,
     paint: {
-      "circle-color": [
-        "match",
-        ["get", "group"],
-        "school",
-        "#a78bfa",
-        "clinic",
-        "#f472b6",
-        "water",
-        ACCENT,
-        "#6b7075",
-      ],
+      /* One colour. A school, a clinic and an existing water point are all the
+         same kind of fact — what the town already has — and giving each its own
+         hue spent three colours saying nothing the popup does not say better. */
+      "circle-color": CONTEXT,
       "circle-radius": ["interpolate", ["linear"], ["zoom"], 11, 2, 14, 3.8, 17, 6.5],
       "circle-stroke-width": 1,
       "circle-stroke-color": HALO,
@@ -960,14 +989,14 @@ function installStyle(map: GLMap): void {
     id: LAYER.protectedFill,
     type: "fill",
     source: SOURCE.protectedAreas,
-    paint: { "fill-color": "#22c55e", "fill-opacity": 0, "fill-opacity-transition": { duration: 500 } },
+    paint: { "fill-color": AMBER, "fill-opacity": 0, "fill-opacity-transition": { duration: 500 } },
   });
   add({
     id: LAYER.protectedLine,
     type: "line",
     source: SOURCE.protectedAreas,
     paint: {
-      "line-color": "#1a7f37",
+      "line-color": AMBER,
       "line-width": 1,
       "line-opacity": 0,
       "line-opacity-transition": { duration: 500 },
@@ -978,7 +1007,7 @@ function installStyle(map: GLMap): void {
     type: "circle",
     source: SOURCE.hazards,
     paint: {
-      "circle-color": "#f97316",
+      "circle-color": AMBER,
       "circle-radius": ["interpolate", ["linear"], ["zoom"], 11, 2.4, 14, 4.4, 17, 7.5],
       "circle-stroke-width": 1,
       "circle-stroke-color": HALO,
@@ -1024,7 +1053,7 @@ function installStyle(map: GLMap): void {
     source: SOURCE.candidates,
     filter: ["==", ["get", "excluded"], true],
     paint: {
-      "circle-color": "#9aa0a6",
+      "circle-color": AMBER,
       "circle-radius": ["interpolate", ["linear"], ["zoom"], 10, 1.6, 13, 3, 16, 5.4],
       "circle-stroke-width": 0.6,
       "circle-stroke-color": HALO,
@@ -1050,7 +1079,7 @@ function installStyle(map: GLMap): void {
         0.5,
         SCORE_MID,
         0.75,
-        "#a3e635",
+        "#3fc4dd",
         1,
         SCORE_HIGH,
       ],
@@ -1091,7 +1120,7 @@ function installStyle(map: GLMap): void {
       "circle-opacity": 0,
       "circle-radius": ["interpolate", ["linear"], ["zoom"], 10, 7, 13, 12, 16, 20],
       "circle-stroke-width": 1.4,
-      "circle-stroke-color": ACCENT,
+      "circle-stroke-color": PROPOSAL,
       "circle-stroke-opacity": 0,
       "circle-stroke-opacity-transition": { duration: 500 },
     },
@@ -1104,15 +1133,15 @@ function installStyle(map: GLMap): void {
     layout: {
       "text-field": ["concat", "#", ["to-string", ["get", "rank"]]],
       "text-font": ["Noto Sans Regular"],
-      "text-size": 11,
-      "text-offset": [0, -1.6],
+      "text-size": 13,
+      "text-offset": [0, -1.5],
       "text-allow-overlap": true,
       "text-letter-spacing": 0.08,
     },
     paint: {
       "text-color": INK,
       "text-halo-color": HALO,
-      "text-halo-width": 1.2,
+      "text-halo-width": 2.2,
       "text-opacity": 0,
       "text-opacity-transition": { duration: 400 },
     },
@@ -1122,14 +1151,15 @@ function installStyle(map: GLMap): void {
     id: LAYER.ringFill,
     type: "fill",
     source: SOURCE.ring,
-    paint: { "fill-color": ACCENT, "fill-opacity": 0, "fill-opacity-transition": { duration: 600 } },
+    paint: { "fill-color": PROPOSAL, "fill-opacity": 0, "fill-opacity-transition": { duration: 600 } },
   });
   add({
     id: LAYER.ringLine,
     type: "line",
     source: SOURCE.ring,
     paint: {
-      "line-color": ACCENT,
+      "line-color": PROPOSAL,
+      "line-dasharray": [3, 3],
       "line-width": 1,
       "line-opacity": 0,
       "line-opacity-transition": { duration: 600 },
@@ -1141,7 +1171,7 @@ function installStyle(map: GLMap): void {
     source: SOURCE.pipes,
     layout: { "line-cap": "butt", "line-join": "round" },
     paint: {
-      "line-color": ACCENT,
+      "line-color": PROPOSAL,
       "line-width": ["interpolate", ["linear"], ["zoom"], 12, 1, 16, 2.4, 19, 4],
       "line-dasharray": [2, 1.6],
       "line-opacity": 0,
@@ -1153,7 +1183,7 @@ function installStyle(map: GLMap): void {
     type: "circle",
     source: SOURCE.taps,
     paint: {
-      "circle-color": "#7dd3fc",
+      "circle-color": PROPOSAL,
       "circle-radius": ["interpolate", ["linear"], ["zoom"], 13, 2.4, 16, 4.2, 19, 7],
       "circle-stroke-width": 1,
       "circle-stroke-color": HALO,
@@ -1168,17 +1198,10 @@ function installStyle(map: GLMap): void {
     type: "circle",
     source: SOURCE.nodes,
     paint: {
-      "circle-color": [
-        "match",
-        ["get", "kind"],
-        "source",
-        "#22c55e",
-        "treatment",
-        "#a78bfa",
-        "tank",
-        ACCENT,
-        INK,
-      ],
+      /* All three nodes are one thing — the proposed installation — so they are
+         one colour, and the label beside each says which is which. Colouring
+         them separately made "treatment" the same purple as a school. */
+      "circle-color": PROPOSAL,
       "circle-radius": ["interpolate", ["linear"], ["zoom"], 13, 4.5, 16, 7.5, 19, 11],
       "circle-stroke-width": 1.6,
       "circle-stroke-color": HALO,
@@ -1195,16 +1218,19 @@ function installStyle(map: GLMap): void {
     layout: {
       "text-field": ["upcase", ["get", "label"]],
       "text-font": ["Noto Sans Regular"],
-      "text-size": 10,
-      "text-offset": [0, 1.4],
+      "text-size": 11,
+      "text-offset": [0, 1.5],
       "text-anchor": "top",
-      "text-letter-spacing": 0.14,
+      "text-letter-spacing": 0.18,
       "text-allow-overlap": false,
     },
     paint: {
       "text-color": INK,
       "text-halo-color": HALO,
-      "text-halo-width": 1.3,
+      /* Satellite imagery is the busiest ground a label can sit on, and a thin
+         halo leaves the text legible only where the roof underneath happens to
+         be plain. This is wide enough to carry it over anything. */
+      "text-halo-width": 2.2,
       "text-opacity": 0,
       "text-opacity-transition": { duration: 500 },
     },
@@ -1235,6 +1261,8 @@ export function AquaMap(props: {
   const appliedRef = useRef<Record<string, number>>({});
   const flownTownRef = useRef<string | null>(null);
   const flownWinnerRef = useRef<string | null>(null);
+  const flownTourRef = useRef<string | null>(null);
+  const fittedTop3Ref = useRef<string | null>(null);
   const fittedDesignRef = useRef<string | null>(null);
 
   const [styleReady, setStyleReady] = useState(false);
@@ -1296,6 +1324,14 @@ export function AquaMap(props: {
   const winner = useMemo(() => {
     if (!run || !run.winnerId) return null;
     return candidateIndex.get(run.winnerId)?.candidate ?? null;
+  }, [run, candidateIndex]);
+
+  const topThree = useMemo(() => {
+    if (!run) return [] as Candidate[];
+    return run.ranked
+      .slice(0, 3)
+      .map((id) => candidateIndex.get(id)?.candidate)
+      .filter((c): c is Candidate => Boolean(c));
   }, [run, candidateIndex]);
 
   const normalizedLayout = useMemo(() => normalizeLayout(layout), [layout]);
@@ -1445,6 +1481,65 @@ export function AquaMap(props: {
     return () => window.clearTimeout(timer);
   }, [styleReady, town]);
 
+  // --- cinematic camera: the shortlist --------------------------------------
+
+  /* Before a winner is named, pull back far enough to hold all three finalists
+     on screen at once. The ranking is the argument this screen is making, and a
+     camera that only ever frames the winner never actually shows it. */
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !styleReady) return;
+    if (!stageReached(stage, "top3") || stageReached(stage, "winner")) return;
+    if (topThree.length < 2) return;
+    const key = `${town?.slug ?? ""}:${topThree.map((c) => c.id).join(",")}`;
+    if (fittedTop3Ref.current === key) return;
+    fittedTop3Ref.current = key;
+
+    const first: LngLat = [topThree[0].lon, topThree[0].lat];
+    const bounds = new maplibregl.LngLatBounds(first, first);
+    for (const c of topThree) bounds.extend([c.lon, c.lat]);
+    /* Padding stays small because this map is often only a few hundred pixels
+       wide between the two reading columns, and fitBounds given padding it
+       cannot afford answers by zooming most of the way back out. */
+    map.fitBounds(bounds, {
+      padding: 56,
+      maxZoom: 14.6,
+      duration: 1000,
+      pitch: 35,
+      essential: true,
+    });
+  }, [styleReady, stage, topThree, town]);
+
+  // --- cinematic camera: the runner-up tour ---------------------------------
+
+  /* Visited worst-to-best, so the winner arrives as the end of an argument
+     rather than as an assertion. The card that names each one is rendered
+     below; this only moves the camera. */
+  const tourStop = useMemo(() => {
+    if (stage === "tour3") return topThree[2] ?? null;
+    if (stage === "tour2") return topThree[1] ?? null;
+    return null;
+  }, [stage, topThree]);
+
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !styleReady || !tourStop) return;
+    const key = `${stage}:${tourStop.id}`;
+    if (flownTourRef.current === key) return;
+    flownTourRef.current = key;
+
+    map.flyTo({
+      center: [tourStop.lon, tourStop.lat],
+      zoom: 16.1,
+      pitch: 50,
+      // Opposing angles, so consecutive stops do not read as the same shot.
+      bearing: stage === "tour3" ? -32 : 26,
+      curve: 1.4,
+      speed: 0.9,
+      essential: true,
+    });
+  }, [styleReady, stage, tourStop]);
+
   // --- cinematic camera: winner --------------------------------------------
 
   useEffect(() => {
@@ -1457,10 +1552,11 @@ export function AquaMap(props: {
 
     map.flyTo({
       center: [winner.lon, winner.lat],
-      zoom: 15.5,
-      pitch: 52,
-      curve: 1.4,
-      speed: 0.6,
+      zoom: 16.8,
+      pitch: 58,
+      bearing: -22,
+      curve: 1.5,
+      speed: 0.55,
       essential: true,
     });
   }, [styleReady, stage, winner, town]);
@@ -1471,15 +1567,49 @@ export function AquaMap(props: {
     const map = mapRef.current;
     if (!map || !styleReady) return;
     if (!stageReached(stage, "design") || !layers.design) return;
-    const ring = normalizedLayout.ring;
-    if (!ring || ring.length < 3) return;
-    const key = `${town?.slug ?? ""}:${ring.length}:${ring[0][0]},${ring[0][1]}`;
+    /* Frame the installation — source, tank, taps and pipe runs — rather than
+       the service-radius ring. The ring is a kilometre across, so fitting it
+       leaves the thing actually being proposed an indistinct speck at the
+       centre of the shot. The ring is the fallback when no geometry survived. */
+    const parts: LngLat[] = [
+      ...normalizedLayout.nodes.map((n): LngLat => [n.lon, n.lat]),
+      ...normalizedLayout.taps,
+      ...normalizedLayout.pipes.flat(),
+    ];
+    const fit = parts.length >= 2 ? parts : normalizedLayout.ring;
+    if (!fit || fit.length < 2) return;
+
+    const key = `${town?.slug ?? ""}:${fit.length}:${fit[0][0]},${fit[0][1]}`;
     if (fittedDesignRef.current === key) return;
     fittedDesignRef.current = key;
 
-    const bounds = new maplibregl.LngLatBounds(ring[0], ring[0]);
-    for (const coord of ring) bounds.extend(coord);
-    map.fitBounds(bounds, { padding: 96, duration: 1400, pitch: 40, essential: true });
+    const bounds = new maplibregl.LngLatBounds(fit[0], fit[0]);
+    for (const coord of fit) bounds.extend(coord);
+    map.fitBounds(bounds, {
+      padding: 40,
+      maxZoom: 17.6,
+      duration: 1500,
+      pitch: 52,
+      bearing: -18,
+      essential: true,
+    });
+
+    /* A slow drift around the finished design once the camera lands. Any user
+       gesture cancels it, which is the point — this is atmosphere, not a rail. */
+    const orbit = (): void => {
+      const current = mapRef.current;
+      if (!current) return;
+      current.easeTo({
+        bearing: 18,
+        duration: 18000,
+        easing: (t) => t,
+        essential: false,
+      });
+    };
+    map.once("moveend", orbit);
+    return () => {
+      map.off("moveend", orbit);
+    };
   }, [styleReady, stage, layers.design, normalizedLayout, town]);
 
   // --- winner marker --------------------------------------------------------
@@ -1583,6 +1713,24 @@ export function AquaMap(props: {
 
   // --- render ---------------------------------------------------------------
 
+  /* The card covers the winner too, whose camera is driven by its own effect —
+     so this is deliberately not the same list as the tour camera above. It
+     clears at the design stage, where the SOURCE/TANK/TREATMENT labels take
+     over and a card would be a second caption for the same thing. */
+  const spotlight = stage === "winner" ? topThree[0] ?? null : tourStop;
+
+  const spotlightCard = useMemo(() => {
+    if (!run || !spotlight) return null;
+    const rank = candidateIndex.get(spotlight.id)?.rank ?? 0;
+    const alternative = run.alternatives.find((a) => a.candidateId === spotlight.id);
+    return {
+      rank,
+      score: spotlight.score.overall,
+      note: alternative?.comparison ?? null,
+      isWinner: rank === 1,
+    };
+  }, [run, spotlight, candidateIndex]);
+
   const showLegend = stageReached(stage, "candidates") && layers.suitability;
   const showDesignPill = stageReached(stage, "design") && layers.design && hasDesign;
 
@@ -1623,14 +1771,76 @@ export function AquaMap(props: {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 8 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="card pointer-events-none absolute bottom-4 left-4 z-10 px-3 py-2.5 shadow-[var(--shadow-2)]"
+            /* Top-right: the layer control owns the bottom-left corner and the
+               zoom buttons own the bottom-right, and a key stacked under either
+               is a key nobody reads. */
+            className="card pointer-events-none absolute right-4 top-4 z-10 px-3 py-2.5 shadow-[var(--shadow-2)]"
           >
+            {/* The whole map in four rows. Anyone reading this screen for the
+                first time should not have to be told what a colour means. */}
             <div className="lbl">Suitability</div>
-            <div className="mt-2 h-[4px] w-[132px] bg-[linear-gradient(90deg,var(--score-low)_0%,var(--score-mid)_50%,var(--score-high)_100%)]" />
-            <div className="lbl mt-1.5 flex w-[132px] justify-between">
+            <div className="mt-2 h-[4px] w-[142px] bg-[linear-gradient(90deg,var(--score-low)_0%,var(--score-mid)_50%,var(--score-high)_100%)]" />
+            <div className="lbl mt-1.5 flex w-[142px] justify-between">
               <span>0</span>
               <span>100</span>
             </div>
+
+            <div className="mt-2.5 space-y-1.5 border-t border-[color:var(--border-subtle)] pt-2.5">
+              {[
+                { swatch: PROPOSAL, label: "Proposed system" },
+                { swatch: AMBER, label: "Ruled out" },
+                { swatch: CONTEXT, label: "Existing town" },
+              ].map((row) => (
+                <div key={row.label} className="flex items-center gap-2">
+                  <span
+                    aria-hidden
+                    className="h-[7px] w-[7px] shrink-0"
+                    style={{ background: row.swatch }}
+                  />
+                  <span className="lbl">{row.label}</span>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* The tour caption. One card, re-keyed per stop so it animates out and
+          back in rather than mutating in place. */}
+      <AnimatePresence mode="wait">
+        {spotlightCard && (
+          <motion.div
+            key={`spotlight-${spotlightCard.rank}`}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+            className="card pointer-events-none absolute bottom-6 left-1/2 z-20 w-[min(400px,calc(100%-2rem))] -translate-x-1/2 px-4 py-3 shadow-[var(--shadow-2)]"
+          >
+            <div className="flex items-baseline justify-between gap-3">
+              <span className="lbl">
+                {spotlightCard.isWinner ? "Recommended site" : `Rank ${spotlightCard.rank}`}
+              </span>
+              <span className="mono num text-[14px] font-[400] text-[color:var(--text)]">
+                {spotlightCard.score.toFixed(3)}
+              </span>
+            </div>
+
+            <div className="mt-2 h-[2px] w-full overflow-hidden bg-[var(--bg-sunken)]">
+              <motion.div
+                className="h-full"
+                style={{ background: spotlightCard.isWinner ? PROPOSAL : SCORE_MID }}
+                initial={{ width: 0 }}
+                animate={{ width: `${Math.min(100, spotlightCard.score * 100)}%` }}
+                transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              />
+            </div>
+
+            {spotlightCard.note ? (
+              <p className="mt-2 text-[11.5px] leading-relaxed text-[color:var(--text-muted)]">
+                {spotlightCard.note}
+              </p>
+            ) : null}
           </motion.div>
         )}
       </AnimatePresence>

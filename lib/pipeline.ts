@@ -371,7 +371,7 @@ export async function runAnalysis(inputTown: TownRef, emit: Emit): Promise<Analy
       narrative =
         `${ranked.length} of ${candidates.length} sites near ${town.name} passed all hard constraints; the best scores ${(winner.score.overall * 100).toFixed(0)}% ` +
         `(${Math.round(winner.features.distanceToRoadM)} m from a road, ${winner.features.nearbyBuildingCount} buildings within ${SERVICE.densityRadiusM} m). ` +
-        `A ${recommendation.label.toLowerCase()} at $${recommendation.cost.totalLow.toLocaleString()}–$${recommendation.cost.totalHigh.toLocaleString()} would serve ${population.rangeLow.toLocaleString()}–${population.rangeHigh.toLocaleString()} people. ` +
+        `A ${recommendation.label.toLowerCase()} at $${recommendation.cost.totalLow.toLocaleString()}–$${recommendation.cost.totalHigh.toLocaleString()} would supply ${recommendation.peopleServedLow.toLocaleString()}–${recommendation.peopleServedHigh.toLocaleString()} of the ${population.rangeLow.toLocaleString()}–${population.rangeHigh.toLocaleString()} people in range. ` +
         `Pre-feasibility only — field validation required.`;
     }
   } else {

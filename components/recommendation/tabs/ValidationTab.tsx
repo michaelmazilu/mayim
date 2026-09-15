@@ -2,6 +2,7 @@
 
 import { useState, type JSX } from "react";
 import type { AnalysisRun } from "@/lib/types";
+import { Disclosure } from "@/components/ui/Disclosure";
 
 /**
  * Deterministic explanatory line per validation step, matched on keywords in the
@@ -172,65 +173,66 @@ export function ValidationTab(props: {
         )}
       </section>
 
-      {run.warnings.length > 0 ? (
-        <section className="mt-6">
-          <h3 className="lbl">
-            Known limitations
-          </h3>
-          <ul className="mt-2.5 space-y-1.5 border border-[color:var(--border)] bg-[var(--bg-sunken)] px-3 py-2.5">
-            {run.warnings.map((w, i) => (
-              <li
-                key={`${i}-${w}`}
-                className="flex gap-2 text-[11.5px] leading-relaxed text-[color:var(--st-warn)]"
-              >
-                <span className="mt-[7px] h-[3px] w-[3px] shrink-0 bg-[var(--st-warn)]" />
-                <span>{w}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
-      ) : null}
+      <section className="mt-5 border-t border-[color:var(--border)]">
+        {run.warnings.length > 0 ? (
+          <Disclosure label="Known limitations" hint={`${run.warnings.length}`}>
+            <ul className="space-y-1.5 border border-[color:var(--border)] bg-[var(--bg-sunken)] px-3 py-2.5">
+              {run.warnings.map((w, i) => (
+                <li
+                  key={`${i}-${w}`}
+                  className="flex gap-2 text-[11.5px] leading-relaxed text-[color:var(--st-warn)]"
+                >
+                  <span className="mt-[7px] h-[3px] w-[3px] shrink-0 bg-[var(--st-warn)]" />
+                  <span>{w}</span>
+                </li>
+              ))}
+            </ul>
+          </Disclosure>
+        ) : null}
 
-      <section className="mt-6">
-        <h3 className="lbl">
-          Data sources
-        </h3>
-        {run.dataSources.length === 0 ? (
-          <p className="mt-2.5 text-[11.5px] leading-relaxed text-[color:var(--text-muted)]">
-            No data-source status was reported for this run.
-          </p>
-        ) : (
-          <ul className="mt-2.5 space-y-2">
-            {run.dataSources.map((s, i) => (
-              <li
-                key={`${i}-${s.name}`}
-                className="flex items-start gap-2.5 border-b border-[color:var(--border-subtle)] pb-2 last:border-b-0 last:pb-0"
-              >
-                <span
-                  aria-hidden
-                  className={`mt-[6px] h-[5px] w-[5px] shrink-0  ${
-                    s.ok
-                      ? "bg-[var(--st-ok)]"
-                      : "bg-[var(--st-warn)]"
-                  }`}
-                />
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-baseline justify-between gap-3">
-                    <span className="text-[12px] leading-tight text-[color:var(--text)]">{s.name}</span>
-                    <span
-                      className={`shrink-0 lbl ${
-                        s.ok ? "text-[color:var(--st-ok)]" : "text-[color:var(--st-warn)]"
-                      }`}
-                    >
-                      {s.ok ? "OK" : "Degraded"}
-                    </span>
+        <Disclosure
+          label="Data sources"
+          hint={`${run.dataSources.filter((s) => s.ok).length}/${run.dataSources.length} OK`}
+        >
+          {run.dataSources.length === 0 ? (
+            <p className="text-[11.5px] leading-relaxed text-[color:var(--text-muted)]">
+              No data-source status was reported for this run.
+            </p>
+          ) : (
+            <ul className="space-y-2">
+              {run.dataSources.map((s, i) => (
+                <li
+                  key={`${i}-${s.name}`}
+                  className="flex items-start gap-2.5 border-b border-[color:var(--border-subtle)] pb-2 last:border-b-0 last:pb-0"
+                >
+                  <span
+                    aria-hidden
+                    className={`mt-[6px] h-[5px] w-[5px] shrink-0 ${
+                      s.ok ? "bg-[var(--st-ok)]" : "bg-[var(--st-warn)]"
+                    }`}
+                  />
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-baseline justify-between gap-3">
+                      <span className="text-[12px] leading-tight text-[color:var(--text)]">
+                        {s.name}
+                      </span>
+                      <span
+                        className={`lbl shrink-0 ${
+                          s.ok ? "text-[color:var(--st-ok)]" : "text-[color:var(--st-warn)]"
+                        }`}
+                      >
+                        {s.ok ? "OK" : "Degraded"}
+                      </span>
+                    </div>
+                    <div className="mt-1 text-[10.5px] leading-relaxed text-[color:var(--text-muted)]">
+                      {s.detail}
+                    </div>
                   </div>
-                  <div className="mt-1 text-[10.5px] leading-relaxed text-[color:var(--text-muted)]">{s.detail}</div>
-                </div>
-              </li>
-            ))}
-          </ul>
-        )}
+                </li>
+              ))}
+            </ul>
+          )}
+        </Disclosure>
       </section>
 
       <p className="mt-6 border-t border-[color:var(--border)] pt-3 text-[10.5px] leading-relaxed text-[color:var(--text-subtle)]">

@@ -13,10 +13,11 @@ import { ThemeSwitch } from "@/components/ui/ThemeSwitch";
 import type { AnalysisEvent, AnalysisRun, TownRef } from "@/lib/types";
 
 const DEFAULT_LAYERS: Record<LayerId, boolean> = {
-  // Off by default. The basemap is a quiet white cartography, and imagery is
-  // the one layer loud enough to take the screen over — so it is opt-in rather
-  // than something the reader has to turn off to see the analysis.
-  satellite: false,
+  // On by default: the analysis is about real ground — a borehole sited on
+  // visible rooftops and tracks argues for itself in a way the same point on
+  // blank cartography does not. The toggle is there for reading the vector
+  // layers without imagery competing with them.
+  satellite: true,
   suitability: true,
   roads: true,
   water: true,
@@ -25,16 +26,25 @@ const DEFAULT_LAYERS: Record<LayerId, boolean> = {
   design: true,
 };
 
-/** Post-analysis cinematic. Each step reveals one map layer group. */
+/**
+ * Post-analysis cinematic. Each step reveals one map layer group.
+ *
+ * The context steps are deliberately quick — they are scene-setting, and the
+ * reader is waiting for the answer. `top3` holds longest of the build-up
+ * because that is where the camera pulls back to frame all three finalists,
+ * and a hold shorter than that flight makes the shot pointless.
+ */
 const REVEAL: { stage: MapStage; hold: number }[] = [
-  { stage: "context", hold: 550 },
-  { stage: "facilities", hold: 550 },
-  { stage: "constraints", hold: 550 },
-  { stage: "candidates", hold: 900 },
-  { stage: "eliminated", hold: 900 },
-  { stage: "heatmap", hold: 900 },
-  { stage: "top3", hold: 800 },
-  { stage: "winner", hold: 1400 },
+  { stage: "context", hold: 360 },
+  { stage: "facilities", hold: 340 },
+  { stage: "constraints", hold: 340 },
+  { stage: "candidates", hold: 560 },
+  { stage: "eliminated", hold: 460 },
+  { stage: "heatmap", hold: 560 },
+  { stage: "top3", hold: 1250 },
+  { stage: "tour3", hold: 2200 },
+  { stage: "tour2", hold: 2200 },
+  { stage: "winner", hold: 2400 },
   { stage: "design", hold: 0 },
 ];
 
@@ -69,6 +79,8 @@ export default function Page() {
   const [layers, setLayers] = useState<Record<LayerId, boolean>>(DEFAULT_LAYERS);
   const [focusCandidateId, setFocusCandidateId] = useState<string | null>(null);
   const [showLayers, setShowLayers] = useState(true);
+  const [showMission, setShowMission] = useState(true);
+  const [showReco, setShowReco] = useState(true);
 
   const abortRef = useRef<AbortController | null>(null);
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
@@ -222,6 +234,37 @@ export default function Page() {
             </svg>
           </button>
 
+          {/* The two reading columns are the only things competing with the map
+              for width, so each gets its own switch rather than one "focus
+              mode" that decides for the reader which half matters. */}
+          <button
+            type="button"
+            className={`rail-btn ${showMission ? "active" : ""}`}
+            data-tip="Analysis panel"
+            aria-pressed={showMission}
+            disabled={!town}
+            onClick={() => setShowMission((v) => !v)}
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+              <rect x="3" y="4.5" width="18" height="15" rx="1" />
+              <path d="M9.5 4.5v15" />
+            </svg>
+          </button>
+
+          <button
+            type="button"
+            className={`rail-btn ${showReco ? "active" : ""}`}
+            data-tip="Recommendation panel"
+            aria-pressed={showReco}
+            disabled={!run}
+            onClick={() => setShowReco((v) => !v)}
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+              <rect x="3" y="4.5" width="18" height="15" rx="1" />
+              <path d="M14.5 4.5v15" />
+            </svg>
+          </button>
+
           <div className="rail-spacer" />
         </div>
 
@@ -290,7 +333,7 @@ export default function Page() {
             the map. The map is a background; the columns are the reading. */}
         <main className="view flex">
           <AnimatePresence initial={false}>
-            {town && (
+            {town && showMission && (
               <motion.aside
                 key="mission"
                 initial={{ width: 0, opacity: 0 }}
@@ -337,7 +380,7 @@ export default function Page() {
           </div>
 
           <AnimatePresence initial={false}>
-            {run && (
+            {run && showReco && (
               <motion.aside
                 key="reco"
                 initial={{ width: 0, opacity: 0 }}

@@ -3,7 +3,7 @@
 import type { JSX } from "react";
 import { useEffect, useMemo, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import type { AnalysisEvent, LngLat, TownRef, TrackId, TrackStatus } from "@/lib/types";
+import type { AnalysisEvent, TownRef, TrackId, TrackStatus } from "@/lib/types";
 import { TRACKS } from "@/lib/types";
 import { TrackRow } from "./TrackRow";
 
@@ -14,13 +14,6 @@ const PROVENANCE_LABEL: Record<"live" | "cache" | "demo", string> = {
   cache: "Saved analysis replayed",
   demo: "Bundled demo snapshot",
 };
-
-function formatCoords(center: LngLat): string {
-  const [lon, lat] = center;
-  return `${Math.abs(lat).toFixed(4)}°${lat >= 0 ? "N" : "S"} ${Math.abs(lon).toFixed(4)}°${
-    lon >= 0 ? "E" : "W"
-  }`;
-}
 
 function subtitle(town: TownRef): string {
   const parts = [town.region, town.country].filter((p): p is string => Boolean(p && p.trim()));
@@ -82,9 +75,6 @@ export function MissionPanel(props: {
       <header className="shrink-0 border-b border-[color:var(--border-subtle)] px-4 py-3">
         <h2 className="truncate text-[16px] font-[400] leading-tight">{town.name}</h2>
         <p className="sm muted mt-0.5 truncate">{subtitle(town)}</p>
-        <p className="mono num mt-1.5 text-[11px] text-[color:var(--text-subtle)]">
-          {formatCoords(town.center)}
-        </p>
       </header>
 
       <div className="flex shrink-0 items-center justify-between gap-2 px-4 pb-2 pt-3">

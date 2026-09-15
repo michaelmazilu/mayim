@@ -25,6 +25,11 @@ export const LAYER_META: { id: LayerId; label: string }[] = [
   { id: "design", label: "Conceptual design" },
 ];
 
+/**
+ * `top3` frames all three finalists at once; `tour3` and `tour2` then visit the
+ * runners-up in worst-to-best order so the winner arrives as the end of an
+ * argument rather than as an assertion.
+ */
 export type MapStage =
   | "idle"
   | "town"
@@ -35,6 +40,8 @@ export type MapStage =
   | "eliminated"
   | "heatmap"
   | "top3"
+  | "tour3"
+  | "tour2"
   | "winner"
   | "design";
 
@@ -48,6 +55,8 @@ export const STAGE_ORDER: MapStage[] = [
   "eliminated",
   "heatmap",
   "top3",
+  "tour3",
+  "tour2",
   "winner",
   "design",
 ];

@@ -27,10 +27,12 @@ export const metadata: Metadata = {
  * the theme there would let the browser paint one frame of the light palette
  * first — the flash every dark-mode implementation gets wrong once.
  *
- * The default is "light" rather than "auto": this console is a white surface,
- * and a reader who has not asked for dark should not get it from their OS.
+ * The default is "dark" rather than "auto": this is a console for reading
+ * satellite imagery and glowing data marks, and both are legible on dark ground
+ * in a way they are not on white. A reader who wants the white surface can ask
+ * for it; nobody should get it handed to them by their OS setting.
  */
-const THEME_BOOTSTRAP = `(function(){try{var t=localStorage.getItem("mayim-theme");if(t!=="light"&&t!=="dark"&&t!=="auto")t="light";document.documentElement.setAttribute("data-theme",t);document.documentElement.style.colorScheme=t==="auto"?"light dark":t;}catch(e){document.documentElement.setAttribute("data-theme","light");}})();`;
+const THEME_BOOTSTRAP = `(function(){try{var t=localStorage.getItem("mayim-theme");if(t!=="light"&&t!=="dark"&&t!=="auto")t="dark";document.documentElement.setAttribute("data-theme",t);document.documentElement.style.colorScheme=t==="auto"?"light dark":t;}catch(e){document.documentElement.setAttribute("data-theme","dark");}})();`;
 
 export default function RootLayout({
   children,
@@ -38,7 +40,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      data-theme="light"
+      data-theme="dark"
       className={`${ibmPlexMono.variable} h-full`}
       suppressHydrationWarning
     >

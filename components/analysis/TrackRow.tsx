@@ -16,10 +16,6 @@ function clockTime(ts: number): string {
   });
 }
 
-function sourceLabel(n: number): string {
-  return n === 1 ? "1 source" : `${n} sources`;
-}
-
 function StatusMark({ status }: { status: TrackStatus }): JSX.Element {
   if (status === "complete") {
     return (
@@ -123,11 +119,6 @@ export function TrackRow(props: {
             >
               {label}
             </span>
-            {latest && (
-              <span className="mono num shrink-0 text-[11px] text-[color:var(--text-subtle)]">
-                {clockTime(latest.ts)}
-              </span>
-            )}
           </span>
 
           <span className="mt-0.5 block min-h-[16px]">
@@ -145,9 +136,6 @@ export function TrackRow(props: {
             </AnimatePresence>
           </span>
 
-          {latest && typeof latest.sourceCount === "number" && (
-            <span className="ch-pill plain mt-1.5">{sourceLabel(latest.sourceCount)}</span>
-          )}
         </span>
 
         <span
@@ -197,15 +185,8 @@ export function TrackRow(props: {
                           DOT_COLOR[event.status]
                         }`}
                       />
-                      <span className="flex items-baseline gap-2">
-                        <span className="mono num shrink-0 text-[10px] text-[color:var(--text-subtle)]">
-                          {clockTime(event.ts)}
-                        </span>
-                        {typeof event.sourceCount === "number" && (
-                          <span className="mono shrink-0 text-[10px] text-[color:var(--text-subtle)]">
-                            {sourceLabel(event.sourceCount)}
-                          </span>
-                        )}
+                      <span className="mono num block text-[10px] text-[color:var(--text-subtle)]">
+                        {clockTime(event.ts)}
                       </span>
                       <span className="sm muted mt-[1px] block leading-snug">{event.message}</span>
                     </motion.li>
