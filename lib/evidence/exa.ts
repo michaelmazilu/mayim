@@ -225,6 +225,8 @@ export function parseHits(payload: unknown): ExaHit[] {
     if (!record) continue;
     const url = asText(record.url);
     if (!url || !/^https?:\/\//i.test(url)) continue;
+    // Staging mirrors (earthwise-staging.bgs.ac.uk) duplicate the live page under another host.
+    if (/^https?:\/\/[^/]*\bstaging\b/i.test(url)) continue;
     const highlights = asTextList(record.highlights);
     const text = asText(record.text);
     // A hit with neither highlights nor text carries nothing for the extractor.

@@ -48,7 +48,64 @@ const PUBLISHERS: [string, string][] = [
   ["ubos.org", "Uganda Bureau of Statistics"],
   ["statsghana.gov.gh", "Ghana Statistical Service"],
   ["mwe.go.ug", "Uganda Ministry of Water and Environment"],
+  // Resolvers and scholarly hosts — the hostname is not the publisher.
+  ["doi.org", "Journal article (via DOI)"],
+  ["hdl.handle.net", "Institutional repository (via Handle)"],
+  ["ncbi.nlm.nih.gov", "PubMed Central (NIH)"],
+  ["ascelibrary.org", "ASCE Library"],
+  ["gca.org", "Global Center on Adaptation"],
+  // Demo-town authorities, universities and national press.
+  ["lvswwda.go.ke", "Lake Victoria South Water Works Development Agency"],
+  ["kisumu.go.ke", "County Government of Kisumu"],
+  ["city.kisumu.go.ke", "City of Kisumu"],
+  ["nema.go.ke", "National Environment Management Authority (Kenya)"],
+  ["uonbi.ac.ke", "University of Nairobi"],
+  ["gulucity.go.ug", "Gulu City Council"],
+  ["gu.ac.ug", "Gulu University"],
+  ["monitor.co.ug", "Daily Monitor (Uganda)"],
+  ["independent.co.ug", "The Independent (Uganda)"],
+  ["gna.org.gh", "Ghana News Agency"],
+  ["graphic.com.gh", "Graphic Online (Ghana)"],
+  ["citinewsroom.com", "Citi Newsroom (Ghana)"],
 ];
+
+/** Peer-reviewed publishers and repositories, scored like official/academic sources. */
+const SCHOLARLY = [
+  "doi.org",
+  "hdl.handle.net",
+  "ncbi.nlm.nih.gov",
+  "sciencedirect.com",
+  "mdpi.com",
+  "iwaponline.com",
+  "frontiersin.org",
+  "nature.com",
+  "wiley.com",
+  "tandfonline.com",
+  "ascelibrary.org",
+];
+
+const CATEGORY_NOUN: Record<RawEvidence["category"], string> = {
+  water_need: "water access",
+  hydrogeology: "hydrogeology",
+  environment: "environmental risk",
+  infrastructure: "water infrastructure",
+};
+
+const GENERIC_TITLE = /^(world bank document|open knowledge repository|documents?|pdf|untitled|home|download|file|attachment)$/i;
+
+/**
+ * Page titles from document repositories are often useless ("World Bank
+ * Document", a bare URL, "GHA_GLAAS_final"). Tidy what can be tidied and
+ * otherwise say plainly what the source is, rather than inventing a title.
+ */
+export function cleanTitle(title: string, url: string, publisher: string, category: RawEvidence["category"]): string {
+  let t = title.trim();
+  if (/^https?:\/\//i.test(t) || t === url) t = "";
+  if ((t.match(/_/g)?.length ?? 0) >= 2) t = t.replace(/_+/g, " ").trim();
+  t = t.replace(/\s+-\s+MediaWiki\b/i, "").trim();
+  if (!t || GENERIC_TITLE.test(t)) return `${publisher} — ${CATEGORY_NOUN[category]} document`;
+  return t;
+}
 
 const GOVERNMENT_HOST = /(^|\.)(gov|go\.[a-z]{2}|gov\.[a-z]{2}|gouv\.[a-z]{2}|mil)$/;
 const ACADEMIC_HOST = /(^|\.)(edu|ac\.[a-z]{2}|edu\.[a-z]{2})$/;
@@ -91,6 +148,7 @@ export function sourceTier(url: string): "authoritative" | "officialOrAcademic" 
   const host = hostnameOf(url);
   if (AUTHORITATIVE_DOMAINS.some((d) => hostMatches(host, d))) return "authoritative";
   if (GOVERNMENT_HOST.test(host) || ACADEMIC_HOST.test(host)) return "officialOrAcademic";
+  if (SCHOLARLY.some((d) => hostMatches(host, d))) return "officialOrAcademic";
   return "other";
 }
 
@@ -124,12 +182,13 @@ export function structureDeterministically(raw: RawEvidence[], placeName: string
       CONFIDENCE.ceiling,
       CONFIDENCE[sourceTier(r.url)] + (mentioned ? CONFIDENCE.placeMentioned : 0),
     );
+    const publisher = publisherFor(r.url);
     const finding: EvidenceFinding = {
       id: `f${i.toString().padStart(2, "0")}`,
       category: r.category,
-      title: r.title.slice(0, 200),
+      title: cleanTitle(r.title, r.url, publisher, r.category).slice(0, 200),
       summary: `“${excerpt}”`,
-      sourceName: publisherFor(r.url).slice(0, 120),
+      sourceName: publisher.slice(0, 120),
       sourceUrl: r.url,
       confidence: round2(confidence),
     };

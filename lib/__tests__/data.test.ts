@@ -20,6 +20,7 @@ import {
   type RawEvidence,
 } from "@/lib/evidence/exa";
 import {
+  cleanTitle,
   leadingSentences,
   publisherFor,
   sourceTier,
@@ -131,6 +132,7 @@ describe("Exa queries", () => {
         { url: "https://ok.org", title: "OK", highlights: ["text"], publishedDate: "2021-04-05T00:00:00.000Z" },
         { url: "ftp://nope.org", highlights: ["text"] },
         { url: "https://empty.org", highlights: [] },
+        { url: "https://earthwise-staging.bgs.ac.uk/x", title: "Mirror", highlights: ["text"] },
         "garbage",
       ],
     });
@@ -161,6 +163,22 @@ describe("deterministic structuring", () => {
     assert.equal(sourceTier("https://water.go.ke/x"), "officialOrAcademic");
     assert.equal(sourceTier("https://uonbi.ac.ke/x"), "officialOrAcademic");
     assert.equal(sourceTier("https://news.example.com/x"), "other");
+    assert.equal(publisherFor("https://doi.org/10.1111/x"), "Journal article (via DOI)");
+    assert.equal(sourceTier("https://doi.org/10.1111/x"), "officialOrAcademic");
+    assert.equal(publisherFor("https://city.kisumu.go.ke/2025/a"), "City of Kisumu");
+    assert.equal(publisherFor("https://www.kisumu.go.ke/a"), "County Government of Kisumu");
+  });
+
+  test("generic, URL and filename titles become readable", () => {
+    assert.equal(
+      cleanTitle("World Bank Document", "https://documents1.worldbank.org/x", "World Bank", "water_need"),
+      "World Bank — water access document",
+    );
+    const url = "https://reliefweb.int/attachments/abc";
+    assert.equal(cleanTitle(url, url, "ReliefWeb (UN OCHA)", "water_need"), "ReliefWeb (UN OCHA) — water access document");
+    assert.equal(cleanTitle("GHA_GLAAS Country Highlight_25Nov2019_final", "u", "WHO", "water_need"), "GHA GLAAS Country Highlight 25Nov2019 final");
+    assert.equal(cleanTitle("Hydrogeology of Kenya - MediaWiki - BGS Earthwise", "u", "BGS", "hydrogeology"), "Hydrogeology of Kenya - BGS Earthwise");
+    assert.equal(cleanTitle("Gulu water project", "u", "X", "infrastructure"), "Gulu water project");
   });
 
   test("findings quote the excerpt, carry no score impact and stay under the ceiling", () => {
@@ -187,6 +205,9 @@ describe("partners", () => {
   test("organisation names come from the title segment matching the host", () => {
     assert.equal(organisationName("Uganda | WaterAid", "wateraid.org"), "WaterAid");
     assert.equal(organisationName("Home - Water For People", "waterforpeople.org"), "Water For People");
+    // A country segment that happens to appear in the domain is not the name.
+    assert.equal(organisationName("Kenya | Home", "lwikenya.com"), "lwikenya.com");
+    assert.equal(organisationName("Kenya | Living Water International", "lwikenya.com"), "Living Water International");
     assert.equal(rootDomain("kenya.wateraid.org"), "wateraid.org");
     assert.equal(rootDomain("kiwasco.co.ke"), "kiwasco.co.ke");
   });
@@ -197,6 +218,7 @@ describe("partners", () => {
         { url: "https://en.wikipedia.org/wiki/Water", title: "Water", highlights: ["x"] },
         { url: "https://drillers.org/", title: "Drillers Trust", highlights: ["We drill boreholes with solar pumps."] },
         { url: "https://drillers.org/about", title: "About", highlights: ["dup"] },
+        { url: "https://exa.ai/library/organization/x", title: "Milton Foundation", highlights: ["boreholes"] },
       ],
       "KE",
     );

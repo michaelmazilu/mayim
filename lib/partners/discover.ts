@@ -26,6 +26,8 @@ const MAX_PARTNERS = 14;
 /** Hosts that publish ABOUT water organisations rather than being one. */
 const NOT_AN_ORGANISATION = [
   ...EXCLUDED_DOMAINS,
+  // Exa's own organisation directory pages come back under the "company" category.
+  "exa.ai",
   "wikipedia.org",
   "sciencedirect.com",
   "springer.com",
@@ -80,17 +82,28 @@ export function rootDomain(host: string): string {
  * so pick the segment that shares the most letters with the hostname.
  */
 export function organisationName(title: string, host: string): string {
+  // A bare country ("Kenya") or page label is never the organisation's name,
+  // even when it happens to appear in the domain (lwikenya.com).
+  const isPlaceOrGeneric = (s: string) =>
+    countryIso2(s) !== undefined ||
+    /^(africa|east africa|west africa|home|homepage|welcome|about|about us|official site|donate|our work)$/i.test(s);
   const segments = title
     .split(/\s+[|–—:•·-]\s+/)
     .map((s) => s.trim())
-    .filter((s) => s.length > 1 && !/^(home|homepage|welcome|about us|official site)$/i.test(s));
-  const label = rootDomain(host).split(".")[0].toLowerCase();
+    .filter((s) => s.length > 2 && !isPlaceOrGeneric(s));
+  const root = rootDomain(host);
+  if (segments.length === 0) return root;
+  const label = root.split(".")[0].toLowerCase();
   const squash = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, "");
-  let best = segments[0] ?? label;
+  let best = segments[0];
   let bestScore = -1;
   for (const seg of segments) {
     const sq = squash(seg);
-    const score = sq.includes(label) || label.includes(sq) ? 100 - seg.length / 10 : 0;
+    const score = sq.includes(label)
+      ? 100 - seg.length / 10
+      : sq.length >= 5 && label.includes(sq)
+        ? 50 - seg.length / 10
+        : 0;
     if (score > bestScore) {
       best = seg;
       bestScore = score;
