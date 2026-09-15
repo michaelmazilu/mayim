@@ -34,6 +34,8 @@ import { buildGraph, metres, scaleAt, snapMany } from "@/lib/popsim/network";
 import { anchorFor, rawSourcesFrom, type Anchor } from "@/lib/popsim/placement";
 import { quantile, summarise } from "@/lib/popsim/stats";
 import type { Circle, LocalOsm } from "@/lib/providers/local-osm";
+import type { SurveyedPoint } from "@/lib/providers/wpdx";
+import type { OsmPoint } from "@/lib/types";
 import type { LngLat } from "@/lib/types";
 
 export type SimulationOptions = {
@@ -78,7 +80,64 @@ export type SimulationInput = {
   ranked: string[];
   rates: SimulationRates;
   rateNotes?: string[];
+  /** WPdx+ surveyed water points in the town's area, with status; null when the survey API failed. */
+  waterPoints?: SurveyedPoint[] | null;
 };
+
+/** Statuses that still give people water: counted as sources today. */
+const USABLE = new Set(["working", "needs_repair", "idle"]);
+
+function surveyedKind(p: SurveyedPoint): string {
+  const src = p.source.toLowerCase();
+  const tech = p.tech.toLowerCase();
+  if (src.includes("borehole") || src.includes("tubewell")) return "borehole";
+  if (src.includes("well")) return "water_well";
+  if (src.includes("spring")) return "spring";
+  if (src.includes("rainwater")) return "rainwater";
+  if (src.includes("dam")) return "sand_dam";
+  if (tech.includes("tap") || tech.includes("kiosk") || src.includes("delivered") || src.includes("piped")) return "drinking_water";
+  return "water_point";
+}
+
+function surveyed(points: SurveyedPoint[] | null | undefined, keep: (p: SurveyedPoint) => boolean): OsmPoint[] {
+  return (points ?? []).filter(keep).map((p, i) => ({
+    id: `wpdx${i}`,
+    lon: p.lon,
+    lat: p.lat,
+    kind: surveyedKind(p),
+    name: [p.tech && p.tech !== "undefined" ? p.tech : "", p.reported ? `reported ${p.status === "broken" ? "broken" : "working"} ${p.reported.slice(0, 4)}` : ""]
+      .filter(Boolean)
+      .join(", ") || undefined,
+  }));
+}
+
+/** One point per 25 m: OpenStreetMap and the survey often map the same pump. */
+function dedupe(points: OsmPoint[], scale: { mLon: number; mLat: number }, minM = 25): OsmPoint[] {
+  const seen = new Map<string, OsmPoint[]>();
+  const out: OsmPoint[] = [];
+  for (const p of points) {
+    const gx = Math.floor((p.lon * scale.mLon) / minM);
+    const gy = Math.floor((p.lat * scale.mLat) / minM);
+    let dup = false;
+    for (let dx = -1; dx <= 1 && !dup; dx++) {
+      for (let dy = -1; dy <= 1 && !dup; dy++) {
+        for (const q of seen.get(`${gx + dx},${gy + dy}`) ?? []) {
+          if (Math.hypot((q.lon - p.lon) * scale.mLon, (q.lat - p.lat) * scale.mLat) < minM) {
+            dup = true;
+            break;
+          }
+        }
+      }
+    }
+    if (dup) continue;
+    out.push(p);
+    const k = `${gx},${gy}`;
+    const list = seen.get(k);
+    if (list) list.push(p);
+    else seen.set(k, [p]);
+  }
+  return out;
+}
 
 export type SimulationDeps = {
   fetchLocal: (circles: Circle[], opts?: { buildings?: boolean; budgetMs?: number }) => Promise<LocalOsm>;
@@ -124,7 +183,8 @@ function contextFrom(
   const clusters = clusterBuildings(points, weight, scale, householdSize(countryIso2(input.town.country)).central);
   const graph = buildGraph(lines, scale);
   const clusterSnap = routed && graph ? snapMany(graph, clusters.lon, clusters.lat, clusters.n) : null;
-  const existing = improvedPoints(input.osm.waterPoints);
+  const existing = dedupe([...improvedPoints(input.osm.waterPoints), ...surveyed(input.waterPoints, (p) => USABLE.has(p.status))], scale);
+  const broken = dedupe(surveyed(input.waterPoints, (p) => p.status === "broken"), scale);
   const baseline = buildBaseline(clusters, existing, scale, routed ? graph : null, clusterSnap);
   return {
     scale,
@@ -134,6 +194,7 @@ function contextFrom(
     existing,
     rawSources: rawSourcesFrom(input.osm),
     institutions: [...input.osm.schools, ...input.osm.clinics],
+    broken,
     town: input.town,
     osm: input.osm,
     climate: input.climate,
@@ -182,6 +243,20 @@ function decide(stress: Evaluated[], futures: number): Evaluated | null {
   return [...stress].sort((a, b) => passes(b) - passes(a) || byValue(a.project, b.project))[0] ?? null;
 }
 
+/** Working and broken points within 3 km of a source, nearest first, capped for the payload. */
+function nearbyPoints(ctx: SimContext, source: LngLat): { lon: number; lat: number; working: boolean; kind: string }[] {
+  const within = (p: OsmPoint) => metres(ctx.scale, source[0], source[1], p.lon, p.lat);
+  return [
+    ...ctx.existing.map((p) => ({ p, working: true })),
+    ...(ctx.broken ?? []).map((p) => ({ p, working: false })),
+  ]
+    .map((e) => ({ ...e, d: within(e.p) }))
+    .filter((e) => e.d <= 3000)
+    .sort((a, b) => a.d - b.d)
+    .slice(0, 400)
+    .map((e) => ({ lon: +e.p.lon.toFixed(6), lat: +e.p.lat.toFixed(6), working: e.working, kind: e.p.kind }));
+}
+
 function emptyResult(reason: string, screened: number, opts: SimulationOptions): SimulationResult {
   return {
     version: 1,
@@ -211,7 +286,7 @@ function assumptions(
   const pct = (v: number) => `${Math.round(v * 100)}%`;
   return [
     `Households: ${ctx.clusters.buildings.toLocaleString("en-US")} mapped buildings (${source === "full" ? "every building OpenStreetMap has in the analysis area" : source === "local" ? "every building OpenStreetMap has around the shortlisted sites" : "the capped town-wide OpenStreetMap sample, scaled up; the full-detail fetch failed"}) grouped into ${ctx.clusters.n.toLocaleString("en-US")} clusters of 50 m, at ${ctx.clusters.peoplePerBuilding} people per building (census household size, one household per building) and ${LPD} L per person per day.`,
-    `Today: each cluster walks to its nearest well, borehole, spring or drinking-water tap along mapped streets and footpaths at ${BEHAVIOUR.walkingSpeedKmh.value} km/h. Clusters with none within reach are assumed to spend ${BEHAVIOUR.noSourceRoundTripMinutes.value} minutes per round trip at an unmapped source.`,
+    `Today: each cluster walks to the nearest of ${ctx.existing.length.toLocaleString("en-US")} water points people can use (${ctx.existing.filter((p) => p.id.startsWith("wpdx")).length.toLocaleString("en-US")} surveyed working in WPdx+, the rest wells, boreholes, springs and taps mapped in OpenStreetMap) along streets and footpaths at ${BEHAVIOUR.walkingSpeedKmh.value} km/h. Clusters with none within reach are assumed to spend ${BEHAVIOUR.noSourceRoundTripMinutes.value} minutes per round trip at an unmapped source.${(ctx.broken ?? []).length ? ` ${(ctx.broken ?? []).length.toLocaleString("en-US")} surveyed points reported broken are the rehabilitation targets.` : ""}`,
     `New taps are sited one at a time where they save the most walking for people not yet served, ${BEHAVIOUR.peoplePerTap.value} people each (${BEHAVIOUR.peoplePerTap.source}); queues follow from a ${BEHAVIOUR.tapFlowLitresPerMinute.value} L/min tap. Pipes follow the streets from the tank.`,
     `A cluster uses a new tap only when its round trip, queue included, beats today's. Queues at existing points are not modelled because their real capacity is unmapped.`,
     `Futures: ${opts.futures} seeded ten-year runs per stress-tested project. Existing points are out of service ${pct(r.shareExisting)} of the time, the new system ${pct(BEHAVIOUR.nonFunctionalShare.project)}; repairs take ${r.repairLow}-${r.repairHigh} weeks; households grow ${(r.growth * 100).toFixed(1)}% a year; rainfall varies up to ${pct(BEHAVIOUR.rainfallYearVariation.value)} a year and rainwater storage is simulated week by week.`,
@@ -383,6 +458,7 @@ export async function runSimulation(
       projects,
       recommendedId: best?.project.id ?? null,
       layout: best?.layout ?? null,
+      waterPoints: best ? nearbyPoints(ctx, best.project.source) : undefined,
       replay: best
         ? { ...best.model, projectId: best.project.id, seeds, passed: best.passed, designedServed: Math.round(best.designedServed) }
         : null,

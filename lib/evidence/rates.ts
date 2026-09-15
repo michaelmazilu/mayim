@@ -11,7 +11,6 @@
  */
 import { z } from "zod";
 import type { SimulationRates, TownRef } from "@/lib/types";
-import { BEHAVIOUR } from "@/lib/config/coefficients";
 import type { RawEvidence } from "@/lib/evidence/exa";
 import { callOpenAI, isLlmConfigured } from "@/lib/evidence/llm";
 import { defaultRates, ratesFromShares } from "@/lib/popsim/engine";

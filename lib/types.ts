@@ -534,6 +534,8 @@ export type SimulationResult = {
   recommendedId: string | null;
   layout: ConceptualLayoutData | null;
   replay: SimulationReplay | null;
+  /** Water points near the recommended source, for the map: why the site sits where it does. */
+  waterPoints?: { lon: number; lat: number; working: boolean; kind: string }[];
   assumptions: string[];
 };
 

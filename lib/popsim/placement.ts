@@ -39,6 +39,8 @@ export type PlaceCtx = {
   existing: OsmPoint[];
   rawSources: RawSource[];
   institutions: OsmPoint[];
+  /** Surveyed points reported broken: where rehabilitation is aimed when survey data exists. */
+  broken?: OsmPoint[];
 };
 
 export type Tap = { lon: number; lat: number; node: number };
@@ -148,6 +150,15 @@ export function anchorFor(type: InfrastructureType, cand: Candidate, ctx: PlaceC
       return make(p.lon, p.lat, "Tanker-filled storage beside the road");
     }
     case "borehole_rehabilitation": {
+      const isWell = (p: OsmPoint) => p.kind === "water_well" || p.kind === "borehole";
+      const broken = ctx.broken ?? [];
+      const restore = nearestOf(s, cand.lon, cand.lat, broken, REHAB_RADIUS_M, isWell);
+      if (restore) {
+        const what = restore.item.kind === "borehole" ? "borehole" : "well";
+        return make(restore.item.lon, restore.item.lat, `Restores a broken ${what}${restore.item.name ? ` (${restore.item.name})` : ""}`);
+      }
+      // With survey data, rehabilitation is aimed only at points reported broken.
+      if (broken.length > 0) return null;
       const hit = nearestOf(s, cand.lon, cand.lat, ctx.existing, REHAB_RADIUS_M, (p) =>
         p.kind === "water_well" || p.kind === "borehole",
       );

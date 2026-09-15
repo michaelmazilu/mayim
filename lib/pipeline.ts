@@ -35,6 +35,7 @@ import { buildConceptualLayout } from "@/lib/geospatial/layout";
 import { rankCandidates, scoreCandidate } from "@/lib/scoring/score";
 import { buildRecommendation } from "@/lib/infrastructure/select";
 import { fetchLocalOsm } from "@/lib/providers/local-osm";
+import { fetchWaterPointsIn } from "@/lib/providers/wpdx";
 import { deriveRates, extractRates } from "@/lib/evidence/rates";
 import { sourcedRates } from "@/lib/popsim/sourced-rates";
 import { LIVE_OPTIONS, runSimulation, type SimulationOptions, type SimulationRun } from "@/lib/popsim/scenarios";
@@ -138,12 +139,13 @@ export async function runAnalysis(inputTown: TownRef, emit: Emit, options: RunOp
   emit("environmental_risk", "Requesting terrain and climate", "active");
   emit("hydrogeology", "Searching groundwater sources", "active");
 
-  const [osm, climate, terrain, evidence, partnerSearch] = await Promise.all([
+  const [osm, climate, terrain, evidence, partnerSearch, surveyedPoints] = await Promise.all([
     options.preloaded ? Promise.resolve(options.preloaded.osm) : fetchOsm(town),
     options.preloaded ? Promise.resolve(options.preloaded.climate) : fetchClimate(town.center),
     options.preloaded ? Promise.resolve(options.preloaded.terrain) : fetchTerrain(town.bbox),
     searchEvidenceDetailed(town),
     discoverPartners(town.country),
+    fetchWaterPointsIn(town.bbox),
   ]);
 
   dataSources.push({
@@ -152,6 +154,13 @@ export async function runAnalysis(inputTown: TownRef, emit: Emit, options: RunOp
     detail: osm.degraded
       ? (osm.note ?? "Unavailable")
       : `${osm.roads.length} roads, ${osm.buildings.length} buildings, ${osm.schools.length + osm.clinics.length} facilities, ${osm.waterPoints.length} water points`,
+  });
+  dataSources.push({
+    name: "WPdx+ surveyed water points",
+    ok: surveyedPoints !== null,
+    detail: surveyedPoints
+      ? `${surveyedPoints.length.toLocaleString()} points · ${surveyedPoints.filter((p) => p.status === "working" || p.status === "needs_repair").length.toLocaleString()} working · ${surveyedPoints.filter((p) => p.status === "broken").length.toLocaleString()} broken`
+      : "Unavailable — mapped OpenStreetMap points only",
   });
   dataSources.push({
     name: "NASA POWER climatology",
@@ -301,7 +310,7 @@ export async function runAnalysis(inputTown: TownRef, emit: Emit, options: RunOp
       // Cited national and town figures first; a town's own sources override them when they state a figure.
       const townRates = deriveRates(extractedRates, evidence.items, sourcedRates(town));
       const sim = await runSimulation(
-        { town, osm, climate, candidates, ranked, rates: townRates.rates, rateNotes: townRates.notes },
+        { town, osm, climate, candidates, ranked, rates: townRates.rates, rateNotes: townRates.notes, waterPoints: surveyedPoints },
         options.simulation ?? LIVE_OPTIONS,
         { fetchLocal: fetchLocalOsm },
         (message, sourceCount) => emit("simulation", message, "active", sourceCount),
