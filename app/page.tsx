@@ -45,8 +45,11 @@ const REVEAL: { stage: MapStage; hold: number }[] = [
   { stage: "eliminated", hold: 460 },
   { stage: "heatmap", hold: 560 },
   { stage: "top3", hold: 1250 },
-  { stage: "tour3", hold: 2200 },
-  { stage: "tour2", hold: 2200 },
+  // Long enough to actually read the card: each runner-up states its score and
+  // the per-factor gap that cost it the recommendation, and two seconds is not
+  // enough time to take in a sentence and look at the site it describes.
+  { stage: "tour3", hold: 3800 },
+  { stage: "tour2", hold: 3800 },
   { stage: "winner", hold: 2400 },
   { stage: "design", hold: 0 },
 ];

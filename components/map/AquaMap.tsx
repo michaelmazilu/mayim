@@ -244,6 +244,7 @@ const LAYER = {
   taps: "aq-design-tap-circle",
   nodes: "aq-design-node-circle",
   nodeLabels: "aq-design-node-label",
+  tapLabels: "aq-design-tap-label",
   simHeat: "aq-sim-heat",
   simDots: "aq-sim-dots",
   simTaps: "aq-sim-tap-circle",
@@ -267,6 +268,8 @@ const INK_LAYERS: {
   { layer: LAYER.nodes, prop: "circle-stroke-color", key: "halo" },
   { layer: LAYER.nodeLabels, prop: "text-color", key: "ink" },
   { layer: LAYER.nodeLabels, prop: "text-halo-color", key: "halo" },
+  { layer: LAYER.tapLabels, prop: "text-color", key: "ink" },
+  { layer: LAYER.tapLabels, prop: "text-halo-color", key: "halo" },
   { layer: LAYER.simDots, prop: "circle-stroke-color", key: "halo" },
 ];
 
@@ -887,6 +890,7 @@ const OPACITY_TABLE: { layer: string; group: GroupKey; props: { prop: OpacityPro
     ],
   },
   { layer: LAYER.nodeLabels, group: "design", props: [{ prop: "text-opacity", max: 1 }] },
+  { layer: LAYER.tapLabels, group: "designTaps", props: [{ prop: "text-opacity", max: 0.9 }] },
   { layer: LAYER.simHeat, group: "simHeat", props: [{ prop: "heatmap-opacity", max: 0.8 }] },
   {
     layer: LAYER.simDots,
@@ -1520,6 +1524,36 @@ function installStyle(map: GLMap): void {
       "circle-stroke-opacity-transition": { duration: 600 },
     },
   });
+  /* Tap stands are the end of the chain the reader is being walked along —
+     source, treatment, tank, tap — and three labelled dots followed by a row of
+     unlabelled ones leaves the last step unexplained. Held back until the
+     camera is actually at the site, because at town zoom these are a cluster of
+     dots a few pixels apart and the labels are noise. */
+  add({
+    id: LAYER.tapLabels,
+    type: "symbol",
+    source: SOURCE.taps,
+    minzoom: 15.5,
+    layout: {
+      "text-field": "TAP",
+      "text-font": ["Noto Sans Regular"],
+      "text-size": 9.5,
+      "text-letter-spacing": 0.16,
+      "text-variable-anchor": ["bottom", "top", "right", "left"],
+      "text-radial-offset": 0.9,
+      "text-justify": "auto",
+      "text-allow-overlap": false,
+      "text-padding": 3,
+    },
+    paint: {
+      "text-color": INK,
+      "text-halo-color": HALO,
+      "text-halo-width": 2,
+      "text-opacity": 0,
+      "text-opacity-transition": { duration: 500 },
+    },
+  });
+
   add({
     id: LAYER.nodeLabels,
     type: "symbol",
@@ -1528,10 +1562,19 @@ function installStyle(map: GLMap): void {
       "text-field": ["upcase", ["get", "label"]],
       "text-font": ["Noto Sans Regular"],
       "text-size": 11,
-      "text-offset": [0, 1.5],
-      "text-anchor": "top",
       "text-letter-spacing": 0.18,
+      /* The source, tank and treatment unit sit tens of metres apart, so at the
+         zoom the design is framed at, three labels pinned below their dots
+         overlap — and a fixed anchor with collision detection resolves that by
+         dropping two of them. The reader then sees three identical white dots,
+         one of which says SOURCE, and no way to tell which is which. Letting
+         each label take whichever of the four positions is free keeps all three
+         on screen, which is the whole point of labelling them. */
+      "text-variable-anchor": ["top", "bottom", "left", "right"],
+      "text-radial-offset": 1.1,
+      "text-justify": "auto",
       "text-allow-overlap": false,
+      "text-padding": 3,
     },
     paint: {
       "text-color": INK,
