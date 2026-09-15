@@ -17,13 +17,18 @@ import { stageReached, type LayerId, type MapStage } from "./layers";
 // ---------------------------------------------------------------------------
 
 /**
- * Keyless satellite basemap.
+ * Satellite basemap.
  *
- * Esri World Imagery supplies the satellite raster and CARTO supplies dark
- * place labels; neither needs an API key, so the demo runs anywhere. Glyphs
- * come from the MapLibre demo font stack, which is why symbol layers below
- * use "Noto Sans Regular" rather than a Mapbox-hosted font.
+ * Esri World Imagery supplies the satellite raster (keyless). CARTO supplies
+ * ground/label tiles and now requires an API key (Aug 2026) — without one,
+ * tiles render with an "API KEY REQUIRED" watermark instead of failing.
+ * Glyphs come from the MapLibre demo font stack, which is why symbol layers
+ * below use "Noto Sans Regular" rather than a Mapbox-hosted font.
  */
+const CARTO_KEY_PARAM = process.env.NEXT_PUBLIC_CARTO_API_KEY
+  ? `?key=${process.env.NEXT_PUBLIC_CARTO_API_KEY}`
+  : "";
+
 /** Served from public/; see scripts/copy-maplibre-worker.mjs. */
 const MAPLIBRE_WORKER_URL = "/maplibre/maplibre-gl-worker.mjs";
 
@@ -55,14 +60,14 @@ const BASE_STYLE: maplibregl.StyleSpecification = {
        extra source and swap instantly. */
     "base-light": {
       type: "raster",
-      tiles: ["https://basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png"],
+      tiles: [`https://basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png${CARTO_KEY_PARAM}`],
       tileSize: 256,
       maxzoom: 19,
       attribution: BASE_ATTRIB,
     },
     "base-dark": {
       type: "raster",
-      tiles: ["https://basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png"],
+      tiles: [`https://basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png${CARTO_KEY_PARAM}`],
       tileSize: 256,
       maxzoom: 19,
       attribution: BASE_ATTRIB,
@@ -70,13 +75,13 @@ const BASE_STYLE: maplibregl.StyleSpecification = {
     /* Labels alone, re-drawn over imagery so place names survive it. */
     "labels-light": {
       type: "raster",
-      tiles: ["https://basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}@2x.png"],
+      tiles: [`https://basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}@2x.png${CARTO_KEY_PARAM}`],
       tileSize: 256,
       maxzoom: 19,
     },
     "labels-dark": {
       type: "raster",
-      tiles: ["https://basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}@2x.png"],
+      tiles: [`https://basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}@2x.png${CARTO_KEY_PARAM}`],
       tileSize: 256,
       maxzoom: 19,
     },
