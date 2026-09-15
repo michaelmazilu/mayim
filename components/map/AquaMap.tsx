@@ -65,7 +65,14 @@ const BASE_STYLE: maplibregl.StyleSpecification = {
         "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
       ],
       tileSize: 256,
-      maxzoom: 19,
+      /* 17, not 19. Esri has z18–19 imagery over cities but not over most rural
+         Africa — which is exactly where this tool is used. Asking for a tile
+         that does not exist there does not fail quietly: Esri answers with a
+         grey placeholder stamped "Map data not yet available", tiled across the
+         whole view at the closing zoom. Capping the source at the depth that
+         exists everywhere makes MapLibre upscale the z17 tile instead, which is
+         slightly soft and always shows the actual ground. */
+      maxzoom: 17,
       attribution: SATELLITE_ATTRIB,
     },
     /* Both grounds are in the style from the start, and the theme switches
@@ -2041,7 +2048,9 @@ export function AquaMap(props: {
     for (const coord of fit) bounds.extend(coord);
     map.fitBounds(bounds, {
       padding: 30,
-      maxZoom: 18.2,
+      // Half a zoom past the imagery's real depth is an imperceptible upscale;
+      // two full zooms past it is a blur.
+      maxZoom: 17.6,
       duration: 2600,
       pitch: 56,
       bearing: 12,
