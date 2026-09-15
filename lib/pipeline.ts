@@ -5,6 +5,7 @@ import type {
   CandidateFeatures,
   DataSourceStatus,
   EvidenceFinding,
+  EvidenceProvenance,
   TownRef,
   TrackId,
 } from "@/lib/types";
@@ -12,10 +13,19 @@ import { SERVICE, WATER, WEIGHTS, WEIGHT_LABELS } from "@/lib/config/coefficient
 import { fetchOsm } from "@/lib/providers/overpass";
 import { fetchClimate } from "@/lib/providers/climate";
 import { fetchTerrain } from "@/lib/providers/elevation";
-import { searchEvidence } from "@/lib/evidence/exa";
-import { isLlmConfigured, llmLabel, structureFindings, writeNarrative } from "@/lib/evidence/llm";
+import { fetchWorldPopWithin } from "@/lib/providers/worldpop";
+import { searchEvidenceDetailed, type EvidenceSearch } from "@/lib/evidence/exa";
+import { isLlmConfigured, llmLabel, writeNarrative } from "@/lib/evidence/llm";
+import { structureLive } from "@/lib/evidence/gather";
+import {
+  loadEvidenceSnapshot,
+  saveEvidenceSnapshot,
+  snapshotDateLabel,
+  type EvidenceSnapshot,
+} from "@/lib/evidence/snapshot";
 import { aggregateSignals, NEUTRAL_SIGNALS } from "@/lib/evidence/signals";
 import { demoEvidenceFor } from "@/lib/evidence/demo-evidence";
+import { discoverPartners, type PartnerSearch } from "@/lib/partners/discover";
 import { analysisRadiusM, generateCandidateGrid } from "@/lib/geospatial/candidates";
 import { buildFeatureContext, computeAllFeatures } from "@/lib/geospatial/features";
 import { estimatePopulationServed } from "@/lib/geospatial/population";
@@ -29,6 +39,21 @@ const UA = "Mayim/1.0 (hackathon pre-feasibility demo)";
 
 /** Planning figure: one community tap stand per this many people served. */
 const PEOPLE_PER_TAP = 250;
+
+/** Why a run has no live sources, in words a planner can act on. */
+function evidenceGap(search: EvidenceSearch): string {
+  if (search.status === "no_key") return "EXA_API_KEY not set";
+  if (search.status === "failed") return `Exa unreachable: ${search.error ?? "request failed"}`;
+  return "Exa returned no usable sources";
+}
+
+function partnerDetail(p: PartnerSearch): string {
+  const verified = p.partners.filter((x) => x.source === "verified").length;
+  if (p.status === "ok") return `${p.found} found by search + ${verified} verified`;
+  if (p.status === "no_key") return `${verified} verified organisations (search not configured)`;
+  if (p.status === "failed") return `Search failed (${p.error ?? "error"}) — ${verified} verified`;
+  return `No search finds — ${verified} verified`;
+}
 
 /** Fill in a population figure from OSM when the geocoder did not supply one. */
 async function enrichPopulation(town: TownRef): Promise<TownRef> {
@@ -94,11 +119,12 @@ export async function runAnalysis(inputTown: TownRef, emit: Emit): Promise<Analy
   emit("environmental_risk", "Requesting terrain and climate", "active");
   emit("hydrogeology", "Searching groundwater sources", "active");
 
-  const [osm, climate, terrain, rawEvidence] = await Promise.all([
+  const [osm, climate, terrain, evidence, partnerSearch] = await Promise.all([
     fetchOsm(town),
     fetchClimate(town.center),
     fetchTerrain(town.bbox),
-    searchEvidence(town),
+    searchEvidenceDetailed(town),
+    discoverPartners(town.country),
   ]);
 
   dataSources.push({
@@ -141,37 +167,78 @@ export async function runAnalysis(inputTown: TownRef, emit: Emit): Promise<Analy
   );
 
   // --- Evidence -------------------------------------------------------------
+  // Fallback chain: live search → saved snapshot of an earlier live search →
+  // bundled placeholders. Each rung is labelled so the UI never passes one off
+  // as another.
   let findings: EvidenceFinding[] = [];
-  let evidenceProvenance = "";
-  if (rawEvidence.length > 0) {
-    emit("hydrogeology", `${rawEvidence.length} sources retrieved`, "active", rawEvidence.length);
-    if (isLlmConfigured()) {
-      emit("water_access", "Extracting findings", "active");
-      findings = (await structureFindings(town, rawEvidence)) ?? [];
+  let evidenceProvenance: EvidenceProvenance = "bundled";
+  let evidenceDetail: string;
+  let structuredBy = "none";
+  let snapshot: EvidenceSnapshot | null = null;
+
+  if (evidence.items.length > 0) {
+    const widened = evidence.outcomes.filter((o) => o.tier === "broad" && o.results > 0).length;
+    emit(
+      "hydrogeology",
+      `${evidence.items.length} sources retrieved${widened ? ` · ${widened} topics widened to ${town.country ?? "region"}` : ""}`,
+      "active",
+      evidence.items.length,
+    );
+    emit("water_access", isLlmConfigured() ? "Extracting findings" : "Quoting source excerpts", "active");
+    ({ findings, structuredBy } = await structureLive(town, evidence.items));
+    evidenceProvenance = "live";
+    evidenceDetail = `${findings.length} findings from ${evidence.items.length} sources`;
+    if (structuredBy === "deterministic") {
+      warnings.push("Live sources were quoted without LLM structuring — they widen the evidence base but do not adjust factor scores.");
     }
-    if (findings.length === 0) {
-      warnings.push("Sources could not be structured — bundled reference evidence used.");
-      findings = demoEvidenceFor(town.slug);
-      evidenceProvenance = "bundled";
-    } else {
-      evidenceProvenance = "live";
-    }
+    await saveEvidenceSnapshot({
+      version: 1,
+      slug: town.slug,
+      displayName: town.displayName,
+      retrievedAt: new Date(startedAt).toISOString(),
+      structuredBy,
+      queries: evidence.outcomes,
+      findings,
+      partners: partnerSearch.partners,
+    });
   } else {
-    findings = demoEvidenceFor(town.slug);
-    evidenceProvenance = "bundled";
-    warnings.push("No live research (EXA_API_KEY missing or unreachable) — bundled sources used.");
+    const gap = evidenceGap(evidence);
+    snapshot = await loadEvidenceSnapshot(town.slug);
+    if (snapshot) {
+      findings = snapshot.findings;
+      evidenceProvenance = "snapshot";
+      structuredBy = snapshot.structuredBy;
+      evidenceDetail = `${gap} — ${findings.length} findings from saved search of ${snapshotDateLabel(snapshot)}`;
+      warnings.push(`No live research (${gap}) — sources from a saved live search of ${snapshotDateLabel(snapshot)} used.`);
+    } else {
+      findings = demoEvidenceFor(town.slug);
+      evidenceDetail = `${gap} — bundled evidence`;
+      warnings.push(`No live research (${gap}) — bundled sources used.`);
+    }
   }
 
-  dataSources.push({
-    name: "Exa research",
-    ok: evidenceProvenance === "live",
-    detail: evidenceProvenance === "live" ? `${findings.length} findings from ${rawEvidence.length} sources` : "Not configured — bundled evidence",
-  });
+  // A failed partner search on a snapshot town can still show the saved finds.
+  const partners =
+    partnerSearch.status !== "ok" && snapshot?.partners?.some((p) => p.source === "search")
+      ? snapshot.partners
+      : partnerSearch.partners;
+
+  dataSources.push({ name: "Exa research", ok: evidenceProvenance === "live", detail: evidenceDetail });
   dataSources.push({
     name: llmLabel().startsWith("OpenAI") ? llmLabel() : "LLM structured extraction",
-    ok: evidenceProvenance === "live" && isLlmConfigured(),
-    detail: isLlmConfigured() ? (evidenceProvenance === "live" ? "Findings classified" : "Configured, no live sources") : "Not configured — deterministic only",
+    ok: structuredBy.startsWith("llm") && evidenceProvenance === "live",
+    detail: !isLlmConfigured()
+      ? evidenceProvenance === "live"
+        ? "Not configured — source excerpts quoted verbatim"
+        : "Not configured"
+      : evidenceProvenance !== "live"
+        ? "Configured, no live sources"
+        : structuredBy.startsWith("llm")
+          ? "Findings classified"
+          : "Call failed — source excerpts quoted verbatim",
   });
+  dataSources.push({ name: "Partner discovery (Exa)", ok: partnerSearch.status === "ok", detail: partnerDetail(partnerSearch) });
+  emit("existing_infrastructure", `${partners.length} partner organisations`, "complete", partners.length);
 
   const signals = findings.length ? aggregateSignals(findings) : NEUTRAL_SIGNALS;
   emit("hydrogeology", `Groundwater confidence ${(signals.groundwater * 100).toFixed(0)}%`, "complete", findings.length);
@@ -215,6 +282,10 @@ export async function runAnalysis(inputTown: TownRef, emit: Emit): Promise<Analy
 
   // --- Population, layout, recommendation ----------------------------------
   const serviceRadiusM = SERVICE.walkingRadiusM;
+  // Independent gridded cross-check; runs while the layout, costing and narrative are built.
+  const worldpopPending = winner
+    ? fetchWorldPopWithin([winner.lon, winner.lat], serviceRadiusM)
+    : Promise.resolve(null);
   const population = estimatePopulationServed({
     town,
     osm,
@@ -378,6 +449,19 @@ export async function runAnalysis(inputTown: TownRef, emit: Emit): Promise<Analy
     narrative = `No viable site found near ${town.name} within the mapped constraints.`;
   }
 
+  const worldpop = await worldpopPending;
+  if (worldpop) {
+    population.worldpop = worldpop;
+    emit("population_access", `WorldPop ${worldpop.year}: ${worldpop.people.toLocaleString()} within ${serviceRadiusM} m`, "complete");
+  }
+  if (winner) {
+    dataSources.push({
+      name: "WorldPop gridded population",
+      ok: worldpop !== null,
+      detail: worldpop ? `${worldpop.people.toLocaleString()} people within ${serviceRadiusM} m (${worldpop.year})` : "Unavailable — building-based estimate only",
+    });
+  }
+
   const events: AnalysisEvent[] = [];
   return {
     version: 1,
@@ -389,7 +473,9 @@ export async function runAnalysis(inputTown: TownRef, emit: Emit): Promise<Analy
     climate,
     terrain,
     findings,
+    evidenceProvenance,
     signals,
+    partners,
     candidates,
     candidateCount: candidates.length,
     excludedCount,
