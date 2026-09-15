@@ -6,8 +6,9 @@
  * hand-written bundled placeholders: when the key is missing or Exa is down,
  * a demo town still shows genuine sources, labelled with their retrieval date.
  *
- * Written by `npm run evidence:refresh`, and by a town's first live run when it
- * has no snapshot yet. Live runs never overwrite an existing one.
+ * Written only by `npm run evidence:refresh`. Live runs read snapshots but never
+ * write them: the deployed filesystem is read-only, and locally it only left
+ * stray files behind for every town anyone searched.
  */
 
 import { promises as fs } from "node:fs";
