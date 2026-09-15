@@ -648,8 +648,8 @@ type GroupKey =
 const OPACITY_TABLE: { layer: string; group: GroupKey; props: { prop: OpacityProp; max: number }[] }[] = [
   { layer: LAYER.townFill, group: "town", props: [{ prop: "fill-opacity", max: 0.05 }] },
   { layer: LAYER.townLine, group: "town", props: [{ prop: "line-opacity", max: 0.6 }] },
-  { layer: LAYER.roads, group: "roads", props: [{ prop: "line-opacity", max: 0.72 }] },
-  { layer: LAYER.water, group: "water", props: [{ prop: "line-opacity", max: 0.85 }] },
+  { layer: LAYER.roads, group: "roads", props: [{ prop: "line-opacity", max: 0.85 }] },
+  { layer: LAYER.water, group: "water", props: [{ prop: "line-opacity", max: 0.9 }] },
   { layer: LAYER.buildings, group: "existing", props: [{ prop: "circle-opacity", max: 0.3 }] },
   {
     layer: LAYER.facilities,
@@ -902,8 +902,10 @@ function installStyle(map: GLMap): void {
     source: SOURCE.roads,
     layout: { "line-cap": "round", "line-join": "round" },
     paint: {
-      "line-color": "#9aa0a6",
-      "line-width": ["interpolate", ["linear"], ["zoom"], 10, 0.35, 14, 1.1, 17, 2.6],
+      /* Amber, not grey: the CARTO ground already draws its roads in grey, so a
+         grey overlay sat on top of them and toggling it changed nothing visible. */
+      "line-color": "#e0a030",
+      "line-width": ["interpolate", ["linear"], ["zoom"], 10, 0.6, 14, 1.8, 17, 3.6],
       "line-opacity": 0,
       "line-opacity-transition": { duration: 500 },
     },
@@ -914,8 +916,8 @@ function installStyle(map: GLMap): void {
     source: SOURCE.water,
     layout: { "line-cap": "round", "line-join": "round" },
     paint: {
-      "line-color": "#6b7075",
-      "line-width": ["interpolate", ["linear"], ["zoom"], 10, 0.8, 14, 2, 17, 4.5],
+      "line-color": "#17a8d6",
+      "line-width": ["interpolate", ["linear"], ["zoom"], 10, 1, 14, 2.6, 17, 5.5],
       "line-blur": 0.5,
       "line-opacity": 0,
       "line-opacity-transition": { duration: 500 },
