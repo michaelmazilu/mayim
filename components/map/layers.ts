@@ -46,7 +46,8 @@ export type MapStage =
   | "tour2"
   | "winner"
   | "design"
-  | "simulation";
+  | "simulation"
+  | "closing";
 
 export const STAGE_ORDER: MapStage[] = [
   "idle",
@@ -64,6 +65,9 @@ export const STAGE_ORDER: MapStage[] = [
   "design",
   /* Only reached when the run carries a replayable simulation. */
   "simulation",
+  /* The closing shot: back down onto the installation the whole run argued
+     for, after the ten years have played out across the town. */
+  "closing",
 ];
 
 /** Stage index helper so components can ask "have we reached X yet". */

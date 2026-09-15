@@ -55,13 +55,21 @@ const REVEAL: { stage: MapStage; hold: number }[] = [
 ];
 
 /**
- * With a replayable simulation the design holds long enough to be read, and
- * then the households take the map over and the ten years start to play.
+ * With a replayable simulation the run has three acts, and the holds are what
+ * separate them: the costed design on the ground, the ten years playing out
+ * across the whole town, and then the camera coming back down onto the thing
+ * that was actually being argued for.
+ *
+ * The design hold is the long one. It is the first time the reader sees a
+ * buildable system on real imagery — source, treatment, tank and taps, labelled
+ * and connected — and cutting away from it after a second and a half wastes the
+ * one frame the whole analysis was building towards.
  */
 const SIM_REVEAL: { stage: MapStage; hold: number }[] = [
   ...REVEAL.slice(0, -1),
-  { stage: "design", hold: 1500 },
-  { stage: "simulation", hold: 0 },
+  { stage: "design", hold: 4200 },
+  { stage: "simulation", hold: 15000 },
+  { stage: "closing", hold: 0 },
 ];
 
 /** The layer panel's footprint (16px inset + 178px + a 12px gap), which the playback dock keeps clear of. */

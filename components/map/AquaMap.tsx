@@ -1618,6 +1618,7 @@ export function AquaMap(props: {
   const flownTourRef = useRef<string | null>(null);
   const fittedTop3Ref = useRef<string | null>(null);
   const fittedDesignRef = useRef<string | null>(null);
+  const closedRef = useRef<string | null>(null);
   const fittedSimRef = useRef<string | null>(null);
   // The playback stream arrives outside React, so it reads the latest stage,
   // toggles and theme from refs that the choreography effect keeps current.
@@ -1916,7 +1917,10 @@ export function AquaMap(props: {
     if (flownTownRef.current === null) return; // never left home
     flownTownRef.current = null;
     flownWinnerRef.current = null;
+    flownTourRef.current = null;
+    fittedTop3Ref.current = null;
     fittedDesignRef.current = null;
+    closedRef.current = null;
     popupRef.current?.remove();
 
     const fly = (): void => {
@@ -2007,6 +2011,43 @@ export function AquaMap(props: {
       map.off("moveend", orbit);
     };
   }, [styleReady, stage, layers.design, normalizedLayout, town]);
+
+  // --- cinematic camera: the closing shot -----------------------------------
+
+  /* After the ten years have played out across the whole town, come back down
+     onto the installation they were playing out around. The simulation's own
+     framing is the town — it has to be, the households are everywhere — and
+     ending there leaves the run's last frame on a wide shot of dots rather than
+     on the thing being proposed. Tighter than the design fit, because by now
+     the reader knows what they are looking at and does not need the context. */
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !styleReady) return;
+    if (!stageReached(stage, "closing")) return;
+
+    const parts: LngLat[] = [
+      ...normalizedLayout.nodes.map((n): LngLat => [n.lon, n.lat]),
+      ...normalizedLayout.taps,
+      ...normalizedLayout.pipes.flat(),
+    ];
+    const fit = parts.length >= 2 ? parts : normalizedLayout.ring;
+    if (!fit || fit.length < 2) return;
+
+    const key = `${town?.slug ?? ""}:${fit.length}:${fit[0][0]},${fit[0][1]}`;
+    if (closedRef.current === key) return;
+    closedRef.current = key;
+
+    const bounds = new maplibregl.LngLatBounds(fit[0], fit[0]);
+    for (const coord of fit) bounds.extend(coord);
+    map.fitBounds(bounds, {
+      padding: 30,
+      maxZoom: 18.2,
+      duration: 2600,
+      pitch: 56,
+      bearing: 12,
+      essential: true,
+    });
+  }, [styleReady, stage, normalizedLayout, town]);
 
   // --- household simulation: the frame stream --------------------------------
   //
