@@ -1,15 +1,17 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { JSX } from "react";
+import type { CSSProperties, JSX } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { AquaMap } from "@/components/map/AquaMap";
 import { LayerControl } from "@/components/map/LayerControl";
-import type { LayerId, MapStage } from "@/components/map/layers";
+import { stageReached, type LayerId, type MapStage } from "@/components/map/layers";
 import { SearchModule } from "@/components/search/SearchModule";
 import { MissionPanel } from "@/components/analysis/MissionPanel";
 import { RecommendationPanel } from "@/components/recommendation/RecommendationPanel";
 import { ThemeSwitch } from "@/components/ui/ThemeSwitch";
+import { PlaybackBar } from "@/components/sim/PlaybackBar";
+import { useSimulationPlayback } from "@/components/sim/useSimulationPlayback";
 import type { AnalysisEvent, AnalysisRun, TownRef } from "@/lib/types";
 
 const DEFAULT_LAYERS: Record<LayerId, boolean> = {
@@ -23,8 +25,8 @@ const DEFAULT_LAYERS: Record<LayerId, boolean> = {
   water: true,
   existing: true,
   environment: true,
-  households: true,
   design: true,
+  simulation: true,
 };
 
 /**
@@ -42,15 +44,25 @@ const REVEAL: { stage: MapStage; hold: number }[] = [
   { stage: "candidates", hold: 560 },
   { stage: "eliminated", hold: 460 },
   { stage: "heatmap", hold: 560 },
-  // The household journeys are the simulation's whole argument, so they hold
-  // longer than any other build-up step: 661 lines need a beat to be read.
-  { stage: "households", hold: 1900 },
   { stage: "top3", hold: 1250 },
   { stage: "tour3", hold: 2200 },
   { stage: "tour2", hold: 2200 },
   { stage: "winner", hold: 2400 },
   { stage: "design", hold: 0 },
 ];
+
+/**
+ * With a replayable simulation the design holds long enough to be read, and
+ * then the households take the map over and the ten years start to play.
+ */
+const SIM_REVEAL: { stage: MapStage; hold: number }[] = [
+  ...REVEAL.slice(0, -1),
+  { stage: "design", hold: 1500 },
+  { stage: "simulation", hold: 0 },
+];
+
+/** The layer panel's footprint (16px inset + 178px + a 12px gap), which the playback dock keeps clear of. */
+const LAYER_PANEL_CLEARANCE = "206px";
 
 const PROVENANCE: Record<"live" | "cache" | "demo", { label: string; tone: string }> = {
   live: { label: "Live research", tone: "ok" },
@@ -100,10 +112,10 @@ export default function Page() {
   }, []);
 
   /** Walk the reveal sequence once results are in. */
-  const playReveal = useCallback(() => {
+  const playReveal = useCallback((withSimulation: boolean) => {
     clearTimers();
     let acc = 260;
-    for (const step of REVEAL) {
+    for (const step of withSimulation ? SIM_REVEAL : REVEAL) {
       timers.current.push(setTimeout(() => setStage(step.stage), acc));
       acc += step.hold;
     }
@@ -169,7 +181,7 @@ export default function Page() {
               setRun(finished);
               setProvenance(finished.provenance);
               setRunning(false);
-              playReveal();
+              playReveal(Boolean(finished.simulation?.replay));
             } else if (name === "error") {
               const e = payload as { message: string };
               setError(e.message);
@@ -197,12 +209,20 @@ export default function Page() {
     setRunning(false);
     setError(null);
     setProvenance(null);
+    setFocusCandidateId(null);
   };
 
   const toggleLayer = (id: LayerId) =>
     setLayers((prev) => ({ ...prev, [id]: !prev[id] }));
 
   const prov = provenance ? PROVENANCE[provenance] : null;
+
+  // The household simulation: one player per replay, running only while its
+  // stage is on screen. The page holds the player, never its per-week state,
+  // so a simulated week re-renders the playback bar and nothing else.
+  const replay = run?.simulation?.replay ?? null;
+  const simActive = replay !== null && stageReached(stage, "simulation") && layers.simulation;
+  const player = useSimulationPlayback(replay, { active: simActive });
 
   return (
     <>
@@ -359,7 +379,7 @@ export default function Page() {
             )}
           </AnimatePresence>
 
-          <div className="relative min-w-0 flex-1">
+          <div className="simview relative min-w-0 flex-1">
             <AquaMap
               town={town}
               run={run}
@@ -367,6 +387,7 @@ export default function Page() {
               stage={stage}
               layers={layers}
               focusCandidateId={focusCandidateId}
+              simulation={player}
             />
 
             {/* Landing */}
@@ -378,9 +399,29 @@ export default function Page() {
 
             {run && showLayers && (
               <div className="absolute bottom-4 left-4 z-20">
-                <LayerControl layers={layers} onToggle={toggleLayer} />
+                <LayerControl
+                  layers={layers}
+                  onToggle={toggleLayer}
+                  hidden={replay ? [] : ["simulation"]}
+                />
               </div>
             )}
+
+            <AnimatePresence>
+              {player && simActive && (
+                <motion.div
+                  key="simbar"
+                  className="simbar-dock"
+                  style={{ "--simbar-left": showLayers ? LAYER_PANEL_CLEARANCE : "16px" } as CSSProperties}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 8 }}
+                  transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  <PlaybackBar player={player} />
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
           <AnimatePresence initial={false}>

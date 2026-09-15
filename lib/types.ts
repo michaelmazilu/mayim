@@ -367,10 +367,10 @@ export type InfrastructureRecommendation = {
   confidence: number; // 0..1
   assumptions: string[];
   requiredValidation: string[];
-  /** Sized storage volume, litres. */
-  storageLiters: number;
+  /** Sized storage volume, litres. Absent on runs cached before the simulation existed. */
+  storageLiters?: number;
   /** Roof catchment, m2; 0 for every type except rainwater harvesting. */
-  catchmentM2: number;
+  catchmentM2?: number;
 };
 
 
@@ -439,6 +439,9 @@ export type SimulationRates = {
   shareExisting: number;
   repairLow: number;
   repairHigh: number;
+  /** Repair band for the new system when its maintenance differs from existing points; defaults to repairLow/High. */
+  projectRepairLow?: number;
+  projectRepairHigh?: number;
   growth: number;
 };
 
@@ -531,6 +534,8 @@ export type SimulationResult = {
   recommendedId: string | null;
   layout: ConceptualLayoutData | null;
   replay: SimulationReplay | null;
+  /** Water points near the recommended source, for the map: why the site sits where it does. */
+  waterPoints?: { lon: number; lat: number; working: boolean; kind: string }[];
   assumptions: string[];
 };
 
@@ -568,7 +573,8 @@ export type AnalysisRun = {
   population: PopulationEstimate;
   recommendation: InfrastructureRecommendation | null;
   layout: ConceptualLayoutData | null;
-  simulation: SimulationResult | null;
+  /** Absent on runs cached before the household simulation existed. */
+  simulation?: SimulationResult | null;
   /** Short plain-language summary; LLM-written when available, deterministic otherwise. */
   narrative: string;
   narrativeSource: "llm" | "deterministic";

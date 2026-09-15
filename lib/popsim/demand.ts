@@ -10,6 +10,8 @@ export const CLUSTER_M = 50;
 export const PEOPLE_PER_BUILDING = (SERVICE.peoplePerBuilding.low + SERVICE.peoplePerBuilding.high) / 2;
 
 export type Clusters = {
+  /** People assumed per mapped building (one household per building). */
+  peoplePerBuilding: number;
   n: number;
   lon: Float64Array;
   lat: Float64Array;
@@ -21,6 +23,7 @@ export function clusterBuildings(
   points: { lon: number; lat: number }[],
   buildingWeight: number,
   scale: Scale,
+  peoplePerBuilding: number = PEOPLE_PER_BUILDING,
 ): Clusters {
   const cells = new Map<string, { lon: number; lat: number; count: number; gx: number; gy: number }>();
   for (const p of points) {
@@ -44,8 +47,8 @@ export function clusterBuildings(
   list.forEach((c, i) => {
     lon[i] = c.lon / c.count;
     lat[i] = c.lat / c.count;
-    people[i] = c.count * buildingWeight * PEOPLE_PER_BUILDING;
+    people[i] = c.count * buildingWeight * peoplePerBuilding;
     buildings += c.count;
   });
-  return { n, lon, lat, people, buildings: Math.round(buildings * buildingWeight) };
+  return { peoplePerBuilding, n, lon, lat, people, buildings: Math.round(buildings * buildingWeight) };
 }

@@ -121,3 +121,52 @@ export async function fetchDistrictStatus(iso3: string): Promise<DistrictStatusR
   );
   return payload === null ? null : parseDistrictRows(payload);
 }
+
+// ---------------------------------------------------------------------------
+// Individual points inside a bounding box (household simulation)
+// ---------------------------------------------------------------------------
+
+export type SurveyedPoint = {
+  lon: number;
+  lat: number;
+  status: WaterPointStatus;
+  source: string;
+  tech: string;
+  reported?: string;
+};
+
+/**
+ * Every surveyed water point inside [west, south, east, north], with its
+ * functional status. Null when the API fails, so callers can tell "no points"
+ * from "could not ask".
+ */
+export async function fetchWaterPointsIn(
+  bbox: [number, number, number, number],
+  limit = 50_000,
+): Promise<SurveyedPoint[] | null> {
+  const [w, s, e, n] = bbox;
+  const params = new URLSearchParams({
+    $select: "lat_deg,lon_deg,status_clean,water_source_clean,water_tech_clean,report_date",
+    $where: `lat_deg between ${s} and ${n} and lon_deg between ${w} and ${e}`,
+    $limit: String(limit),
+  });
+  const rows = await fetchJson<unknown>(`${ENDPOINT}?${params.toString()}`, { headers: { Accept: "application/json" } }, TIMEOUT_MS);
+  if (!Array.isArray(rows)) return null;
+  const out: SurveyedPoint[] = [];
+  for (const row of rows) {
+    if (typeof row !== "object" || row === null) continue;
+    const r = row as Record<string, unknown>;
+    const lat = Number(r.lat_deg);
+    const lon = Number(r.lon_deg);
+    if (!Number.isFinite(lat) || !Number.isFinite(lon)) continue;
+    out.push({
+      lon,
+      lat,
+      status: classifyStatus(typeof r.status_clean === "string" ? r.status_clean : null),
+      source: typeof r.water_source_clean === "string" ? r.water_source_clean : "",
+      tech: typeof r.water_tech_clean === "string" ? r.water_tech_clean : "",
+      reported: typeof r.report_date === "string" ? r.report_date.slice(0, 10) : undefined,
+    });
+  }
+  return out;
+}

@@ -13,8 +13,8 @@ export type LayerId =
   | "water"
   | "existing"
   | "environment"
-  | "households"
-  | "design";
+  | "design"
+  | "simulation";
 
 export const LAYER_META: { id: LayerId; label: string }[] = [
   { id: "satellite", label: "Satellite" },
@@ -23,8 +23,8 @@ export const LAYER_META: { id: LayerId; label: string }[] = [
   { id: "water", label: "Waterways" },
   { id: "existing", label: "Existing service" },
   { id: "environment", label: "Constraints" },
-  { id: "households", label: "Household journeys" },
   { id: "design", label: "Conceptual design" },
+  { id: "simulation", label: "Household simulation" },
 ];
 
 /**
@@ -41,12 +41,12 @@ export type MapStage =
   | "candidates"
   | "eliminated"
   | "heatmap"
-  | "households"
   | "top3"
   | "tour3"
   | "tour2"
   | "winner"
-  | "design";
+  | "design"
+  | "simulation";
 
 export const STAGE_ORDER: MapStage[] = [
   "idle",
@@ -57,12 +57,13 @@ export const STAGE_ORDER: MapStage[] = [
   "candidates",
   "eliminated",
   "heatmap",
-  "households",
   "top3",
   "tour3",
   "tour2",
   "winner",
   "design",
+  /* Only reached when the run carries a replayable simulation. */
+  "simulation",
 ];
 
 /** Stage index helper so components can ask "have we reached X yet". */

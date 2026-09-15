@@ -464,7 +464,8 @@ describe("project brief", () => {
       assert.ok(md.includes(heading), heading);
     }
     assert.match(md, /Cost per person served/);
-    assert.match(md, /bundled reference sources/);
+    // The brief names where its evidence came from, whichever rung of the chain the snapshot used.
+    assert.match(md, /bundled reference sources|a saved earlier live Exa search|live Exa search during this run/);
   });
 
   test("reads figures from the run rather than recomputing them", () => {

@@ -53,7 +53,9 @@ export function RecommendationPanel(props: {
   const lat = winner ? winner.lat : run.town.center[1];
   const title = run.recommendation?.label ?? "No viable site identified";
 
-  const current = TABS.find((t) => t.id === active) ?? TABS[0];
+  // The simulation tab only exists for runs that carry a simulation.
+  const tabs = TABS.filter((t) => t.id !== "simulation" || run.simulation);
+  const current = tabs.find((t) => t.id === active) ?? tabs[0];
   const Body = current.Body;
 
   return (
@@ -96,8 +98,8 @@ export function RecommendationPanel(props: {
         aria-label="Recommendation sections"
         className="flex shrink-0 gap-0 overflow-x-auto border-b border-[color:var(--border)] px-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
-        {TABS.map((tab) => {
-          const isActive = tab.id === active;
+        {tabs.map((tab) => {
+          const isActive = tab.id === current.id;
           return (
             <button
               key={tab.id}

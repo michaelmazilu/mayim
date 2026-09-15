@@ -45,7 +45,6 @@ const TOWN: TownRef = {
 };
 
 /** The defaults' ratio of new-system to existing out-of-service share. */
-const RATIO = BEHAVIOUR.nonFunctionalShare.project / BEHAVIOUR.nonFunctionalShare.existing;
 
 type Field = ExtractedRates["sources"][number]["field"];
 
@@ -79,11 +78,19 @@ describe("deriveRates", () => {
     });
     const r = deriveRates(ex, RAW);
 
-    // Repair band [round(0.5 r), round(1.5 r)]; the new system keeps the defaults' share ratio.
-    assert.deepEqual(r.rates, ratesFromShares(0.32, 0.32 * RATIO, 3, 9, 0.041));
+    // Repair band [round(0.5 r), round(1.5 r)]. Evidence moves the existing points only: the new
+    // system's breakdowns come from its hardware class and its maintenance, not from this share.
+    assert.deepEqual(r.rates, {
+      ...defaultRates(),
+      shareExisting: 0.32,
+      failExisting: ratesFromShares(0.32, 0, 3, 9, 0.041).failExisting,
+      repairLow: 3,
+      repairHigh: 9,
+      growth: 0.041,
+    });
     // Down share s with mean repair r weeks implies weekly failure s / (r (1 - s)).
     assert.ok(Math.abs(r.rates.failExisting - 0.32 / (6 * (1 - 0.32))) < 1e-12);
-    assert.ok(Math.abs(r.rates.failProject - (0.32 * RATIO) / (6 * (1 - 0.32 * RATIO))) < 1e-12);
+    assert.equal(r.rates.failProject, defaultRates().failProject);
 
     assert.equal(r.notes.length, 3);
     for (const s of ex.sources) {
@@ -92,7 +99,7 @@ describe("deriveRates", () => {
       assert.ok(note, `a note quotes the ${s.field} source`);
       assert.ok(note.includes(doc.title) && note.includes(doc.url), `the ${s.field} note names its document`);
     }
-    assert.ok(r.notes.some((n) => n.includes("32%") && n.includes("12.8%")));
+    assert.ok(r.notes.some((n) => n.includes("32%")));
     assert.ok(r.notes.some((n) => n.includes("4.1% a year")));
     assert.ok(r.notes.some((n) => n.includes("3 to 9 weeks")));
     assert.ok(!r.notes.some((n) => n.includes("planning defaults")));
@@ -127,7 +134,14 @@ describe("deriveRates", () => {
       RAW,
     );
     // Share capped at 0.6, growth at 0.08, repair at 26 weeks -> band [13, 39].
-    assert.deepEqual(high.rates, ratesFromShares(0.6, 0.6 * RATIO, 13, 39, 0.08));
+    assert.deepEqual(high.rates, {
+      ...defaultRates(),
+      shareExisting: 0.6,
+      failExisting: ratesFromShares(0.6, 0, 13, 39, 0.08).failExisting,
+      repairLow: 13,
+      repairHigh: 39,
+      growth: 0.08,
+    });
     assert.equal(high.notes.length, 3);
     assert.ok(high.notes.every((n) => n.includes("limited to the accepted")));
 
@@ -136,7 +150,14 @@ describe("deriveRates", () => {
       RAW,
     );
     // Share raised to 0.05, growth to 0, repair to 1 week -> band [1, 2].
-    assert.deepEqual(low.rates, ratesFromShares(0.05, 0.05 * RATIO, 1, 2, 0));
+    assert.deepEqual(low.rates, {
+      ...defaultRates(),
+      shareExisting: 0.05,
+      failExisting: ratesFromShares(0.05, 0, 1, 2, 0).failExisting,
+      repairLow: 1,
+      repairHigh: 2,
+      growth: 0,
+    });
 
     const junk = deriveRates(
       extraction({ nonFunctionalShare: Number.NaN, annualGrowthRate: Number.POSITIVE_INFINITY, sources: all }),
@@ -259,5 +280,19 @@ describe("extractRates", () => {
       setFetch(failure);
       assert.equal(await extractRates(TOWN, RAW), null);
     }
+  });
+
+  test("a sourced base is used as-is without evidence and keeps the project's rates when evidence overrides", () => {
+    const base = {
+      rates: { ...defaultRates(), failProject: 0.021, projectRepairLow: 1, projectRepairHigh: 1, growth: 0.048 },
+      notes: ["sourced base"],
+    };
+    assert.deepEqual(deriveRates(null, RAW, base), base);
+    const r = deriveRates(extraction({ nonFunctionalShare: 0.3, annualGrowthRate: null, repairWeeks: null, sources: [cite("nonFunctionalShare", 0)] }), RAW, base);
+    assert.equal(r.rates.shareExisting, 0.3);
+    assert.equal(r.rates.failProject, 0.021);
+    assert.equal(r.rates.projectRepairHigh, 1);
+    assert.equal(r.rates.growth, 0.048);
+    assert.ok(r.notes.includes("sourced base"));
   });
 });

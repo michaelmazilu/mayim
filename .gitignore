@@ -48,3 +48,6 @@ data/runs/*.json
 !data/runs/.gitkeep
 # copied from node_modules by scripts/copy-maplibre-worker.mjs
 /public/maplibre/
+
+# household simulation: local Overpass response cache
+data/cache/
