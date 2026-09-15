@@ -94,7 +94,7 @@ Every key is optional; the app degrades explicitly rather than failing.
 
 Server keys are read only inside `app/api/*/route.ts` and the `lib/` modules they import — never in a client component, so they never reach the browser bundle, and they are never logged.
 
-**Evidence falls back in three labelled rungs:** a live Exa search → a saved snapshot of an earlier live search for that town (`data/evidence/<slug>.json`, written by every live run and by `npm run evidence:refresh`; commit these) → hand-written bundled reference sources. With an Exa key but no OpenAI key, live sources are shown as verbatim excerpts that widen the evidence base without adjusting factor scores. Town-level queries that come back thin are retried once at region/country level.
+**Evidence falls back in three labelled rungs:** a live Exa search → a saved snapshot of an earlier live search for that town (`data/evidence/<slug>.json`, seeded by a town's first live run and rewritten only by `npm run evidence:refresh`; commit these) → hand-written bundled reference sources. With an Exa key but no OpenAI key, live sources are shown as verbatim excerpts that widen the evidence base without adjusting factor scores. Town-level queries that come back thin are retried once at region/country level.
 
 **Without keys** the deterministic geospatial analysis still runs end to end on bundled reference evidence; without a Mapbox token the map renders an instruction panel instead of crashing and geocoding falls back to Nominatim. Every run is labelled with its provenance — `live`, `cache` (a stored run replayed from its real events), `demo`, or `partial`.
 
