@@ -143,8 +143,8 @@ function buildModel(
     rain:
       rec.type === "rainwater_harvesting"
         ? {
-            catchmentM2: rec.catchmentM2,
-            storageL: rec.storageLiters,
+            catchmentM2: rec.catchmentM2 ?? 0,
+            storageL: rec.storageLiters ?? 0,
             monthlyMmDay: ctx.climate.monthlyRainfallMmDay.slice(0, 12).map((v) => r1(Math.max(0, v))),
             runoff: WATER.runoffCoefficient,
           }

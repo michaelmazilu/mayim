@@ -367,10 +367,10 @@ export type InfrastructureRecommendation = {
   confidence: number; // 0..1
   assumptions: string[];
   requiredValidation: string[];
-  /** Sized storage volume, litres. */
-  storageLiters: number;
+  /** Sized storage volume, litres. Absent on runs cached before the simulation existed. */
+  storageLiters?: number;
   /** Roof catchment, m2; 0 for every type except rainwater harvesting. */
-  catchmentM2: number;
+  catchmentM2?: number;
 };
 
 
@@ -573,7 +573,8 @@ export type AnalysisRun = {
   population: PopulationEstimate;
   recommendation: InfrastructureRecommendation | null;
   layout: ConceptualLayoutData | null;
-  simulation: SimulationResult | null;
+  /** Absent on runs cached before the household simulation existed. */
+  simulation?: SimulationResult | null;
   /** Short plain-language summary; LLM-written when available, deterministic otherwise. */
   narrative: string;
   narrativeSource: "llm" | "deterministic";
