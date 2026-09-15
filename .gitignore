@@ -46,3 +46,5 @@ next-env.d.ts
 !.env.example
 data/runs/*.json
 !data/runs/.gitkeep
+# copied from node_modules by scripts/copy-maplibre-worker.mjs
+/public/maplibre/

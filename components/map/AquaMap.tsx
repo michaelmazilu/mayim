@@ -24,6 +24,9 @@ import { stageReached, type LayerId, type MapStage } from "./layers";
  * come from the MapLibre demo font stack, which is why symbol layers below
  * use "Noto Sans Regular" rather than a Mapbox-hosted font.
  */
+/** Served from public/; see scripts/copy-maplibre-worker.mjs. */
+const MAPLIBRE_WORKER_URL = "/maplibre/maplibre-gl-worker.mjs";
+
 const SATELLITE_ATTRIB =
   "Imagery &copy; Esri, Maxar, Earthstar Geographics | Basemap &copy; OpenStreetMap contributors, &copy; CARTO";
 
@@ -1315,6 +1318,13 @@ export function AquaMap(props: {
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
+
+    // MapLibre locates its worker beside its own module URL, which the bundler
+    // rewrites, so by default it spawns the worker from the page itself. Raster
+    // tiles still draw (they load on the main thread) but every GeoJSON overlay
+    // waits forever for a worker that never answers. The worker is copied into
+    // public/ by scripts/copy-maplibre-worker.mjs.
+    maplibregl.setWorkerUrl(MAPLIBRE_WORKER_URL);
 
     const map = new maplibregl.Map({
       container,
