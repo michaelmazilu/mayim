@@ -18,6 +18,7 @@ import type {
   TownRef,
 } from "@/lib/types";
 import { aggregateSignals, MAX_FACTOR_SHIFT, NEUTRAL_SIGNALS } from "@/lib/evidence/signals";
+import { loadEvidenceSnapshot } from "@/lib/evidence/snapshot";
 import { countryIso2, countryIso3 } from "@/lib/geo/countries";
 import { classifyStatus, parseDistrictRows, type DistrictStatusRow } from "@/lib/providers/wpdx";
 import { buildRegionalScan, rollupDistricts } from "@/lib/scan/regional";
@@ -30,6 +31,7 @@ import {
   type RawEvidence,
 } from "@/lib/evidence/exa";
 import {
+  canonicalPublisher,
   cleanTitle,
   leadingSentences,
   publisherFor,
@@ -314,6 +316,12 @@ describe("deterministic structuring", () => {
     assert.equal(cleanTitle("Gulu water project", "u", "X", "infrastructure"), "Gulu water project");
   });
 
+  test("canonical publisher prefers the table, else the given reading", () => {
+    assert.equal(canonicalPublisher("https://link.springer.com/article/1", "link.springer.com"), "Springer");
+    assert.equal(canonicalPublisher("https://obscure.example.org/x", "Obscure Institute"), "Obscure Institute");
+    assert.equal(canonicalPublisher("https://obscure.example.org/x", "  "), "obscure.example.org");
+  });
+
   test("findings quote the excerpt, carry no score impact and stay under the ceiling", () => {
     const findings = structureDeterministically(
       [raw(), raw({ url: "https://news.example.com/a", highlights: ["Unrelated town."] })],
@@ -331,6 +339,19 @@ describe("deterministic structuring", () => {
     const text = "First sentence is here. Second sentence is also here. Third one would overflow the limit entirely.";
     assert.equal(leadingSentences(text, 60), "First sentence is here. Second sentence is also here.");
     assert.equal(leadingSentences("Short.", 60), "Short.");
+  });
+});
+
+describe("evidence snapshots", () => {
+  test("committed demo snapshots load with canonical publisher names", async () => {
+    for (const slug of ["kisumu-kenya", "tamale-ghana"]) {
+      const snap = await loadEvidenceSnapshot(slug);
+      assert.ok(snap && snap.findings.length > 0, slug);
+      for (const f of snap.findings) {
+        assert.equal(f.sourceName, canonicalPublisher(f.sourceUrl, f.sourceName), f.sourceUrl);
+        assert.doesNotMatch(f.sourceName, /^(link\.springer\.com|documents1\.worldbank\.org|earthwise\.bgs\.ac\.uk)$/);
+      }
+    }
   });
 });
 

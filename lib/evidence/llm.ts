@@ -16,6 +16,7 @@ import type {
   TownRef,
 } from "@/lib/types";
 import type { RawEvidence } from "@/lib/evidence/exa";
+import { canonicalPublisher, publisherFor } from "@/lib/evidence/structure";
 
 const ENDPOINT = "https://api.openai.com/v1/chat/completions";
 const DEFAULT_MODEL = "gpt-4.1-mini";
@@ -164,7 +165,7 @@ export async function structureFindings(
     index: i,
     retrievedFor: r.category,
     title: r.title,
-    publisherHint: new URL(r.url).hostname.replace(/^www\./, ""),
+    publisherHint: publisherFor(r.url),
     publishedDate: r.publishedDate ?? null,
     excerpt: (r.highlights.join(" ") || r.text || "").slice(0, 1400),
   }));
@@ -206,7 +207,7 @@ export async function structureFindings(
       category: f.category,
       title: f.title.slice(0, 200),
       summary: f.summary.slice(0, 240),
-      sourceName: f.sourceName.slice(0, 120),
+      sourceName: canonicalPublisher(src.url, f.sourceName).slice(0, 120),
       sourceUrl: src.url,
       publishedDate: src.publishedDate,
       confidence: clamp(f.confidence, 0, 1),
