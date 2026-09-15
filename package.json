@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "test": "node --import tsx --test lib/__tests__/*.test.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "evidence:refresh": "node --env-file-if-exists=.env.local --import tsx scripts/refresh-evidence.ts"
   },
   "dependencies": {
     "@turf/turf": "^7.4.0",

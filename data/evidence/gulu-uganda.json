@@ -1,0 +1,401 @@
+{
+  "version": 1,
+  "slug": "gulu-uganda",
+  "displayName": "Gulu, Uganda",
+  "retrievedAt": "2026-09-15T16:50:13.555Z",
+  "structuredBy": "deterministic",
+  "queries": [
+    {
+      "category": "water_need",
+      "tier": "town",
+      "query": "Assessment of drinking water access and unserved households in Gulu, Uganda",
+      "results": 5
+    },
+    {
+      "category": "hydrogeology",
+      "tier": "town",
+      "query": "Hydrogeology and groundwater potential of Gulu, Uganda: aquifers, borehole yields and depth to water",
+      "results": 5
+    },
+    {
+      "category": "environment",
+      "tier": "town",
+      "query": "Flooding, drought and water quality contamination risks in Gulu, Uganda",
+      "results": 5
+    },
+    {
+      "category": "infrastructure",
+      "tier": "town",
+      "query": "Water supply projects, boreholes and piped schemes built or planned in Gulu, Uganda",
+      "results": 5
+    }
+  ],
+  "findings": [
+    {
+      "id": "f00",
+      "category": "water_need",
+      "title": "World Bank — water access document",
+      "summary": "“DISTANCE TO NEAREST WATER SOURCE .................................................................. 202 ... The water supply system in Gulu covers the entire municipality and part of its surrounding peri-urban communities ...”",
+      "sourceName": "World Bank",
+      "sourceUrl": "https://documents1.worldbank.org/curated/en/929471598418857476/txt/Environmental-and-Social-Impact-Assessment-for-Karuma-Gulu-Water-Supply-Project.txt",
+      "confidence": 0.65
+    },
+    {
+      "id": "f01",
+      "category": "hydrogeology",
+      "title": "Permeability of the weathered bedrock aquifers in Uganda: evidence from a large pumping-test dataset and its implications for rural water supply | Hydrogeology Journal | Springer Nature Link",
+      "summary": "“5 m2/d). Pairwise comparisons indicate statistical significance in transmissivity across the categories, with slightly higher transmissivity values where borehole depths are <50 m (Table 5).”",
+      "sourceName": "Springer",
+      "sourceUrl": "https://link.springer.com/article/10.1007/s10040-022-02534-0",
+      "confidence": 0.6,
+      "publishedDate": "2022-09-30"
+    },
+    {
+      "id": "f02",
+      "category": "environment",
+      "title": "Predictors of Water Point Sustainability and Water Quality in Gulu, Uganda | Journal of Water Resources Planning and Management | Vol 152, No 6",
+      "summary": "“and length of breakdowns is essential to sustain functioning water systems, remediate nonfunctioning systems, and maintain water safety of nonpiped water sources in sub-Saharan Africa.”",
+      "sourceName": "ASCE Library",
+      "sourceUrl": "https://ascelibrary.org/doi/10.1061/JWRMD5.WRENG-7044",
+      "confidence": 0.55,
+      "publishedDate": "2026-06-01"
+    },
+    {
+      "id": "f03",
+      "category": "infrastructure",
+      "title": "Gulu City's Sh2.1b clean water project to supply over 400,000, save extinction of natural dams – Daily Express",
+      "summary": "“Gulu City, Uganda: In January 2025, the Ministry of Water and Environment, together with the National Water and Sewerage Corporation (NWSC), launched a Sh.”",
+      "sourceName": "dailyexpress.co.ug",
+      "sourceUrl": "https://dailyexpress.co.ug/2025/08/15/gulu-citys-sh2-1b-clean-water-project-to-supply-over-400000-save-extinction-of-natural-dams/",
+      "confidence": 0.4,
+      "publishedDate": "2025-08-15"
+    },
+    {
+      "id": "f04",
+      "category": "water_need",
+      "title": "Uganda: Gulu District - Water Sources by Operational Status & Accessibility (June 2010) - Uganda | ReliefWeb",
+      "summary": "“org/. ## Related Content Activities will include constructing at least 100 new classrooms, training nearly 1,000 teachers and building more than 480 gender sensitive sanitation facilities in schools.”",
+      "sourceName": "ReliefWeb (UN OCHA)",
+      "sourceUrl": "https://reliefweb.int/map/uganda/uganda-gulu-district-water-sources-operational-status-accessibility-june-2010",
+      "confidence": 0.65
+    },
+    {
+      "id": "f05",
+      "category": "hydrogeology",
+      "title": "Hydrogeology of Uganda - BGS Earthwise - British Geological Survey",
+      "summary": "“can range from 1 to 45 m, but is typically 5-20 m below the ground surface. The aquifers are typically between 20 and 45 ... Most of the rural population relies on groundwater, dominantly from shared boreholes equipped with handpumps.”",
+      "sourceName": "British Geological Survey",
+      "sourceUrl": "https://earthwise.bgs.ac.uk/index.php/Hydrogeology_of_Uganda",
+      "confidence": 0.6,
+      "publishedDate": "2023-12-19"
+    },
+    {
+      "id": "f06",
+      "category": "environment",
+      "title": "Surface-derived groundwater contamination in Gulu District, Uganda: Chemical and microbial tracers | Gulu University",
+      "summary": "“(NO3−, SO42−, Cl/Br) from various sources: boreholes (12–76 m depth; n = 90), protected springs (n = 11) and municipal taps (n = 4). 05). Interestingly, human and animal waste indicators E.”",
+      "sourceName": "Gulu University",
+      "sourceUrl": "https://gu.ac.ug/publication/surface-derived-groundwater-contamination-in-gulu-district-uganda-chemical-and-microbial-tracers/",
+      "confidence": 0.55,
+      "publishedDate": "2025-08-14"
+    },
+    {
+      "id": "f07",
+      "category": "infrastructure",
+      "title": "Gulu Water Supply and Sanitation Project (GWSSP) | Gulu City",
+      "summary": "“Government through National Water and Sewerage Corporation (NWSC) has started construction of a Gulu Water Supply and Sanitation project to serve over 341,000 people in Gulu, Karuma, Kamdini, Minakulu, Bobi, Palenga, Koro- Abili and the…”",
+      "sourceName": "Gulu City Council",
+      "sourceUrl": "https://mail.gulucity.go.ug/projects/gulu-water-supply-and-sanitation-project-gwssp",
+      "confidence": 0.55
+    },
+    {
+      "id": "f08",
+      "category": "water_need",
+      "title": "Skybird Bird Project Transforms Lives With Access To Clean Water In Gulu District - Uganda | ReliefWeb",
+      "summary": "“In 2022, URCS with support from the Austrian Development Cooperation through the Austrian Red Cross, conducted a comprehensive Water Hygiene and Sanitation (WASH) assessment in Gulu District.”",
+      "sourceName": "ReliefWeb (UN OCHA)",
+      "sourceUrl": "https://reliefweb.int/report/uganda/skybird-bird-project-transforms-lives-access-clean-water-gulu-district",
+      "confidence": 0.65,
+      "publishedDate": "2023-07-08"
+    },
+    {
+      "id": "f09",
+      "category": "hydrogeology",
+      "title": "Case Study Water Point Failure Uganda",
+      "summary": "“In both districts, most water points are deep boreholes (ranging from 15 to 100 m deep overall, but most are 40 to 60 m deep) fitted with hand pumps, of which 90% are community managed.”",
+      "sourceName": "British Geological Survey",
+      "sourceUrl": "https://earthwise.bgs.ac.uk/index.php/Case_Study_Water_Point_Failure_Uganda",
+      "confidence": 0.6
+    },
+    {
+      "id": "f10",
+      "category": "environment",
+      "title": "Thousands in Gulu City drink contaminated water – tndNews, Uganda",
+      "summary": "“Okeng told TND News that the communities are facing challenges of unclean water during the rainy season, with floods at all water sources.”",
+      "sourceName": "tndnewsuganda.com",
+      "sourceUrl": "https://tndnewsuganda.com/2022/03/thousands-in-gulu-city-drinks-contaminated-water/",
+      "confidence": 0.4,
+      "publishedDate": "2022-03-26"
+    },
+    {
+      "id": "f11",
+      "category": "infrastructure",
+      "title": "Karuma-Gulu water project to be complete by end of this year",
+      "summary": "“Gulu, Uganda | THE INDEPENDENT | The multi-billion shillings Karuma-Gulu water project construction works kicked off in August 2022 with joint funding from the government of Uganda and Kfw and a loan from the World Bank.”",
+      "sourceName": "The Independent (Uganda)",
+      "sourceUrl": "https://www.independent.co.ug/karuma-gulu-water-project-to-be-complete-by-end-of-this-year/",
+      "confidence": 0.4,
+      "publishedDate": "2024-12-04"
+    },
+    {
+      "id": "f12",
+      "category": "water_need",
+      "title": "ReliefWeb (UN OCHA) — water access document",
+      "summary": "“6%) collected most drinking water from an apparently protected source; however, water quantity was below the minimum standard 15 L per person per day and collection times were high (Table 1).  Table 14.”",
+      "sourceName": "ReliefWeb (UN OCHA)",
+      "sourceUrl": "https://reliefweb.int/attachments/47f2c433-7b3c-320f-a3f6-2515bedd8d1f/461F14718C3CD52885257077006E2350-govuga-uga-31jul.pdf",
+      "confidence": 0.65
+    },
+    {
+      "id": "f13",
+      "category": "hydrogeology",
+      "title": "Borehole and transmissivity dataset, Uganda | Our data | British Geological Survey (BGS)",
+      "summary": "“2000 to 2018. In total over 1000 paper borehole records were initially collated and reviewed. This work was carried out over several months visiting the district water offices.”",
+      "sourceName": "British Geological Survey",
+      "sourceUrl": "https://www2.bgs.ac.uk/nationalgeosciencedatacentre/citedData/catalogue/f99ff6c7-ce82-4011-ac3e-9328d7db3502.html",
+      "confidence": 0.6
+    },
+    {
+      "id": "f14",
+      "category": "environment",
+      "title": "Gulu Integrated Catchment Management Partnership in Uganda unites forces for catchment protection - NatuReS",
+      "summary": "“Gulu City lies within the Albert Nile and Aswa Catchments of the Upper Nile Water Management Zone. Both catchments are characterized by high vulnerability to dry spells.”",
+      "sourceName": "nature-stewardship.org",
+      "sourceUrl": "https://nature-stewardship.org/uncategorized/development-and-validation-of-the-water-source-protection-implementation-plan-for-oyitino-micro-catchment-in-gulu-city-uganda/",
+      "confidence": 0.4,
+      "publishedDate": "2022-03-17"
+    },
+    {
+      "id": "f15",
+      "category": "infrastructure",
+      "title": "Gulu district to rehabilitate war time piped water schemes",
+      "summary": "“5 billion shillings to rehabilitate and upgrade six abandoned piped water schemes originally set up to serve Internally Displaced Persons (IDPs) during the Lord’s Resistance Army (LRA) insurgency.”",
+      "sourceName": "The Independent (Uganda)",
+      "sourceUrl": "https://www.independent.co.ug/gulu-district-to-rehabilitate-war-time-piped-water-schemes/",
+      "confidence": 0.4,
+      "publishedDate": "2024-12-29"
+    }
+  ],
+  "partners": [
+    {
+      "name": "Ministry of Water and Environment",
+      "kind": "government",
+      "country": "UG",
+      "url": "https://www.mwe.go.ug/",
+      "description": "Government ministry responsible for national water policy, standards, sector performance reporting and rural water investment.",
+      "focus": [
+        "policy",
+        "funding"
+      ],
+      "id": "verified-ug-ministry-of-water-and-environment",
+      "source": "verified",
+      "lastVerified": "2026-09-15"
+    },
+    {
+      "name": "National Water and Sewerage Corporation (NWSC)",
+      "kind": "utility",
+      "country": "UG",
+      "url": "https://www.nwsc.co.ug/",
+      "description": "State-owned utility operating piped water and sewerage in Ugandan towns, including a service area in Gulu City.",
+      "focus": [
+        "piped_schemes",
+        "water_quality",
+        "maintenance"
+      ],
+      "id": "verified-ug-national-water-and-sewerage-corporation-nwsc",
+      "source": "verified",
+      "lastVerified": "2026-09-15"
+    },
+    {
+      "name": "WaterAid Uganda",
+      "kind": "ngo",
+      "country": "UG",
+      "url": "https://www.wateraid.org/",
+      "countryUrl": "https://www.wateraid.org/ug",
+      "description": "WaterAid's Uganda programme, working with government and communities on water supply, sanitation and hygiene services.",
+      "focus": [
+        "piped_schemes",
+        "sanitation",
+        "policy"
+      ],
+      "id": "verified-ug-wateraid-uganda",
+      "source": "verified",
+      "lastVerified": "2026-09-15"
+    },
+    {
+      "name": "Water For People Uganda",
+      "kind": "ngo",
+      "country": "UG",
+      "url": "https://www.waterforpeople.org/uganda/",
+      "description": "Supports piped water systems and a private-sector service model in Kamwenge and Luuka districts, plus sanitation programmes.",
+      "focus": [
+        "piped_schemes",
+        "sanitation",
+        "maintenance"
+      ],
+      "id": "verified-ug-water-for-people-uganda",
+      "source": "verified",
+      "lastVerified": "2026-09-15"
+    },
+    {
+      "name": "Whave Solutions",
+      "kind": "ngo",
+      "country": "UG",
+      "url": "https://www.whave.org/",
+      "description": "Signs preventive-maintenance agreements with communities and district governments to keep handpumps and piped systems running.",
+      "focus": [
+        "maintenance",
+        "handpumps",
+        "piped_schemes"
+      ],
+      "id": "verified-ug-whave-solutions",
+      "source": "verified",
+      "lastVerified": "2026-09-15"
+    },
+    {
+      "name": "UWASNET",
+      "kind": "network",
+      "country": "UG",
+      "url": "https://uwasnet.org/",
+      "description": "Uganda Water and Sanitation NGO Network — umbrella body linking civil-society WASH organisations with central and local government.",
+      "focus": [
+        "policy"
+      ],
+      "id": "verified-ug-uwasnet",
+      "source": "verified",
+      "lastVerified": "2026-09-15"
+    },
+    {
+      "name": "Evidence Action — Dispensers for Safe Water",
+      "kind": "ngo",
+      "country": "UG",
+      "url": "https://www.evidenceaction.org/programs/safe-water-now",
+      "countryUrl": "https://www.evidenceaction.org/where-we-work/uganda",
+      "description": "Installs and maintains free chlorine dispensers at rural water points in Uganda to disinfect water at the source.",
+      "focus": [
+        "water_quality",
+        "maintenance"
+      ],
+      "id": "verified-ug-evidence-action-dispensers-for-safe-water",
+      "source": "verified",
+      "lastVerified": "2026-09-15"
+    },
+    {
+      "name": "Water Mission Uganda",
+      "kind": "ngo",
+      "country": "UG",
+      "url": "https://watermission.org/",
+      "countryUrl": "https://watermission.org/about/offices/uganda",
+      "description": "Engineering NGO building solar-powered piped water systems in Uganda, including in refugee-hosting areas.",
+      "focus": [
+        "solar_pumping",
+        "piped_schemes",
+        "emergency"
+      ],
+      "id": "verified-ug-water-mission-uganda",
+      "source": "verified",
+      "lastVerified": "2026-09-15"
+    },
+    {
+      "name": "Water.org",
+      "kind": "funder",
+      "country": "UG",
+      "url": "https://water.org/",
+      "countryUrl": "https://water.org/our-impact/where-we-work/uganda/",
+      "description": "Partners with Ugandan lenders to offer small loans for household water and sanitation improvements.",
+      "focus": [
+        "funding",
+        "sanitation"
+      ],
+      "id": "verified-ug-water-org",
+      "source": "verified",
+      "lastVerified": "2026-09-15"
+    },
+    {
+      "id": "search-wellsoflife.org",
+      "name": "Wells of Life, Inc.",
+      "kind": "ngo",
+      "country": "UG",
+      "url": "https://www.wellsoflife.org/",
+      "description": "Wells of Life is a 501(c)(3) non-profit Christian organization whose mission is to provide rural Ugandans access to safe, clean water through the installation or restoration of sustainable borehole…",
+      "focus": [
+        "boreholes",
+        "piped_schemes",
+        "maintenance",
+        "sanitation"
+      ],
+      "source": "search"
+    },
+    {
+      "id": "search-running-well.org",
+      "name": "Running Well",
+      "kind": "ngo",
+      "country": "UG",
+      "url": "https://www.running-well.org/",
+      "description": "Well is a charitable foundation which provides communities living in remote and deprived parts of Uganda with access to clean water.",
+      "focus": [
+        "funding"
+      ],
+      "source": "search"
+    },
+    {
+      "name": "WaterAid",
+      "kind": "ngo",
+      "country": "global",
+      "url": "https://www.wateraid.org/",
+      "description": "International NGO working across sub-Saharan Africa on water supply, sanitation and hygiene services and on WASH sector policy and advocacy.",
+      "focus": [
+        "piped_schemes",
+        "sanitation",
+        "policy",
+        "water_quality"
+      ],
+      "id": "verified-global-wateraid",
+      "source": "verified",
+      "lastVerified": "2026-09-15"
+    },
+    {
+      "name": "charity: water",
+      "kind": "funder",
+      "country": "global",
+      "url": "https://www.charitywater.org/",
+      "description": "Funds construction and rehabilitation of boreholes, wells and piped systems delivered by local implementing partners across sub-Saharan Africa.",
+      "focus": [
+        "boreholes",
+        "handpumps",
+        "rainwater",
+        "piped_schemes",
+        "funding"
+      ],
+      "id": "verified-global-charity-water",
+      "source": "verified",
+      "lastVerified": "2026-09-15"
+    },
+    {
+      "name": "UNICEF WASH",
+      "kind": "multilateral",
+      "country": "global",
+      "url": "https://www.unicef.org/water-sanitation-and-hygiene-wash",
+      "description": "Supports government WASH systems, emergency water response, and water-quality and sanitation programming across sub-Saharan Africa.",
+      "focus": [
+        "emergency",
+        "sanitation",
+        "policy",
+        "water_quality"
+      ],
+      "id": "verified-global-unicef-wash",
+      "source": "verified",
+      "lastVerified": "2026-09-15"
+    }
+  ]
+}

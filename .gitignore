@@ -43,5 +43,6 @@ next-env.d.ts
 # Mayim
 .env.local
 .env
+!.env.example
 data/runs/*.json
 !data/runs/.gitkeep
