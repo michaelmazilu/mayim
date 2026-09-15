@@ -13,7 +13,8 @@ export type LayerId =
   | "water"
   | "existing"
   | "environment"
-  | "design";
+  | "design"
+  | "simulation";
 
 export const LAYER_META: { id: LayerId; label: string }[] = [
   { id: "satellite", label: "Satellite" },
@@ -23,6 +24,7 @@ export const LAYER_META: { id: LayerId; label: string }[] = [
   { id: "existing", label: "Existing service" },
   { id: "environment", label: "Constraints" },
   { id: "design", label: "Conceptual design" },
+  { id: "simulation", label: "Household simulation" },
 ];
 
 export type MapStage =
@@ -36,7 +38,8 @@ export type MapStage =
   | "heatmap"
   | "top3"
   | "winner"
-  | "design";
+  | "design"
+  | "simulation";
 
 export const STAGE_ORDER: MapStage[] = [
   "idle",
@@ -50,6 +53,8 @@ export const STAGE_ORDER: MapStage[] = [
   "top3",
   "winner",
   "design",
+  /* Only reached when the run carries a replayable simulation. */
+  "simulation",
 ];
 
 /** Stage index helper so components can ask "have we reached X yet". */
