@@ -181,6 +181,7 @@ export default function Page() {
     setRunning(false);
     setError(null);
     setProvenance(null);
+    setFocusCandidateId(null);
   };
 
   const toggleLayer = (id: LayerId) =>
