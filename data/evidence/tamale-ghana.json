@@ -2,8 +2,8 @@
   "version": 1,
   "slug": "tamale-ghana",
   "displayName": "Tamale, Tamale Metropolitan District, Northern Region, NT-0148-3057, Ghana",
-  "retrievedAt": "2026-09-15T16:50:15.423Z",
-  "structuredBy": "deterministic",
+  "retrievedAt": "2026-09-15T17:03:41.447Z",
+  "structuredBy": "llm:gpt-4.1-mini",
   "queries": [
     {
       "category": "water_need",
@@ -15,7 +15,7 @@
       "category": "hydrogeology",
       "tier": "town",
       "query": "Hydrogeology and groundwater potential of Tamale, Northern Region, Ghana: aquifers, borehole yields and depth to water",
-      "results": 4
+      "results": 5
     },
     {
       "category": "environment",
@@ -34,156 +34,202 @@
     {
       "id": "f00",
       "category": "water_need",
-      "title": "Rural and small towns water services: Northern Region",
-      "summary": "“Fact sheet providing an overview of ... It is the result of the 2014 service monitoring round executed by the Community Water and SanitationAgency (CWSA) in collaboration with Metropolitan, Municipal and District Assemblies (MMDAs). gh).”",
-      "sourceName": "IRC WASH",
+      "title": "Overview of rural and small towns water services in Northern Region",
+      "summary": "The 2014 service monitoring round assessed rural and small towns water services in Northern Region of Ghana.",
+      "sourceName": "ircwash.org",
       "sourceUrl": "https://www.ircwash.org/resources/rural-and-small-towns-water-services-northern-region",
-      "confidence": 0.6
+      "confidence": 0.8
     },
     {
       "id": "f01",
       "category": "hydrogeology",
-      "title": "Assessing land suitability for aquifer storage and recharge in northern Ghana using remote sensing and GIS multi-criteria decision analysis technique | Modeling Earth Systems and Environment | Springe",
-      "summary": "“The majority of the study area fall within 3–12 m2 day−1, which was ranked low (Fig. 3 a; Table 2). The regolith thickness determined from 800 boreholes (Forkuor et al.”",
-      "sourceName": "Springer",
+      "title": "Aquifer storage and recharge suitability in northern Ghana",
+      "summary": "Most of the study area has static water levels from 10 to 70 m, suitable for aquifer storage and recharge techniques.",
+      "sourceName": "link.springer.com",
       "sourceUrl": "https://link.springer.com/article/10.1007/s40808-017-0360-6",
-      "confidence": 0.6,
-      "publishedDate": "2017-08-22"
+      "publishedDate": "2017-08-22",
+      "confidence": 0.7,
+      "scoreImpact": {
+        "factor": "groundwater",
+        "direction": "increase",
+        "magnitude": 0.25
+      }
     },
     {
       "id": "f02",
       "category": "environment",
-      "title": "Cities and extreme weather events: impacts of flooding and extreme heat on water and electricity services in Ghana",
-      "summary": "“in Tamale (a turbidity value of 2 NTU). 1 x 10 6 (faecal coliform) CFU/100ml. These ...”",
-      "sourceName": "Journal article (via DOI)",
+      "title": "Flood impacts on water quality in Tamale",
+      "summary": "Floods deteriorate water quality of unprotected sources in Tamale, increasing faecal contamination risks.",
+      "sourceName": "doi.org",
       "sourceUrl": "https://doi.org/10.1177/0956247820952030",
-      "confidence": 0.55,
-      "publishedDate": "2020-09-19"
+      "publishedDate": "2020-09-19",
+      "confidence": 0.9,
+      "scoreImpact": {
+        "factor": "risk",
+        "direction": "increase",
+        "magnitude": 0.3
+      }
     },
     {
       "id": "f03",
       "category": "infrastructure",
-      "title": "GWL €312 million Tamale-Damongo Water Project advances as company deepens stakeholder engagement | Ghana News Agency",
-      "summary": "“Accra, June 30, GNA – Ghana Water Limited (GWL) has intensified stakeholder consultations on the proposed €312 million Tamale-Damongo Water Supply Project.”",
-      "sourceName": "Ghana News Agency",
+      "title": "Tamale-Damongo Water Supply Project financing and progress",
+      "summary": "Ghana Water Limited is advancing the €312 million Tamale-Damongo Water Supply Project with EU and other partners' funding.",
+      "sourceName": "gna.org.gh",
       "sourceUrl": "https://gna.org.gh/2026/06/gwl-e312-million-tamale-damongo-water-project-advances-as-company-deepens-stakeholder-engagement/",
-      "confidence": 0.4,
-      "publishedDate": "2026-06-30"
+      "publishedDate": "2026-06-30",
+      "confidence": 0.85
     },
     {
       "id": "f04",
       "category": "water_need",
-      "title": "GHA GLAAS Country Highlight 25Nov2019 final",
-      "summary": "“Percentage of population with access to basic toilet facilities Percentage of population with access to basic toilet facilities Percentage of urban population with access to improved drinking-water supply Percentage of rural population…”",
-      "sourceName": "World Health Organization",
+      "title": "Access to improved drinking-water in Ghana",
+      "summary": "Urban population access to improved drinking water increased from 73% in 2016 to 83% in 2018 in Ghana.",
+      "sourceName": "who.int",
       "sourceUrl": "https://www.who.int/docs/default-source/wash-documents/glaas/glaas-2018-19/2019-country-highlights/ghana-glaas-2018-19-country-highlights.pdf?sfvrsn=734a7a84_2",
-      "confidence": 0.6
+      "confidence": 0.6,
+      "scoreImpact": {
+        "factor": "need",
+        "direction": "decrease",
+        "magnitude": 0.2
+      }
     },
     {
       "id": "f05",
       "category": "hydrogeology",
-      "title": "Hydrogeology of Ghana - BGS Earthwise - British Geological Survey",
-      "summary": "“1 to 10 l/s. 2 and 119 m²/day. Storage is typically around 10-3. The basement aquifers are generally confined and vary in thickness from 2-20 m, depending on the thickness of the weathered zone.”",
-      "sourceName": "British Geological Survey",
+      "title": "Basement aquifers characteristics in Ghana",
+      "summary": "Basement aquifers have transmissivity between 0.2 and 119 m²/day and borehole depths from 40 to 200 m.",
+      "sourceName": "earthwise.bgs.ac.uk",
       "sourceUrl": "https://earthwise.bgs.ac.uk/index.php/Hydrogeology_of_Ghana",
-      "confidence": 0.6,
-      "publishedDate": "2023-12-13"
+      "publishedDate": "2023-12-13",
+      "confidence": 0.7
     },
     {
       "id": "f06",
       "category": "environment",
-      "title": "Analysis of urban flood hazards and adaptation strategies in the Tamale Metropolis of Ghana",
-      "summary": "“From 1991 to 2018, floods constituted roughly 38% of all recorded disasters in Ghana, with the Upper East, Upper West, Northern, and Volta regions being among the most flood-prone areas in the country [35].”",
-      "sourceName": "Journal article (via DOI)",
+      "title": "Flood hazards in Northern Ghana including Tamale",
+      "summary": "Northern Region is among the most flood-prone areas in Ghana, with floods causing significant national impacts.",
+      "sourceName": "doi.org",
       "sourceUrl": "https://doi.org/10.1007/s44274-025-00200-2",
-      "confidence": 0.55,
-      "publishedDate": "2025-02-28"
+      "publishedDate": "2025-02-28",
+      "confidence": 0.8,
+      "scoreImpact": {
+        "factor": "risk",
+        "direction": "increase",
+        "magnitude": 0.3
+      }
     },
     {
       "id": "f07",
       "category": "infrastructure",
-      "title": "Construction of Tamale Water Project  to begin next year — President Mahama - Graphic Online",
-      "summary": "“Speaking at the 65th anniversary celebration of Ghana Senior High School (GHANASCO) in Tamale, President Mahama stated that the government had made adequate financial provision in the 2026 budget to kick-start the project, describing it…”",
-      "sourceName": "Graphic Online (Ghana)",
-      "sourceUrl": "https://www.graphic.com.gh/news/general-news/ghana-news-construction-of-tamale-water-project-to-begin-next-year-president-mahama.html",
-      "confidence": 0.4,
-      "publishedDate": "2025-11-24"
+      "title": "Tamale water system project plans",
+      "summary": "Plans include building a pumping station at Yapei to produce about 30 million gallons of water for Tamale Metropolis.",
+      "sourceName": "citinewsroom.com",
+      "sourceUrl": "https://www.citinewsroom.com/2026/05/tamale-to-receive-30m-gallons-of-water-under-new-project-mahama/",
+      "publishedDate": "2026-05-15",
+      "confidence": 0.85
     },
     {
       "id": "f08",
       "category": "water_need",
-      "title": "IRC WASH — water access document",
-      "summary": "“The level of water service to which people have access, is indicated by the quantity and quality of water, the accessibility of the services in terms of distance and non-crowding, and the reliability of the water services (function ...”",
-      "sourceName": "IRC WASH",
+      "title": "Water service level standards in Ghana",
+      "summary": "Water service standards include a maximum distance of 500 metres to the farthest household for rural water schemes.",
+      "sourceName": "ircwash.org",
       "sourceUrl": "https://www.ircwash.org/sites/default/files/20130308_factsheetonservicemonitoringinthreedistrictsinghana_1.pdf",
-      "confidence": 0.6
+      "confidence": 0.75,
+      "scoreImpact": {
+        "factor": "access",
+        "direction": "decrease",
+        "magnitude": 0.15
+      }
     },
     {
       "id": "f09",
       "category": "hydrogeology",
-      "title": "Assessment of the quality of groundwater for drinking purposes in the Upper West and Northern regions of Ghana | SpringerPlus | Springer Nature Link",
-      "summary": "“The basement crystalline rocks are essentially impermeable with very little porosity. The existence of ground water is as a result of chemical weathering and fracturing leading to the formation of aquifers (Obuobie and Boubacar 2010).”",
-      "sourceName": "Springer",
+      "title": "Groundwater aquifers in northern Ghana",
+      "summary": "Aquifers in northern Ghana are semi-confined with depths ranging from 10 to 60 m, recharged mainly by precipitation.",
+      "sourceName": "link.springer.com",
       "sourceUrl": "https://link.springer.com/article/10.1186/s40064-016-3676-1",
-      "confidence": 0.6,
-      "publishedDate": "2016-11-22"
+      "publishedDate": "2016-11-22",
+      "confidence": 0.8,
+      "scoreImpact": {
+        "factor": "groundwater",
+        "direction": "increase",
+        "magnitude": 0.25
+      }
     },
     {
       "id": "f10",
       "category": "environment",
-      "title": "Assessing the quality of water used for vegetable irrigation in Tamale Metropolis, Ghana",
-      "summary": "“0 × ... According to[20](#CR20), the quality of the water use for vegetable irrigation in urban cities of Ghana is noted to be poor and below standards[23](#CR23).”",
-      "sourceName": "PubMed Central (NIH)",
-      "sourceUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7935877/",
-      "confidence": 0.55
+      "title": "Local climate change impacts in Tamale",
+      "summary": "Tamale residents report floods (48%), increasing temperatures (15%), and erratic rainfall (13.8%) as climate change impacts.",
+      "sourceName": "doi.org",
+      "sourceUrl": "https://doi.org/10.36005/jplm.v4i1.81",
+      "publishedDate": "2025-07-01",
+      "confidence": 0.85,
+      "scoreImpact": {
+        "factor": "risk",
+        "direction": "increase",
+        "magnitude": 0.3
+      }
     },
     {
       "id": "f11",
       "category": "infrastructure",
-      "title": "Tamale to receive 30m gallons of water under new project - Mahama",
-      "summary": "“President John Dramani Mahama has announced plans to commence the Tamale and Yendi water system projects as part of efforts to improve access to potable water in the Northern Region.”",
-      "sourceName": "Citi Newsroom (Ghana)",
-      "sourceUrl": "https://www.citinewsroom.com/2026/05/tamale-to-receive-30m-gallons-of-water-under-new-project-mahama/",
-      "confidence": 0.4,
-      "publishedDate": "2026-05-15"
+      "title": "Government plans for Tamale water project construction",
+      "summary": "Government budgeted for a pumping station on the White Volta at Yapei to supply additional water to Tamale.",
+      "sourceName": "graphic.com.gh",
+      "sourceUrl": "https://www.graphic.com.gh/news/general-news/ghana-news-construction-of-tamale-water-project-to-begin-next-year-president-mahama.html",
+      "publishedDate": "2025-11-24",
+      "confidence": 0.85
     },
     {
       "id": "f12",
       "category": "water_need",
-      "title": "United Nations Development Programme — water access document",
-      "summary": "“The main thrust of the report is to ... and assess respective MDGs gaps to serve as ... The current set of the District HDRs ... cover twelve (12) districts of: Karaga, Bolga, ... Tamale, Bole, East Mamprusi, Lawra, ...”",
-      "sourceName": "United Nations Development Programme",
-      "sourceUrl": "https://www.undp.org/sites/g/files/zskgke326/files/migration/gh/UNDP_GH_INCGRO_DHDR2011_Tamale-Metropolitan.pdf",
-      "confidence": 0.65
+      "title": "Household water sources and storage in Northern Ghana",
+      "summary": "Over half the population depend on surface water sources often contaminated with faecal matter in Northern Ghana.",
+      "sourceName": "ircwash.org",
+      "sourceUrl": "https://www.ircwash.org/blog/household-water-treatment-and-storage-savelugu-nanton-municipality-northern-ghana",
+      "confidence": 0.8,
+      "scoreImpact": {
+        "factor": "need",
+        "direction": "increase",
+        "magnitude": 0.25
+      }
     },
     {
       "id": "f13",
       "category": "hydrogeology",
-      "title": "Case Study Groundwater Irrigation Northeast Ghana",
-      "summary": "“groundwater level is usually relatively shallow, even in the dry season, so that it relatively easy to find and abstract groundwater by hand digging shallow wells.”",
-      "sourceName": "British Geological Survey",
+      "title": "Groundwater availability for irrigation in northeast Ghana",
+      "summary": "Groundwater levels are usually shallow, making it relatively easy to abstract water by hand digging shallow wells.",
+      "sourceName": "earthwise.bgs.ac.uk",
       "sourceUrl": "https://earthwise.bgs.ac.uk/index.php/Case_Study_Groundwater_Irrigation_Northeast_Ghana",
-      "confidence": 0.6
+      "confidence": 0.75,
+      "scoreImpact": {
+        "factor": "groundwater",
+        "direction": "increase",
+        "magnitude": 0.2
+      }
     },
     {
       "id": "f14",
       "category": "environment",
-      "title": "Managing the wet and dry – local adaptation mechanisms for climate change in the Tamale Metropolis, Ghana",
-      "summary": "“The study adopted the city of Tamale, the capital of the Northern region (see Figure 1 ). In ... Some observed local manifestations of climate change impacts were recorded. 8%).”",
-      "sourceName": "Journal article (via DOI)",
-      "sourceUrl": "https://doi.org/10.36005/jplm.v4i1.81",
-      "confidence": 0.55,
-      "publishedDate": "2025-07-01"
+      "title": "Research on local adaptation to climate change in Tamale",
+      "summary": "Studies document grassroots coping strategies for climate change impacts in Tamale, Northern Ghana.",
+      "sourceName": "fplm.ubids.edu.gh",
+      "sourceUrl": "https://fplm.ubids.edu.gh/journal/index.php/jplm/article/view/81",
+      "publishedDate": "2025-07-01",
+      "confidence": 0.7
     },
     {
       "id": "f15",
       "category": "infrastructure",
-      "title": "Govt to fund Tamale water project locally after €277m facility delay",
-      "summary": "“President John Dramani Mahama has announced that government will independently finance a major water supply project for Tamale, ...”",
-      "sourceName": "Citi Newsroom (Ghana)",
+      "title": "Government to locally fund Tamale water project after funding delay",
+      "summary": "Government will mobilize local funds to execute the Tamale water supply project after €277 million facility delay.",
+      "sourceName": "citinewsroom.com",
       "sourceUrl": "https://www.citinewsroom.com/2026/04/govt-to-fund-tamale-water-project-locally-after-e277m-facility-delay/",
-      "confidence": 0.4,
-      "publishedDate": "2026-04-18"
+      "publishedDate": "2026-04-18",
+      "confidence": 0.85
     }
   ],
   "partners": [

@@ -2,8 +2,8 @@
   "version": 1,
   "slug": "kisumu-kenya",
   "displayName": "Kisumu, Kenya",
-  "retrievedAt": "2026-09-15T16:50:11.791Z",
-  "structuredBy": "deterministic",
+  "retrievedAt": "2026-09-15T17:02:38.538Z",
+  "structuredBy": "llm:gpt-4.1-mini",
   "queries": [
     {
       "category": "water_need",
@@ -34,154 +34,194 @@
     {
       "id": "f00",
       "category": "water_need",
-      "title": "World Bank — water access document",
-      "summary": "“in the KISIP Sites ...  04 ... : Water Quality analysis ... selected Kisumu ... boreholes.  Change ... 1 ... 4: Assessment of the types of water sources and time it takes to fetch water ... 103 ... To improve the lifestyle ...”",
-      "sourceName": "World Bank",
+      "title": "Water source types and access time in Kisumu informal settlements",
+      "summary": "Kisumu informal settlements have varied water sources and time to fetch water, with projects aiming to improve water accessibility and lifestyle.",
+      "sourceName": "documents1.worldbank.org",
       "sourceUrl": "https://documents1.worldbank.org/curated/en/099041624042511194/pdf/P16781416d296d088191941fcf1300e83b0.pdf",
-      "confidence": 0.65
+      "confidence": 0.7,
+      "scoreImpact": {
+        "factor": "need",
+        "direction": "decrease",
+        "magnitude": 0.3
+      }
     },
     {
       "id": "f01",
       "category": "hydrogeology",
-      "title": "Hydrogeology of Kenya - BGS Earthwise",
-      "summary": "“time were land surfaces. Boreholes in the volcanic aquifers are up to 125 m depth, and may encounter more than five discrete aquifer layers. These aquifer layers are often confined.”",
-      "sourceName": "British Geological Survey",
+      "title": "Volcanic aquifers characteristics in Kenya",
+      "summary": "Volcanic aquifers in Kenya, including those near Kisumu, have multiple confined layers with variable yields and depths up to 125 m.",
+      "sourceName": "earthwise.bgs.ac.uk",
       "sourceUrl": "https://earthwise.bgs.ac.uk/index.php/Hydrogeology_of_Kenya",
-      "confidence": 0.6,
-      "publishedDate": "2024-01-22"
+      "publishedDate": "2024-01-22",
+      "confidence": 0.8
     },
     {
       "id": "f02",
       "category": "environment",
-      "title": "Impact Of Climate Extremes On Water Quality And Supply In Urban Informal Settlements In Kenya: A Case Study Of Kisumu City",
-      "summary": "“15 participants each, nine key informant interviews with local leaders, NGOs and government institutions, and time series analysis of climate trends from 1987- 2016. Results show an increasing trend of rainfall over Kisumu City.”",
-      "sourceName": "Institutional repository (via Handle)",
+      "title": "Climate extremes impact water quality and supply in Kisumu",
+      "summary": "Kisumu experiences increasing rainfall variability causing droughts and floods that impact clean water supply and quality, leading to alternative water use.",
+      "sourceName": "hdl.handle.net",
       "sourceUrl": "http://hdl.handle.net/11295/104937",
-      "confidence": 0.55,
-      "publishedDate": "2018-01-01"
+      "publishedDate": "2018-01-01",
+      "confidence": 0.9,
+      "scoreImpact": {
+        "factor": "risk",
+        "direction": "increase",
+        "magnitude": 0.3
+      }
     },
     {
       "id": "f03",
       "category": "infrastructure",
-      "title": "Launch of LVWATSAN Programme Phase II to Expand Water Supply in Kisumuand Maseno – Lake Victoria South",
-      "summary": "“Prof. Anyang’ Nyong’o. This ambitious initiative is jointly funded by the Government of Kenya, the French Development Agency (AFD), the European Investment Bank (EIB), and the European Union, with a ... 1.”",
-      "sourceName": "Lake Victoria South Water Works Development Agency",
+      "title": "LVWATSAN Phase II water infrastructure expansion in Kisumu and Maseno",
+      "summary": "LVWATSAN Phase II includes laying 156 km of pipeline, constructing 1.45 million litres storage, and borehole works in Kisumu and Maseno.",
+      "sourceName": "lvswwda.go.ke",
       "sourceUrl": "https://www.lvswwda.go.ke/launch-of-lvwatsan-programme-phase-ii-to-expand-water-supply-in-kisumuand-maseno/",
-      "confidence": 0.55,
-      "publishedDate": "2026-03-17"
+      "publishedDate": "2026-03-17",
+      "confidence": 0.9
     },
     {
       "id": "f04",
       "category": "water_need",
-      "title": "World Bank — water access document",
-      "summary": "“The major challenges affecting the project area include: ... The distance covered by most of the respondents is less than one kilometer.”",
-      "sourceName": "World Bank",
+      "title": "Water access challenges in Kisumu informal settlements",
+      "summary": "Key water access problems in Kisumu informal settlements include unsafe water, lack of tapped water, unreliable supply, and distance to sources.",
+      "sourceName": "documents1.worldbank.org",
       "sourceUrl": "https://documents1.worldbank.org/curated/en/292351525465178366/pdf/ESIA-Kisumu-October-2016.pdf",
-      "confidence": 0.65
+      "confidence": 0.8,
+      "scoreImpact": {
+        "factor": "need",
+        "direction": "increase",
+        "magnitude": 0.25
+      }
     },
     {
       "id": "f05",
       "category": "environment",
-      "title": "From Lake Victoria to the Tap: Antibiotic Resistance and Pathogenic Contamination of Kisumu City Water Supply and Wastewater Network",
-      "summary": "“water [1, 2] . In Kisumu City, on the northeastern shore of Lake Victoria, rapid urbanisation, poor sanitation, and frequent flooding cause recurrent microbial contamination.”",
-      "sourceName": "Journal article (via DOI)",
+      "title": "Microbial contamination risks in Kisumu water supply",
+      "summary": "Rapid urbanisation, poor sanitation, and flooding cause recurrent microbial contamination in Kisumu's water supply and wastewater network.",
+      "sourceName": "doi.org",
       "sourceUrl": "https://doi.org/10.1111/tmi.70105",
-      "confidence": 0.55,
-      "publishedDate": "2026-02-16"
+      "publishedDate": "2026-02-16",
+      "confidence": 0.9,
+      "scoreImpact": {
+        "factor": "risk",
+        "direction": "increase",
+        "magnitude": 0.3
+      }
     },
     {
       "id": "f06",
       "category": "infrastructure",
-      "title": "Quenching a City's Thirst: Kisumu's Journey to 91% Water Coverage",
-      "summary": "“network and increasing storage capacity, and is a collaborative effort between the Government of Kenya, AFD, EIB, and the EU.”",
-      "sourceName": "County Government of Kisumu",
+      "title": "Kisumu water network expansion and storage increase",
+      "summary": "Kisumu's water project includes 156 km of new pipelines, four reservoirs adding 1,450 m³ storage, and borehole development in Maseno.",
+      "sourceName": "kisumu.go.ke",
       "sourceUrl": "https://www.kisumu.go.ke/quenching-a-citys-thirst-kisumus-journey-to-91-water-coverage/",
-      "confidence": 0.55,
-      "publishedDate": "2025-09-05"
+      "publishedDate": "2025-09-05",
+      "confidence": 0.9
     },
     {
       "id": "f07",
       "category": "water_need",
-      "title": "World Bank — water access document",
-      "summary": "“and use of service, and quality-adjusted access raises the bar by incorporating quality metrics.”",
-      "sourceName": "World Bank",
-      "sourceUrl": "https://openknowledge.worldbank.org/entities/publication/a670e864-fe86-5ef5-85e9-6e54693b79fb",
-      "confidence": 0.6,
-      "publishedDate": "2019-02-21"
+      "title": "Environment and social impact assessment for Kisumu informal settlements",
+      "summary": "An updated environment and social impact assessment report exists for infrastructure improvements in Kisumu informal settlements.",
+      "sourceName": "documents.worldbank.org",
+      "sourceUrl": "https://documents.worldbank.org/en/publication/documents-reports/documentdetail/099041624042511194",
+      "confidence": 0.6
     },
     {
       "id": "f08",
       "category": "hydrogeology",
-      "title": "World Bank — hydrogeology document",
-      "summary": "“| Aquifer type | | | (Semi)-consolidated | | | | Inter-montane valley | | | Major alluvial | | | Major alluvial | | | | ... | | | ... , sands, | | ... lake | | | ... sand & | | | ...”",
-      "sourceName": "World Bank",
-      "sourceUrl": "https://documents1.worldbank.org/curated/en/955231468337751545/pdf/717260WP0Box370C00GWGovernanceKenya.pdf",
-      "confidence": 0.6
+      "title": "Groundwater mapping and exploration tools in Kenya",
+      "summary": "USGS evaluated regions near Mombasa for groundwater potential using remote sensing and GPS tools; no direct data on Kisumu aquifers provided.",
+      "sourceName": "usgs.gov",
+      "sourceUrl": "https://www.usgs.gov/international-programs/news/groundwater-mapping-kenya",
+      "publishedDate": "2024-09-30",
+      "confidence": 0.5
     },
     {
       "id": "f09",
       "category": "environment",
-      "title": "Kisumu County",
-      "summary": "“crop failures are three times higher in Kisumu County compared with other regions and cost households an average of US$ 2000 annually (10, 11).  ). • Almost 90% of residents rely on open water sources.”",
-      "sourceName": "World Health Organization",
+      "title": "Water source reliance and flooding impacts in Kisumu County",
+      "summary": "Almost 90% of Kisumu residents rely on open water sources; flooding from rainfall variability and rising lake levels degrades water quality.",
+      "sourceName": "cdn.who.int",
       "sourceUrl": "https://cdn.who.int/media/docs/default-source/climate-change/health-and-climate-change-urban-profiles--kisumu-country.pdf",
-      "confidence": 0.65
+      "confidence": 0.9,
+      "scoreImpact": {
+        "factor": "risk",
+        "direction": "increase",
+        "magnitude": 0.3
+      }
     },
     {
       "id": "f10",
       "category": "infrastructure",
-      "title": "TECHNICAL STUDIES, DESIGN AND SUPERVISION OF WORKS PACKAGE 1 AND 2 IN KISUMU CITY AND SATELLITE TOWNS UNDER LVWATSAN PROGRAM",
-      "summary": "“NRW); improvement ... from Kajulu WTP and Kibuye, Mamb ... Obwolo and K ... amedha tanks; and rehabilitation and ... water supply to ... localities including Kiboswa and Maseno (transmission mains, pumping stations, storage tanks, ...”",
-      "sourceName": "National Environment Management Authority (Kenya)",
+      "title": "LVWATSAN technical studies and works in Kisumu and satellite towns",
+      "summary": "LVWATSAN includes rehabilitation and extension of transmission lines, new reservoirs, borehole drilling, and spring harnessing in Kisumu and Maseno.",
+      "sourceName": "nema.go.ke",
       "sourceUrl": "https://nema.go.ke/wp-content/uploads/2025/03/ESIA_1971-WORKS-PACKAGE-2-LOT-1_NOVEMBER-2021-min.pdf",
-      "confidence": 0.55
+      "confidence": 0.9
     },
     {
       "id": "f11",
-      "category": "water_need",
-      "title": "Kenya - Second Kenya Informal Settlements Improvement Project : Updated Environment and Social Impact Assessment Report for the Infrastructures Improvement Works in Selected Informal Settlements in Ki",
-      "summary": "“Kenya - Second Kenya Informal Settlements Improvement Project : Updated Environment and Social Impact Assessment Report for the Infrastructures Improvement Works in Selected Informal Settlements in Kisumu County This page in: English…”",
-      "sourceName": "World Bank",
-      "sourceUrl": "https://documents.worldbank.org/en/publication/documents-reports/documentdetail/099041624042511194",
-      "confidence": 0.65
+      "category": "environment",
+      "title": "Flooding and drought risks in Kisumu",
+      "summary": "Kisumu's flood risks arise from Lake Victoria level rise, rivers, and floodplain topography; droughts increase water scarcity and food insecurity.",
+      "sourceName": "gca.org",
+      "sourceUrl": "https://gca.org/wp-content/uploads/2024/08/RCRA-Kisumu-city-Kenya_web.pdf",
+      "confidence": 0.9,
+      "scoreImpact": {
+        "factor": "risk",
+        "direction": "increase",
+        "magnitude": 0.3
+      }
     },
     {
       "id": "f12",
-      "category": "hydrogeology",
-      "title": "Geohydrology of North Eastern Province, Kenya",
-      "summary": "“### Geohydrology of North Eastern Province, Kenya ... , Mundorff, M ... S.  Water Supply Paper ... 1757 ... 68 p. , maps (5 fold. in pocket) ; 23 ... 7N.  | Publication type | Report | | --- | --- ... | Publication Subtype ...”",
-      "sourceName": "U.S. Geological Survey",
-      "sourceUrl": "https://pubs.usgs.gov/publication/wsp1757N",
-      "confidence": 0.6
+      "category": "infrastructure",
+      "title": "New borehole projects launched to improve Kisumu water supply",
+      "summary": "New borehole drilling projects launched in Kisumu aim to provide clean water within three months under a national water initiative.",
+      "sourceName": "tuko.co.ke",
+      "sourceUrl": "https://www.tuko.co.ke/kenya/counties/622712-william-rutos-govt-launches-water-projects-tackle-shortage-kisumu-3-months/",
+      "publishedDate": "2026-04-08",
+      "confidence": 0.8
     },
     {
       "id": "f13",
-      "category": "environment",
-      "title": "CLIMATE CHANGE RISKS",
-      "summary": "“, extreme temperatures, and drought. Shoreline floods stem from a rise in Lake Victoria’s level, while riverine floods occur along the main rivers that drain through the city into the lake.”",
-      "sourceName": "Global Center on Adaptation",
-      "sourceUrl": "https://gca.org/wp-content/uploads/2024/08/RCRA-Kisumu-city-Kenya_web.pdf",
-      "confidence": 0.4
+      "category": "water_need",
+      "title": "Infrastructural service deficits in Kisumu informal settlements",
+      "summary": "Many Kisumu informal settlement compounds lack water, sanitation, and electricity services, impacting living conditions and health.",
+      "sourceName": "link.springer.com",
+      "sourceUrl": "https://link.springer.com/content/pdf/10.1007/s12132-018-9346-3.pdf?error=cookies_not_supported&code=ba44a8c9-f51a-4905-a3ed-fd2508b99911",
+      "confidence": 0.8,
+      "scoreImpact": {
+        "factor": "need",
+        "direction": "increase",
+        "magnitude": 0.3
+      }
     },
     {
       "id": "f14",
-      "category": "infrastructure",
-      "title": "Transforming Kisumu's Water Future | City of Kisumu",
-      "summary": "“6 billion investment under the Lake Victoria West Water and Sanitation (LVWATSAN) program, set to revolutionize access to clean water and sanitation in Kisumu City and Maseno.”",
-      "sourceName": "City of Kisumu",
-      "sourceUrl": "https://city.kisumu.go.ke/2025/07/25/transforming-kisumus-water-future/",
-      "confidence": 0.55,
-      "publishedDate": "2025-07-25"
+      "category": "environment",
+      "title": "Long-term groundwater contamination hazards in Kisumu informal settlements",
+      "summary": "Studies in Kisumu informal settlements show long-term changes in groundwater contamination hazards and hand-dug well water quality.",
+      "sourceName": "mdpi-res.com",
+      "sourceUrl": "https://mdpi-res.com/d_attachment/ijerph/ijerph-12-04275/article_deploy/ijerph-12-04275.pdf?version=1429257358",
+      "confidence": 0.9,
+      "scoreImpact": {
+        "factor": "risk",
+        "direction": "increase",
+        "magnitude": 0.3
+      }
     },
     {
       "id": "f15",
       "category": "infrastructure",
-      "title": "William Ruto's Govt Launches Water Projects to Tackle Shortage in Kisumu: \"Within 3 Months\" - Tuko.co.ke",
-      "summary": "“- Residents of Kisumu have been assured of clean water within three months after the National Water Harvesting and Storage Authority launched new borehole projects ...”",
-      "sourceName": "tuko.co.ke",
-      "sourceUrl": "https://www.tuko.co.ke/kenya/counties/622712-william-rutos-govt-launches-water-projects-tackle-shortage-kisumu-3-months/",
-      "confidence": 0.4,
-      "publishedDate": "2026-04-08"
+      "title": "LVWATSAN investment to improve water and sanitation in Kisumu and Maseno",
+      "summary": "Kisumu secured Ksh 10.6 billion under LVWATSAN to deliver water to 25,000 households and expand sewerage connections.",
+      "sourceName": "city.kisumu.go.ke",
+      "sourceUrl": "https://city.kisumu.go.ke/2025/07/25/transforming-kisumus-water-future/",
+      "publishedDate": "2025-07-25",
+      "confidence": 0.9
     }
   ],
   "partners": [
