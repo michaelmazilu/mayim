@@ -1,0 +1,397 @@
+{
+  "version": 1,
+  "slug": "kisumu-kenya",
+  "displayName": "Kisumu, Kenya",
+  "retrievedAt": "2026-09-15T16:50:11.791Z",
+  "structuredBy": "deterministic",
+  "queries": [
+    {
+      "category": "water_need",
+      "tier": "town",
+      "query": "Assessment of drinking water access and unserved households in Kisumu, Kenya",
+      "results": 5
+    },
+    {
+      "category": "hydrogeology",
+      "tier": "town",
+      "query": "Hydrogeology and groundwater potential of Kisumu, Kenya: aquifers, borehole yields and depth to water",
+      "results": 4
+    },
+    {
+      "category": "environment",
+      "tier": "town",
+      "query": "Flooding, drought and water quality contamination risks in Kisumu, Kenya",
+      "results": 5
+    },
+    {
+      "category": "infrastructure",
+      "tier": "town",
+      "query": "Water supply projects, boreholes and piped schemes built or planned in Kisumu, Kenya",
+      "results": 5
+    }
+  ],
+  "findings": [
+    {
+      "id": "f00",
+      "category": "water_need",
+      "title": "World Bank — water access document",
+      "summary": "“in the KISIP Sites ...  04 ... : Water Quality analysis ... selected Kisumu ... boreholes.  Change ... 1 ... 4: Assessment of the types of water sources and time it takes to fetch water ... 103 ... To improve the lifestyle ...”",
+      "sourceName": "World Bank",
+      "sourceUrl": "https://documents1.worldbank.org/curated/en/099041624042511194/pdf/P16781416d296d088191941fcf1300e83b0.pdf",
+      "confidence": 0.65
+    },
+    {
+      "id": "f01",
+      "category": "hydrogeology",
+      "title": "Hydrogeology of Kenya - BGS Earthwise",
+      "summary": "“time were land surfaces. Boreholes in the volcanic aquifers are up to 125 m depth, and may encounter more than five discrete aquifer layers. These aquifer layers are often confined.”",
+      "sourceName": "British Geological Survey",
+      "sourceUrl": "https://earthwise.bgs.ac.uk/index.php/Hydrogeology_of_Kenya",
+      "confidence": 0.6,
+      "publishedDate": "2024-01-22"
+    },
+    {
+      "id": "f02",
+      "category": "environment",
+      "title": "Impact Of Climate Extremes On Water Quality And Supply In Urban Informal Settlements In Kenya: A Case Study Of Kisumu City",
+      "summary": "“15 participants each, nine key informant interviews with local leaders, NGOs and government institutions, and time series analysis of climate trends from 1987- 2016. Results show an increasing trend of rainfall over Kisumu City.”",
+      "sourceName": "Institutional repository (via Handle)",
+      "sourceUrl": "http://hdl.handle.net/11295/104937",
+      "confidence": 0.55,
+      "publishedDate": "2018-01-01"
+    },
+    {
+      "id": "f03",
+      "category": "infrastructure",
+      "title": "Launch of LVWATSAN Programme Phase II to Expand Water Supply in Kisumuand Maseno – Lake Victoria South",
+      "summary": "“Prof. Anyang’ Nyong’o. This ambitious initiative is jointly funded by the Government of Kenya, the French Development Agency (AFD), the European Investment Bank (EIB), and the European Union, with a ... 1.”",
+      "sourceName": "Lake Victoria South Water Works Development Agency",
+      "sourceUrl": "https://www.lvswwda.go.ke/launch-of-lvwatsan-programme-phase-ii-to-expand-water-supply-in-kisumuand-maseno/",
+      "confidence": 0.55,
+      "publishedDate": "2026-03-17"
+    },
+    {
+      "id": "f04",
+      "category": "water_need",
+      "title": "World Bank — water access document",
+      "summary": "“The major challenges affecting the project area include: ... The distance covered by most of the respondents is less than one kilometer.”",
+      "sourceName": "World Bank",
+      "sourceUrl": "https://documents1.worldbank.org/curated/en/292351525465178366/pdf/ESIA-Kisumu-October-2016.pdf",
+      "confidence": 0.65
+    },
+    {
+      "id": "f05",
+      "category": "environment",
+      "title": "From Lake Victoria to the Tap: Antibiotic Resistance and Pathogenic Contamination of Kisumu City Water Supply and Wastewater Network",
+      "summary": "“water [1, 2] . In Kisumu City, on the northeastern shore of Lake Victoria, rapid urbanisation, poor sanitation, and frequent flooding cause recurrent microbial contamination.”",
+      "sourceName": "Journal article (via DOI)",
+      "sourceUrl": "https://doi.org/10.1111/tmi.70105",
+      "confidence": 0.55,
+      "publishedDate": "2026-02-16"
+    },
+    {
+      "id": "f06",
+      "category": "infrastructure",
+      "title": "Quenching a City's Thirst: Kisumu's Journey to 91% Water Coverage",
+      "summary": "“network and increasing storage capacity, and is a collaborative effort between the Government of Kenya, AFD, EIB, and the EU.”",
+      "sourceName": "County Government of Kisumu",
+      "sourceUrl": "https://www.kisumu.go.ke/quenching-a-citys-thirst-kisumus-journey-to-91-water-coverage/",
+      "confidence": 0.55,
+      "publishedDate": "2025-09-05"
+    },
+    {
+      "id": "f07",
+      "category": "water_need",
+      "title": "World Bank — water access document",
+      "summary": "“and use of service, and quality-adjusted access raises the bar by incorporating quality metrics.”",
+      "sourceName": "World Bank",
+      "sourceUrl": "https://openknowledge.worldbank.org/entities/publication/a670e864-fe86-5ef5-85e9-6e54693b79fb",
+      "confidence": 0.6,
+      "publishedDate": "2019-02-21"
+    },
+    {
+      "id": "f08",
+      "category": "hydrogeology",
+      "title": "World Bank — hydrogeology document",
+      "summary": "“| Aquifer type | | | (Semi)-consolidated | | | | Inter-montane valley | | | Major alluvial | | | Major alluvial | | | | ... | | | ... , sands, | | ... lake | | | ... sand & | | | ...”",
+      "sourceName": "World Bank",
+      "sourceUrl": "https://documents1.worldbank.org/curated/en/955231468337751545/pdf/717260WP0Box370C00GWGovernanceKenya.pdf",
+      "confidence": 0.6
+    },
+    {
+      "id": "f09",
+      "category": "environment",
+      "title": "Kisumu County",
+      "summary": "“crop failures are three times higher in Kisumu County compared with other regions and cost households an average of US$ 2000 annually (10, 11).  ). • Almost 90% of residents rely on open water sources.”",
+      "sourceName": "World Health Organization",
+      "sourceUrl": "https://cdn.who.int/media/docs/default-source/climate-change/health-and-climate-change-urban-profiles--kisumu-country.pdf",
+      "confidence": 0.65
+    },
+    {
+      "id": "f10",
+      "category": "infrastructure",
+      "title": "TECHNICAL STUDIES, DESIGN AND SUPERVISION OF WORKS PACKAGE 1 AND 2 IN KISUMU CITY AND SATELLITE TOWNS UNDER LVWATSAN PROGRAM",
+      "summary": "“NRW); improvement ... from Kajulu WTP and Kibuye, Mamb ... Obwolo and K ... amedha tanks; and rehabilitation and ... water supply to ... localities including Kiboswa and Maseno (transmission mains, pumping stations, storage tanks, ...”",
+      "sourceName": "National Environment Management Authority (Kenya)",
+      "sourceUrl": "https://nema.go.ke/wp-content/uploads/2025/03/ESIA_1971-WORKS-PACKAGE-2-LOT-1_NOVEMBER-2021-min.pdf",
+      "confidence": 0.55
+    },
+    {
+      "id": "f11",
+      "category": "water_need",
+      "title": "Kenya - Second Kenya Informal Settlements Improvement Project : Updated Environment and Social Impact Assessment Report for the Infrastructures Improvement Works in Selected Informal Settlements in Ki",
+      "summary": "“Kenya - Second Kenya Informal Settlements Improvement Project : Updated Environment and Social Impact Assessment Report for the Infrastructures Improvement Works in Selected Informal Settlements in Kisumu County This page in: English…”",
+      "sourceName": "World Bank",
+      "sourceUrl": "https://documents.worldbank.org/en/publication/documents-reports/documentdetail/099041624042511194",
+      "confidence": 0.65
+    },
+    {
+      "id": "f12",
+      "category": "hydrogeology",
+      "title": "Geohydrology of North Eastern Province, Kenya",
+      "summary": "“### Geohydrology of North Eastern Province, Kenya ... , Mundorff, M ... S.  Water Supply Paper ... 1757 ... 68 p. , maps (5 fold. in pocket) ; 23 ... 7N.  | Publication type | Report | | --- | --- ... | Publication Subtype ...”",
+      "sourceName": "U.S. Geological Survey",
+      "sourceUrl": "https://pubs.usgs.gov/publication/wsp1757N",
+      "confidence": 0.6
+    },
+    {
+      "id": "f13",
+      "category": "environment",
+      "title": "CLIMATE CHANGE RISKS",
+      "summary": "“, extreme temperatures, and drought. Shoreline floods stem from a rise in Lake Victoria’s level, while riverine floods occur along the main rivers that drain through the city into the lake.”",
+      "sourceName": "Global Center on Adaptation",
+      "sourceUrl": "https://gca.org/wp-content/uploads/2024/08/RCRA-Kisumu-city-Kenya_web.pdf",
+      "confidence": 0.4
+    },
+    {
+      "id": "f14",
+      "category": "infrastructure",
+      "title": "Transforming Kisumu's Water Future | City of Kisumu",
+      "summary": "“6 billion investment under the Lake Victoria West Water and Sanitation (LVWATSAN) program, set to revolutionize access to clean water and sanitation in Kisumu City and Maseno.”",
+      "sourceName": "City of Kisumu",
+      "sourceUrl": "https://city.kisumu.go.ke/2025/07/25/transforming-kisumus-water-future/",
+      "confidence": 0.55,
+      "publishedDate": "2025-07-25"
+    },
+    {
+      "id": "f15",
+      "category": "infrastructure",
+      "title": "William Ruto's Govt Launches Water Projects to Tackle Shortage in Kisumu: \"Within 3 Months\" - Tuko.co.ke",
+      "summary": "“- Residents of Kisumu have been assured of clean water within three months after the National Water Harvesting and Storage Authority launched new borehole projects ...”",
+      "sourceName": "tuko.co.ke",
+      "sourceUrl": "https://www.tuko.co.ke/kenya/counties/622712-william-rutos-govt-launches-water-projects-tackle-shortage-kisumu-3-months/",
+      "confidence": 0.4,
+      "publishedDate": "2026-04-08"
+    }
+  ],
+  "partners": [
+    {
+      "name": "Kisumu Water and Sanitation Company (KIWASCO)",
+      "kind": "utility",
+      "country": "KE",
+      "url": "https://kiwasco.co.ke/",
+      "description": "Licensed utility supplying piped water and sewerage services within Kisumu City and County.",
+      "focus": [
+        "piped_schemes",
+        "sanitation",
+        "water_quality"
+      ],
+      "id": "verified-ke-kisumu-water-and-sanitation-company-kiwasco",
+      "source": "verified",
+      "lastVerified": "2026-09-15"
+    },
+    {
+      "name": "Water Sector Trust Fund",
+      "kind": "government",
+      "country": "KE",
+      "url": "https://waterfund.go.ke/",
+      "description": "State corporation that grants funds to counties and community projects for water and sanitation infrastructure in underserved areas.",
+      "focus": [
+        "funding",
+        "boreholes",
+        "piped_schemes"
+      ],
+      "id": "verified-ke-water-sector-trust-fund",
+      "source": "verified",
+      "lastVerified": "2026-09-15"
+    },
+    {
+      "name": "KEWASNET",
+      "kind": "network",
+      "country": "KE",
+      "url": "https://kewasnet.co.ke/",
+      "description": "Kenya Water and Sanitation Civil Society Network — coordinates member organisations and advocates on WASH governance and policy.",
+      "focus": [
+        "policy",
+        "sanitation"
+      ],
+      "id": "verified-ke-kewasnet",
+      "source": "verified",
+      "lastVerified": "2026-09-15"
+    },
+    {
+      "name": "FundiFix",
+      "kind": "ngo",
+      "country": "KE",
+      "url": "https://fundifix.org/",
+      "description": "Social enterprise from Oxford/REACH research offering maintenance contracts that keep rural handpumps and boreholes working in Kitui and Kwale.",
+      "focus": [
+        "maintenance",
+        "handpumps",
+        "boreholes"
+      ],
+      "id": "verified-ke-fundifix",
+      "source": "verified",
+      "lastVerified": "2026-09-15"
+    },
+    {
+      "name": "Evidence Action — Dispensers for Safe Water",
+      "kind": "ngo",
+      "country": "KE",
+      "url": "https://www.evidenceaction.org/programs/safe-water-now",
+      "countryUrl": "https://www.evidenceaction.org/where-we-work/kenya",
+      "description": "Installs and maintains free chlorine dispensers at rural water points in Kenya to disinfect water at the source.",
+      "focus": [
+        "water_quality",
+        "maintenance"
+      ],
+      "id": "verified-ke-evidence-action-dispensers-for-safe-water",
+      "source": "verified",
+      "lastVerified": "2026-09-15"
+    },
+    {
+      "name": "The Water Project",
+      "kind": "ngo",
+      "country": "KE",
+      "url": "https://thewaterproject.org/",
+      "countryUrl": "https://thewaterproject.org/community/projects/kenya/",
+      "description": "Funds and monitors well rehabilitation, new boreholes, sand dams and rainwater catchment in western and south-eastern Kenya.",
+      "focus": [
+        "boreholes",
+        "rainwater",
+        "water_quality"
+      ],
+      "id": "verified-ke-the-water-project",
+      "source": "verified",
+      "lastVerified": "2026-09-15"
+    },
+    {
+      "name": "Water.org",
+      "kind": "funder",
+      "country": "KE",
+      "url": "https://water.org/",
+      "countryUrl": "https://water.org/our-impact/where-we-work/kenya/",
+      "description": "Partners with Kenyan lenders to offer small loans that let households finance water connections, storage tanks and toilets.",
+      "focus": [
+        "funding",
+        "sanitation"
+      ],
+      "id": "verified-ke-water-org",
+      "source": "verified",
+      "lastVerified": "2026-09-15"
+    },
+    {
+      "name": "Water Mission",
+      "kind": "ngo",
+      "country": "KE",
+      "url": "https://watermission.org/",
+      "countryUrl": "https://watermission.org/about/offices/kenya",
+      "description": "Engineering NGO with an office in Kitale that builds solar-powered piped water systems and responds to water emergencies in Kenya.",
+      "focus": [
+        "solar_pumping",
+        "piped_schemes",
+        "emergency"
+      ],
+      "id": "verified-ke-water-mission",
+      "source": "verified",
+      "lastVerified": "2026-09-15"
+    },
+    {
+      "id": "search-waterislifekenya.org",
+      "name": "Water is Life Kenya",
+      "kind": "ngo",
+      "country": "KE",
+      "url": "https://waterislifekenya.org/",
+      "description": "Water is Life Kenya is a registered 501(c)(3) nonprofit whose mission is to spark personal, economic, and community development in marginalized communities in Kenya, according to existing customs…",
+      "focus": [
+        "sanitation"
+      ],
+      "source": "search"
+    },
+    {
+      "id": "search-wellboring.org",
+      "name": "WellBoring",
+      "kind": "ngo",
+      "country": "KE",
+      "url": "https://wellboring.org/",
+      "description": ". Wellboring is a company that aims to solve the sub-saharan water crisis by funding, drilling, building, and rehabilitating safe water wells.",
+      "focus": [
+        "boreholes",
+        "water_quality",
+        "funding"
+      ],
+      "source": "search"
+    },
+    {
+      "id": "search-waterwellsforafrica.org",
+      "name": "Water Wells For Africa",
+      "kind": "ngo",
+      "country": "KE",
+      "url": "https://waterwellsforafrica.org/",
+      "description": "Water Wells for Africa (WWFA) is a dedicated nonprofit organization committed to improving the quality of life in rural African communities by providing access to safe, sustainable drinking water.",
+      "focus": [
+        "maintenance"
+      ],
+      "source": "search"
+    },
+    {
+      "name": "WaterAid",
+      "kind": "ngo",
+      "country": "global",
+      "url": "https://www.wateraid.org/",
+      "description": "International NGO working across sub-Saharan Africa on water supply, sanitation and hygiene services and on WASH sector policy and advocacy.",
+      "focus": [
+        "piped_schemes",
+        "sanitation",
+        "policy",
+        "water_quality"
+      ],
+      "id": "verified-global-wateraid",
+      "source": "verified",
+      "lastVerified": "2026-09-15"
+    },
+    {
+      "name": "charity: water",
+      "kind": "funder",
+      "country": "global",
+      "url": "https://www.charitywater.org/",
+      "description": "Funds construction and rehabilitation of boreholes, wells and piped systems delivered by local implementing partners across sub-Saharan Africa.",
+      "focus": [
+        "boreholes",
+        "handpumps",
+        "rainwater",
+        "piped_schemes",
+        "funding"
+      ],
+      "id": "verified-global-charity-water",
+      "source": "verified",
+      "lastVerified": "2026-09-15"
+    },
+    {
+      "name": "UNICEF WASH",
+      "kind": "multilateral",
+      "country": "global",
+      "url": "https://www.unicef.org/water-sanitation-and-hygiene-wash",
+      "description": "Supports government WASH systems, emergency water response, and water-quality and sanitation programming across sub-Saharan Africa.",
+      "focus": [
+        "emergency",
+        "sanitation",
+        "policy",
+        "water_quality"
+      ],
+      "id": "verified-global-unicef-wash",
+      "source": "verified",
+      "lastVerified": "2026-09-15"
+    }
+  ]
+}
