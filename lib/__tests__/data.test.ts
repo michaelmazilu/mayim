@@ -47,13 +47,17 @@ import { VERIFIED_PARTNERS, verifiedPartnersFor } from "@/lib/partners/verified"
 import { costPerPersonServed } from "@/lib/metrics/cost-per-person";
 import { buildProjectBrief } from "@/lib/brief/brief";
 import {
+  CITY_GROWTH,
   DEMAND_LITERS_PER_PERSON_DAY,
   DROUGHT_FUNCTIONALITY,
   HOUSEHOLD_SIZE,
+  MOTORISED_SCHEME_DOWN_SHARE,
   POPULATION_GROWTH,
   REPAIR_DAYS,
   WATER_POINT_DOWN_SHARE,
+  WATER_POINT_DOWN_SHARE_BY_COUNTRY,
   WALKING_SPEED_M_PER_S,
+  growthRateForTown,
   householdSize,
   meanDaysBetweenBreakdowns,
   populationGrowthRate,
@@ -473,9 +477,28 @@ describe("behaviour rates", () => {
     ...Object.entries(HOUSEHOLD_SIZE),
     ...Object.entries(REPAIR_DAYS),
     ...Object.entries(DROUGHT_FUNCTIONALITY),
+    ...Object.entries(CITY_GROWTH),
+    ...(Object.entries(WATER_POINT_DOWN_SHARE_BY_COUNTRY) as [string, Rate][]),
     ["downShare", WATER_POINT_DOWN_SHARE],
+    ["motorised", MOTORISED_SCHEME_DOWN_SHARE],
     ["walking", WALKING_SPEED_M_PER_S],
   ];
+
+  test("town growth uses a sourced city rate, else the national one", () => {
+    // Kisumu County: 968,909 (2009) → 1,155,574 (2019).
+    const cagr = ((1155574 / 968909) ** (1 / 10) - 1) * 100;
+    assert.ok(Math.abs(cagr - CITY_GROWTH["kisumu-kenya"].central) < 0.01, String(cagr));
+    assert.equal(growthRateForTown("kisumu-kenya", "KE"), CITY_GROWTH["kisumu-kenya"]);
+    // Boundary changes make city rates invalid for these two.
+    assert.equal(growthRateForTown("tamale-ghana", "GH"), POPULATION_GROWTH.GH);
+    assert.equal(growthRateForTown("gulu-uganda", "UG"), POPULATION_GROWTH.UG);
+    assert.equal(growthRateForTown(undefined, undefined), POPULATION_GROWTH.SSA);
+  });
+
+  test("motorised schemes are down more often and for longer than handpumps", () => {
+    assert.ok(MOTORISED_SCHEME_DOWN_SHARE.central > WATER_POINT_DOWN_SHARE.central);
+    assert.ok(REPAIR_DAYS.motorisedCommunityManaged.low > REPAIR_DAYS.communityManaged.central);
+  });
 
   test("every rate is ordered and cited", () => {
     for (const [name, r] of all) {
