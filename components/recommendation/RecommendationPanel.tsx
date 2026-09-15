@@ -4,17 +4,21 @@ import { useRef, useState, type JSX } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import type { AnalysisRun } from "@/lib/types";
 import { OverviewTab } from "./tabs/OverviewTab";
+import { SimulationTab } from "./tabs/SimulationTab";
 import { WhyTab } from "./tabs/WhyTab";
 import { AlternativesTab } from "./tabs/AlternativesTab";
 import { EvidenceTab } from "./tabs/EvidenceTab";
 import { ValidationTab } from "./tabs/ValidationTab";
 
-type TabId = "overview" | "why" | "alternatives" | "evidence" | "validation";
+type TabId = "overview" | "simulation" | "why" | "alternatives" | "evidence" | "validation";
 
 type TabProps = { run: AnalysisRun; onFocusCandidate?: (id: string | null) => void };
 
 const TABS: { id: TabId; label: string; Body: (props: TabProps) => JSX.Element }[] = [
   { id: "overview", label: "Overview", Body: OverviewTab },
+  // Second, not last: the simulation is the argument for the recommendation,
+  // and a reader who stops after two tabs should have seen it.
+  { id: "simulation", label: "Simulation", Body: SimulationTab },
   { id: "why", label: "Why this site", Body: WhyTab },
   { id: "alternatives", label: "Alternatives", Body: AlternativesTab },
   { id: "evidence", label: "Evidence", Body: EvidenceTab },
