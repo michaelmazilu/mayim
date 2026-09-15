@@ -17,12 +17,8 @@ import { fetchWorldPopWithin } from "@/lib/providers/worldpop";
 import { searchEvidenceDetailed, type EvidenceSearch } from "@/lib/evidence/exa";
 import { isLlmConfigured, llmLabel, writeNarrative } from "@/lib/evidence/llm";
 import { structureLive } from "@/lib/evidence/gather";
-import {
-  loadEvidenceSnapshot,
-  saveEvidenceSnapshot,
-  snapshotDateLabel,
-  type EvidenceSnapshot,
-} from "@/lib/evidence/snapshot";
+// Snapshots are read here but written only by `npm run evidence:refresh`.
+import { loadEvidenceSnapshot, snapshotDateLabel, type EvidenceSnapshot } from "@/lib/evidence/snapshot";
 import { aggregateSignals, NEUTRAL_SIGNALS } from "@/lib/evidence/signals";
 import { demoEvidenceFor } from "@/lib/evidence/demo-evidence";
 import { discoverPartners, type PartnerSearch } from "@/lib/partners/discover";
@@ -192,20 +188,6 @@ export async function runAnalysis(inputTown: TownRef, emit: Emit): Promise<Analy
     evidenceDetail = `${findings.length} findings from ${evidence.items.length} sources`;
     if (structuredBy === "deterministic") {
       warnings.push("Live sources were quoted without LLM structuring — they widen the evidence base but do not adjust factor scores.");
-    }
-    // Seed a fallback for towns that have none. Existing (committed) snapshots
-    // change only through `npm run evidence:refresh`, so live runs never churn them.
-    if (!(await loadEvidenceSnapshot(town.slug))) {
-      await saveEvidenceSnapshot({
-        version: 1,
-        slug: town.slug,
-        displayName: town.displayName,
-        retrievedAt: new Date(startedAt).toISOString(),
-        structuredBy,
-        queries: evidence.outcomes,
-        findings,
-        partners: partnerSearch.partners,
-      });
     }
   } else {
     const gap = evidenceGap(evidence);
