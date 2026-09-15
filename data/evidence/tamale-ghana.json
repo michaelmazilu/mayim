@@ -1,0 +1,449 @@
+{
+  "version": 1,
+  "slug": "tamale-ghana",
+  "displayName": "Tamale, Tamale Metropolitan District, Northern Region, NT-0148-3057, Ghana",
+  "retrievedAt": "2026-09-15T17:03:41.447Z",
+  "structuredBy": "llm:gpt-4.1-mini",
+  "queries": [
+    {
+      "category": "water_need",
+      "tier": "town",
+      "query": "Assessment of drinking water access and unserved households in Tamale, Northern Region, Ghana",
+      "results": 5
+    },
+    {
+      "category": "hydrogeology",
+      "tier": "town",
+      "query": "Hydrogeology and groundwater potential of Tamale, Northern Region, Ghana: aquifers, borehole yields and depth to water",
+      "results": 5
+    },
+    {
+      "category": "environment",
+      "tier": "town",
+      "query": "Flooding, drought and water quality contamination risks in Tamale, Northern Region, Ghana",
+      "results": 5
+    },
+    {
+      "category": "infrastructure",
+      "tier": "town",
+      "query": "Water supply projects, boreholes and piped schemes built or planned in Tamale, Northern Region, Ghana",
+      "results": 5
+    }
+  ],
+  "findings": [
+    {
+      "id": "f00",
+      "category": "water_need",
+      "title": "Overview of rural and small towns water services in Northern Region",
+      "summary": "The 2014 service monitoring round assessed rural and small towns water services in Northern Region of Ghana.",
+      "sourceName": "ircwash.org",
+      "sourceUrl": "https://www.ircwash.org/resources/rural-and-small-towns-water-services-northern-region",
+      "confidence": 0.8
+    },
+    {
+      "id": "f01",
+      "category": "hydrogeology",
+      "title": "Aquifer storage and recharge suitability in northern Ghana",
+      "summary": "Most of the study area has static water levels from 10 to 70 m, suitable for aquifer storage and recharge techniques.",
+      "sourceName": "link.springer.com",
+      "sourceUrl": "https://link.springer.com/article/10.1007/s40808-017-0360-6",
+      "publishedDate": "2017-08-22",
+      "confidence": 0.7,
+      "scoreImpact": {
+        "factor": "groundwater",
+        "direction": "increase",
+        "magnitude": 0.25
+      }
+    },
+    {
+      "id": "f02",
+      "category": "environment",
+      "title": "Flood impacts on water quality in Tamale",
+      "summary": "Floods deteriorate water quality of unprotected sources in Tamale, increasing faecal contamination risks.",
+      "sourceName": "doi.org",
+      "sourceUrl": "https://doi.org/10.1177/0956247820952030",
+      "publishedDate": "2020-09-19",
+      "confidence": 0.9,
+      "scoreImpact": {
+        "factor": "risk",
+        "direction": "increase",
+        "magnitude": 0.3
+      }
+    },
+    {
+      "id": "f03",
+      "category": "infrastructure",
+      "title": "Tamale-Damongo Water Supply Project financing and progress",
+      "summary": "Ghana Water Limited is advancing the €312 million Tamale-Damongo Water Supply Project with EU and other partners' funding.",
+      "sourceName": "gna.org.gh",
+      "sourceUrl": "https://gna.org.gh/2026/06/gwl-e312-million-tamale-damongo-water-project-advances-as-company-deepens-stakeholder-engagement/",
+      "publishedDate": "2026-06-30",
+      "confidence": 0.85
+    },
+    {
+      "id": "f04",
+      "category": "water_need",
+      "title": "Access to improved drinking-water in Ghana",
+      "summary": "Urban population access to improved drinking water increased from 73% in 2016 to 83% in 2018 in Ghana.",
+      "sourceName": "who.int",
+      "sourceUrl": "https://www.who.int/docs/default-source/wash-documents/glaas/glaas-2018-19/2019-country-highlights/ghana-glaas-2018-19-country-highlights.pdf?sfvrsn=734a7a84_2",
+      "confidence": 0.6,
+      "scoreImpact": {
+        "factor": "need",
+        "direction": "decrease",
+        "magnitude": 0.2
+      }
+    },
+    {
+      "id": "f05",
+      "category": "hydrogeology",
+      "title": "Basement aquifers characteristics in Ghana",
+      "summary": "Basement aquifers have transmissivity between 0.2 and 119 m²/day and borehole depths from 40 to 200 m.",
+      "sourceName": "earthwise.bgs.ac.uk",
+      "sourceUrl": "https://earthwise.bgs.ac.uk/index.php/Hydrogeology_of_Ghana",
+      "publishedDate": "2023-12-13",
+      "confidence": 0.7
+    },
+    {
+      "id": "f06",
+      "category": "environment",
+      "title": "Flood hazards in Northern Ghana including Tamale",
+      "summary": "Northern Region is among the most flood-prone areas in Ghana, with floods causing significant national impacts.",
+      "sourceName": "doi.org",
+      "sourceUrl": "https://doi.org/10.1007/s44274-025-00200-2",
+      "publishedDate": "2025-02-28",
+      "confidence": 0.8,
+      "scoreImpact": {
+        "factor": "risk",
+        "direction": "increase",
+        "magnitude": 0.3
+      }
+    },
+    {
+      "id": "f07",
+      "category": "infrastructure",
+      "title": "Tamale water system project plans",
+      "summary": "Plans include building a pumping station at Yapei to produce about 30 million gallons of water for Tamale Metropolis.",
+      "sourceName": "citinewsroom.com",
+      "sourceUrl": "https://www.citinewsroom.com/2026/05/tamale-to-receive-30m-gallons-of-water-under-new-project-mahama/",
+      "publishedDate": "2026-05-15",
+      "confidence": 0.85
+    },
+    {
+      "id": "f08",
+      "category": "water_need",
+      "title": "Water service level standards in Ghana",
+      "summary": "Water service standards include a maximum distance of 500 metres to the farthest household for rural water schemes.",
+      "sourceName": "ircwash.org",
+      "sourceUrl": "https://www.ircwash.org/sites/default/files/20130308_factsheetonservicemonitoringinthreedistrictsinghana_1.pdf",
+      "confidence": 0.75,
+      "scoreImpact": {
+        "factor": "access",
+        "direction": "decrease",
+        "magnitude": 0.15
+      }
+    },
+    {
+      "id": "f09",
+      "category": "hydrogeology",
+      "title": "Groundwater aquifers in northern Ghana",
+      "summary": "Aquifers in northern Ghana are semi-confined with depths ranging from 10 to 60 m, recharged mainly by precipitation.",
+      "sourceName": "link.springer.com",
+      "sourceUrl": "https://link.springer.com/article/10.1186/s40064-016-3676-1",
+      "publishedDate": "2016-11-22",
+      "confidence": 0.8,
+      "scoreImpact": {
+        "factor": "groundwater",
+        "direction": "increase",
+        "magnitude": 0.25
+      }
+    },
+    {
+      "id": "f10",
+      "category": "environment",
+      "title": "Local climate change impacts in Tamale",
+      "summary": "Tamale residents report floods (48%), increasing temperatures (15%), and erratic rainfall (13.8%) as climate change impacts.",
+      "sourceName": "doi.org",
+      "sourceUrl": "https://doi.org/10.36005/jplm.v4i1.81",
+      "publishedDate": "2025-07-01",
+      "confidence": 0.85,
+      "scoreImpact": {
+        "factor": "risk",
+        "direction": "increase",
+        "magnitude": 0.3
+      }
+    },
+    {
+      "id": "f11",
+      "category": "infrastructure",
+      "title": "Government plans for Tamale water project construction",
+      "summary": "Government budgeted for a pumping station on the White Volta at Yapei to supply additional water to Tamale.",
+      "sourceName": "graphic.com.gh",
+      "sourceUrl": "https://www.graphic.com.gh/news/general-news/ghana-news-construction-of-tamale-water-project-to-begin-next-year-president-mahama.html",
+      "publishedDate": "2025-11-24",
+      "confidence": 0.85
+    },
+    {
+      "id": "f12",
+      "category": "water_need",
+      "title": "Household water sources and storage in Northern Ghana",
+      "summary": "Over half the population depend on surface water sources often contaminated with faecal matter in Northern Ghana.",
+      "sourceName": "ircwash.org",
+      "sourceUrl": "https://www.ircwash.org/blog/household-water-treatment-and-storage-savelugu-nanton-municipality-northern-ghana",
+      "confidence": 0.8,
+      "scoreImpact": {
+        "factor": "need",
+        "direction": "increase",
+        "magnitude": 0.25
+      }
+    },
+    {
+      "id": "f13",
+      "category": "hydrogeology",
+      "title": "Groundwater availability for irrigation in northeast Ghana",
+      "summary": "Groundwater levels are usually shallow, making it relatively easy to abstract water by hand digging shallow wells.",
+      "sourceName": "earthwise.bgs.ac.uk",
+      "sourceUrl": "https://earthwise.bgs.ac.uk/index.php/Case_Study_Groundwater_Irrigation_Northeast_Ghana",
+      "confidence": 0.75,
+      "scoreImpact": {
+        "factor": "groundwater",
+        "direction": "increase",
+        "magnitude": 0.2
+      }
+    },
+    {
+      "id": "f14",
+      "category": "environment",
+      "title": "Research on local adaptation to climate change in Tamale",
+      "summary": "Studies document grassroots coping strategies for climate change impacts in Tamale, Northern Ghana.",
+      "sourceName": "fplm.ubids.edu.gh",
+      "sourceUrl": "https://fplm.ubids.edu.gh/journal/index.php/jplm/article/view/81",
+      "publishedDate": "2025-07-01",
+      "confidence": 0.7
+    },
+    {
+      "id": "f15",
+      "category": "infrastructure",
+      "title": "Government to locally fund Tamale water project after funding delay",
+      "summary": "Government will mobilize local funds to execute the Tamale water supply project after €277 million facility delay.",
+      "sourceName": "citinewsroom.com",
+      "sourceUrl": "https://www.citinewsroom.com/2026/04/govt-to-fund-tamale-water-project-locally-after-e277m-facility-delay/",
+      "publishedDate": "2026-04-18",
+      "confidence": 0.85
+    }
+  ],
+  "partners": [
+    {
+      "name": "Community Water and Sanitation Agency (CWSA)",
+      "kind": "government",
+      "country": "GH",
+      "url": "https://www.cwsa.gov.gh/",
+      "description": "Government agency mandated to facilitate safe water and sanitation services for rural communities and small towns.",
+      "focus": [
+        "boreholes",
+        "handpumps",
+        "piped_schemes",
+        "policy"
+      ],
+      "id": "verified-gh-community-water-and-sanitation-agency-cwsa",
+      "source": "verified",
+      "lastVerified": "2026-09-15"
+    },
+    {
+      "name": "Ghana Water Limited",
+      "kind": "utility",
+      "country": "GH",
+      "url": "https://www.ghana.gov.gh/mdas/0e24e70b96/",
+      "description": "State-owned utility responsible for producing and distributing piped water in Ghana's urban areas, including Tamale.",
+      "focus": [
+        "piped_schemes",
+        "water_quality"
+      ],
+      "id": "verified-gh-ghana-water-limited",
+      "source": "verified",
+      "lastVerified": "2026-09-15"
+    },
+    {
+      "name": "Saha Global",
+      "kind": "ngo",
+      "country": "GH",
+      "url": "https://sahaglobal.org/",
+      "description": "Works in Northern Ghana, including around Tamale, training local women to run community water-treatment businesses.",
+      "focus": [
+        "water_quality",
+        "maintenance"
+      ],
+      "id": "verified-gh-saha-global",
+      "source": "verified",
+      "lastVerified": "2026-09-15"
+    },
+    {
+      "name": "WaterAid Ghana",
+      "kind": "ngo",
+      "country": "GH",
+      "url": "https://www.wateraid.org/",
+      "countryUrl": "https://www.wateraid.org/gh",
+      "description": "WaterAid's Ghana programme, focused on WASH services in the Upper West and Upper East regions and national policy.",
+      "focus": [
+        "piped_schemes",
+        "sanitation",
+        "policy"
+      ],
+      "id": "verified-gh-wateraid-ghana",
+      "source": "verified",
+      "lastVerified": "2026-09-15"
+    },
+    {
+      "name": "World Vision Ghana",
+      "kind": "ngo",
+      "country": "GH",
+      "url": "https://www.wvi.org/",
+      "countryUrl": "https://www.wvi.org/ghana",
+      "description": "Drills and mechanises boreholes, including solar-powered systems, for rural communities and schools in Ghana.",
+      "focus": [
+        "boreholes",
+        "solar_pumping",
+        "sanitation"
+      ],
+      "id": "verified-gh-world-vision-ghana",
+      "source": "verified",
+      "lastVerified": "2026-09-15"
+    },
+    {
+      "name": "Safe Water Network Ghana",
+      "kind": "ngo",
+      "country": "GH",
+      "url": "https://safewaternetwork.org/our-work/ghana/",
+      "description": "Develops locally run small water enterprises serving rural, small-town and peri-urban communities in Ghana.",
+      "focus": [
+        "piped_schemes",
+        "water_quality",
+        "maintenance"
+      ],
+      "id": "verified-gh-safe-water-network-ghana",
+      "source": "verified",
+      "lastVerified": "2026-09-15"
+    },
+    {
+      "name": "CONIWAS",
+      "kind": "network",
+      "country": "GH",
+      "url": "https://coniwasghana.com/",
+      "description": "Coalition of NGOs in Water and Sanitation — advocates on WASH policy and coordinates civil society with government agencies.",
+      "focus": [
+        "policy"
+      ],
+      "id": "verified-gh-coniwas",
+      "source": "verified",
+      "lastVerified": "2026-09-15"
+    },
+    {
+      "id": "search-wholives.org",
+      "name": "WHOlives",
+      "kind": "ngo",
+      "country": "GH",
+      "url": "https://wholives.org/",
+      "description": "Founded in 2010, WHOlives currently has 50 drills on 4 continents, spreading across 20 developing countries, drilling more than 650 wells, bringing clean, sustainable water to 650,000 people and…",
+      "focus": [
+        "boreholes",
+        "maintenance",
+        "funding"
+      ],
+      "source": "search"
+    },
+    {
+      "id": "search-wellboring.org",
+      "name": "WellBoring",
+      "kind": "ngo",
+      "country": "GH",
+      "url": "https://wellboring.org/",
+      "description": ". Wellboring is a company that aims to solve the sub-saharan water crisis by funding, drilling, building, and rehabilitating safe water wells.",
+      "focus": [
+        "boreholes",
+        "water_quality",
+        "funding"
+      ],
+      "source": "search"
+    },
+    {
+      "name": "WaterAid",
+      "kind": "ngo",
+      "country": "global",
+      "url": "https://www.wateraid.org/",
+      "description": "International NGO working across sub-Saharan Africa on water supply, sanitation and hygiene services and on WASH sector policy and advocacy.",
+      "focus": [
+        "piped_schemes",
+        "sanitation",
+        "policy",
+        "water_quality"
+      ],
+      "id": "verified-global-wateraid",
+      "source": "verified",
+      "lastVerified": "2026-09-15"
+    },
+    {
+      "name": "charity: water",
+      "kind": "funder",
+      "country": "global",
+      "url": "https://www.charitywater.org/",
+      "description": "Funds construction and rehabilitation of boreholes, wells and piped systems delivered by local implementing partners across sub-Saharan Africa.",
+      "focus": [
+        "boreholes",
+        "handpumps",
+        "rainwater",
+        "piped_schemes",
+        "funding"
+      ],
+      "id": "verified-global-charity-water",
+      "source": "verified",
+      "lastVerified": "2026-09-15"
+    },
+    {
+      "name": "UNICEF WASH",
+      "kind": "multilateral",
+      "country": "global",
+      "url": "https://www.unicef.org/water-sanitation-and-hygiene-wash",
+      "description": "Supports government WASH systems, emergency water response, and water-quality and sanitation programming across sub-Saharan Africa.",
+      "focus": [
+        "emergency",
+        "sanitation",
+        "policy",
+        "water_quality"
+      ],
+      "id": "verified-global-unicef-wash",
+      "source": "verified",
+      "lastVerified": "2026-09-15"
+    },
+    {
+      "name": "World Vision WASH",
+      "kind": "ngo",
+      "country": "global",
+      "url": "https://www.wvi.org/our-work/cleanwater",
+      "description": "Implements borehole drilling, solar-powered piped systems, sanitation and emergency WASH response in many sub-Saharan African countries.",
+      "focus": [
+        "boreholes",
+        "solar_pumping",
+        "sanitation",
+        "emergency"
+      ],
+      "id": "verified-global-world-vision-wash",
+      "source": "verified",
+      "lastVerified": "2026-09-15"
+    },
+    {
+      "name": "IRC WASH",
+      "kind": "ngo",
+      "country": "global",
+      "url": "https://www.ircwash.org/",
+      "description": "Works with governments and utilities to strengthen WASH systems, financing and service monitoring, including life-cycle costing of rural water.",
+      "focus": [
+        "policy",
+        "maintenance",
+        "funding"
+      ],
+      "id": "verified-global-irc-wash",
+      "source": "verified",
+      "lastVerified": "2026-09-15"
+    }
+  ]
+}

@@ -150,6 +150,14 @@ export type EvidenceFinding = {
   };
 };
 
+/**
+ * Where a run's findings came from:
+ *   live     — retrieved by Exa during this run;
+ *   snapshot — a saved earlier live search for this town (data/evidence/);
+ *   bundled  — hand-written institutional placeholders (no search was run).
+ */
+export type EvidenceProvenance = "live" | "snapshot" | "bundled";
+
 /** Aggregated, deterministic roll-up of findings into scoring inputs. */
 export type EvidenceSignals = {
   /** 0..1 — how strongly evidence indicates unmet water need. */
@@ -229,10 +237,71 @@ export type PopulationEstimate = {
   method:
     | "geocoder_population_building_weighted"
     | "building_density_proxy"
-    | "facility_density_proxy";
+    | "facility_density_proxy"
+    | "worldpop_gridded";
   methodLabel: string;
   confidence: number; // 0..1
   limitations: string[];
+  /**
+   * Raw WorldPop count summed over the service-radius circle, before any
+   * projection. Present whenever the WorldPop API answered; the basis of a
+   * "worldpop_gridded" estimate.
+   */
+  worldpop?: {
+    people: number;
+    /** Latest year the WorldPop global per-country series covers. */
+    year: number;
+    dataset: string;
+    source: string;
+  };
+  /**
+   * The mapped-data estimate (methods 1–3) kept as a cross-check when WorldPop
+   * is the primary method.
+   */
+  alternative?: {
+    method: "geocoder_population_building_weighted" | "building_density_proxy" | "facility_density_proxy";
+    rangeLow: number;
+    rangeHigh: number;
+    methodLabel: string;
+  };
+};
+
+// ---------------------------------------------------------------------------
+// Partners (organisations a planner could approach)
+// ---------------------------------------------------------------------------
+
+export type PartnerKind = "ngo" | "multilateral" | "government" | "utility" | "network" | "funder";
+
+export type PartnerFocus =
+  | "boreholes"
+  | "handpumps"
+  | "solar_pumping"
+  | "piped_schemes"
+  | "rainwater"
+  | "water_quality"
+  | "maintenance"
+  | "sanitation"
+  | "funding"
+  | "policy"
+  | "emergency";
+
+export type Partner = {
+  id: string;
+  name: string;
+  kind: PartnerKind;
+  /** ISO 3166-1 alpha-2 country code, or "global" for multi-country organisations. */
+  country: string;
+  url: string;
+  /** Country-programme page, when the organisation has one. */
+  countryUrl?: string;
+  description: string;
+  focus: PartnerFocus[];
+  /**
+   * verified — curated list, URLs checked by hand (see lastVerified);
+   * search   — surfaced by live Exa search this run; not reviewed.
+   */
+  source: "verified" | "search";
+  lastVerified?: string;
 };
 
 // ---------------------------------------------------------------------------
@@ -486,7 +555,11 @@ export type AnalysisRun = {
   climate: ClimateData;
   terrain: TerrainData;
   findings: EvidenceFinding[];
+  /** Absent on runs cached before this field existed; treat as "bundled". */
+  evidenceProvenance?: EvidenceProvenance;
   signals: EvidenceSignals;
+  /** Organisations to approach. Absent on older cached runs — use /api/partners. */
+  partners?: Partner[];
   candidates: Candidate[];
   candidateCount: number;
   excludedCount: number;

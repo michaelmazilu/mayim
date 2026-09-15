@@ -1,5 +1,7 @@
 # Mayim
 
+**Live demo:** [mayimgc.vercel.app](https://mayimgc.vercel.app/)
+
 **Finds the highest-leverage site for new clean-water infrastructure in an underserved town, then designs and costs it.**
 
 Billions of dollars go into water and humanitarian development, yet more than 400 million people in Africa still lack access to basic drinking water (African Development Bank). The binding constraint is no longer intent — it is deciding *where* a new water point does the most good.
@@ -20,7 +22,7 @@ npm run dev
 
 Open http://localhost:3000 and search a town (try `Kisumu, Kenya`).
 
-`npm run build` · `npm start` · `npm run lint` · `npm run typecheck` · `npm test` (68 unit tests)
+`npm run build` · `npm start` · `npm run lint` · `npm run typecheck` · `npm test` (116 unit tests) · `npm run evidence:refresh` (re-save live sources for the demo towns; needs `EXA_API_KEY`) · `npm run scan:refresh` (re-save district rankings from WPdx) · `npm run demo:recache` (re-run the demo towns and overwrite `data/demo`; `--out <dir>` for a dry run)
 
 ## What a run returns
 
@@ -94,7 +96,20 @@ Every key is optional; the app degrades explicitly rather than failing.
 
 Server keys are read only inside `app/api/*/route.ts` and the `lib/` modules they import — never in a client component, so they never reach the browser bundle, and they are never logged.
 
+**Evidence falls back in three labelled rungs:** a live Exa search → a saved snapshot of an earlier live search for that town (`data/evidence/<slug>.json`, written only by `npm run evidence:refresh`; commit these) → hand-written bundled reference sources. With an Exa key but no OpenAI key, live sources are shown as verbatim excerpts that widen the evidence base without adjusting factor scores. Town-level queries that come back thin are retried once at region/country level.
+
 **Without keys** the deterministic geospatial analysis still runs end to end on bundled reference evidence; without a Mapbox token the map renders an instruction panel instead of crashing and geocoding falls back to Nominatim. Every run is labelled with its provenance — `live`, `cache` (a stored run replayed from its real events), `demo`, or `partial`.
+
+## Data endpoints
+
+| Route | Returns |
+| --- | --- |
+| `GET /api/brief?slug=<slug>[&download=1]` | Markdown project brief for a stored run (404 if that town has no stored run). |
+| `POST /api/brief` `{ run }` | Markdown brief for a run the client already holds — use this for live runs on a read-only host. |
+| `GET /api/partners?country=<name>[&live=0]` | Verified water organisations for the country, plus search finds when `EXA_API_KEY` is set. |
+| `GET /api/scan?country=<name>` | Districts ranked by people who would regain water access if broken points were repaired (WPdx+), with share not working and a thin-data flag. Falls back to `data/scan/<ISO3>.json` (`npm run scan:refresh`). |
+
+Partner discovery is the fifth Exa query of every run (`run.partners`). The verified fallback list (`lib/partners/verified.ts`) has every URL checked by hand; search finds are labelled unreviewed. Sourced simulation rates (growth, household size, breakdown and repair time, walking speed, Sphere flow rates, demand) live in `lib/config/behaviour.ts`, each with its citation.
 
 ## Layout
 
@@ -108,6 +123,6 @@ lib/     types.ts · pipeline.ts · config/coefficients.ts (every coefficient, s
 
 ## Data sources
 
-OpenStreetMap via Overpass (ODbL) · NASA POWER climatology (MERRA-2) · Open-Elevation / OpenTopoData (SRTM) · Esri World Imagery + CARTO labels via MapLibre GL · Nominatim · Exa · OpenAI.
+OpenStreetMap via Overpass (ODbL) · NASA POWER climatology (MERRA-2) · Open-Elevation / OpenTopoData (SRTM) · WorldPop 2020 100 m population (CC BY 4.0; the primary people-within-reach estimate, projected forward with national growth, with mapped buildings as fallback and cross-check) · Water Point Data Exchange WPdx+ (CC BY 4.0; surveyed water points and functional status for the regional scan) · Esri World Imagery + CARTO labels via MapLibre GL · Nominatim · Exa · OpenAI · World Bank WDI, national censuses, Sphere, WHO and REACH/UPGro studies for simulation rates.
 
 Cost coefficients are order-of-magnitude planning figures from published rural water supply benchmarking, labelled in `lib/config/coefficients.ts`. They are screening inputs, not quotations.

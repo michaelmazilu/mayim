@@ -17,13 +17,21 @@ import { stageReached, type LayerId, type MapStage } from "./layers";
 // ---------------------------------------------------------------------------
 
 /**
- * Keyless satellite basemap.
+ * Satellite basemap.
  *
- * Esri World Imagery supplies the satellite raster and CARTO supplies dark
- * place labels; neither needs an API key, so the demo runs anywhere. Glyphs
- * come from the MapLibre demo font stack, which is why symbol layers below
- * use "Noto Sans Regular" rather than a Mapbox-hosted font.
+ * Esri World Imagery supplies the satellite raster (keyless). CARTO supplies
+ * ground/label tiles and now requires an API key (Aug 2026) — without one,
+ * tiles render with an "API KEY REQUIRED" watermark instead of failing.
+ * Glyphs come from the MapLibre demo font stack, which is why symbol layers
+ * below use "Noto Sans Regular" rather than a Mapbox-hosted font.
  */
+const CARTO_KEY_PARAM = process.env.NEXT_PUBLIC_CARTO_API_KEY
+  ? `?key=${process.env.NEXT_PUBLIC_CARTO_API_KEY}`
+  : "";
+
+/** Served from public/; see scripts/copy-maplibre-worker.mjs. */
+const MAPLIBRE_WORKER_URL = "/maplibre/maplibre-gl-worker.mjs";
+
 const SATELLITE_ATTRIB =
   "Imagery &copy; Esri, Maxar, Earthstar Geographics | Basemap &copy; OpenStreetMap contributors, &copy; CARTO";
 
@@ -52,14 +60,14 @@ const BASE_STYLE: maplibregl.StyleSpecification = {
        extra source and swap instantly. */
     "base-light": {
       type: "raster",
-      tiles: ["https://basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png"],
+      tiles: [`https://basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png${CARTO_KEY_PARAM}`],
       tileSize: 256,
       maxzoom: 19,
       attribution: BASE_ATTRIB,
     },
     "base-dark": {
       type: "raster",
-      tiles: ["https://basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png"],
+      tiles: [`https://basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png${CARTO_KEY_PARAM}`],
       tileSize: 256,
       maxzoom: 19,
       attribution: BASE_ATTRIB,
@@ -67,13 +75,13 @@ const BASE_STYLE: maplibregl.StyleSpecification = {
     /* Labels alone, re-drawn over imagery so place names survive it. */
     "labels-light": {
       type: "raster",
-      tiles: ["https://basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}@2x.png"],
+      tiles: [`https://basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}@2x.png${CARTO_KEY_PARAM}`],
       tileSize: 256,
       maxzoom: 19,
     },
     "labels-dark": {
       type: "raster",
-      tiles: ["https://basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}@2x.png"],
+      tiles: [`https://basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}@2x.png${CARTO_KEY_PARAM}`],
       tileSize: 256,
       maxzoom: 19,
     },
@@ -645,8 +653,8 @@ type GroupKey =
 const OPACITY_TABLE: { layer: string; group: GroupKey; props: { prop: OpacityProp; max: number }[] }[] = [
   { layer: LAYER.townFill, group: "town", props: [{ prop: "fill-opacity", max: 0.05 }] },
   { layer: LAYER.townLine, group: "town", props: [{ prop: "line-opacity", max: 0.6 }] },
-  { layer: LAYER.roads, group: "roads", props: [{ prop: "line-opacity", max: 0.72 }] },
-  { layer: LAYER.water, group: "water", props: [{ prop: "line-opacity", max: 0.85 }] },
+  { layer: LAYER.roads, group: "roads", props: [{ prop: "line-opacity", max: 0.85 }] },
+  { layer: LAYER.water, group: "water", props: [{ prop: "line-opacity", max: 0.9 }] },
   { layer: LAYER.buildings, group: "existing", props: [{ prop: "circle-opacity", max: 0.3 }] },
   {
     layer: LAYER.facilities,
@@ -899,8 +907,10 @@ function installStyle(map: GLMap): void {
     source: SOURCE.roads,
     layout: { "line-cap": "round", "line-join": "round" },
     paint: {
-      "line-color": "#9aa0a6",
-      "line-width": ["interpolate", ["linear"], ["zoom"], 10, 0.35, 14, 1.1, 17, 2.6],
+      /* Amber, not grey: the CARTO ground already draws its roads in grey, so a
+         grey overlay sat on top of them and toggling it changed nothing visible. */
+      "line-color": "#e0a030",
+      "line-width": ["interpolate", ["linear"], ["zoom"], 10, 0.6, 14, 1.8, 17, 3.6],
       "line-opacity": 0,
       "line-opacity-transition": { duration: 500 },
     },
@@ -911,8 +921,8 @@ function installStyle(map: GLMap): void {
     source: SOURCE.water,
     layout: { "line-cap": "round", "line-join": "round" },
     paint: {
-      "line-color": "#6b7075",
-      "line-width": ["interpolate", ["linear"], ["zoom"], 10, 0.8, 14, 2, 17, 4.5],
+      "line-color": "#17a8d6",
+      "line-width": ["interpolate", ["linear"], ["zoom"], 10, 1, 14, 2.6, 17, 5.5],
       "line-blur": 0.5,
       "line-opacity": 0,
       "line-opacity-transition": { duration: 500 },
@@ -1315,6 +1325,13 @@ export function AquaMap(props: {
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
+
+    // MapLibre locates its worker beside its own module URL, which the bundler
+    // rewrites, so by default it spawns the worker from the page itself. Raster
+    // tiles still draw (they load on the main thread) but every GeoJSON overlay
+    // waits forever for a worker that never answers. The worker is copied into
+    // public/ by scripts/copy-maplibre-worker.mjs.
+    maplibregl.setWorkerUrl(MAPLIBRE_WORKER_URL);
 
     const map = new maplibregl.Map({
       container,
