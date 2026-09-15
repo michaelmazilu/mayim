@@ -101,7 +101,14 @@ const SYSTEM = [
   "Summaries must be grounded strictly in the supplied excerpt text: ONE short factual sentence, max 25 words, no marketing language.",
   "sourceName is the publishing organisation (e.g. 'World Health Organization'), not the article title.",
   "confidence is 0..1 and reflects how authoritative and on-topic the source is for this specific town.",
-  "Set impactFactor/impactDirection/impactMagnitude only when the source genuinely bears on that factor; otherwise set all three to null.",
+  "Set impactFactor/impactDirection/impactMagnitude only when the excerpt makes a claim about this town or its immediate region that bears on the factor; otherwise set all three to null.",
+  "Factor meanings — 'increase' always means MORE of the named quantity:",
+  "need = share of people lacking safe drinking water (increase = more unmet need).",
+  "groundwater = likelihood a drilled borehole finds productive water (increase = productive aquifer, good yields; decrease = low or variable yields, high drilling failure, deep water table). Only for sources describing the aquifer itself.",
+  "risk = environmental hazard to a water point: flooding, contamination, drought (increase = more hazard).",
+  "cost = pressure on construction or operating cost, e.g. deep drilling, hard rock, remoteness (increase = more expensive). Funding announcements and project budgets are NOT cost evidence.",
+  "access = difficulty of reaching a site for construction (increase = harder to reach; decrease = good roads and nearby supply chains).",
+  "News about planned or funded water projects is infrastructure context: classify it, but leave its impact null.",
   `impactMagnitude must never exceed ${MAX_MAGNITUDE}.`,
 ].join(" ");
 

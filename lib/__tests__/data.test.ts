@@ -9,7 +9,15 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 
-import type { AnalysisRun, InfrastructureRecommendation, Partner, TownRef } from "@/lib/types";
+import type {
+  AnalysisRun,
+  EvidenceFinding,
+  InfrastructureRecommendation,
+  Partner,
+  ScoreFactor,
+  TownRef,
+} from "@/lib/types";
+import { aggregateSignals, MAX_FACTOR_SHIFT, NEUTRAL_SIGNALS } from "@/lib/evidence/signals";
 import { countryIso2 } from "@/lib/geo/countries";
 import {
   buildQueries,
@@ -421,6 +429,51 @@ describe("population: WorldPop primary", () => {
     assert.ok(p.limitations.some((l) => /differs by 3\.4×/.test(l)));
     const close = estimatePopulationServed({ ...mappedArgs, worldpop: { ...worldpop, people: 400 }, asOfYear: 2020 });
     assert.equal(populationDisagreement(close), null);
+  });
+});
+
+describe("evidence signals", () => {
+  const finding = (
+    id: string,
+    factor: ScoreFactor,
+    direction: "increase" | "decrease",
+    magnitude: number,
+    confidence = 0.9,
+  ): EvidenceFinding => ({
+    id,
+    category: "hydrogeology",
+    title: id,
+    summary: id,
+    sourceName: "Source",
+    sourceUrl: `https://source.org/${id}`,
+    confidence,
+    scoreImpact: { factor, direction, magnitude },
+  });
+
+  test("many agreeing sources cannot pin a factor to the bound", () => {
+    const many = Array.from({ length: 12 }, (_, i) => finding(`f${i}`, "risk", "increase", 0.3));
+    const up = aggregateSignals(many);
+    assert.ok(up.risk > 0.8 && up.risk < 0.5 + MAX_FACTOR_SHIFT, String(up.risk));
+    const down = aggregateSignals(
+      many.map((f) => ({ ...f, scoreImpact: { ...f.scoreImpact!, direction: "decrease" as const } })),
+    );
+    assert.ok(Math.abs(0.5 - down.risk - (up.risk - 0.5)) < 1e-12);
+  });
+
+  test("a single modest source moves its factor almost linearly", () => {
+    const s = aggregateSignals([finding("f0", "groundwater", "increase", 0.1, 0.5)]);
+    assert.ok(Math.abs(s.groundwater - 0.55) < 0.002, String(s.groundwater));
+  });
+
+  test("opposing sources cancel and untouched factors stay at baseline", () => {
+    const s = aggregateSignals([finding("f0", "need", "increase", 0.2), finding("f1", "need", "decrease", 0.2)]);
+    assert.equal(s.need, 0.5);
+    assert.equal(s.cost, 0.5);
+    assert.deepEqual(s.contributors.need, ["f0", "f1"]);
+  });
+
+  test("no findings gives the neutral signals", () => {
+    assert.deepEqual(aggregateSignals([]), NEUTRAL_SIGNALS);
   });
 });
 
