@@ -34,9 +34,9 @@ const SPAWN_MIN_M = 60;
 const SPAWN_MAX_M = 200;
 const M_PER_DEG_LAT = 111_320;
 
-/** Daily litres one tap stand can dispense at the planning service level. */
+/** Daily litres one tap stand can physically dispense: its flow over the dispensing day. */
 export function perTapDailyLitres(): number {
-  return BEHAVIOUR.peoplePerTap.value * LPD;
+  return BEHAVIOUR.tapFlowLitresPerMinute.value * 60 * BEHAVIOUR.tapWindowHours.value;
 }
 
 /** Mean wait at a tap: a single server with fixed service time, capped. */
@@ -240,14 +240,14 @@ export function assignWeek(w: World, s: SourceState, out?: WeekResult): WeekResu
     let remaining = demand;
     let frac = 0;
     let mix = 0;
-    let used = 0;
 
     if (systemRemain > 0 && demand > 0) {
+      // Each pass meets the demand, empties the system, or empties the tap it
+      // drew from (skipped from then on), so T passes are enough.
       for (let iter = 0; iter < T; iter++) {
         let best = -1;
         let bestRt = base;
         for (let t = 0; t < T; t++) {
-          if (used & (1 << t)) continue;
           if (tapRemain[t] <= 0) continue;
           const one = w.tapMin[i * T + t];
           if (one < 0) continue;
@@ -269,7 +269,6 @@ export function assignWeek(w: World, s: SourceState, out?: WeekResult): WeekResu
         mix += f * bestRt;
         if (bestRt <= BASIC) r.under30 += people * f;
         remaining -= take;
-        used |= 1 << best;
         if (remaining <= 1e-9 || systemRemain <= 0) break;
       }
     }
@@ -389,7 +388,9 @@ export class Future {
       // with the tank where this season would really have left it.
       const r = model.rain;
       const draw = Math.min(model.tapCount * model.perTapL, model.yieldHighL) * 7;
-      this.level = r.storageL / 2;
+      // Start empty, so every litre in the tank fell as rain: a guessed
+      // starting level survives the spin-up whenever nothing draws it down.
+      this.level = 0;
       for (let w = 0; w < WEEKS_PER_YEAR; w++) {
         const month = Math.floor(((w % WEEKS_PER_YEAR) / WEEKS_PER_YEAR) * 12);
         const avail = this.level + r.catchmentM2 * r.monthlyMmDay[month] * 7 * r.runoff;
