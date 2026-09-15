@@ -1351,13 +1351,17 @@ export function AquaMap(props: {
     map.on("style.load", onStyleLoad);
     map.on("error", onError);
 
-    // The container is sized by flex/absolute layout, so the initial GL canvas
-    // can be measured before layout settles. Track it for the life of the map.
-    const observer = new ResizeObserver(() => map.resize());
-    observer.observe(container);
+    // The container is sized by flex/absolute layout. MapLibre installs its own
+    // throttled, teardown-guarded ResizeObserver on the container (trackResize
+    // defaults to true), so it already tracks the layout settling and every
+    // later resize. A second, hand-rolled observer here called map.resize()
+    // synchronously from the ResizeObserver callback — which framer-motion fires
+    // continuously while the side panels animate — re-entering the render loop
+    // ("Attempting to run(), but is already running.") and leaving the camera
+    // transform NaN, which then made flyTo throw "Invalid LngLat (0, NaN)".
+    // Letting MapLibre's own observer do the work removes the whole cascade.
 
     return () => {
-      observer.disconnect();
       popupRef.current?.remove();
       popupRef.current = null;
       markerRef.current?.remove();
