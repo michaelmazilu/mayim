@@ -231,13 +231,15 @@ export type PopulationEstimate = {
   method:
     | "geocoder_population_building_weighted"
     | "building_density_proxy"
-    | "facility_density_proxy";
+    | "facility_density_proxy"
+    | "worldpop_gridded";
   methodLabel: string;
   confidence: number; // 0..1
   limitations: string[];
   /**
-   * Independent cross-check: WorldPop gridded population summed over the
-   * service-radius circle. Absent when the WorldPop API was unreachable.
+   * Raw WorldPop count summed over the service-radius circle, before any
+   * projection. Present whenever the WorldPop API answered; the basis of a
+   * "worldpop_gridded" estimate.
    */
   worldpop?: {
     people: number;
@@ -245,6 +247,16 @@ export type PopulationEstimate = {
     year: number;
     dataset: string;
     source: string;
+  };
+  /**
+   * The mapped-data estimate (methods 1–3) kept as a cross-check when WorldPop
+   * is the primary method.
+   */
+  alternative?: {
+    method: "geocoder_population_building_weighted" | "building_density_proxy" | "facility_density_proxy";
+    rangeLow: number;
+    rangeHigh: number;
+    methodLabel: string;
   };
 };
 

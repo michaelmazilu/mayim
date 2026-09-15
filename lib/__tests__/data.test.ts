@@ -51,6 +51,12 @@ import {
   type Rate,
 } from "@/lib/config/behaviour";
 import { servicePolygon } from "@/lib/providers/worldpop";
+import { EMPTY_OSM, type CandidateFeatures } from "@/lib/types";
+import {
+  estimatePopulationServed,
+  populationDisagreement,
+  type PopulationArgs,
+} from "@/lib/geospatial/population";
 
 const TOWN: TownRef = {
   slug: "kisumu-kenya",
@@ -348,6 +354,51 @@ describe("behaviour rates", () => {
   test("a 500 m tap trip fits inside the JMP 30-minute basic service", () => {
     const t = roundTripMinutes({ distanceM: 500 });
     assert.ok(t > 19 && t < 21, String(t));
+  });
+});
+
+describe("population: WorldPop primary", () => {
+  // 10 buildings within 400 m → 63 within 1 km → 265–403 people by building density.
+  const mappedArgs: PopulationArgs = {
+    town: TOWN,
+    osm: { ...EMPTY_OSM, degraded: false },
+    winnerFeatures: { nearbyBuildingCount: 10, nearbyCommunityFacilityCount: 0 } as CandidateFeatures,
+    totalBuildingsInArea: 100,
+    serviceRadiusM: 1000,
+  };
+  const worldpop = { people: 1000, year: 2020, dataset: "wpgppop", source: "WorldPop test" };
+  const growth = { low: 1, central: 2, high: 3, source: "test rate" };
+
+  test("falls back to mapped data without WorldPop", () => {
+    const p = estimatePopulationServed(mappedArgs);
+    assert.equal(p.method, "building_density_proxy");
+    assert.deepEqual([p.rangeLow, p.rangeHigh], [265, 403]);
+    assert.equal(populationDisagreement(p), null);
+  });
+
+  test("uses WorldPop when available, projected with the growth range and a ±20% band", () => {
+    const p = estimatePopulationServed({ ...mappedArgs, worldpop, growth, asOfYear: 2026 });
+    assert.equal(p.method, "worldpop_gridded");
+    assert.equal(p.peopleServed, 1126); // 1000 × 1.02^6
+    assert.equal(p.rangeLow, 849); // 1000 × 1.01^6 × 0.8
+    assert.equal(p.rangeHigh, 1433); // 1000 × 1.03^6 × 1.2
+    assert.deepEqual(p.worldpop, worldpop);
+    assert.deepEqual([p.alternative?.method, p.alternative?.rangeLow, p.alternative?.rangeHigh], ["building_density_proxy", 265, 403]);
+    assert.match(p.methodLabel, /projected 6 years to 2026/);
+  });
+
+  test("no projection when the target year is the WorldPop year", () => {
+    const p = estimatePopulationServed({ ...mappedArgs, worldpop, growth, asOfYear: 2020 });
+    assert.deepEqual([p.peopleServed, p.rangeLow, p.rangeHigh], [1000, 800, 1200]);
+    assert.doesNotMatch(p.methodLabel, /projected/);
+  });
+
+  test("flags a gap wider than 2× between WorldPop and mapped data", () => {
+    const p = estimatePopulationServed({ ...mappedArgs, worldpop, growth, asOfYear: 2026 });
+    assert.equal(populationDisagreement(p), 3.4); // 1126 vs midpoint 334
+    assert.ok(p.limitations.some((l) => /differs by 3\.4×/.test(l)));
+    const close = estimatePopulationServed({ ...mappedArgs, worldpop: { ...worldpop, people: 400 }, asOfYear: 2020 });
+    assert.equal(populationDisagreement(close), null);
   });
 });
 

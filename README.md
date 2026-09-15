@@ -20,7 +20,7 @@ npm run dev
 
 Open http://localhost:3000 and search a town (try `Kisumu, Kenya`).
 
-`npm run build` · `npm start` · `npm run lint` · `npm run typecheck` · `npm test` (95 unit tests) · `npm run evidence:refresh` (re-save live sources for the demo towns; needs `EXA_API_KEY`)
+`npm run build` · `npm start` · `npm run lint` · `npm run typecheck` · `npm test` (99 unit tests) · `npm run evidence:refresh` (re-save live sources for the demo towns; needs `EXA_API_KEY`)
 
 ## What a run returns
 
@@ -120,6 +120,6 @@ lib/     types.ts · pipeline.ts · config/coefficients.ts (every coefficient, s
 
 ## Data sources
 
-OpenStreetMap via Overpass (ODbL) · NASA POWER climatology (MERRA-2) · Open-Elevation / OpenTopoData (SRTM) · WorldPop 2020 100 m population (CC BY 4.0; a cross-check within the service radius) · Esri World Imagery + CARTO labels via MapLibre GL · Nominatim · Exa · OpenAI · World Bank WDI, national censuses, Sphere, WHO and REACH/UPGro studies for simulation rates.
+OpenStreetMap via Overpass (ODbL) · NASA POWER climatology (MERRA-2) · Open-Elevation / OpenTopoData (SRTM) · WorldPop 2020 100 m population (CC BY 4.0; the primary people-within-reach estimate, projected forward with national growth, with mapped buildings as fallback and cross-check) · Esri World Imagery + CARTO labels via MapLibre GL · Nominatim · Exa · OpenAI · World Bank WDI, national censuses, Sphere, WHO and REACH/UPGro studies for simulation rates.
 
 Cost coefficients are order-of-magnitude planning figures from published rural water supply benchmarking, labelled in `lib/config/coefficients.ts`. They are screening inputs, not quotations.

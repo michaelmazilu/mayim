@@ -160,9 +160,9 @@ export function buildProjectBrief(run: AnalysisRun, opts: BriefOptions = {}): st
   // --- Population -------------------------------------------------------------
   out.push("## Population estimate");
   out.push(`${num(population.rangeLow)} – ${num(population.rangeHigh)} people (confidence ${pct(population.confidence)}). ${population.methodLabel}`);
-  if (population.worldpop) {
+  if (population.alternative) {
     out.push(
-      `Cross-check: ${population.worldpop.source} puts ${num(population.worldpop.people)} people inside the same ${num(population.serviceRadiusM)} m radius (${population.worldpop.year} figure, not projected forward).`,
+      `Cross-check from mapped buildings: ${num(population.alternative.rangeLow)} – ${num(population.alternative.rangeHigh)} people. ${population.alternative.methodLabel}`,
     );
   }
 

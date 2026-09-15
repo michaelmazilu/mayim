@@ -28,7 +28,9 @@ import { demoEvidenceFor } from "@/lib/evidence/demo-evidence";
 import { discoverPartners, type PartnerSearch } from "@/lib/partners/discover";
 import { analysisRadiusM, generateCandidateGrid } from "@/lib/geospatial/candidates";
 import { buildFeatureContext, computeAllFeatures } from "@/lib/geospatial/features";
-import { estimatePopulationServed } from "@/lib/geospatial/population";
+import { estimatePopulationServed, populationDisagreement } from "@/lib/geospatial/population";
+import { populationGrowthRate } from "@/lib/config/behaviour";
+import { countryIso2 } from "@/lib/geo/countries";
 import { buildConceptualLayout } from "@/lib/geospatial/layout";
 import { rankCandidates, scoreCandidate } from "@/lib/scoring/score";
 import { buildRecommendation } from "@/lib/infrastructure/select";
@@ -282,17 +284,42 @@ export async function runAnalysis(inputTown: TownRef, emit: Emit): Promise<Analy
 
   // --- Population, layout, recommendation ----------------------------------
   const serviceRadiusM = SERVICE.walkingRadiusM;
-  // Independent gridded cross-check; runs while the layout, costing and narrative are built.
-  const worldpopPending = winner
-    ? fetchWorldPopWithin([winner.lon, winner.lat], serviceRadiusM)
-    : Promise.resolve(null);
+  // WorldPop is the primary population source, so it must land before the
+  // system is sized; mapped buildings are the fallback and the cross-check.
+  let worldpop: Awaited<ReturnType<typeof fetchWorldPopWithin>> = null;
+  if (winner) {
+    emit("population_access", "Querying WorldPop population grid", "active");
+    worldpop = await fetchWorldPopWithin([winner.lon, winner.lat], serviceRadiusM);
+  }
+  const asOfYear = new Date(startedAt).getUTCFullYear();
   const population = estimatePopulationServed({
     town,
     osm,
     winnerFeatures: winner?.features ?? ({} as CandidateFeatures),
     totalBuildingsInArea: osm.buildings.length,
     serviceRadiusM,
+    worldpop,
+    growth: populationGrowthRate(countryIso2(town.country)),
+    asOfYear,
   });
+  if (winner) {
+    dataSources.push({
+      name: "WorldPop gridded population",
+      ok: worldpop !== null,
+      detail: worldpop
+        ? `${worldpop.people.toLocaleString()} people within ${serviceRadiusM} m (${worldpop.year}), projected to ${asOfYear}`
+        : "Unavailable — mapped-building estimate used instead",
+    });
+    if (!worldpop) warnings.push("WorldPop unavailable — population estimated from mapped buildings, which is less reliable.");
+  }
+  const disagreement = populationDisagreement(population);
+  if (disagreement && population.alternative) {
+    warnings.push(
+      `WorldPop and mapped-building population estimates differ ${disagreement}× ` +
+        `(${population.rangeLow.toLocaleString()}–${population.rangeHigh.toLocaleString()} vs ` +
+        `${population.alternative.rangeLow.toLocaleString()}–${population.alternative.rangeHigh.toLocaleString()}) — people within reach is uncertain.`,
+    );
+  }
   emit("population_access", `${population.rangeLow.toLocaleString()}–${population.rangeHigh.toLocaleString()} people within ${serviceRadiusM} m`, "complete", osm.buildings.length);
 
   let recommendation = null;
@@ -447,19 +474,6 @@ export async function runAnalysis(inputTown: TownRef, emit: Emit): Promise<Analy
     }
   } else {
     narrative = `No viable site found near ${town.name} within the mapped constraints.`;
-  }
-
-  const worldpop = await worldpopPending;
-  if (worldpop) {
-    population.worldpop = worldpop;
-    emit("population_access", `WorldPop ${worldpop.year}: ${worldpop.people.toLocaleString()} within ${serviceRadiusM} m`, "complete");
-  }
-  if (winner) {
-    dataSources.push({
-      name: "WorldPop gridded population",
-      ok: worldpop !== null,
-      detail: worldpop ? `${worldpop.people.toLocaleString()} people within ${serviceRadiusM} m (${worldpop.year})` : "Unavailable — building-based estimate only",
-    });
   }
 
   const events: AnalysisEvent[] = [];
