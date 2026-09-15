@@ -70,9 +70,12 @@ export function buildBaseline(
     let slot = 0;
     const node = clusterSnap ? clusterSnap.node[i] : -1;
     if (routed && node >= 0 && Number.isFinite(routed.dist[node]) && routed.label[node] >= 0) {
-      const m = clusterSnap!.offsetM[i] + routed.dist[node];
+      const j0 = routed.label[node];
+      // Where the map has no path, people still walk across: never longer than the detoured straight line.
+      const straight = Math.hypot(px[j0] - c.lon[i] * scale.mLon, py[j0] - c.lat[i] * scale.mLat) * DETOUR;
+      const m = Math.min(clusterSnap!.offsetM[i] + routed.dist[node], straight);
       if (m <= MAX_WALK_M) {
-        idx[i * K] = routed.label[node];
+        idx[i * K] = j0;
         oneWay[i * K] = m / SPEED_M_PER_MIN;
         slot = 1;
       }
