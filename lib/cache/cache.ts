@@ -57,6 +57,15 @@ export async function saveRun(run: AnalysisRun): Promise<boolean> {
   }
 }
 
+/** Remove a saved run so the next analysis of this town runs live again. */
+export async function deleteRun(slug: string): Promise<void> {
+  try {
+    await fs.unlink(path.join(RUNS_DIR, `${slug}.json`));
+  } catch {
+    /* already gone */
+  }
+}
+
 export async function listCachedSlugs(): Promise<string[]> {
   try {
     const files = await fs.readdir(RUNS_DIR);

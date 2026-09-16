@@ -1,5 +1,5 @@
 import type { AnalysisEvent, AnalysisRun, TownRef, TrackId } from "@/lib/types";
-import { loadCachedRun, loadDemoRun, rebaseDemoRun, saveRun } from "@/lib/cache/cache";
+import { deleteRun, loadCachedRun, loadDemoRun, rebaseDemoRun, saveRun } from "@/lib/cache/cache";
 import { runAnalysis } from "@/lib/pipeline";
 
 export const runtime = "nodejs";
@@ -71,6 +71,7 @@ export async function POST(req: Request) {
           if (cached) {
             sse(controller, "meta", { provenance: "cache" });
             await replay(controller, cached, signal);
+            await deleteRun(town.slug);
             close();
             return;
           }
