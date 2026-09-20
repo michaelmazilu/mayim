@@ -2,11 +2,13 @@
 
 **Live demo:** [mayimgc.vercel.app](https://mayimgc.vercel.app/)
 
-**Finds the highest-leverage site for new clean-water infrastructure in an underserved town, then designs and costs it.**
+We are going to help solve the global water crisis.
 
-Billions of dollars go into water and humanitarian development, yet more than 400 million people in Africa still lack access to basic drinking water (African Development Bank). The binding constraint is no longer intent — it is deciding *where* a new water point does the most good.
+Billions of dollars are spent on water and humanitarian development, yet more than 400 million people in Africa still lack access to basic drinking water. We need a better way to determine where water infrastructure will have the greatest impact.
 
-Mayim answers that one town at a time. Enter a name; it pulls live terrain, climate and OpenStreetMap data, researches institutional sources with **Exa**, screens hundreds of candidate sites against mapped constraints, ranks the survivors with a transparent deterministic model, and returns a costed conceptual design on satellite imagery — every number traceable to a formula or a source.
+Using Exa Search, we collect critical geospatial, environmental, groundwater, population, and infrastructure data to plan water systems for underserved communities.
+
+Mayim analyzes towns in real time by simulating a realistic population to identify the highest-leverage location for new water infrastructure. It then designs the system, calculates estimated water output, cost, population served, and implementation timeline, and provides an option to immediately email the plan to relevant charities and contractors so they can move forward.
 
 > Pre-feasibility screening. Field survey and licensed engineering are still required.
 
@@ -22,7 +24,7 @@ npm run dev
 
 Open http://localhost:3000 and search a town (try `Kisumu, Kenya`).
 
-`npm run build` · `npm start` · `npm run lint` · `npm run typecheck` · `npm test` (116 unit tests) · `npm run evidence:refresh` (re-save live sources for the demo towns; needs `EXA_API_KEY`) · `npm run scan:refresh` (re-save district rankings from WPdx) · `npm run demo:recache` (re-run the demo towns and overwrite `data/demo`; `--out <dir>` for a dry run)
+`npm run build` · `npm start` · `npm run lint` · `npm run typecheck` · `npm test` (206 unit tests) · `npm run evidence:refresh` (re-save live sources for the demo towns; needs `EXA_API_KEY`) · `npm run scan:refresh` (re-save district rankings from WPdx) · `npm run demo:recache` (re-run the demo towns and overwrite `data/demo`; `--out <dir>` for a dry run)
 
 ## What a run returns
 
